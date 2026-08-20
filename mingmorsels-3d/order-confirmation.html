@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Order Confirmed - Ming Morsels</title>
+  
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/src/style.css">
+  
+  <style>
+    body {
+      background-color: var(--bg-dark, #120E0B);
+      color: #FFF;
+      font-family: var(--font-sans);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+    
+    .confirmation-container {
+      max-width: 600px;
+      margin: 120px auto 80px;
+      padding: 40px;
+      background: #1C1510;
+      border: 1px solid rgba(200, 150, 12, 0.3);
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: #C6960C;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: #120E0B;
+    }
+    
+    .success-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .confirmation-title {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      color: #C6960C;
+      margin: 0 0 10px;
+    }
+    
+    .confirmation-subtitle {
+      font-size: 1.1rem;
+      color: #E0D5C1;
+      margin: 0 0 30px;
+    }
+    
+    .order-details {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      margin-bottom: 30px;
+    }
+    
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+    
+    .detail-row:last-child {
+      margin-bottom: 0;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      font-weight: 600;
+      color: #C6960C;
+    }
+    
+    .detail-label {
+      color: #A09A95;
+    }
+    
+    .btn-primary {
+      display: inline-block;
+      background: #C6960C;
+      color: #120E0B;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(198, 150, 12, 0.3);
+      background: #E5B21D;
+    }
+    
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #C6960C;
+      animation: fall linear forwards;
+      z-index: 1;
+    }
+    
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-brand">
+        <img src="/logo.png" alt="Ming Morsels Logo" class="nav-logo" />
+      </a>
+      <div class="nav-actions">
+        <a href="/" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Back to Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="confirmation-container">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <h1 class="confirmation-title">Order Confirmed!</h1>
+    <p class="confirmation-subtitle">Thank you for your purchase. Your cookies are being prepared with love.</p>
+    
+    <div class="order-details">
+      <div class="detail-row">
+        <span class="detail-label">Order ID:</span>
+        <span id="display-order-id">#MM-Loading...</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Payment ID:</span>
+        <span id="display-payment-id">Loading...</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Estimated Delivery:</span>
+        <span id="display-delivery-time">Usually within 2-4 hours</span>
+      </div>
+    </div>
+    
+    <a href="/track-order.html" class="btn-primary">Track Your Order</a>
+  </div>
+
+  <script>
+    // Create confetti effect
+    const colors = ['#C6960C', '#E5B21D', '#FFFFFF', '#D4A373', '#FF6B6B', '#4ECDC4'];
+    for(let i=0; i<100; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = -10 + 'px';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      confetti.style.animationDelay = Math.random() * 3 + 's';
+      // Randomly rotate
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(confetti);
+      
+      // Remove confetti after it falls
+      setTimeout(() => confetti.remove(), 6000);
+    }
+
+    // Parse URL params for order details
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('order_id') || ('#MM-' + Math.floor(Math.random()*1000000));
+    const paymentId = urlParams.get('payment_id') || 'Cash On Delivery';
+    
+    document.getElementById('display-order-id').innerText = orderId.startsWith('#') ? orderId : '#' + orderId;
+    document.getElementById('display-payment-id').innerText = paymentId;
+  </script>
+</body>
+</html>

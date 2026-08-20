@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Contact Us - Ming Morsels</title>
+  
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/src/style.css">
+  
+  <style>
+    .page-header {
+      padding: 120px 5% 60px;
+      text-align: center;
+      background: linear-gradient(to bottom, #1a1410, var(--bg-dark, #120E0B));
+      border-bottom: 1px solid rgba(212, 163, 115, 0.1);
+    }
+    
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: #C6960C;
+      margin: 0 0 20px;
+    }
+    
+    .page-subtitle {
+      font-size: 1.1rem;
+      color: #E0D5C1;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 60px 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+      color: #E0D5C1;
+    }
+    
+    .contact-form {
+      flex: 1.5;
+      min-width: 300px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 40px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .contact-info h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      color: #C6960C;
+      margin-bottom: 24px;
+    }
+    
+    .info-block {
+      margin-bottom: 30px;
+    }
+    
+    .info-block h3 {
+      font-size: 1.1rem;
+      color: #FFF;
+      margin-bottom: 8px;
+    }
+    
+    .info-block p, .info-block a {
+      color: #A09A95;
+      line-height: 1.6;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .info-block a:hover {
+      color: #C6960C;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #E0D5C1;
+      font-weight: 500;
+    }
+    
+    .form-input, .form-textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 12px 16px;
+      color: #FFF;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: #C6960C;
+    }
+    
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .btn-submit {
+      background: #C6960C;
+      color: #120E0B;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .btn-submit:hover {
+      background: #E5B21D;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(198, 150, 12, 0.3);
+    }
+  </style>
+</head>
+<body>
+  
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-brand">
+        <img src="/logo.png" alt="Ming Morsels Logo" class="nav-logo" />
+      </a>
+      <div class="nav-actions">
+        <a href="/" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Back to Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1 class="page-title">Contact Us</h1>
+    <p class="page-subtitle">We would love to hear from you. Reach out with questions, corporate inquiries, or just to say hello.</p>
+  </header>
+
+  <main class="contact-container">
+    <div class="contact-info">
+      <h2>Get in Touch</h2>
+      
+      <div class="info-block">
+        <h3>Email</h3>
+        <a href="mailto:mingmorsels@gmail.com">mingmorsels@gmail.com</a>
+      </div>
+      
+      <div class="info-block">
+        <h3>Phone</h3>
+        <p>+91 (Support Phone Needed)</p>
+      </div>
+      
+      <div class="info-block">
+        <h3>Visit Our Experience Center</h3>
+        <p>Jayanagar, Bengaluru<br>Karnataka, India</p>
+      </div>
+      
+      <div class="info-block">
+        <h3>Business Hours</h3>
+        <p>Monday - Saturday: 9:00 AM - 8:00 PM<br>Sunday: Closed</p>
+      </div>
+    </div>
+    
+    <div class="contact-form">
+      <form id="contact-form" onsubmit="event.preventDefault(); alert('Thank you for reaching out! We will get back to you within 24 hours.'); this.reset();">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" required placeholder="Jane Doe">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" required placeholder="jane@example.com">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Phone Number (Optional)</label>
+          <input type="tel" class="form-input" placeholder="+91 98765 43210">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" required placeholder="How can we help you today?"></textarea>
+        </div>
+        
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+    </div>
+  </main>
+
+  <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; color: #888;">
+    <p>&copy; 2026 mingmorsels. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

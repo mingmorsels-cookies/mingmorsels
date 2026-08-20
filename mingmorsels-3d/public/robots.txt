@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/admin
+Disallow: /admin.html
+
+Sitemap: https://mingmorsels.com/sitemap.xml
