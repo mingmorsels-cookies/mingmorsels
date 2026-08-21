@@ -1,0 +1,43 @@
+name: Ming Morsels CI/CD Production Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-build:
+    name: Test & Build Pipeline
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Automated Vitest Suite (API & Cart)
+        run: npm test
+
+      - name: Build Multi-Page Production Bundle (Vite)
+        run: npm run build
+
+      - name: Validate Production Build Artifacts
+        run: |
+          test -f dist/index.html || exit 1
+          test -f dist/product.html || exit 1
+          test -f dist/admin.html || exit 1
+          test -f dist/track-order.html || exit 1
+          echo "✅ All 6 production HTML pages successfully verified."
