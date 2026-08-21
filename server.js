@@ -60,7 +60,7 @@ const ALLOWED_ORIGINS = [
 app.use(cors({
   origin: (origin, callback) => {
     // Allow non-browser requests or matching origins
-    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+    if (!origin || ALLOWED_ORIGINS.includes(origin) || origin.endsWith('.railway.app')) {
       return callback(null, true);
     }
     return callback(new Error('CORS Policy: Request from unauthorized origin blocked.'));
