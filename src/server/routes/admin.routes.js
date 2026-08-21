@@ -25,7 +25,12 @@ const router = Router();
  */
 const handleGetAdminOrders = async (req, res) => {
   try {
-    const orders = await getAllOrders();
+    const allOrders = await getAllOrders();
+    const orders = allOrders.filter(order => 
+      order.delivery_status !== 'CANCELLED' && 
+      order.payment_status !== 'FAILED' && 
+      order.payment_status !== 'CANCELLED'
+    );
     const userRewards = await getUserRewards();
     res.json({
       success: true,
