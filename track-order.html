@@ -579,9 +579,7 @@
         if (resultCard) resultCard.classList.remove('active');
 
         try {
-          const trackApiUrl = (window.location.port === '5173' || !window.location.port)
-            ? `http://localhost:5001/api/shipping/track?q=${encodeURIComponent(idQuery)}`
-            : `/api/shipping/track?q=${encodeURIComponent(idQuery)}`;
+          const trackApiUrl = `/api/shipping/track?q=${encodeURIComponent(idQuery)}`;
           
           let res;
           try {
@@ -694,9 +692,7 @@
                 btnCancel.textContent = 'Cancelling order...';
 
                 try {
-                  const cancelUrl = (window.location.port === '5173' || !window.location.port)
-                    ? 'http://localhost:5001/api/order/cancel'
-                    : '/api/order/cancel';
+                  const cancelUrl = '/api/order/cancel';
 
                   let res = await fetch(cancelUrl, {
                     method: 'POST',

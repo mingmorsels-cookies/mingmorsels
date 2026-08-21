@@ -1638,7 +1638,7 @@ async function handleRazorpayProductCheckout() {
 
     const subtotal = normalizedCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    const apiUrl = (window.location.port === '5173' || !window.location.port) ? 'http://localhost:5001/api/payment/create-order' : '/api/payment/create-order';
+    const apiUrl = '/api/payment/create-order';
     let res = await fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
