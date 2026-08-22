@@ -18,11 +18,24 @@ import adminRoutes from './src/server/routes/admin.routes.js';
 import pincodeRoutes from './src/server/routes/pincode.routes.js';
 import analyticsRoutes from './src/server/routes/analytics.routes.js';
 import reviewRoutes from './src/server/routes/review.routes.js';
+import pushRoutes from './src/server/routes/push.routes.js';
+import webpush from 'web-push';
 import { createRateLimiter } from './src/server/middleware/rateLimiter.js';
 import { structuredLogger } from './src/server/middleware/logger.js';
 
 export const app = express();
 const PORT = process.env.PORT || 5001;
+
+// Configure Web Push VAPID Keys
+if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+  webpush.setVapidDetails(
+    'mailto:mingmorsels@gmail.com',
+    process.env.VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
+  );
+} else {
+  console.warn('⚠️ Web Push VAPID keys not found in .env');
+}
 
 // 1. Structured JSON Request Logger & Tracing
 app.use(structuredLogger());
@@ -139,6 +152,7 @@ app.use('/api', adminRoutes);
 app.use('/api', pincodeRoutes);
 app.use('/api', analyticsRoutes);
 app.use('/api', reviewRoutes);
+app.use('/', pushRoutes); // Handles both /api/push/* and /api/admin/push/*
 
 // 8. Global 404 Route Handler for undefined endpoints
 app.use((req, res, next) => {

@@ -510,6 +510,7 @@
       <button class="tab-btn" data-tab="demand">🥖 AI 30-Day Demand & Material Forecast</button>
       <button class="tab-btn" data-tab="quotes">💰 Corporate Bulk Pricing Engine</button>
       <button class="tab-btn" data-tab="reviews">📝 Customer Reviews & Moderation</button>
+      <button class="tab-btn" data-tab="push">📢 Broadcast Push Notifications</button>
     </div>
 
     <!-- Tab 5: Store Pickup & Verification Terminal -->
@@ -580,7 +581,34 @@
       </div>
     </div>
 
-    <!-- Tab 1: Orders & Shipway Dispatch -->
+    <!-- TAB: Push Notifications -->
+    <div id="pane-push" class="tab-pane">
+      <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <h2 style="font-family: var(--font-serif); font-size: 24px; color: var(--color-gold); margin-bottom: 20px;">
+          Broadcast Push Notification
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <label style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 6px; display: block;">Notification Title</label>
+            <input type="text" id="push-title" placeholder="e.g. Flash Sale: 20% Off Cookies!" style="width: 100%; padding: 12px; background: rgba(250,246,240,0.06); border: 1px solid var(--border-accent); border-radius: 8px; color: #FFFFFF; font-size: 14px; box-sizing: border-box;" />
+          </div>
+          <div>
+            <label style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 6px; display: block;">Notification Body</label>
+            <textarea id="push-body" rows="3" placeholder="e.g. Grab our fresh baked Almond Cookies at a discount today. Valid till midnight!" style="width: 100%; padding: 12px; background: rgba(250,246,240,0.06); border: 1px solid var(--border-accent); border-radius: 8px; color: #FFFFFF; font-size: 14px; box-sizing: border-box; resize: none;"></textarea>
+          </div>
+          <div>
+            <label style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 6px; display: block;">Link URL (Optional)</label>
+            <input type="text" id="push-url" placeholder="e.g. https://mingmorsels.com/" style="width: 100%; padding: 12px; background: rgba(250,246,240,0.06); border: 1px solid var(--border-accent); border-radius: 8px; color: #FFFFFF; font-size: 14px; box-sizing: border-box;" />
+          </div>
+          <button id="btn-send-push" class="btn-action" style="background: var(--color-gold); color: #120E0B; padding: 14px; font-weight: 700; font-size: 15px; margin-top: 10px;">
+            📢 Broadcast to All Subscribers
+          </button>
+          <div id="push-result" style="margin-top: 10px; font-size: 13px; padding: 10px; border-radius: 8px; display: none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Orders -->
     <div id="pane-orders" class="tab-pane active">
       <div class="panel-card">
         <div class="panel-header">

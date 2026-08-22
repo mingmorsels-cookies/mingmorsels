@@ -17,6 +17,26 @@ self.addEventListener('message', (event) => {
   }
 });
 
+// Listen for Web Push broadcasts from the server
+self.addEventListener('push', (event) => {
+  if (event.data) {
+    try {
+      const data = event.data.json();
+      const title = data.title || 'Ming Morsels';
+      const options = {
+        body: data.body || 'You have a new update from Ming Morsels!',
+        icon: '/favicon.ico',
+        badge: '/favicon.ico',
+        tag: 'ming-morsels-push',
+        data: { url: data.url || SITE_URL }
+      };
+      event.waitUntil(self.registration.showNotification(title, options));
+    } catch (err) {
+      console.error('Error parsing push data', err);
+    }
+  }
+});
+
 // When user clicks the notification → open the site
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
