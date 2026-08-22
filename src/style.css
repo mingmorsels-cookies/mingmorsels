@@ -37,9 +37,7 @@
 
 html {
   background-color: #FAF6F0;
-  overflow-y: overlay;
   overflow-x: hidden;
-  width: 100%;
 }
 
 body {
@@ -47,7 +45,6 @@ body {
   color: var(--color-text-dark);
   background-color: #FAF6F0;
   overflow-x: hidden;
-  width: 100%;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -81,30 +78,7 @@ body {
   mix-blend-mode: multiply;
 }
 
-/* Custom Floating Overlay Scrollbar (Chrome & Safari Compatible) */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-  background: transparent;
-}
 
-::-webkit-scrollbar-track {
-  background: transparent;
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(200, 150, 12, 0.5);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(200, 150, 12, 0.85);
-}
-
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
 
 /* Header & Navigation */
 .header {

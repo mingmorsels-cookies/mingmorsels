@@ -887,11 +887,11 @@ function openProductBoxLightbox(boxKey) {
 }
 
 function initPackagingSelector() {
-  const classicCard = document.getElementById('pkg-card-classic');
-  const lushCard = document.getElementById('pkg-card-lush');
-  const warningMsg = document.getElementById('pkg-warning-msg');
-  const deselectContainer = document.getElementById('pkg-deselect-container');
-  const btnDeselect = document.getElementById('btn-deselect-box');
+  const classicCard = document.getElementById('modal-pkg-classic');
+  const lushCard = document.getElementById('modal-pkg-lush');
+  const warningMsg = document.getElementById('modal-pkg-warning');
+  const deselectContainer = document.getElementById('modal-pkg-deselect-container');
+  const btnDeselect = document.getElementById('btn-modal-deselect-box');
   const packagingGrid = document.querySelector('.packaging-cards-grid');
 
   // If viewing a muffin, completely remove the Lush Luxury Box option

@@ -24,7 +24,8 @@ export default defineConfig({
         experienceCenter: resolve(import.meta.dirname, 'experience-center.html'),
         trackOrder: resolve(import.meta.dirname, 'track-order.html'),
         bulkOrder: resolve(import.meta.dirname, 'bulk-order.html'),
-        admin: resolve(import.meta.dirname, 'admin.html')
+        admin: resolve(import.meta.dirname, 'admin.html'),
+        chatbot: resolve(import.meta.dirname, 'chatbot.html')
       },
       output: {
         manualChunks: (id) => {

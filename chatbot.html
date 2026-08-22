@@ -231,6 +231,11 @@
             transition: background 0.3s, color 0.3s;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .hero {
             background: var(--hero-grad);
             padding: 28px 24px 20px;

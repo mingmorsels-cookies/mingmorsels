@@ -72,7 +72,12 @@ async function startApp() {
       saveActiveSession(SessionType.GIFT_BOX_BUILDER);
       showBoxBuilder();
     });
+    document.getElementById('btn-mobile-gift-builder')?.addEventListener('click', () => {
+      saveActiveSession(SessionType.GIFT_BOX_BUILDER);
+      showBoxBuilder();
+    });
     document.getElementById('btn-open-flavor-quiz')?.addEventListener('click', showPairingQuiz);
+    document.getElementById('btn-mobile-flavor-quiz')?.addEventListener('click', showPairingQuiz);
   } catch (e) {
     console.error("[Features] Luxury initializers:", e);
   }

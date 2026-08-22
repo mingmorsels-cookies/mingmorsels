@@ -205,7 +205,7 @@ export class UIController {
   }
 
   initMobileNavDrawer() {
-    const hamburger = document.getElementById('btn-mobile-nav-hamburger');
+    const hamburger = document.getElementById('btn-mobile-menu');
     const drawer = document.getElementById('mobile-nav-drawer');
     const backdrop = document.getElementById('mobile-nav-backdrop');
     const closeBtn = document.getElementById('btn-close-mobile-nav');
@@ -222,9 +222,18 @@ export class UIController {
       document.body.style.overflow = '';
     };
 
-    hamburger?.addEventListener('click', openDrawer);
-    closeBtn?.addEventListener('click', closeDrawer);
-    backdrop?.addEventListener('click', closeDrawer);
+    if (hamburger) {
+      hamburger.addEventListener('click', openDrawer);
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+    // Close drawer on nav link click
+    const navLinks = drawer?.querySelectorAll('.mobile-nav-item') || [];
+    navLinks.forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
   }
 
   initProductDetailNavigation() {

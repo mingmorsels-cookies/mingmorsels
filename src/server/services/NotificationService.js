@@ -99,9 +99,9 @@ export class NotificationService {
             ${(order.delivery_mode === 'pickup' || (order.shipping_address && order.shipping_address.includes('Store Pickup:')) || order.pickup_pin) ? `
             <div style="background: #FDFBF8; border-radius: 12px; border: 1px solid #EADCCB; padding: 16px; margin: 24px 0;">
               <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #705840; text-transform: uppercase;">🏪 Store Pickup Location</p>
-              <p style="margin: 0 0 10px 0; font-size: 14px; color: #3D2000;">Ming Morsels Bakery, Bengaluru (Placeholder Address)</p>
+              <p style="margin: 0 0 10px 0; font-size: 14px; color: #3D2000;">1st Floor, Katha No.02, Behind the club, Mysore Road, Nayandahalli, Bengaluru, Karnataka 560039</p>
               <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700; color: #C8960C;">Your Secret PIN: ${order.pickup_pin || 'Show ID at counter'}</p>
-              <a href="https://maps.google.com/?q=Ming+Morsels+Bengaluru" style="color: #3498DB; text-decoration: none; font-size: 13px; font-weight: 600;">📍 Get Directions on Google Maps</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=1st+Floor,+Katha+No.02,+Behind+the+club,+Mysore+Road,+Nayandahalli,+Bengaluru" style="color: #3498DB; text-decoration: none; font-size: 13px; font-weight: 600;">📍 Get Directions on Google Maps</a>
             </div>
             ` : `
             <div style="background: #FDFBF8; border-radius: 12px; border: 1px solid #EADCCB; padding: 16px; margin: 24px 0;">

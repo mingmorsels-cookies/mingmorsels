@@ -6,6 +6,39 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTimelineController } from './ScrollTimeline.js';
 
+// Prevent pitch-black textures while loading over slow networks
+const _originalTexLoad = THREE.TextureLoader.prototype.load;
+THREE.TextureLoader.prototype.load = function(url, onLoad, onProgress, onError) {
+    const texture = new THREE.Texture();
+    
+    // Start with a 1x1 canvas to prevent the terrifying black void
+    const canvas = document.createElement('canvas');
+    canvas.width = 1; canvas.height = 1;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#deb887'; // Base cookie dough color
+    ctx.fillRect(0, 0, 1, 1);
+    texture.image = canvas;
+    texture.needsUpdate = true;
+
+    // Load the real image manually
+    const loader = new THREE.ImageLoader(this.manager);
+    loader.setCrossOrigin(this.crossOrigin);
+    loader.setPath(this.path);
+    
+    loader.load(url, function (image) {
+        // Discard the old 1x1 WebGL texture buffer completely!
+        texture.dispose(); 
+        
+        // Swap to the new high-res image
+        texture.image = image;
+        texture.needsUpdate = true;
+        
+        if (onLoad) onLoad(texture);
+    }, onProgress, onError);
+
+    return texture;
+};
+
 export class ThreeController {
   constructor() {
     this.COOKIES = ['almond', 'rose', 'oatsnuts', 'orange', 'walnut', 'walnut_sf'];
@@ -394,26 +427,41 @@ export class ThreeController {
     // 2. Materials for Side Rim, Top Face, and Bottom Face
     const sideMat = new THREE.MeshStandardMaterial({
       color: 0xcaa268,
-      bumpMap: topTex,
       bumpScale: 0.025,
       roughness: 0.86,
       metalness: 0.01
     });
 
     const topMat = new THREE.MeshStandardMaterial({
-      map: topTex,
-      bumpMap: topTex,
+      color: 0xdeb887,
       bumpScale: 0.045,
       roughness: 0.80,
       metalness: 0.02
     });
 
     const bottomMat = new THREE.MeshStandardMaterial({
-      map: bottomTex,
-      bumpMap: bottomTex,
+      color: 0xdeb887,
       bumpScale: 0.035,
       roughness: 0.88,
       metalness: 0.01
+    });
+
+    // Load textures and apply them asynchronously
+    textureLoader.load('/almond_cookie_top_clean.png', (tex) => {
+      sideMat.bumpMap = tex;
+      sideMat.needsUpdate = true;
+      
+      topMat.map = tex;
+      topMat.bumpMap = tex;
+      topMat.color.setHex(0xffffff);
+      topMat.needsUpdate = true;
+    });
+
+    textureLoader.load('/almond_cookie_bottom_clean.png', (tex) => {
+      bottomMat.map = tex;
+      bottomMat.bumpMap = tex;
+      bottomMat.color.setHex(0xffffff);
+      bottomMat.needsUpdate = true;
     });
 
     const cookieMesh = new THREE.Mesh(geometry, [sideMat, topMat, bottomMat]);

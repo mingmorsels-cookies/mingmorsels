@@ -215,7 +215,8 @@ export class AuthController {
               itp_support: true
             });
           }
-          if (!wrapper.hasChildNodes() || wrapper.innerHTML.trim() === '') {
+          if (!wrapper.hasAttribute('data-gsi-rendered')) {
+            wrapper.innerHTML = ''; // Clear out the fallback button so it doesn't duplicate or conflict
             google.accounts.id.renderButton(wrapper, {
               type: 'standard',
               shape: 'pill',
@@ -225,6 +226,7 @@ export class AuthController {
               logo_alignment: 'left',
               width: 240
             });
+            wrapper.setAttribute('data-gsi-rendered', 'true');
           }
         } catch (e) {}
       }

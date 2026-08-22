@@ -1661,7 +1661,7 @@
               <div class="calc-pkg-card" id="calc-pkg-standard-card" onclick="selectCalcPkg('standard')" style="border: 2px solid var(--border); background: #FFF; border-radius: 14px; padding: 10px 8px 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; transition: all 0.2s;">
                 <div style="position: relative; width: 100%; height: 80px; border-radius: 8px; overflow: hidden; margin-bottom: 6px;">
                   <img src="/almond-box-8pcs.jpg" alt="Standard Brand Packaging" style="width: 100%; height: 100%; object-fit: cover;" />
-                  <button type="button" onclick="event.stopPropagation(); openCorpBoxLightbox('standard');" class="btn-corp-zoom" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 10px; padding: 2px 6px;">🔍 View Box</button>
+                  <button type="button" onclick="openCorpBoxLightbox('standard', event);" class="btn-corp-zoom" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 10px; padding: 2px 6px;">🔍 View Box</button>
                 </div>
                 <span style="font-size: 11.5px; font-weight: 700; color: var(--brown); line-height: 1.2;">Standard Brand</span>
                 <span style="font-size: 10.5px; color: #2E6B1A; font-weight: 700; margin: 2px 0;">+₹0 (Included)</span>
@@ -1673,7 +1673,7 @@
               <div class="calc-pkg-card active" id="calc-pkg-classic-card" onclick="selectCalcPkg('classic')" style="border: 2px solid var(--gold); background: #FFFDF9; border-radius: 14px; padding: 10px 8px 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; transition: all 0.2s;">
                 <div style="position: relative; width: 100%; height: 80px; border-radius: 8px; overflow: hidden; margin-bottom: 6px;">
                   <img src="/box-classic.jpg" alt="Signature Treat Box" style="width: 100%; height: 100%; object-fit: cover;" />
-                  <button type="button" onclick="event.stopPropagation(); openCorpBoxLightbox('classic');" class="btn-corp-zoom" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 10px; padding: 2px 6px;">🔍 View Box</button>
+                  <button type="button" onclick="openCorpBoxLightbox('classic', event);" class="btn-corp-zoom" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 10px; padding: 2px 6px;">🔍 View Box</button>
                 </div>
                 <span style="font-size: 11.5px; font-weight: 700; color: var(--brown); line-height: 1.2;">Signature Box</span>
                 <span style="font-size: 10.5px; color: var(--gold); font-weight: 700; margin: 2px 0;">+₹15 / box</span>
@@ -1685,7 +1685,7 @@
               <div class="calc-pkg-card" id="calc-pkg-lush-card" onclick="selectCalcPkg('lush')" style="border: 2px solid var(--border); background: #FFF; border-radius: 14px; padding: 10px 8px 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; transition: all 0.2s;">
                 <div style="position: relative; width: 100%; height: 80px; border-radius: 8px; overflow: hidden; margin-bottom: 6px;">
                   <img src="/box-lush.jpg" alt="Lush Luxury Box" style="width: 100%; height: 100%; object-fit: cover;" />
-                  <button type="button" onclick="event.stopPropagation(); openCorpBoxLightbox('lush');" class="btn-corp-zoom" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 10px; padding: 2px 6px;">🔍 View Box</button>
+                  <button type="button" onclick="openCorpBoxLightbox('lush', event);" class="btn-corp-zoom" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 10px; padding: 2px 6px;">🔍 View Box</button>
                 </div>
                 <span style="font-size: 11.5px; font-weight: 700; color: var(--brown); line-height: 1.2;">Lush Luxury Box</span>
                 <span style="font-size: 10.5px; color: var(--gold); font-weight: 700; margin: 2px 0;">+₹130 / box</span>
@@ -1905,7 +1905,7 @@
               <div class="form-pkg-card active" id="form-pkg-classic-card" onclick="selectFormPkg('classic')" style="border: 2px solid var(--gold); background: #FFFDF9; border-radius: 14px; padding: 12px; cursor: pointer; display: flex; flex-direction: column; gap: 8px; transition: all 0.2s;">
                 <div style="position: relative; width: 100%; height: 110px; border-radius: 8px; overflow: hidden;">
                   <img src="/box-classic.jpg" alt="Signature Treat Box" style="width: 100%; height: 100%; object-fit: cover;" />
-                  <button type="button" onclick="event.stopPropagation(); openCorpBoxLightbox('classic');" class="btn-corp-zoom" style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);">🔍 View Full Box</button>
+                  <button type="button" onclick="openCorpBoxLightbox('classic', event);" class="btn-corp-zoom" style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);">🔍 View Full Box</button>
                 </div>
                 <div>
                   <strong style="display: block; font-size: 13.5px; color: var(--brown);">Signature Treat Box (+₹15/box)</strong>
@@ -1918,7 +1918,7 @@
               <div class="form-pkg-card" id="form-pkg-lush-card" onclick="selectFormPkg('lush')" style="border: 2px solid var(--border); background: #FFF; border-radius: 14px; padding: 12px; cursor: pointer; display: flex; flex-direction: column; gap: 8px; transition: all 0.2s;">
                 <div style="position: relative; width: 100%; height: 110px; border-radius: 8px; overflow: hidden;">
                   <img src="/box-lush.jpg" alt="Lush Luxury Box" style="width: 100%; height: 100%; object-fit: cover;" />
-                  <button type="button" onclick="event.stopPropagation(); openCorpBoxLightbox('lush');" class="btn-corp-zoom" style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);">🔍 View Full Box</button>
+                  <button type="button" onclick="openCorpBoxLightbox('lush', event);" class="btn-corp-zoom" style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);">🔍 View Full Box</button>
                 </div>
                 <div>
                   <strong style="display: block; font-size: 13.5px; color: var(--brown);">Lush Luxury Box (+₹130/box)</strong>
@@ -2015,7 +2015,8 @@
       }
     };
 
-    function openCorpBoxLightbox(boxKey) {
+    function openCorpBoxLightbox(boxKey, e) {
+      if (e) { e.stopPropagation(); }
       const modal = document.getElementById('corp-box-lightbox-modal');
       const img = document.getElementById('corp-lightbox-img');
       const title = document.getElementById('corp-lightbox-title');
