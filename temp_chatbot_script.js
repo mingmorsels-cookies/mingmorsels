@@ -49,7 +49,7 @@
                 const canvas = await html2canvas(el, { scale: 2, useCORS: true, allowTaint: false, backgroundColor: '#FDF8F2', logging: false });
                 zone.innerHTML = '';
                 const link = document.createElement('a');
-                link.download = c.name.replace(/ /g, '_') + '_mingmorsels.png';
+                link.download = c.name.replace(/ /g, '_') + '_mingmorsels.png?v=2';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
                 showToast('✅ Card downloaded!');
@@ -73,7 +73,7 @@
                     const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#FDF8F2', logging: false });
                     zone.innerHTML = '';
                     canvas.toBlob(async (blob) => {
-                        const file = new File([blob], c.name.replace(/ /g, '_') + '_mingmorsels.png', { type: 'image/png' });
+                        const file = new File([blob], c.name.replace(/ /g, '_') + '_mingmorsels.png?v=2', { type: 'image/png' });
                         if (navigator.canShare({ files: [file] })) {
                             try {
                                 await navigator.share({ title: c.name + ' — mingmorsels', text: c.name + ': ' + c.review.substring(0, 80) + '… Order: wa.me/918884102020', files: [file] });
@@ -735,7 +735,7 @@
         .avatar.bot {
             width: 50px;
             height: 50px;
-            background: #ffffff url('logo.png') no-repeat center;
+            background: #ffffff url('logo.png?v=2') no-repeat center;
             background-size: contain;
             border: 1px solid var(--border);
         }

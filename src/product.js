@@ -302,7 +302,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 12 Cookies',
       price: 360,
       unit: '/ box (12 freshly baked pieces · 300g)',
-      img: '/rose-box-12pcs.png',
+      img: '/rose-box-12pcs.png?v=2',
       badge: '12 Cookies · 300g'
     }
   ],
@@ -314,7 +314,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 2 Cookies',
       price: 40,
       unit: '/ pack (2 freshly baked cookies)',
-      img: '/almond-box-2pcs.png',
+      img: '/almond-box-2pcs.png?v=2',
       badge: '2 Cookies'
     },
     {
@@ -335,7 +335,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 12 Cookies',
       price: 360,
       unit: '/ box (12 freshly baked pieces · 300g)',
-      img: '/almond-box-12pcs.png',
+      img: '/almond-box-12pcs.png?v=2',
       badge: '12 Cookies · 300g'
     }
   ],
@@ -827,12 +827,12 @@ function openProductBoxLightbox(boxKey) {
     if (title) title.textContent = 'Rose Petal Cookies — Classic Box (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with signature rose artwork and nutritional facts. Holds up to 8 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'family_12pcs' || boxKey === 'rose_family_12pcs') {
-    img.src = '/rose-box-12pcs.png';
+    img.src = '/rose-box-12pcs.png?v=2';
     img.alt = 'Rose Petal Cookies - Family Pack (Up to 12 Cookies · 300g)';
     if (title) title.textContent = 'Rose Petal Cookies — Family Pack (Up to 12 Cookies · 300g)';
     if (desc) desc.textContent = 'Large rectangular party box (Net Weight: 300g) with protective seals. Holds up to 12 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'almond_snack_2pcs') {
-    img.src = '/almond-box-2pcs.png';
+    img.src = '/almond-box-2pcs.png?v=2';
     img.alt = 'Almond Cookies - Snack Pack (Up to 2 Cookies)';
     if (title) title.textContent = 'Almond Cookies — Snack Pack (Up to 2 Cookies)';
     if (desc) desc.textContent = 'Pocket snack pack with rich roasted almonds artwork, source of dietary fiber. Holds up to 2 freshly baked almond cookies.';
@@ -842,7 +842,7 @@ function openProductBoxLightbox(boxKey) {
     if (title) title.textContent = 'Almond Cookies — Classic Box (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with crunchy almond meets soft butter guarantee (no margarine). Holds up to 8 freshly baked almond cookies.';
   } else if (boxKey === 'almond_family_12pcs') {
-    img.src = '/almond-box-12pcs.png';
+    img.src = '/almond-box-12pcs.png?v=2';
     img.alt = 'Almond Cookies - Family Pack (Up to 12 Cookies · 300g)';
     if (title) title.textContent = 'Almond Cookies — Family Pack (Up to 12 Cookies · 300g)';
     if (desc) desc.textContent = 'Large festive party box with genuine cow butter & roasted almond recipe. Holds up to 12 freshly baked almond cookies.';
@@ -1203,16 +1203,16 @@ function renderCartDrawerBody() {
   }
 
   const PRODUCT_IMAGE_MAP = {
-    almond: '/img-almond.png',
-    rose: '/img-rose.png',
-    oatsnuts: '/img-oats.png',
-    orange: '/img-orange.png',
-    walnut: '/img-walnut.png',
-    walnut_sf: '/img-walnut-sf.png',
-    strawberry: '/img-strawberry.png',
-    pineapple: '/img-pineapple.png',
-    butterscotch: '/img-butterscotch.png',
-    choco: '/img-choco.png'
+    almond: '/img-almond.png?v=2',
+    rose: '/img-rose.png?v=2',
+    oatsnuts: '/img-oats.png?v=2',
+    orange: '/img-orange.png?v=2',
+    walnut: '/img-walnut.png?v=2',
+    walnut_sf: '/img-walnut-sf.png?v=2',
+    strawberry: '/img-strawberry.png?v=2',
+    pineapple: '/img-pineapple.png?v=2',
+    butterscotch: '/img-butterscotch.png?v=2',
+    choco: '/img-choco.png?v=2'
   };
 
   let subtotal = 0;
@@ -1220,13 +1220,13 @@ function renderCartDrawerBody() {
     const itemTotal = (item.price || 180) * (item.quantity || 1);
     subtotal += itemTotal;
     const baseKey = String(item.productId || item.id || '').split('_')[0].toLowerCase();
-    const imgSrc = item.image || item.img || PRODUCT_IMAGE_MAP[baseKey] || '/img-almond.png';
+    const imgSrc = item.image || item.img || PRODUCT_IMAGE_MAP[baseKey] || '/img-almond.png?v=2';
 
     return `
       <div class="cart-item-row" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06);">
         <div style="display: flex; align-items: center; gap: 12px;">
           <div style="width: 48px; height: 48px; min-width: 48px; border-radius: 8px; overflow: hidden; background: #FFFDF9; border: 1px solid rgba(61, 32, 0, 0.10); display: flex; align-items: center; justify-content: center;">
-            <img src="${imgSrc}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/img-almond.png'" />
+            <img src="${imgSrc}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/img-almond.png?v=2'" />
           </div>
           <div class="cart-item-info">
             <h5 style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #3D2000;">${item.name}</h5>
@@ -1689,7 +1689,7 @@ async function handleRazorpayProductCheckout() {
       currency: "INR",
       name: "Ming Morsels",
       description: "Artisanal Confectionery - Fresh Daily Batch",
-      image: "/logo.png",
+      image: "/logo.png?v=2",
       prefill: {
         name: details.name || 'Guest Customer',
         email: details.email || 'customer@mingmorsels.com',
@@ -1807,14 +1807,14 @@ function initLivePurchaseNotifications() {
   ];
 
   const products = [
-    { name: 'Almond Cookies', img: '/img-almond.png' },
-    { name: 'Rose Petal Cookies', img: '/img-rose.png' },
-    { name: 'Oats & Nuts Cookies', img: '/img-oats.png' },
-    { name: 'Orange Peel Cookies', img: '/img-orange.png' },
-    { name: 'Strawberry Muffins', img: '/img-strawberry.png' },
-    { name: 'Pineapple Muffins', img: '/img-pineapple.png' },
-    { name: 'Butterscotch Muffins', img: '/img-butterscotch.png' },
-    { name: 'Choco Muffins', img: '/img-choco.png' }
+    { name: 'Almond Cookies', img: '/img-almond.png?v=2' },
+    { name: 'Rose Petal Cookies', img: '/img-rose.png?v=2' },
+    { name: 'Oats & Nuts Cookies', img: '/img-oats.png?v=2' },
+    { name: 'Orange Peel Cookies', img: '/img-orange.png?v=2' },
+    { name: 'Strawberry Muffins', img: '/img-strawberry.png?v=2' },
+    { name: 'Pineapple Muffins', img: '/img-pineapple.png?v=2' },
+    { name: 'Butterscotch Muffins', img: '/img-butterscotch.png?v=2' },
+    { name: 'Choco Muffins', img: '/img-choco.png?v=2' }
   ];
 
   const timesAgo = ['Just now', '1 min ago', '2 mins ago', '3 mins ago'];
@@ -1830,7 +1830,7 @@ function initLivePurchaseNotifications() {
     popupEl.innerHTML = `
       <div class="live-purchase-accent"></div>
       <div class="live-purchase-img-wrap">
-        <img id="live-purchase-img" src="/img-rose.png" alt="Product" />
+        <img id="live-purchase-img" src="/img-rose.png?v=2" alt="Product" />
       </div>
       <div class="live-purchase-content">
         <div class="live-purchase-header">

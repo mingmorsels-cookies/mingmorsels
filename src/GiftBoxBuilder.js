@@ -2,16 +2,16 @@
 import './GiftBoxBuilder.css';
 
 const AVAILABLE_ITEMS = [
-  { id: 'almond', name: 'Almond Cookie', img: '/img-almond.png', price: 160, type: 'cookie' },
-  { id: 'rose', name: 'Rose Petal Cookie', img: '/img-rose.png', price: 150, type: 'cookie' },
-  { id: 'oatsnuts', name: 'Oats & Nuts Cookie', img: '/img-oats.png', price: 135, type: 'cookie' },
-  { id: 'orange', name: 'Orange Peel Cookie', img: '/img-orange.png', price: 160, type: 'cookie' },
-  { id: 'walnut', name: 'Walnut Cookie', img: '/img-walnut.png', price: 210, type: 'cookie' },
-  { id: 'walnut_sf', name: 'Sugar-Free Walnut Cookie', img: '/img-walnut-sf.png', price: 220, type: 'cookie' },
-  { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.png', price: 160, type: 'muffin' },
-  { id: 'pineapple', name: 'Pineapple Muffin', img: '/img-pineapple.png', price: 155, type: 'muffin' },
-  { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.png', price: 165, type: 'muffin' },
-  { id: 'choco', name: 'Choco Fudge Muffin', img: '/img-choco.png', price: 170, type: 'muffin' }
+  { id: 'almond', name: 'Almond Cookie', img: '/img-almond.png?v=2', price: 160, type: 'cookie' },
+  { id: 'rose', name: 'Rose Petal Cookie', img: '/img-rose.png?v=2', price: 150, type: 'cookie' },
+  { id: 'oatsnuts', name: 'Oats & Nuts Cookie', img: '/img-oats.png?v=2', price: 135, type: 'cookie' },
+  { id: 'orange', name: 'Orange Peel Cookie', img: '/img-orange.png?v=2', price: 160, type: 'cookie' },
+  { id: 'walnut', name: 'Walnut Cookie', img: '/img-walnut.png?v=2', price: 210, type: 'cookie' },
+  { id: 'walnut_sf', name: 'Sugar-Free Walnut Cookie', img: '/img-walnut-sf.png?v=2', price: 220, type: 'cookie' },
+  { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.png?v=2', price: 160, type: 'muffin' },
+  { id: 'pineapple', name: 'Pineapple Muffin', img: '/img-pineapple.png?v=2', price: 155, type: 'muffin' },
+  { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.png?v=2', price: 165, type: 'muffin' },
+  { id: 'choco', name: 'Choco Fudge Muffin', img: '/img-choco.png?v=2', price: 170, type: 'muffin' }
 ];
 
 const BOX_OPTIONS = {

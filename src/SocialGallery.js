@@ -20,7 +20,7 @@ const REVIEWS_DATA = [
     initials: "RM",
     avatarBg: "linear-gradient(135deg, #8C532B, #D4A373)",
     text: "The Choco Fudge Muffin with my morning espresso is absolute perfection. Soft, moist, and zero artificial junk or palm oil!",
-    img: "/choco_muffin.png",
+    img: "/choco_muffin.png?v=2",
     tag: "🍫 Choco Muffins",
     stars: "★★★★★"
   },
@@ -30,7 +30,7 @@ const REVIEWS_DATA = [
     initials: "PN",
     avatarBg: "linear-gradient(135deg, #2E7D32, #66BB6A)",
     text: "As a fitness coach, finding 100% pure cow butter and oats cookies with zero refined sugar is rare. mingmorsels nailed the recipe!",
-    img: "/unboxing_oats.png",
+    img: "/unboxing_oats.png?v=2",
     tag: "🌾 Oats Cookies Box",
     stars: "★★★★★"
   },
@@ -50,7 +50,7 @@ const REVIEWS_DATA = [
     initials: "SK",
     avatarBg: "linear-gradient(135deg, #E91E63, #FF4081)",
     text: "Delivered within 3 hours in Indiranagar! The vacuum seal keeps the cookies crisp like they were just pulled out of the stone oven.",
-    img: "/almond_cookie.png",
+    img: "/almond_cookie.png?v=2",
     tag: "🍪 Almond Cookies",
     stars: "★★★★★"
   },
@@ -70,7 +70,7 @@ const REVIEWS_DATA = [
     initials: "MK",
     avatarBg: "linear-gradient(135deg, #FF6F00, #FFA000)",
     text: "The Orange Peel cookies have the most uplifting citrus zest notes. Pair it with Earl Grey tea for the ultimate evening treat.",
-    img: "/almond_cookie.png",
+    img: "/almond_cookie.png?v=2",
     tag: "🍊 Orange Peel Delight",
     stars: "★★★★★"
   },
@@ -80,7 +80,7 @@ const REVIEWS_DATA = [
     initials: "AR",
     avatarBg: "linear-gradient(135deg, #4E342E, #8D6E63)",
     text: "Sugarfree Walnut Cookies are a blessing for my diabetic parents. Real raw apiary taste with zero artificial aftertaste.",
-    img: "/sugarfree_walnut_cookie.png",
+    img: "/sugarfree_walnut_cookie.png?v=2",
     tag: "🌿 Sugar-Free Walnut",
     stars: "★★★★★"
   },

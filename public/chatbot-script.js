@@ -131,7 +131,7 @@
             almond: { 
                 name: "Almond Cookies", 
                 emoji: "🌰", 
-                img: "/img-almond.png", 
+                img: "/img-almond.png?v=2", 
                 color: "#FFF3DC", 
                 review: "A timeless classic reimagined. Crafted with whole roasted premium California almonds, organic cow butter, and raw honey. Crumbly on the outside, meltingly soft inside.", 
                 stars: 5, 
@@ -139,15 +139,15 @@
                 nutrition: { Calories: "72.7 kcal", Carbs: "5.1g", Protein: "1.51g", Fat: "5.14g", "Saturated Fat": "3g", "Trans Fat": "0g", Sugar: "3.24g", Sodium: "89.6mg", Potassium: "397.2mg", Preservatives: "None" }, 
                 tags: ["Gluten Aware", "Nut Rich", "No Dalda", "No Artificial Flavours"],
                 boxes: [
-                    { id: 'almond_snack_2pcs', name: 'Snack Pack', count: '2 Cookies', price: 40, img: '/almond-box-2pcs.png' },
+                    { id: 'almond_snack_2pcs', name: 'Snack Pack', count: '2 Cookies', price: 40, img: '/almond-box-2pcs.png?v=2' },
                     { id: 'almond_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 160, img: '/almond-box-8pcs.jpg', popular: true },
-                    { id: 'almond_family_12pcs', name: 'Family Pack', count: '12 Cookies', price: 360, img: '/almond-box-12pcs.png' }
+                    { id: 'almond_family_12pcs', name: 'Family Pack', count: '12 Cookies', price: 360, img: '/almond-box-12pcs.png?v=2' }
                 ]
             },
             rose: { 
                 name: "Rose Petal Cookies", 
                 emoji: "🌹", 
-                img: "/img-rose.png", 
+                img: "/img-rose.png?v=2", 
                 color: "#FDE8E8", 
                 review: "Floral sophistication in every bite. Infused with organic Damask rose petals and cardamom — delicate, aromatic, and perfect for tea-time luxury.", 
                 stars: 5, 
@@ -157,13 +157,13 @@
                 boxes: [
                     { id: 'rose_snack_2pcs', name: 'Snack Pack', count: '2 Cookies', price: 40, img: '/rose-box-2pcs.jpg' },
                     { id: 'rose_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 160, img: '/rose-box-8pcs.jpg', popular: true },
-                    { id: 'rose_family_12pcs', name: 'Family Pack', count: '12 Cookies', price: 360, img: '/rose-box-12pcs.png' }
+                    { id: 'rose_family_12pcs', name: 'Family Pack', count: '12 Cookies', price: 360, img: '/rose-box-12pcs.png?v=2' }
                 ]
             },
             oatsnuts: { 
                 name: "Oats & Nuts Cookies", 
                 emoji: "🌾", 
-                img: "/img-oats.png", 
+                img: "/img-oats.png?v=2", 
                 color: "#F5F0E8", 
                 review: "Packed with rolled oats, California walnuts, flaxseeds, and organic raw honey. Hearty, filling, and deeply nutritious for clean energy.", 
                 stars: 5, 
@@ -179,7 +179,7 @@
             orange: { 
                 name: "Orange Peel Cookies", 
                 emoji: "🍊", 
-                img: "/img-orange.png", 
+                img: "/img-orange.png?v=2", 
                 color: "#FFF0E0", 
                 review: "Bursting with natural citrus oils from cold-pressed orange peels and Ceylon cinnamon. A refreshing zesty twist on classic shortbread.", 
                 stars: 5, 
@@ -195,7 +195,7 @@
             walnut: { 
                 name: "California Walnut Cookies", 
                 emoji: "🧠", 
-                img: "/img-walnut.png", 
+                img: "/img-walnut.png?v=2", 
                 color: "#F7EFE8", 
                 review: "Rich, crunchy whole California walnuts blended into golden butter dough with raw forest honey. Superb nutty crunch and brain-boosting omega-3s.", 
                 stars: 5, 
@@ -211,7 +211,7 @@
             walnut_sf: { 
                 name: "Sugar-Free Walnut Cookies", 
                 emoji: "🍃", 
-                img: "/img-walnut-sf.png", 
+                img: "/img-walnut-sf.png?v=2", 
                 color: "#EBF5EB", 
                 review: "100% Zero Added Sugar! Sweetened with natural organic Stevia extract and packed with roasted premium California walnuts. Guilt-free, diabetic-friendly & keto-approved.", 
                 stars: 5, 
@@ -227,7 +227,7 @@
             strawberry: { 
                 name: "Strawberry Muffins", 
                 emoji: "🍓", 
-                img: "/img-strawberry.png", 
+                img: "/img-strawberry.png?v=2", 
                 color: "#FFEAEB", 
                 review: "Soft and airy sponge folded with real farm-fresh Mahabaleshwar strawberries and compote. Light, fruity, and naturally sweet.", 
                 stars: 5, 
@@ -243,7 +243,7 @@
             pineapple: { 
                 name: "Pineapple Muffins", 
                 emoji: "🍍", 
-                img: "/img-pineapple.png", 
+                img: "/img-pineapple.png?v=2", 
                 color: "#FFFBEA", 
                 review: "Golden oven-baked muffin crowned with juicy chunks of tropical pineapple and natural honey glaze. Refreshing and moist.", 
                 stars: 5, 
@@ -259,7 +259,7 @@
             butterscotch: { 
                 name: "Butterscotch Muffins", 
                 emoji: "🧈", 
-                img: "/img-butterscotch.png", 
+                img: "/img-butterscotch.png?v=2", 
                 color: "#FDF4E5", 
                 review: "Rich caramel-infused muffin base studded with crunchy butterscotch bits and toasted cashew crunch. A comforting sweet indulgence.", 
                 stars: 5, 
@@ -275,7 +275,7 @@
             choco: { 
                 name: "Choco Muffins", 
                 emoji: "🍫", 
-                img: "/img-choco.png", 
+                img: "/img-choco.png?v=2", 
                 color: "#F5ECE6", 
                 review: "Decadent dark chocolate fudge muffin baked with organic cocoa and dark chocolate chunks. Rich, gooey center for true chocoholics.", 
                 stars: 5, 
@@ -1127,7 +1127,7 @@
         let currentQVTab = "nut";
 
         const COOKIE_PRICES = { almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220, strawberry: 140, pineapple: 145, butterscotch: 150, choco: 155 };
-        const LOCAL_IMAGES = { almond: "/img-almond.png", rose: "/img-rose.png", oatsnuts: "/img-oats.png", orange: "/img-orange.png", walnut: "/img-walnut.png", walnut_sf: "/img-walnut-sf.png", strawberry: "/img-strawberry.png", pineapple: "/img-pineapple.png", butterscotch: "/img-butterscotch.png", choco: "/img-choco.png" };
+        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.png?v=2", pineapple: "/img-pineapple.png?v=2", butterscotch: "/img-butterscotch.png?v=2", choco: "/img-choco.png?v=2" };
 
         // ── Merge a main-site cart (array of {id,quantity,...}) into chatbot's cart ──
         function mergeMainCart(mainCartItems) {
@@ -1330,7 +1330,7 @@
                                 height: 100%;
                                 object-fit: cover;
                                 display: block;
-                            " onerror="this.src='${product.img || '/img-almond.png'}'" />
+                            " onerror="this.src='${product.img || '/img-almond.png?v=2'}'" />
 
                             ${isSelected ? `
                                 <div style="
@@ -1752,7 +1752,7 @@
                 const canvas = await html2canvas(el, { scale: 2, useCORS: true, allowTaint: false, backgroundColor: '#FDF8F2', logging: false });
                 zone.innerHTML = '';
                 const link = document.createElement('a');
-                link.download = c.name.replace(/ /g, '_') + '_mingmorsels.png';
+                link.download = c.name.replace(/ /g, '_') + '_mingmorsels.png?v=2';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
                 showToast('✅ Card downloaded!');
@@ -1776,7 +1776,7 @@
                     const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#FDF8F2', logging: false });
                     zone.innerHTML = '';
                     canvas.toBlob(async (blob) => {
-                        const file = new File([blob], c.name.replace(/ /g, '_') + '_mingmorsels.png', { type: 'image/png' });
+                        const file = new File([blob], c.name.replace(/ /g, '_') + '_mingmorsels.png?v=2', { type: 'image/png' });
                         if (navigator.canShare({ files: [file] })) {
                             try {
                                 await navigator.share({ title: c.name + ' — mingmorsels', text: c.name + ': ' + c.review.substring(0, 80) + '… Order: wa.me/918884102020', files: [file] });
