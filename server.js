@@ -33,13 +33,14 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://checkout.razorpay.com", "https://accounts.google.com", "https://apis.google.com", "https://www.gstatic.com", "https://cdnjs.cloudflare.com", "blob:"],
+      scriptSrcAttr: ["'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
       imgSrc: ["'self'", "data:", "https:", "blob:"],
       connectSrc: ["'self'", "https://api.razorpay.com", "https://lumberjack.razorpay.com", "https://accounts.google.com", "https://*.googleapis.com"],
       frameSrc: ["'self'", "https://api.razorpay.com", "https://checkout.razorpay.com", "https://accounts.google.com", "https://www.instagram.com", "https://www.google.com"],
       workerSrc: ["'self'", "blob:"],
-      frameAncestors: ["'none'"],
+      frameAncestors: ["'self'"],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: []
     }
