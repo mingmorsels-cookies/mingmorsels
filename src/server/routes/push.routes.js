@@ -1,6 +1,6 @@
 import express from 'express';
 import webpush from 'web-push';
-import pool from '../../../db.js';
+import { pgPool } from '../../../db.js';
 import { verifyAdminAuth } from './admin.routes.js';
 
 const router = express.Router();
@@ -26,8 +26,8 @@ router.post('/api/push/subscribe', async (req, res) => {
   try {
     const { endpoint, keys: { auth, p256dh } } = subscription;
     
-    // Insert or update (upsert) the subscription based on endpoint
-    await pool.query(`
+    if (!pgPool) throw new Error('Database not connected');
+    await pgPool.query(`
       INSERT INTO push_subscriptions (endpoint, keys_auth, keys_p256dh)
       VALUES ($1, $2, $3)
       ON CONFLICT (endpoint) 
@@ -51,7 +51,8 @@ router.post('/api/admin/push/broadcast', verifyAdminAuth, async (req, res) => {
   }
 
   try {
-    const result = await pool.query('SELECT endpoint, keys_auth, keys_p256dh FROM push_subscriptions');
+    if (!pgPool) throw new Error('Database not connected');
+    const result = await pgPool.query('SELECT endpoint, keys_auth, keys_p256dh FROM push_subscriptions');
     const subscriptions = result.rows;
 
     const payload = JSON.stringify({
@@ -79,7 +80,9 @@ router.post('/api/admin/push/broadcast', verifyAdminAuth, async (req, res) => {
       } catch (err) {
         // If the subscription is gone (e.g. 410 Gone), remove it from the database
         if (err.statusCode === 410 || err.statusCode === 404) {
-          await pool.query('DELETE FROM push_subscriptions WHERE endpoint = $1', [sub.endpoint]);
+          if (pgPool) {
+            await pgPool.query('DELETE FROM push_subscriptions WHERE endpoint = $1', [sub.endpoint]);
+          }
         }
         failCount++;
         console.error('Error sending push notification to endpoint:', sub.endpoint, err.message);

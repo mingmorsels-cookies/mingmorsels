@@ -937,3 +937,5 @@ export async function dismissAdminNotification(notificationId) {
   await writeLocalStoreAsync(store);
   return true;
 }
+
+export { pgPool };
