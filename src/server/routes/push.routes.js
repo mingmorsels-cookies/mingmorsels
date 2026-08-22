@@ -1,7 +1,7 @@
 import express from 'express';
 import webpush from 'web-push';
 import { pgPool } from '../../../db.js';
-import { verifyAdminAuth } from './admin.routes.js';
+import { verifyAdminAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
