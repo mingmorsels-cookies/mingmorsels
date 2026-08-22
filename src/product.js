@@ -1608,6 +1608,49 @@ async function handleRazorpayProductCheckout() {
 
   const details = getCustomerDetails();
 
+  // Check if details are missing
+  if (!details.address || details.address.length < 5 || !details.phone) {
+    const modal = document.getElementById('address-required-modal');
+    if (modal) {
+      document.getElementById('req-shipping-phone').value = details.phone || '';
+      document.getElementById('req-shipping-address').value = details.address || '';
+      
+      modal.style.display = 'flex';
+      
+      const saveBtn = document.getElementById('btn-save-address-continue');
+      saveBtn.onclick = () => {
+        const newPhone = document.getElementById('req-shipping-phone').value.trim();
+        const newAddr = document.getElementById('req-shipping-address').value.trim();
+        const newPin = document.getElementById('req-shipping-pincode').value.trim();
+        
+        if (newPhone.length < 10 || newAddr.length < 5 || newPin.length !== 6) {
+          alert('Please enter a valid phone number, address, and 6-digit pin code.');
+          return;
+        }
+        
+        const fullAddr = `${newAddr}, Bengaluru, ${newPin}`;
+        localStorage.setItem('ming_morsels_phone', newPhone);
+        localStorage.setItem('ming_morsels_address', fullAddr);
+        localStorage.setItem('ming_morsels_pincode', newPin);
+        
+        // Also update user profile if exists
+        try {
+          const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
+          userProfile.phone = newPhone;
+          userProfile.address = fullAddr;
+          userProfile.pincode = newPin;
+          localStorage.setItem('user_profile', JSON.stringify(userProfile));
+        } catch(e) {}
+        
+        modal.style.display = 'none';
+        handleRazorpayProductCheckout(); // Retry
+      };
+    } else {
+      alert("Please update your delivery address in the dashboard before checking out.");
+    }
+    return;
+  }
+
   const payBtn = document.getElementById('btn-cart-razorpay');
   const origBtnText = payBtn ? payBtn.innerHTML : '';
   if (payBtn) {

@@ -1832,6 +1832,39 @@
     </div>
   </div>
 
+  <!-- Address Required Checkout Modal -->
+  <div id="address-required-modal" class="slider-modal-overlay" style="display: none; z-index: 10000; align-items: center; justify-content: center;">
+    <div style="background: var(--bg-light); border-radius: 20px; padding: 32px; max-width: 440px; width: 90%; box-shadow: 0 16px 40px rgba(0,0,0,0.12); position: relative;">
+      <button onclick="document.getElementById('address-required-modal').style.display='none'" style="position: absolute; right: 20px; top: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--color-text-main);">&times;</button>
+      <h2 style="font-family: var(--font-serif); font-size: 28px; color: var(--color-gold); margin-bottom: 8px;">Almost there...</h2>
+      <p style="color: var(--color-text-main); font-size: 14px; margin-bottom: 24px; opacity: 0.8;">We need a complete delivery address to process your fresh baked cookies.</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Contact Number</label>
+          <input type="tel" id="req-shipping-phone" placeholder="e.g. +91 98765 43210" style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(61,32,0,0.1); background: #FFFFFF; font-family: var(--font-sans); font-size: 15px; box-sizing: border-box;" />
+        </div>
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Delivery Address</label>
+          <textarea id="req-shipping-address" rows="3" placeholder="e.g. Flat 302, Green Meadows..." style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(61,32,0,0.1); background: #FFFFFF; font-family: var(--font-sans); font-size: 15px; box-sizing: border-box; resize: none;"></textarea>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">City</label>
+            <input type="text" id="req-shipping-city" value="Bengaluru" readonly style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(61,32,0,0.1); background: #f9f9f9; font-family: var(--font-sans); font-size: 15px; box-sizing: border-box; color: #666;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Pin Code</label>
+            <input type="text" id="req-shipping-pincode" placeholder="e.g. 560041" style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(61,32,0,0.1); background: #FFFFFF; font-family: var(--font-sans); font-size: 15px; box-sizing: border-box;" />
+          </div>
+        </div>
+        <button id="btn-save-address-continue" style="width: 100%; padding: 14px; margin-top: 8px; background: var(--color-gold); color: #fff; border: none; border-radius: 50px; font-weight: 600; font-size: 16px; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s;">
+          Save & Continue Order
+        </button>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
