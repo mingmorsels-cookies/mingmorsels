@@ -289,6 +289,11 @@ export class AuthController {
         e.stopPropagation();
         localStorage.removeItem('user_profile');
         this.userProfile = null;
+        
+        // Clear cart to prevent items persisting across different accounts
+        if (cartStore && typeof cartStore.clear === 'function') {
+          cartStore.clear();
+        }
 
         const headerAvatar = document.getElementById('header-user-avatar');
         const defaultIcon = document.getElementById('default-account-icon');
