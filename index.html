@@ -1222,77 +1222,68 @@
       <h3 class="cart-drawer-title">Your Order Basket</h3>
       <button class="btn-cart-close" id="btn-cart-close">&times;</button>
     </div>
-    <div id="cart-drawer-body" class="cart-drawer-body">
-      <!-- populated dynamically -->
+    <div class="cart-drawer-scroll-area">
+      <div id="cart-drawer-body" class="cart-drawer-body">
+        <!-- populated dynamically -->
+      </div>
+
+      <div class="cart-checkout-options-wrapper" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(61,32,0,0.08);">
+        <!-- Shipway Dispatch Info -->
+        <div style="background: #FFFDF9; border: 1px solid rgba(200,150,12,0.25); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; font-size: 12.5px; color: #705840; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(200, 150, 12, 0.05);">
+          <span style="font-size: 16px;">🚚</span>
+          <span><strong>Fresh Daily Baking</strong> • Express dispatch allocated via Shipway Logistics</span>
+        </div>
+
+        <!-- Gifting & Delivery Date Options -->
+        <details style="margin-bottom: 12px; background: #FFF; border: 1px solid #EADCCB; border-radius: 10px; padding: 10px 14px; font-size: 13px; box-shadow: 0 2px 6px rgba(61,32,0,0.02);">
+          <summary style="cursor: pointer; font-weight: 600; color: #3D2000; display: flex; align-items: center; gap: 6px;">🎁 Add Complimentary Gift Card & Schedule</summary>
+          <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
+            <input type="text" id="cart-gift-note" placeholder="Personalized message on gold embossed card..." maxlength="200" style="padding: 10px 12px; border: 1px solid #E0D4C5; border-radius: 8px; font-size: 13px; background: #FFFDF9; outline: none;" />
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <label style="font-size: 12px; color: #705840; font-weight: 600; white-space: nowrap;">Preferred Date:</label>
+              <input type="date" id="cart-delivery-date" style="flex: 1; padding: 8px 10px; border: 1px solid #E0D4C5; border-radius: 8px; font-size: 13px; background: #FFFDF9; outline: none; color: #3D2000;" />
+            </div>
+          </div>
+        </details>
+
+        <!-- Coupon Code Section -->
+        <div class="cart-coupon-box" style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <input type="text" id="cart-coupon-input" placeholder="Promo (FIRSTBITE, LUXURY50)" style="flex: 1; padding: 10px 14px; border: 1px solid #E0D4C5; border-radius: 10px; font-size: 13px; text-transform: uppercase; background: #FFF; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02); outline: none;" />
+          <button id="btn-apply-coupon" style="padding: 10px 18px; background: #1A120B; color: #FFF; border: none; border-radius: 10px; font-weight: 700; font-size: 12.5px; cursor: pointer; transition: background 0.2s;">Apply</button>
+        </div>
+        <div id="coupon-status-msg" style="font-size: 11.5px; margin-top: -6px; margin-bottom: 10px; display: none;"></div>
+
+        <!-- Delivery & Payment Methods -->
+        <div class="checkout-methods-wrapper" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+          <div style="background: #FFF; border: 1px solid #EADCCB; border-radius: 10px; padding: 14px; box-shadow: 0 2px 6px rgba(61,32,0,0.02);">
+            <strong style="font-size: 13.5px; color: #3D2000; display: block; margin-bottom: 8px; font-weight: 700;">Delivery Method</strong>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; margin-bottom: 8px; cursor: pointer; color: #5C3A21;">
+              <input type="radio" name="delivery_method" value="shipping" checked> Home Delivery
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer; color: #5C3A21;">
+              <input type="radio" name="delivery_method" value="pickup"> Self Pick-up (Store Visit)
+            </label>
+            <div id="pickup-address-hint" style="display: none; font-size: 11.5px; color: #8A6E55; margin-top: 6px; margin-left: 24px;">
+              Collect from: Flat 302, Green Meadows, Jayanagar 4th Block, Bengaluru
+            </div>
+          </div>
+
+          <div style="background: #FFF; border: 1px solid #EADCCB; border-radius: 10px; padding: 14px; box-shadow: 0 2px 6px rgba(61,32,0,0.02);">
+            <strong style="font-size: 13.5px; color: #3D2000; display: block; margin-bottom: 8px; font-weight: 700;">Payment Method</strong>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; margin-bottom: 8px; cursor: pointer; color: #5C3A21;">
+              <input type="radio" name="payment_method" value="online" checked> Online (Razorpay/UPI)
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer; color: #5C3A21;">
+              <input type="radio" name="payment_method" value="cod"> Cash on Delivery / Pay at Store
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
+    
     <div class="cart-drawer-footer">
-
-
-      <!-- Shipway Dispatch Info -->
-      <div
-        style="background: #FFF8EC; border: 1px solid rgba(200,150,12,0.25); border-radius: 12px; padding: 10px 14px; margin-bottom: 16px; font-size: 12.5px; color: #705840; display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 16px;">🚚</span>
-        <span><strong>Fresh Daily Baking</strong> • Express dispatch allocated via Shipway Logistics</span>
-      </div>
-
-      <!-- Gifting & Delivery Date Options -->
-      <details
-        style="margin-bottom: 12px; background: #FAF6F0; border: 1px solid #EADCCB; border-radius: 8px; padding: 8px 12px; font-size: 12.5px;">
-        <summary style="cursor: pointer; font-weight: 600; color: #3D2000;">🎁 Add Complimentary Gift Card & Schedule
-        </summary>
-        <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
-          <input type="text" id="cart-gift-note" placeholder="Personalized message on gold embossed card..."
-            maxlength="200"
-            style="padding: 7px 10px; border: 1px solid #E0D4C5; border-radius: 6px; font-size: 12px; background: #FFF; outline: none;" />
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <label style="font-size: 11px; color: #705840; font-weight: 600;">Preferred Date:</label>
-            <input type="date" id="cart-delivery-date"
-              style="flex: 1; padding: 5px 8px; border: 1px solid #E0D4C5; border-radius: 6px; font-size: 11.5px; background: #FFF; outline: none;" />
-          </div>
-        </div>
-      </details>
-
-      <!-- Coupon Code Section -->
-      <div class="cart-coupon-box" style="display: flex; gap: 8px; margin-bottom: 12px;">
-        <input type="text" id="cart-coupon-input" placeholder="Promo (FIRSTBITE, LUXURY50)"
-          style="flex: 1; padding: 9px 12px; border: 1px solid #E0D4C5; border-radius: 8px; font-size: 12.5px; text-transform: uppercase; background: #FAF6F0; outline: none;" />
-        <button id="btn-apply-coupon"
-          style="padding: 9px 14px; background: #C8960C; color: #120E0B; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer;">Apply</button>
-      </div>
-      <div id="coupon-status-msg" style="font-size: 11.5px; margin-top: -6px; margin-bottom: 10px; display: none;">
-      </div>
-
-      <div class="checkout-options"
-        style="background: rgba(61,32,0,0.02); border-radius: 10px; padding: 12px; margin-bottom: 12px;">
-        <div style="margin-bottom: 12px;">
-          <strong style="font-size: 13px; color: #3D2000; display: block; margin-bottom: 6px;">Delivery Method</strong>
-          <label
-            style="display: flex; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 4px; cursor: pointer;">
-            <input type="radio" name="delivery_method" value="shipping" checked> Home Delivery
-          </label>
-          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
-            <input type="radio" name="delivery_method" value="pickup"> Self Pick-up (Store Visit)
-          </label>
-          <div id="pickup-address-hint"
-            style="display: none; font-size: 11px; color: #705840; margin-top: 4px; margin-left: 20px;">
-            Collect from: Flat 302, Green Meadows, Jayanagar 4th Block, Bengaluru
-          </div>
-        </div>
-        <div style="height: 1px; background: rgba(61,32,0,0.08); margin: 8px 0;"></div>
-        <div>
-          <strong style="font-size: 13px; color: #3D2000; display: block; margin-bottom: 6px;">Payment Method</strong>
-          <label
-            style="display: flex; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 4px; cursor: pointer;">
-            <input type="radio" name="payment_method" value="online" checked> Online (Razorpay/UPI)
-          </label>
-          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
-            <input type="radio" name="payment_method" value="cod"> Cash on Delivery / Pay at Store
-          </label>
-        </div>
-      </div>
-
-      <div
-        style="background: rgba(61,32,0,0.04); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; font-size: 12.5px; color: #705840; display: flex; flex-direction: column; gap: 4px;">
+      <!-- Order Totals -->
+      <div style="border-radius: 10px; margin-bottom: 12px; font-size: 13px; color: #705840; display: flex; flex-direction: column; gap: 6px;">
         <div style="display: flex; justify-content: space-between;">
           <span>Items Subtotal</span>
           <strong id="cart-total-price" style="color: #3D2000;">₹0</strong>
@@ -1305,10 +1296,10 @@
           <span>Estimated Delivery</span>
           <span id="cart-delivery-note" style="color: #2E6B1A; font-weight: 600;">Calculated at next step</span>
         </div>
-        <div style="height: 1px; background: rgba(61,32,0,0.08); margin: 3px 0;"></div>
-        <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; color: #3D2000;">
+        <div style="height: 1px; background: rgba(61,32,0,0.08); margin: 6px 0;"></div>
+        <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: #3D2000; align-items: center;">
           <span>Estimated Total</span>
-          <span id="cart-grand-total" style="color: #C8960C;">₹0</span>
+          <span id="cart-grand-total" style="color: #C8960C; font-size: 18px;">₹0</span>
         </div>
       </div>
 
@@ -1317,10 +1308,8 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z" />
         </svg>
-        <span>Pay & Checkout (Razorpay / UPI / Cards)</span>
+        <span>Pay & Checkout</span>
       </button>
-
-
 
     </div>
   </div>
