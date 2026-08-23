@@ -640,7 +640,7 @@ function renderBoxOptionCards() {
           background: #EFE9E0;
           margin-bottom: 10px;
         ">
-          <img src="${box.img}" alt="${box.name}" style="
+          <img src="${box.img}" alt="${box.name}" fetchpriority="high" decoding="async" style="
             width: 100%;
             height: 100%;
             object-fit: cover;
