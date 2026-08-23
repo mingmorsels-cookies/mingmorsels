@@ -490,10 +490,14 @@ export class AuthController {
       // Update rewards count (100 Points per order)
       const rewardsCount = document.getElementById('rewards-points-count');
       const rewardsFill = document.getElementById('rewards-progress-fill');
+      const rewardsLabel = document.getElementById('rewards-progress-label');
       const paidOrders = orders.filter(o => o.payment_status === 'PAID' || !o.payment_status);
       const points = paidOrders.length * 100;
       if (rewardsCount) {
-        rewardsCount.textContent = points >= 1000 ? `👑 ${points} Pts (VIP Connoisseur)` : `${points} / 1000 Points`;
+        rewardsCount.textContent = points >= 1000 ? `👑 ${points} Points` : `${points} Points`;
+      }
+      if (rewardsLabel) {
+        rewardsLabel.textContent = points >= 1000 ? `You have reached VIP Connoisseur status!` : `${points} / 1000 points to VIP Connoisseur status!`;
       }
       if (rewardsFill) {
         rewardsFill.style.width = `${Math.min(100, Math.round((points / 1000) * 100))}%`;
