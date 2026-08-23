@@ -469,7 +469,7 @@ export class CheckoutController {
         return;
       }
 
-      const keyId = String(import.meta.env.VITE_RAZORPAY_KEY_ID || orderData.key_id || 'rzp_test_TPTzxgvp9zQO7e').trim();
+      const keyId = String(import.meta.env.VITE_RAZORPAY_KEY_ID || orderData.key_id || 'rzp_live_TT3fwMal8UkBZC').trim();
 
       const options = {
         key: keyId,
