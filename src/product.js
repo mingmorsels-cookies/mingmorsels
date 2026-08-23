@@ -1616,6 +1616,8 @@ async function handleRazorpayProductCheckout() {
       document.getElementById('req-shipping-address').value = details.address || '';
       
       modal.style.display = 'flex';
+      modal.style.opacity = '1';
+      modal.classList.add('active');
       
       const saveBtn = document.getElementById('btn-save-address-continue');
       saveBtn.onclick = () => {
@@ -1643,6 +1645,8 @@ async function handleRazorpayProductCheckout() {
         } catch(e) {}
         
         modal.style.display = 'none';
+        modal.style.opacity = '0';
+        modal.classList.remove('active');
         handleRazorpayProductCheckout(); // Retry
       };
     } else {

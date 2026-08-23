@@ -39,7 +39,10 @@ export class CheckoutController {
   }
 
   getCustomerDetails() {
-    const user = JSON.parse(localStorage.getItem('user_profile') || '{}');
+    let user = {};
+    try {
+      user = JSON.parse(localStorage.getItem('user_profile') || '{}');
+    } catch(e) {}
     const phone = (localStorage.getItem('ming_morsels_phone') || user.phone || '').replace(/\D/g, '');
     const address = localStorage.getItem('ming_morsels_address') || user.address || '';
     const pincode = localStorage.getItem('ming_morsels_pincode') || user.pincode || '';
@@ -347,9 +350,9 @@ export class CheckoutController {
       if (modal) {
         document.getElementById('req-shipping-phone').value = details.phone || '';
         document.getElementById('req-shipping-address').value = details.address || '';
-        
         modal.style.display = 'flex';
-        
+        modal.style.opacity = '1';
+        modal.classList.add('active');
         const saveBtn = document.getElementById('btn-save-address-continue');
         saveBtn.onclick = () => {
           const newPhone = document.getElementById('req-shipping-phone').value.trim();
@@ -374,8 +377,9 @@ export class CheckoutController {
             userProfile.pincode = newPin;
             localStorage.setItem('user_profile', JSON.stringify(userProfile));
           } catch(e) {}
-          
           modal.style.display = 'none';
+          modal.style.opacity = '0';
+          modal.classList.remove('active');
           this.handleRazorpayCheckout(cartItems); // Retry
         };
       } else {
