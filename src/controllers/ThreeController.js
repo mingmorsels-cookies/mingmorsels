@@ -81,6 +81,13 @@ export class ThreeController {
     });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Handle WebGL context loss gracefully
+    canvas.addEventListener('webglcontextlost', (event) => {
+      event.preventDefault();
+      console.warn("WebGL context lost. Falling back to 2D images.");
+      document.body.classList.add('no-webgl');
+    }, false);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
 

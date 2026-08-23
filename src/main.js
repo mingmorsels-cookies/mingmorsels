@@ -48,6 +48,7 @@ async function startApp() {
       uiController.setThreeController(threeControllerInstance);
     } catch (err) {
       console.warn("[Three.js] Initialization error:", err);
+      document.body.classList.add('no-webgl');
     }
   }
 

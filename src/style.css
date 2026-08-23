@@ -6204,11 +6204,19 @@ body {
 
 /* ── Laptops & Tablets (> 768px): Hide static mobile images, render 3D WebGL ── */
 @media (min-width: 769px) {
-
-  .mobile-hero-img,
-  .mobile-fallback-img {
+  body:not(.no-webgl) .mobile-hero-img,
+  body:not(.no-webgl) .mobile-fallback-img {
     display: none !important;
   }
+}
+
+/* WebGL Fallback explicitly for Desktop */
+body.no-webgl .mobile-hero-img,
+body.no-webgl .mobile-fallback-img {
+  display: block !important;
+}
+body.no-webgl #webgl-canvas {
+  display: none !important;
 }
 
 /* Dietary Filter Bar Styles */
