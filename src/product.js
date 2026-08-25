@@ -1232,7 +1232,7 @@ function renderCartDrawerBody() {
     walnut_sf: '/img-walnut-sf.png?v=2',
     strawberry: '/img-strawberry.jpg',
     pinacolada: '/img-pinacolada.jpg',
-    butterscotch: '/img-butterscotch.jpg?v=2',
+    butterscotch: '/img-butterscotch.jpg',
     chocochip: '/img-chocochip.jpg',
     blackcurrant: '/img-blackcurrant.jpg'
   };

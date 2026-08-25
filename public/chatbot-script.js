@@ -271,9 +271,9 @@
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g", Preservatives: "None" }, 
                 tags: ["Butterscotch Bits", "Desi Ghee", "Nut Rich"],
                 boxes: [
-                    { id: 'butterscotch_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 75, img: '/box-classic.jpg' },
-                    { id: 'butterscotch_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 150, img: '/box-lush.jpg', popular: true },
-                    { id: 'butterscotch_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 225, img: '/box-extra.jpg' }
+                    { id: 'butterscotch_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 75, img: '/box-butterscotch-1.jpg' },
+                    { id: 'butterscotch_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 150, img: '/box-butterscotch-2.jpg', popular: true },
+                    { id: 'butterscotch_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 225, img: '/box-butterscotch-2.jpg' }
                 ]
             },
             chocochip: { 

@@ -18,7 +18,7 @@ export const COOKIE_DATA = {
   walnut_sf: { name: "Sugar-Free Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 220, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
   strawberry: { name: "Strawberry Muffins", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 140, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
   pinacolada: { name: "Pinacolada Muffins", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 145, link: "/product.html?id=pinacolada", image: "/img-pinacolada.jpg" },
-  butterscotch: { name: "Butterscotch Muffins", description: "Caramelized cake base with crunchy butterscotch drops.", price: 150, link: "/product.html?id=butterscotch", image: "/butterscotch_muffin.png" },
+  butterscotch: { name: "Butterscotch Muffins", description: "Caramelized cake base with crunchy butterscotch drops.", price: 150, link: "/product.html?id=butterscotch", image: "/img-butterscotch.jpg" },
   chocochip: { name: "Chocochip Muffins", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 155, link: "/product.html?id=chocochip", image: "/img-chocochip.jpg" }
 };
 
@@ -264,7 +264,7 @@ export class UIController {
       { link: '/product.html?id=rose', text: 'Rose Petal Cookies', image: '/rose_cookie.png' },
       { link: '/product.html?id=oatsnuts', text: 'Oats & Nuts Cookies', image: '/oatsnuts_cookie.png' },
       { link: '/product.html?id=chocochip', text: 'Chocochip Muffins', image: '/img-chocochip.jpg' },
-      { link: '/product.html?id=butterscotch', text: 'Butterscotch Muffins', image: '/butterscotch_muffin.png' }
+      { link: '/product.html?id=butterscotch', text: 'Butterscotch Muffins', image: '/img-butterscotch.jpg' }
     ];
 
     initFlowingMenu(root, items, {
