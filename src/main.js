@@ -64,8 +64,7 @@ async function startApp() {
       uiController.openCartDrawer();
     });
     initPairingQuiz((pairItem) => {
-      cartStore.addItem(pairItem);
-      uiController.openCartDrawer();
+      openQuickAddModal(pairItem.id);
     });
     initSocialGallery();
 
