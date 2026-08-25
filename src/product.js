@@ -702,12 +702,14 @@ function initProductGallery() {
       { src: '/almond/3.jpg', alt: 'Almond Mixed Platter' }
     ];
   } else {
-    images = [
-      { src: `/img-${currentProduct.id}.jpg`, alt: currentProduct.name }
-    ];
+    // Fallback: no images defined yet
+    images = [];
   }
 
+  const mainImageWrapper = document.querySelector('.product-main-image-wrapper');
+
   if (images.length > 0) {
+    if (mainImageWrapper) mainImageWrapper.style.display = 'block';
     mainImage.src = images[0].src;
     
     if (images.length > 1) {
@@ -730,6 +732,10 @@ function initProductGallery() {
       // Hide the thumbnail container if there are no extra thumbnails
       thumbsContainer.style.display = 'none';
     }
+  } else {
+    // Hide everything if no images are defined
+    if (mainImageWrapper) mainImageWrapper.style.display = 'none';
+    thumbsContainer.style.display = 'none';
   }
 }
 
