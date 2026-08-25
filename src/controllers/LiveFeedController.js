@@ -31,10 +31,10 @@ export class LiveFeedController {
       { name: "Sugar-Free Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
       { name: "Strawberry Muffins", img: "/strawberry_muffin.png" },
       { name: "Orange Peel Cookies", img: "/almond_cookie.png" },
-      { name: "Choco Muffins", img: "/choco_muffin.png" },
+      { name: "Chocochip Muffins", img: "/img-chocochip.jpg" },
       { name: "Oats Nuts Cookies", img: "/oatsnuts_cookie.png" },
       { name: "Butterscotch Muffins", img: "/butterscotch_muffin.png" },
-      { name: "Pineapple Muffins", img: "/pineapple_muffin.png" }
+      { name: "Pinacolada Muffins", img: "/img-pinacolada.jpg" }
     ];
 
     this.timesAgo = ["Just now", "2m ago", "5m ago", "12m ago", "18m ago", "34m ago", "42m ago", "1h ago"];

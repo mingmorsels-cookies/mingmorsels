@@ -9,9 +9,9 @@ const AVAILABLE_ITEMS = [
   { id: 'walnut', name: 'Walnut Cookie', img: '/img-walnut.png?v=2', price: 210, type: 'cookie' },
   { id: 'walnut_sf', name: 'Sugar-Free Walnut Cookie', img: '/img-walnut-sf.png?v=2', price: 220, type: 'cookie' },
   { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.png?v=2', price: 160, type: 'muffin' },
-  { id: 'pineapple', name: 'Pineapple Muffin', img: '/img-pineapple.png?v=2', price: 155, type: 'muffin' },
+  { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pineapple.png?v=2', price: 155, type: 'muffin' },
   { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.png?v=2', price: 165, type: 'muffin' },
-  { id: 'choco', name: 'Choco Fudge Muffin', img: '/img-choco.png?v=2', price: 170, type: 'muffin' }
+  { id: 'chocochip', name: 'Chocochip Muffins', img: '/img-chocochip.jpg?v=2', price: 170, type: 'muffin' }
 ];
 
 const BOX_OPTIONS = {

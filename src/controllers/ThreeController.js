@@ -42,7 +42,7 @@ THREE.TextureLoader.prototype.load = function(url, onLoad, onProgress, onError) 
 export class ThreeController {
   constructor() {
     this.COOKIES = ['almond', 'rose', 'oatsnuts', 'orange', 'walnut', 'walnut_sf'];
-    this.MUFFINS = ['strawberry', 'pineapple', 'butterscotch', 'choco'];
+    this.MUFFINS = ['strawberry', 'pinacolada', 'butterscotch', 'chocochip', 'blackcurrant'];
     this.ALL_PRODUCTS = [...this.COOKIES, ...this.MUFFINS];
 
     this.scene = null;
@@ -902,7 +902,7 @@ export class ThreeController {
 
   buildMuffinMesh(id, group) {
     // Custom Texture-Mapped Model for Choco Muffin
-    if (id === 'choco') {
+    if (id === 'chocochip') {
       const textureLoader = new THREE.TextureLoader();
       const chocoTex = textureLoader.load('/choco_muffin_texture.png');
       chocoTex.wrapS = THREE.RepeatWrapping;
@@ -973,7 +973,8 @@ export class ThreeController {
 
     const flavors = {
       strawberry: { linerColor: 0xffaab0, domeColor: 0xf5cfb5, chunkColor: 0xab2c47, chunkCount: 12 },
-      pineapple: { linerColor: 0xffecad, domeColor: 0xeed29f, chunkColor: 0xd9a414, chunkCount: 10 },
+      pinacolada: { linerColor: 0xffecad, domeColor: 0xeed29f, chunkColor: 0xd9a414, chunkCount: 10 },
+      blackcurrant: { linerColor: 0xead5f7, domeColor: 0xc89fed, chunkColor: 0x361f52, chunkCount: 15 },
       butterscotch: { linerColor: 0xe6cbab, domeColor: 0xd4a574, chunkColor: 0x8a541c, chunkCount: 15 }
     };
 

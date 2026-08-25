@@ -19,9 +19,9 @@ const REVIEWS_DATA = [
     handle: "@rohan_m",
     initials: "RM",
     avatarBg: "linear-gradient(135deg, #8C532B, #D4A373)",
-    text: "The Choco Fudge Muffin with my morning espresso is absolute perfection. Soft, moist, and zero artificial junk or palm oil!",
-    img: "/choco_muffin.png?v=2",
-    tag: "🍫 Choco Muffins",
+    text: "The Chocochip Muffins with my morning espresso is absolute perfection. Soft, moist, and zero artificial junk or palm oil!",
+    img: "/img-chocochip.jpg?v=2",
+    tag: "🍫 Chocochip Muffins",
     stars: "★★★★★"
   },
   {

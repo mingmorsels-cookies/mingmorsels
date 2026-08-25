@@ -17,9 +17,9 @@ export const COOKIE_DATA = {
   walnut: { name: "Walnut Cookies", description: "Rich crunchy California walnuts baked into buttery dough.", price: 210, link: "/product.html?id=walnut", image: "/sugarfree_walnut_cookie.png" },
   walnut_sf: { name: "Sugar-Free Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 220, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
   strawberry: { name: "Strawberry Muffins", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 140, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
-  pineapple: { name: "Pineapple Muffins", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 145, link: "/product.html?id=pineapple", image: "/pineapple_muffin.png" },
+  pinacolada: { name: "Pinacolada Muffins", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 145, link: "/product.html?id=pineapple", image: "/img-pinacolada.jpg" },
   butterscotch: { name: "Butterscotch Muffins", description: "Caramelized cake base with crunchy butterscotch drops.", price: 150, link: "/product.html?id=butterscotch", image: "/butterscotch_muffin.png" },
-  choco: { name: "Choco Muffins", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 155, link: "/product.html?id=choco", image: "/choco_muffin.png" }
+  chocochip: { name: "Chocochip Muffins", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 155, link: "/product.html?id=choco", image: "/img-chocochip.jpg" }
 };
 
 export class UIController {
@@ -263,7 +263,7 @@ export class UIController {
       { link: '/product.html?id=almond', text: 'Almond Cookies', image: '/almond_cookie.png' },
       { link: '/product.html?id=rose', text: 'Rose Petal Cookies', image: '/rose_cookie.png' },
       { link: '/product.html?id=oatsnuts', text: 'Oats & Nuts Cookies', image: '/oatsnuts_cookie.png' },
-      { link: '/product.html?id=choco', text: 'Choco Muffins', image: '/choco_muffin.png' },
+      { link: '/product.html?id=choco', text: 'Chocochip Muffins', image: '/img-chocochip.jpg' },
       { link: '/product.html?id=butterscotch', text: 'Butterscotch Muffins', image: '/butterscotch_muffin.png' }
     ];
 
@@ -754,7 +754,7 @@ export class UIController {
   _getAIRecommendations(cartItems) {
     // Base product keys, sorted longest-first so walnut_sf matches before walnut
     const BASE_KEYS = ['walnut_sf', 'almond', 'rose', 'oatsnuts', 'orange',
-                       'walnut', 'strawberry', 'pineapple', 'butterscotch', 'choco'];
+                       'walnut', 'strawberry', 'pinacolada', 'butterscotch', 'choco'];
 
     // Resolve a raw cart ID (e.g. "oatsnuts_snack_2pcs") to its base key ("oatsnuts")
     const toBaseKey = (id) => {
@@ -767,24 +767,24 @@ export class UIController {
 
     const PAIRS = {
       almond:       [{ id: 'rose',         reason: 'Floral contrast to nutty almond' },
-                     { id: 'choco',        reason: 'Classic nut + chocolate combo' }],
+                     { id: 'chocochip',        reason: 'Classic nut + chocolate combo' }],
       rose:         [{ id: 'butterscotch', reason: 'Caramel sweetness with floral notes' },
                      { id: 'almond',       reason: 'Nutty base complements rose' }],
       oatsnuts:     [{ id: 'strawberry',   reason: 'Fruity freshness with wholesome oats' },
-                     { id: 'choco',        reason: 'Chocolate fudge with nutty crunch' }],
-      orange:       [{ id: 'pineapple',    reason: 'Double the tropical citrus punch' },
+                     { id: 'chocochip',        reason: 'Chocolate fudge with nutty crunch' }],
+      orange:       [{ id: 'pinacolada',    reason: 'Double the tropical citrus punch' },
                      { id: 'rose',         reason: 'Floral & citrus make a perfect pair' }],
-      walnut:       [{ id: 'choco',        reason: 'Walnut + dark choco — a classic' },
+      walnut:       [{ id: 'chocochip',        reason: 'Walnut + dark choco — a classic' },
                      { id: 'butterscotch', reason: 'Caramel glaze on walnut richness' }],
       walnut_sf:    [{ id: 'oatsnuts',     reason: 'Both wholesome & guilt-free' },
                      { id: 'almond',       reason: 'Double nut, double the protein' }],
       strawberry:   [{ id: 'rose',         reason: 'Berry & floral — a tea-time duo' },
                      { id: 'oatsnuts',     reason: 'Balance moist muffin with crunch' }],
-      pineapple:    [{ id: 'orange',       reason: 'Tropical citrus duo — a summer hit' },
+      pinacolada:    [{ id: 'orange',       reason: 'Tropical citrus duo — a summer hit' },
                      { id: 'butterscotch', reason: 'Caramel cuts through tropical tang' }],
       butterscotch: [{ id: 'almond',       reason: 'Caramel + nut — indulgent perfection' },
                      { id: 'walnut',       reason: 'Double crunch, double the joy' }],
-      choco:        [{ id: 'almond',       reason: 'Nut crunch against chocolate fudge' },
+      chocochip:        [{ id: 'almond',       reason: 'Nut crunch against chocolate fudge' },
                      { id: 'strawberry',   reason: 'Choco + berry — a crowd favourite' }],
     };
 
