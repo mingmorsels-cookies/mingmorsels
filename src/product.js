@@ -721,7 +721,9 @@ function initProductGallery() {
     ];
   } else if (currentProduct.id === 'strawberry') {
     images = [
-      { src: '/img-strawberry.jpg', alt: 'Strawberry Muffin' }
+      { src: '/img-strawberry.jpg', alt: 'Strawberry Muffin' },
+      { src: '/box-strawberry-1.jpg', alt: 'Strawberry Snack Pack' },
+      { src: '/box-strawberry-2.jpg', alt: 'Strawberry Box' }
     ];
   } else if (currentProduct.id === 'blackcurrant') {
     images = [
