@@ -86,7 +86,7 @@
         };
 
         const BOT_RESPONSES = {
-            all: { en: "Here is our complete artisan collection — <strong>6 Signature Cookies &amp; 4 Soft-Baked Muffins</strong>, all crafted with 100% natural ingredients:<br><br>🌰 <strong>Almond Cookies</strong> — Classic roasted almond crunch<br>🌹 <strong>Rose Petal Cookies</strong> — Damask rose &amp; cardamom aroma<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Hearty rolled oats &amp; walnuts<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment<br>🧠 <strong>Walnut Cookies</strong> — California walnuts &amp; butter crunch<br>🍃 <strong>Sugar-Free Walnut Cookies</strong> — 100% Sugar-free, sweetened with Stevia<br>🍓 <strong>Strawberry Muffins</strong> — Real Mahabaleshwar strawberries<br>🍍 <strong>Pineapple Muffins</strong> — Tropical pineapple &amp; honey glaze<br>🧈 <strong>Butterscotch Muffins</strong> — Caramelized crunch bits<br>🍫 <strong>Choco Muffins</strong> — Rich dark chocolate fudge cake<br><br>Tap any item above to learn more! ❆" },
+            all: { en: "Here is our complete artisan collection — <strong>6 Signature Cookies &amp; 4 Soft-Baked Muffins</strong>, all crafted with 100% natural ingredients:<br><br>🌰 <strong>Almond Cookies</strong> — Classic roasted almond crunch<br>🌹 <strong>Rose Petal Cookies</strong> — Damask rose &amp; cardamom aroma<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Hearty rolled oats &amp; walnuts<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment<br>🧠 <strong>Walnut Cookies</strong> — California walnuts &amp; butter crunch<br>🍃 <strong>Sugar-Free Walnut Cookies</strong> — 100% Sugar-free, sweetened with Stevia<br>🍓 <strong>Strawberry Muffins</strong> — Real Mahabaleshwar strawberries<br>🍍 <strong>Pinacolada Muffins</strong> — Tropical pineapple &amp; coconut<br>🧈 <strong>Butterscotch Muffins</strong> — Caramelized crunch bits<br>🍫 <strong>Chocochip Muffins</strong> — Rich dark chocolate chips<br><br>Tap any item above to learn more! ❆" },
             natural: { en: "At <strong>The Cookie Atelier</strong>, we take purity seriously:<br><br>✅ <strong>No Dalda</strong> — no hydrogenated fat<br>✅ <strong>No Artificial Preservatives</strong><br>✅ <strong>No Harmful Oils</strong><br>✅ <strong>No Artificial Colours or Flavours</strong><br>✅ <strong>Real Ingredients</strong> — real rose petals, raw honey, pure butter 🌿" },
             hello: { en: "Hello and welcome to <strong>The Cookie Atelier</strong>! 🍪✨<br><br>We craft 4 Signature Cookies &amp; 4 Soft Muffins with 100% natural ingredients. You can:<br>• Ask about any cookie or muffin<br>• Tell me your mood for a suggestion<br>• Ask about ingredients, nutrition, or gifting 🎁" },
             fallback: { en: "I didn't quite catch that. You can ask about any cookie or muffin, share your mood, or tap any flavour pill above! ❆" }
@@ -240,20 +240,22 @@
                     { id: 'strawberry_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 210, img: '/box-extra.jpg' }
                 ]
             },
-            pineapple: { 
-                name: "Pineapple Muffins", 
-                emoji: "🍍", 
-                img: "/img-pineapple.png?v=2", 
-                color: "#FFFBEA", 
-                review: "Golden oven-baked muffin crowned with juicy chunks of tropical pineapple and natural honey glaze. Refreshing and moist.", 
-                stars: 5, 
-                price: 145, 
-                nutrition: { Calories: "170 kcal", Carbs: "23g", Protein: "4.2g", Fat: "6.8g", Sugar: "9.5g", Fibre: "1.6g", Sodium: "38mg", Preservatives: "None" }, 
-                tags: ["Tropical Pineapple", "Honey Glazed", "Fresh Baked"],
+            pinacolada: { 
+                name: "Pinacolada Muffins", 
+                type: "muffin", 
+                emoji: "🍍",
+                img: "/img-pinacolada.jpg", 
+                color: "#FFFBEA",
+                nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" }, 
+                review: "Transport your palate to the tropics. Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.", 
+                ingredients: "Golden Pineapple Cubes, Toasted Coconut Flakes, Pure Cow Milk, Whole Flour, Honey, Vanilla.", 
+                price: 135,
+                popular: false,
+                tags: ["Tropical Pineapple", "Toasted Coconut", "Fresh Baked"],
                 boxes: [
-                    { id: 'pineapple_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 72, img: '/box-classic.jpg' },
-                    { id: 'pineapple_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 145, img: '/box-lush.jpg', popular: true },
-                    { id: 'pineapple_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 215, img: '/box-extra.jpg' }
+                    { id: 'pinacolada_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 75, img: '/box-pinacolada-1.jpg' },
+                    { id: 'pinacolada_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 150, img: '/box-pinacolada-2.jpg', popular: true },
+                    { id: 'pinacolada_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 225, img: '/box-pinacolada-2.jpg' }
                 ]
             },
             butterscotch: { 
@@ -272,25 +274,27 @@
                     { id: 'butterscotch_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 225, img: '/box-extra.jpg' }
                 ]
             },
-            choco: { 
-                name: "Choco Muffins", 
+            chocochip: { 
+                name: "Chocochip Muffins", 
+                type: "muffin", 
                 emoji: "🍫", 
-                img: "/img-choco.png?v=2", 
+                img: "/img-chocochip.jpg", 
                 color: "#F5ECE6", 
-                review: "Decadent dark chocolate fudge muffin baked with organic cocoa and dark chocolate chunks. Rich, gooey center for true chocoholics.", 
-                stars: 5, 
-                price: 155, 
-                nutrition: { Calories: "190 kcal", Carbs: "26g", Protein: "5.2g", Fat: "8.2g", Sugar: "12g", Fibre: "2.4g", Sodium: "50mg", Preservatives: "None" }, 
-                tags: ["Dark Choco", "Fudge Cake", "Decadent"],
+                nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "6.13g" },
+                review: "For true chocolate lovers. Rich 70% single-origin dark cocoa sponge packed with generous Belgian chocolate chips that melt when warmed.", 
+                ingredients: "70% Dark Belgian Chocolate, Dutch Cocoa Powder, Organic Butter, Raw Sugar, Whole Milk.", 
+                price: 150,
+                popular: true,
+                tags: ["Dark Choco", "Belgian Chips", "Decadent"],
                 boxes: [
-                    { id: 'choco_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 78, img: '/box-classic.jpg' },
-                    { id: 'choco_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 155, img: '/box-lush.jpg', popular: true },
-                    { id: 'choco_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 230, img: '/box-extra.jpg' }
+                    { id: 'chocochip_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 80, img: '/box-chocochip-1.jpg' },
+                    { id: 'chocochip_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 160, img: '/box-chocochip-2.jpg', popular: true },
+                    { id: 'chocochip_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 240, img: '/box-chocochip-2.jpg' }
                 ]
             }
         }
 
-        const MOOD_MAP = { happy: ["rose", "orange", "strawberry", "pineapple", "walnut"], tired: ["oatsnuts", "almond", "choco", "butterscotch", "walnut"], romantic: ["rose", "strawberry", "choco", "walnut"], stressed: ["almond", "oatsnuts", "butterscotch", "walnut"], health: ["walnut_sf", "oatsnuts", "almond", "rose", "walnut"], festive: ["rose", "orange", "butterscotch", "choco", "walnut"], sad: ["choco", "butterscotch", "almond", "walnut"], anxious: ["oatsnuts", "rose", "pineapple", "walnut_sf"], energetic: ["oatsnuts", "almond", "choco", "walnut"] };
+        const MOOD_MAP = { happy: ["rose", "orange", "strawberry", "pinacolada", "walnut"], tired: ["oatsnuts", "almond", "chocochip", "butterscotch", "walnut"], romantic: ["rose", "strawberry", "chocochip", "walnut"], stressed: ["almond", "oatsnuts", "butterscotch", "walnut"], health: ["walnut_sf", "oatsnuts", "almond", "rose", "walnut"], festive: ["rose", "orange", "butterscotch", "chocochip", "walnut"], sad: ["chocochip", "butterscotch", "almond", "walnut"], anxious: ["oatsnuts", "rose", "pinacolada", "walnut_sf"], energetic: ["oatsnuts", "almond", "chocochip", "walnut"] };
 
         function fuzzyMatch(query) {
             if (!query) return null;
@@ -568,7 +572,7 @@
             // AI Intent Recognition: Smart Recommendation
             if (/recommend|suggest|which one|best seller|favorite|popular|top/.test(q)) {
                 return {
-                    text: `✨ <strong>AI Flavour Recommendation</strong><br>Our #1 Bestseller is <strong>Roasted Almond Cookies</strong> (Nutty & Buttery) paired with <strong>Double Dark Choco Muffin</strong>!<br><br>Want a personalized match? <button onclick="window.top.document.getElementById('btn-open-flavor-quiz')?.click()" style="background:var(--gold); border:none; color:#120E0B; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">Take AI Flavor Quiz</button>`,
+                    text: `✨ <strong>AI Flavour Recommendation</strong><br>Our #1 Bestseller is <strong>Roasted Almond Cookies</strong> (Nutty & Buttery) paired with <strong>Double Dark Chocochip Muffin</strong>!<br><br>Want a personalized match? <button onclick="window.top.document.getElementById('btn-open-flavor-quiz')?.click()" style="background:var(--gold); border:none; color:#120E0B; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">Take AI Flavor Quiz</button>`,
                     card: 'almond'
                 };
             }
@@ -1031,7 +1035,7 @@
 
             // If switching to lush, remove any muffin selections
             if (size === 'lush') {
-                ['strawberry', 'pineapple', 'butterscotch', 'choco'].forEach(mKey => {
+                ['strawberry', 'pinacolada', 'butterscotch', 'chocochip'].forEach(mKey => {
                     delete giftSelected[mKey];
                 });
             }
@@ -1047,7 +1051,7 @@
             
             grid.innerHTML = Object.entries(COOKIES).map(([key, c]) => {
                 // If Lush box, hide muffins completely
-                const isMuffin = ['strawberry', 'pineapple', 'butterscotch', 'choco'].includes(key);
+                const isMuffin = ['strawberry', 'pinacolada', 'butterscotch', 'chocochip'].includes(key);
                 if (isLush && isMuffin) return '';
 
                 const qty = giftSelected[key] || 0;
@@ -1126,8 +1130,8 @@
         let currentQVKey = "";
         let currentQVTab = "nut";
 
-        const COOKIE_PRICES = { almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220, strawberry: 140, pineapple: 145, butterscotch: 150, choco: 155 };
-        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.png?v=2", pineapple: "/img-pineapple.png?v=2", butterscotch: "/img-butterscotch.jpg", choco: "/img-choco.png?v=2" };
+        const COOKIE_PRICES = { almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220, strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155 };
+        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.png?v=2", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg" };
 
         // ── Merge a main-site cart (array of {id,quantity,...}) into chatbot's cart ──
         function mergeMainCart(mainCartItems) {

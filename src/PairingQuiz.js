@@ -4,12 +4,12 @@ import './PairingQuiz.css';
 let onAddToCartCallback = null;
 
 const PRODUCT_VECTORS = {
-  almond: { id: 'almond', name: 'Roasted Almond Cookie', img: '/img-almond.png?v=2', price: 160, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
-  rose: { id: 'rose', name: 'Organic Rose Petal Cookie', img: '/img-rose.png?v=2', price: 150, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
-  oatsnuts: { id: 'oatsnuts', name: 'Oats & Roasted Nuts Cookie', img: '/img-oats.png?v=2', price: 160, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
-  orange: { id: 'orange', name: 'Zesty Orange Peel Cookie', img: '/img-orange.png?v=2', price: 160, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
-  strawberry: { id: 'strawberry', name: 'Wild Strawberry Muffin', img: '/img-strawberry.png?v=2', price: 165, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
-  choco: { id: 'choco', name: 'Double Dark Choco Muffin', img: '/img-choco.png?v=2', price: 175, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } }
+  almond: { id: 'almond', name: 'Roasted Almond Cookie', img: '/img-almond.png', price: 160, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  rose: { id: 'rose', name: 'Organic Rose Petal Cookie', img: '/img-rose.png', price: 150, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
+  oatsnuts: { id: 'oatsnuts', name: 'Oats & Roasted Nuts Cookie', img: '/img-oats.png', price: 160, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
+  orange: { id: 'orange', name: 'Zesty Orange Peel Cookie', img: '/img-orange.png', price: 160, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
+  strawberry: { id: 'strawberry', name: 'Wild Strawberry Muffin', img: '/img-strawberry.png', price: 165, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
+  chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 175, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } }
 };
 
 export function initPairingQuiz(onAddToCart) {
@@ -85,7 +85,7 @@ function injectQuizHTML() {
           </div>
 
           <div class="quiz-result-box">
-            <img id="quiz-result-img" src="/img-oats.png?v=2" alt="Recommendation" class="result-img" onerror="this.src='/img-almond.png?v=2'" />
+            <img id="quiz-result-img" src="/img-oats.png" alt="Recommendation" class="result-img" onerror="this.src='/img-almond.png'" />
             <h3 id="quiz-result-title" class="result-title">Roasted Almond Cookie</h3>
             <p id="quiz-result-reason" class="result-reason" style="font-size: 13px; color: #A39282; margin: 10px 0 16px;"></p>
             <button id="btn-quiz-add-cart" class="btn-add-box-cart">Add Perfect Pair to Order • ₹<span id="quiz-result-price">160</span></button>
@@ -153,7 +153,7 @@ function computeAIMatch(drink, vibe) {
     bestKey = drink === 'tea' ? 'oatsnuts' : 'almond';
     reason = "Rich roasted almonds & wholesome oats offer the ultimate satisfying crunch with your beverage.";
   } else if (vibe === 'soft_fudgy') {
-    bestKey = 'choco';
+    bestKey = 'chocochip';
     reason = "Double dark chocolate fudgy texture pairs effortlessly with cold milk or hot lattes.";
   } else if (vibe === 'fruity_zesty') {
     bestKey = drink === 'juice' ? 'strawberry' : 'orange';

@@ -211,12 +211,12 @@ const PRODUCTS_DATA = {
       { name: 'Vikram Joshi', location: 'Delhi', rating: 5, text: 'Ordered a 6-pack for tea party, everyone asked where I got them.' }
     ]
   },
-  pineapple: {
-    id: 'pineapple',
-    name: 'Pineapple Muffins',
+  pinacolada: {
+    id: 'pinacolada',
+    name: 'Pinacolada Muffins',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
-    tagline: 'Tropical golden pineapple bits folded into moist golden sponge topped with coconut flakes.',
+    tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.',
     price: 135,
     rating: '4.89',
     reviewsCount: 78,
@@ -224,7 +224,7 @@ const PRODUCTS_DATA = {
     desc: 'Transport your palate to the tropics. Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.',
     type: 'muffin',
     color: 0xF4A261,
-    nutrition: { cal: 170, carbs: '23g', protein: '4g', fat: '6.8g', sugar: '9.5g', fibre: '1.6g' },
+    nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
     ingredients: 'Golden Pineapple Cubes, Toasted Coconut Flakes, Pure Cow Milk, Whole Flour, Honey, Vanilla.',
     reviews: [
       { name: 'Rajesh Kumar', location: 'Kochi', rating: 5, text: 'Tangy and sweet pineapple flavor balance is spot on!' }
@@ -249,9 +249,9 @@ const PRODUCTS_DATA = {
       { name: 'Simran Gill', location: 'Chandigarh', rating: 5, text: 'The butterscotch crunch on top stays crispy! Incredible recipe.' }
     ]
   },
-  choco: {
-    id: 'choco',
-    name: 'Choco Muffins',
+  chocochip: {
+    id: 'chocochip',
+    name: 'Chocochip Muffins',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips.',
@@ -262,7 +262,7 @@ const PRODUCTS_DATA = {
     desc: 'For true chocolate lovers. Rich 70% single-origin dark cocoa sponge packed with generous Belgian chocolate chips that melt when warmed.',
     type: 'muffin',
     color: 0x4A2E2B,
-    nutrition: { cal: 195, carbs: '25g', protein: '5g', fat: '9g', sugar: '10g', fibre: '2.5g' },
+    nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '6.13g' },
     ingredients: '70% Dark Belgian Chocolate, Dutch Cocoa Powder, Organic Butter, Raw Sugar, Whole Milk.',
     reviews: [
       { name: 'Aakash Verma', location: 'Bengaluru', rating: 5, text: 'Warm this up for 10 seconds in microwave... pure molten chocolate bliss!' },
@@ -1061,14 +1061,14 @@ const PRODUCT_NAMES = {
   walnut: 'Walnut Cookies',
   walnut_sf: 'Sugar-Free Walnut Cookies',
   strawberry: 'Strawberry Muffins',
-  pineapple: 'Pineapple Muffins',
+  pinacolada: 'Pinacolada Muffins',
   butterscotch: 'Butterscotch Muffins',
-  choco: 'Choco Muffins'
+  chocochip: 'Chocochip Muffins'
 };
 
 const PRODUCT_PRICES = {
   almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220,
-  strawberry: 140, pineapple: 145, butterscotch: 150, choco: 155
+  strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155
 };
 
 function loadCartFromStorage() {
@@ -1210,9 +1210,9 @@ function renderCartDrawerBody() {
     walnut: '/img-walnut.png?v=2',
     walnut_sf: '/img-walnut-sf.png?v=2',
     strawberry: '/img-strawberry.png?v=2',
-    pineapple: '/img-pineapple.png?v=2',
+    pinacolada: '/img-pinacolada.jpg',
     butterscotch: '/img-butterscotch.jpg?v=2',
-    choco: '/img-choco.png?v=2'
+    chocochip: '/img-chocochip.jpg'
   };
 
   let subtotal = 0;
@@ -1666,7 +1666,7 @@ async function handleRazorpayProductCheckout() {
     const COOKIE_PRICES = {
       almond: 180, rose: 190, oatsnuts: 170, orange: 185,
       walnut: 210, walnut_sf: 220,
-      strawberry: 140, pineapple: 145, butterscotch: 150, choco: 155
+      strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155
     };
 
     const normalizedCart = items.map(item => {
@@ -1859,9 +1859,9 @@ function initLivePurchaseNotifications() {
     { name: 'Oats & Nuts Cookies', img: '/img-oats.png?v=2' },
     { name: 'Orange Peel Cookies', img: '/img-orange.png?v=2' },
     { name: 'Strawberry Muffins', img: '/img-strawberry.png?v=2' },
-    { name: 'Pineapple Muffins', img: '/img-pineapple.png?v=2' },
+    { name: 'Pinacolada Muffins', img: '/img-pinacolada.jpg' },
     { name: 'Butterscotch Muffins', img: '/img-butterscotch.jpg' },
-    { name: 'Choco Muffins', img: '/img-choco.png?v=2' }
+    { name: 'Chocochip Muffins', img: '/img-chocochip.jpg' }
   ];
 
   const timesAgo = ['Just now', '1 min ago', '2 mins ago', '3 mins ago'];

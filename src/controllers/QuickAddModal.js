@@ -244,37 +244,37 @@ export const PRODUCT_BOX_CATALOG = {
       }
     ]
   },
-  pineapple: {
-    id: 'pineapple',
-    name: 'Pineapple Muffins',
-    tagline: 'Golden butter sponge with caramelized pineapple chunks',
-    image: '/img-pineapple.png',
+  pinacolada: {
+    id: 'pinacolada',
+    name: 'Pinacolada Muffins',
+    tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes',
+    image: '/img-pinacolada.jpg',
     unitName: 'Muffins',
     boxes: [
       {
-        id: 'pineapple_single_2pcs',
+        id: 'pinacolada_single_2pcs',
         name: 'Snack Pack',
         countLabel: 'Up to 2 Muffins',
         price: 75,
-        desc: '2 Tangy tropical pineapple muffins baked fresh daily.',
-        img: '/box-classic.jpg'
+        desc: '2 Tropical muffins with coconut and pineapple.',
+        img: '/box-pinacolada-1.jpg'
       },
       {
-        id: 'pineapple_box_4pcs',
+        id: 'pinacolada_box_4pcs',
         name: 'Classic Box',
         countLabel: 'Up to 4 Muffins',
-        price: 145,
-        desc: '4 Golden pineapple muffins in artisanal box.',
-        img: '/box-lush.jpg',
+        price: 150,
+        desc: '4 Tropical bliss muffins in signature gift box.',
+        img: '/box-pinacolada-2.jpg',
         popular: true
       },
       {
-        id: 'pineapple_party_6pcs',
+        id: 'pinacolada_party_6pcs',
         name: 'Family Pack',
         countLabel: 'Up to 6 Muffins',
-        price: 215,
-        desc: '6 Tropical bakery muffins packed in signature box.',
-        img: '/box-extra.jpg'
+        price: 225,
+        desc: '6 Refreshing island-flavor muffins for sharing.',
+        img: '/box-pinacolada-2.jpg'
       }
     ]
   },
@@ -312,37 +312,37 @@ export const PRODUCT_BOX_CATALOG = {
       }
     ]
   },
-  choco: {
-    id: 'choco',
-    name: 'Double Choco Fudge Muffins',
-    tagline: 'Double chocolate fudge cake loaded with dark chocolate chunks',
-    image: '/img-choco.png',
+  chocochip: {
+    id: 'chocochip',
+    name: 'Chocochip Muffins',
+    tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips',
+    image: '/img-chocochip.jpg',
     unitName: 'Muffins',
     boxes: [
       {
-        id: 'choco_single_2pcs',
+        id: 'chocochip_single_2pcs',
         name: 'Snack Pack',
         countLabel: 'Up to 2 Muffins',
         price: 80,
-        desc: '2 Warm double-chocolate molten fudge muffins.',
-        img: '/box-classic.jpg'
+        desc: '2 Fudgy dark chocolate chip muffins.',
+        img: '/box-chocochip-1.jpg'
       },
       {
-        id: 'choco_box_4pcs',
+        id: 'chocochip_box_4pcs',
         name: 'Classic Box',
         countLabel: 'Up to 4 Muffins',
-        price: 155,
-        desc: '4 Decadent dark chocolate muffins in bakery box.',
-        img: '/box-lush.jpg',
+        price: 160,
+        desc: '4 Intense chocolate chip muffins in elegant packaging.',
+        img: '/box-chocochip-2.jpg',
         popular: true
       },
       {
-        id: 'choco_party_6pcs',
+        id: 'chocochip_party_6pcs',
         name: 'Family Pack',
         countLabel: 'Up to 6 Muffins',
-        price: 230,
-        desc: '6 Pure chocolate indulgence muffins for celebrations.',
-        img: '/box-extra.jpg'
+        price: 240,
+        desc: '6 Rich chocochip indulgence muffins for chocolate lovers.',
+        img: '/box-chocochip-2.jpg'
       }
     ]
   }
