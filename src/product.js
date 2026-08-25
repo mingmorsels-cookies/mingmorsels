@@ -701,36 +701,6 @@ function initProductGallery() {
       { src: '/almond/4.jpg', alt: 'Almond Features' },
       { src: '/almond/3.jpg', alt: 'Almond Mixed Platter' }
     ];
-  } else if (currentProduct.id === 'chocochip') {
-    images = [
-      { src: '/img-chocochip.jpg', alt: 'Chocochip Muffin' },
-      { src: '/box-chocochip-1.jpg', alt: 'Chocochip Snack Pack' },
-      { src: '/box-chocochip-2.jpg', alt: 'Chocochip Box' }
-    ];
-  } else if (currentProduct.id === 'pinacolada') {
-    images = [
-      { src: '/img-pinacolada.jpg', alt: 'Pinacolada Muffin' },
-      { src: '/box-pinacolada-1.jpg', alt: 'Pinacolada Snack Pack' },
-      { src: '/box-pinacolada-2.jpg', alt: 'Pinacolada Box' }
-    ];
-  } else if (currentProduct.id === 'butterscotch') {
-    images = [
-      { src: '/img-butterscotch.jpg', alt: 'Butterscotch Muffin' },
-      { src: '/box-butterscotch-1.jpg', alt: 'Butterscotch Snack Pack' },
-      { src: '/box-butterscotch-2.jpg', alt: 'Butterscotch Box' }
-    ];
-  } else if (currentProduct.id === 'strawberry') {
-    images = [
-      { src: '/img-strawberry.jpg', alt: 'Strawberry Muffin' },
-      { src: '/box-strawberry-1.jpg', alt: 'Strawberry Snack Pack' },
-      { src: '/box-strawberry-2.jpg', alt: 'Strawberry Box' }
-    ];
-  } else if (currentProduct.id === 'blackcurrant') {
-    images = [
-      { src: '/img-blackcurrant.jpg', alt: 'Black Currant Muffin' },
-      { src: '/box-blackcurrant-1.jpg', alt: 'Black Currant Snack Pack' },
-      { src: '/box-blackcurrant-2.jpg', alt: 'Black Currant Box' }
-    ];
   } else {
     images = [
       { src: `/img-${currentProduct.id}.jpg`, alt: currentProduct.name }
@@ -740,21 +710,26 @@ function initProductGallery() {
   if (images.length > 0) {
     mainImage.src = images[0].src;
     
-    images.forEach((imgObj, idx) => {
-      const img = document.createElement('img');
-      img.src = imgObj.src;
-      img.alt = imgObj.alt;
-      img.className = 'gallery-thumb';
-      if (idx === 0) img.classList.add('active');
-      
-      img.addEventListener('click', function() {
-        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        mainImage.src = this.src;
+    if (images.length > 1) {
+      images.forEach((imgObj, idx) => {
+        const img = document.createElement('img');
+        img.src = imgObj.src;
+        img.alt = imgObj.alt;
+        img.className = 'gallery-thumb';
+        if (idx === 0) img.classList.add('active');
+        
+        img.addEventListener('click', function() {
+          document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          mainImage.src = this.src;
+        });
+        
+        thumbsContainer.appendChild(img);
       });
-      
-      thumbsContainer.appendChild(img);
-    });
+    } else {
+      // Hide the thumbnail container if there are no extra thumbnails
+      thumbsContainer.style.display = 'none';
+    }
   }
 }
 
