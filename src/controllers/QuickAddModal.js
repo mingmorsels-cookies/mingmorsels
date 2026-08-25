@@ -282,7 +282,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'butterscotch',
     name: 'Butterscotch Muffins',
     tagline: 'Caramel cake base stuffed with crunchy butterscotch drops',
-    image: '/img-butterscotch.png',
+    image: '/img-butterscotch.jpg',
     unitName: 'Muffins',
     boxes: [
       {
@@ -291,7 +291,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Muffins',
         price: 75,
         desc: '2 Sweet caramel muffins with rich butterscotch crunch.',
-        img: '/box-classic.jpg'
+        img: '/box-butterscotch-1.jpg'
       },
       {
         id: 'butterscotch_box_4pcs',
@@ -299,7 +299,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 4 Muffins',
         price: 150,
         desc: '4 Rich butterscotch crunch muffins in gift packaging.',
-        img: '/box-lush.jpg',
+        img: '/box-butterscotch-2.jpg',
         popular: true
       },
       {
@@ -308,7 +308,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 6 Muffins',
         price: 225,
         desc: '6 Caramel indulgence muffins for sweet lovers.',
-        img: '/box-extra.jpg'
+        img: '/box-butterscotch-2.jpg'
       }
     ]
   },

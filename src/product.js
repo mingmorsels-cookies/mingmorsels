@@ -243,7 +243,7 @@ const PRODUCTS_DATA = {
     desc: 'An indulgent dessert muffin. Slow-caramelized jaggery and brown sugar sponge filled with golden butterscotch crunch nuggets.',
     type: 'muffin',
     color: 0xE76F51,
-    nutrition: { cal: 185, carbs: '26g', protein: '4.2g', fat: '8g', sugar: '11g', fibre: '1.1g' },
+    nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
     ingredients: 'House Butterscotch Praline, Caramelized Jaggery, Organic Butter, Milk, Wheat Sponge, Cinnamon.',
     reviews: [
       { name: 'Simran Gill', location: 'Chandigarh', rating: 5, text: 'The butterscotch crunch on top stays crispy! Incredible recipe.' }
@@ -1211,7 +1211,7 @@ function renderCartDrawerBody() {
     walnut_sf: '/img-walnut-sf.png?v=2',
     strawberry: '/img-strawberry.png?v=2',
     pineapple: '/img-pineapple.png?v=2',
-    butterscotch: '/img-butterscotch.png?v=2',
+    butterscotch: '/img-butterscotch.jpg?v=2',
     choco: '/img-choco.png?v=2'
   };
 
@@ -1860,7 +1860,7 @@ function initLivePurchaseNotifications() {
     { name: 'Orange Peel Cookies', img: '/img-orange.png?v=2' },
     { name: 'Strawberry Muffins', img: '/img-strawberry.png?v=2' },
     { name: 'Pineapple Muffins', img: '/img-pineapple.png?v=2' },
-    { name: 'Butterscotch Muffins', img: '/img-butterscotch.png?v=2' },
+    { name: 'Butterscotch Muffins', img: '/img-butterscotch.jpg' },
     { name: 'Choco Muffins', img: '/img-choco.png?v=2' }
   ];
 

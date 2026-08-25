@@ -259,12 +259,12 @@
             butterscotch: { 
                 name: "Butterscotch Muffins", 
                 emoji: "🧈", 
-                img: "/img-butterscotch.png?v=2", 
+                img: "/img-butterscotch.jpg", 
                 color: "#FDF4E5", 
                 review: "Rich caramel-infused muffin base studded with crunchy butterscotch bits and toasted cashew crunch. A comforting sweet indulgence.", 
                 stars: 5, 
                 price: 150, 
-                nutrition: { Calories: "182 kcal", Carbs: "25g", Protein: "4.8g", Fat: "7.5g", Sugar: "11g", Fibre: "1.5g", Sodium: "45mg", Preservatives: "None" }, 
+                nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g", Preservatives: "None" }, 
                 tags: ["Butterscotch Bits", "Desi Ghee", "Nut Rich"],
                 boxes: [
                     { id: 'butterscotch_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 75, img: '/box-classic.jpg' },
@@ -1127,7 +1127,7 @@
         let currentQVTab = "nut";
 
         const COOKIE_PRICES = { almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220, strawberry: 140, pineapple: 145, butterscotch: 150, choco: 155 };
-        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.png?v=2", pineapple: "/img-pineapple.png?v=2", butterscotch: "/img-butterscotch.png?v=2", choco: "/img-choco.png?v=2" };
+        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.png?v=2", pineapple: "/img-pineapple.png?v=2", butterscotch: "/img-butterscotch.jpg", choco: "/img-choco.png?v=2" };
 
         // ── Merge a main-site cart (array of {id,quantity,...}) into chatbot's cart ──
         function mergeMainCart(mainCartItems) {
