@@ -725,7 +725,9 @@ function initProductGallery() {
     ];
   } else if (currentProduct.id === 'blackcurrant') {
     images = [
-      { src: '/img-blackcurrant.jpg', alt: 'Black Currant Muffin' }
+      { src: '/img-blackcurrant.jpg', alt: 'Black Currant Muffin' },
+      { src: '/box-blackcurrant-1.jpg', alt: 'Black Currant Snack Pack' },
+      { src: '/box-blackcurrant-2.jpg', alt: 'Black Currant Box' }
     ];
   } else {
     images = [
