@@ -86,7 +86,7 @@
         };
 
         const BOT_RESPONSES = {
-            all: { en: "Here is our complete artisan collection — <strong>6 Signature Cookies &amp; 4 Soft-Baked Muffins</strong>, all crafted with 100% natural ingredients:<br><br>🌰 <strong>Almond Cookies</strong> — Classic roasted almond crunch<br>🌹 <strong>Rose Petal Cookies</strong> — Damask rose &amp; cardamom aroma<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Hearty rolled oats &amp; walnuts<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment<br>🧠 <strong>Walnut Cookies</strong> — California walnuts &amp; butter crunch<br>🍃 <strong>Sugar-Free Walnut Cookies</strong> — 100% Sugar-free, sweetened with Stevia<br>🍓 <strong>Strawberry Muffins</strong> — Real Mahabaleshwar strawberries<br>🍍 <strong>Pinacolada Muffins</strong> — Tropical pineapple &amp; coconut<br>🧈 <strong>Butterscotch Muffins</strong> — Caramelized crunch bits<br>🍫 <strong>Chocochip Muffins</strong> — Rich dark chocolate chips<br><br>Tap any item above to learn more! ❆" },
+            all: { en: "Here is our complete artisan collection — <strong>6 Signature Cookies &amp; 5 Soft-Baked Muffins</strong>, all crafted with 100% natural ingredients:<br><br>🌰 <strong>Almond Cookies</strong> — Classic roasted almond crunch<br>🌹 <strong>Rose Petal Cookies</strong> — Damask rose &amp; cardamom aroma<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Hearty rolled oats &amp; walnuts<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment<br>🧠 <strong>Walnut Cookies</strong> — California walnuts &amp; butter crunch<br>🍃 <strong>Sugar-Free Walnut Cookies</strong> — 100% Sugar-free, sweetened with Stevia<br>🍓 <strong>Strawberry Muffins</strong> — Real Mahabaleshwar strawberries<br>🍍 <strong>Pinacolada Muffins</strong> — Tropical pineapple &amp; coconut<br>🧈 <strong>Butterscotch Muffins</strong> — Caramelized crunch bits<br>🍫 <strong>Chocochip Muffins</strong> — Rich dark chocolate chips<br>🫐 <strong>Black Currant Muffin</strong> — Tangy black currants &amp; vanilla<br><br>Tap any item above to learn more! ❆" },
             natural: { en: "At <strong>The Cookie Atelier</strong>, we take purity seriously:<br><br>✅ <strong>No Dalda</strong> — no hydrogenated fat<br>✅ <strong>No Artificial Preservatives</strong><br>✅ <strong>No Harmful Oils</strong><br>✅ <strong>No Artificial Colours or Flavours</strong><br>✅ <strong>Real Ingredients</strong> — real rose petals, raw honey, pure butter 🌿" },
             hello: { en: "Hello and welcome to <strong>The Cookie Atelier</strong>! 🍪✨<br><br>We craft 4 Signature Cookies &amp; 4 Soft Muffins with 100% natural ingredients. You can:<br>• Ask about any cookie or muffin<br>• Tell me your mood for a suggestion<br>• Ask about ingredients, nutrition, or gifting 🎁" },
             fallback: { en: "I didn't quite catch that. You can ask about any cookie or muffin, share your mood, or tap any flavour pill above! ❆" }
@@ -291,10 +291,28 @@
                     { id: 'chocochip_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 160, img: '/box-chocochip-2.jpg', popular: true },
                     { id: 'chocochip_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 240, img: '/box-chocochip-2.jpg' }
                 ]
+            },
+            blackcurrant: { 
+                name: "Black Currant Muffin", 
+                type: "muffin", 
+                emoji: "🫐", 
+                img: "/img-blackcurrant.jpg", 
+                color: "#F1EDF5", 
+                nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" },
+                review: "A delicious whole wheat muffin bursting with tangy black currants. A perfect balance of sweetness and tartness.", 
+                ingredients: "Whole Wheat Flour (Atta), Milk Solids, Sugar, Seed Oil, Black Currant Pulp, Whole Black Raisins, Vanilla Flavour.", 
+                price: 150,
+                popular: false,
+                tags: ["Whole Wheat", "Tangy Currants", "No Margarine"],
+                boxes: [
+                    { id: 'blackcurrant_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 75, img: '/box-blackcurrant-1.jpg' },
+                    { id: 'blackcurrant_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 150, img: '/box-blackcurrant-2.jpg', popular: true },
+                    { id: 'blackcurrant_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 225, img: '/box-blackcurrant-2.jpg' }
+                ]
             }
         }
 
-        const MOOD_MAP = { happy: ["rose", "orange", "strawberry", "pinacolada", "walnut"], tired: ["oatsnuts", "almond", "chocochip", "butterscotch", "walnut"], romantic: ["rose", "strawberry", "chocochip", "walnut"], stressed: ["almond", "oatsnuts", "butterscotch", "walnut"], health: ["walnut_sf", "oatsnuts", "almond", "rose", "walnut"], festive: ["rose", "orange", "butterscotch", "chocochip", "walnut"], sad: ["chocochip", "butterscotch", "almond", "walnut"], anxious: ["oatsnuts", "rose", "pinacolada", "walnut_sf"], energetic: ["oatsnuts", "almond", "chocochip", "walnut"] };
+        const MOOD_MAP = { happy: ["rose", "orange", "strawberry", "pinacolada", "walnut"], tired: ["oatsnuts", "almond", "chocochip", "butterscotch", "blackcurrant"], romantic: ["rose", "strawberry", "chocochip", "walnut"], stressed: ["almond", "oatsnuts", "butterscotch", "walnut"], health: ["walnut_sf", "oatsnuts", "almond", "blackcurrant", "walnut"], festive: ["rose", "orange", "butterscotch", "chocochip", "walnut"], sad: ["chocochip", "butterscotch", "almond", "walnut"], anxious: ["oatsnuts", "rose", "pinacolada", "walnut_sf"], energetic: ["oatsnuts", "almond", "blackcurrant", "walnut"] };
 
         function fuzzyMatch(query) {
             if (!query) return null;
@@ -1035,7 +1053,7 @@
 
             // If switching to lush, remove any muffin selections
             if (size === 'lush') {
-                ['strawberry', 'pinacolada', 'butterscotch', 'chocochip'].forEach(mKey => {
+                ['strawberry', 'pinacolada', 'butterscotch', 'chocochip', 'blackcurrant'].forEach(mKey => {
                     delete giftSelected[mKey];
                 });
             }
@@ -1051,7 +1069,7 @@
             
             grid.innerHTML = Object.entries(COOKIES).map(([key, c]) => {
                 // If Lush box, hide muffins completely
-                const isMuffin = ['strawberry', 'pinacolada', 'butterscotch', 'chocochip'].includes(key);
+                const isMuffin = ['strawberry', 'pinacolada', 'butterscotch', 'chocochip', 'blackcurrant'].includes(key);
                 if (isLush && isMuffin) return '';
 
                 const qty = giftSelected[key] || 0;
@@ -1130,8 +1148,8 @@
         let currentQVKey = "";
         let currentQVTab = "nut";
 
-        const COOKIE_PRICES = { almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220, strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155 };
-        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.png?v=2", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg" };
+        const COOKIE_PRICES = { almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220, strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155, blackcurrant: 150 };
+        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.png?v=2", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
 
         // ── Merge a main-site cart (array of {id,quantity,...}) into chatbot's cart ──
         function mergeMainCart(mainCartItems) {

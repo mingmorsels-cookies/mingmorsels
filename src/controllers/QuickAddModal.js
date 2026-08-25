@@ -345,6 +345,40 @@ export const PRODUCT_BOX_CATALOG = {
         img: '/box-chocochip-2.jpg'
       }
     ]
+  },
+  blackcurrant: {
+    id: 'blackcurrant',
+    name: 'Black Currant Muffin',
+    tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
+    image: '/img-blackcurrant.jpg',
+    unitName: 'Muffins',
+    boxes: [
+      {
+        id: 'blackcurrant_single_2pcs',
+        name: 'Snack Pack',
+        countLabel: 'Up to 2 Muffins',
+        price: 75,
+        desc: '2 Delicious whole wheat black currant muffins.',
+        img: '/box-blackcurrant-1.jpg'
+      },
+      {
+        id: 'blackcurrant_box_4pcs',
+        name: 'Classic Box',
+        countLabel: 'Up to 4 Muffins',
+        price: 150,
+        desc: '4 Tangy black currant muffins in signature box.',
+        img: '/box-blackcurrant-2.jpg',
+        popular: true
+      },
+      {
+        id: 'blackcurrant_party_6pcs',
+        name: 'Family Pack',
+        countLabel: 'Up to 6 Muffins',
+        price: 225,
+        desc: '6 Beautifully baked black currant muffins for sharing.',
+        img: '/box-blackcurrant-2.jpg'
+      }
+    ]
   }
 };
 

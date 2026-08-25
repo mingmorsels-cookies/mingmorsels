@@ -268,6 +268,26 @@ const PRODUCTS_DATA = {
       { name: 'Aakash Verma', location: 'Bengaluru', rating: 5, text: 'Warm this up for 10 seconds in microwave... pure molten chocolate bliss!' },
       { name: 'Tara Bose', location: 'Kolkata', rating: 5, text: 'Rich dark chocolate taste without being overly sugary. Highest quality.' }
     ]
+  },
+  blackcurrant: {
+    id: 'blackcurrant',
+    name: 'Black Currant Muffin',
+    category: 'Handcrafted Muffin',
+    categoryLink: 'Muffins',
+    tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
+    price: 150,
+    rating: '4.85',
+    reviewsCount: 95,
+    badges: ['Whole Wheat', 'Tangy Currants', 'No Margarine'],
+    desc: 'A delicious whole wheat muffin bursting with tangy black currants. A perfect balance of sweetness and tartness.',
+    type: 'muffin',
+    color: 0x5C4B51,
+    nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
+    ingredients: 'Whole Wheat Flour (Atta), Milk Solids, Sugar, Seed Oil, Black Currant Pulp, Whole Black Raisins, Vanilla Flavour.',
+    reviews: [
+      { name: 'Priya K', location: 'Mumbai', rating: 5, text: 'Love the tangy bursts of black currant in every bite.' },
+      { name: 'Arjun S', location: 'Chennai', rating: 5, text: 'Great whole wheat option! Not too sweet.' }
+    ]
   }
 };
 
@@ -1063,12 +1083,13 @@ const PRODUCT_NAMES = {
   strawberry: 'Strawberry Muffins',
   pinacolada: 'Pinacolada Muffins',
   butterscotch: 'Butterscotch Muffins',
-  chocochip: 'Chocochip Muffins'
+  chocochip: 'Chocochip Muffins',
+  blackcurrant: 'Black Currant Muffin'
 };
 
 const PRODUCT_PRICES = {
   almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220,
-  strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155
+  strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155, blackcurrant: 150
 };
 
 function loadCartFromStorage() {
@@ -1212,7 +1233,8 @@ function renderCartDrawerBody() {
     strawberry: '/img-strawberry.png?v=2',
     pinacolada: '/img-pinacolada.jpg',
     butterscotch: '/img-butterscotch.jpg?v=2',
-    chocochip: '/img-chocochip.jpg'
+    chocochip: '/img-chocochip.jpg',
+    blackcurrant: '/img-blackcurrant.jpg'
   };
 
   let subtotal = 0;
@@ -1666,7 +1688,7 @@ async function handleRazorpayProductCheckout() {
     const COOKIE_PRICES = {
       almond: 180, rose: 190, oatsnuts: 170, orange: 185,
       walnut: 210, walnut_sf: 220,
-      strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155
+      strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155, blackcurrant: 150
     };
 
     const normalizedCart = items.map(item => {
@@ -1861,7 +1883,8 @@ function initLivePurchaseNotifications() {
     { name: 'Strawberry Muffins', img: '/img-strawberry.png?v=2' },
     { name: 'Pinacolada Muffins', img: '/img-pinacolada.jpg' },
     { name: 'Butterscotch Muffins', img: '/img-butterscotch.jpg' },
-    { name: 'Chocochip Muffins', img: '/img-chocochip.jpg' }
+    { name: 'Chocochip Muffins', img: '/img-chocochip.jpg' },
+    { name: 'Black Currant Muffin', img: '/img-blackcurrant.jpg' }
   ];
 
   const timesAgo = ['Just now', '1 min ago', '2 mins ago', '3 mins ago'];
