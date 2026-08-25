@@ -701,9 +701,35 @@ function initProductGallery() {
       { src: '/almond/4.jpg', alt: 'Almond Features' },
       { src: '/almond/3.jpg', alt: 'Almond Mixed Platter' }
     ];
+  } else if (currentProduct.id === 'chocochip') {
+    images = [
+      { src: '/img-chocochip.jpg', alt: 'Chocochip Muffin' },
+      { src: '/box-chocochip-1.jpg', alt: 'Chocochip Snack Pack' },
+      { src: '/box-chocochip-2.jpg', alt: 'Chocochip Box' }
+    ];
+  } else if (currentProduct.id === 'pinacolada') {
+    images = [
+      { src: '/img-pinacolada.jpg', alt: 'Pinacolada Muffin' },
+      { src: '/box-pinacolada-1.jpg', alt: 'Pinacolada Snack Pack' },
+      { src: '/box-pinacolada-2.jpg', alt: 'Pinacolada Box' }
+    ];
+  } else if (currentProduct.id === 'butterscotch') {
+    images = [
+      { src: '/img-butterscotch.jpg', alt: 'Butterscotch Muffin' },
+      { src: '/box-butterscotch-1.jpg', alt: 'Butterscotch Snack Pack' },
+      { src: '/box-butterscotch-2.jpg', alt: 'Butterscotch Box' }
+    ];
+  } else if (currentProduct.id === 'strawberry') {
+    images = [
+      { src: '/img-strawberry.jpg', alt: 'Strawberry Muffin' }
+    ];
+  } else if (currentProduct.id === 'blackcurrant') {
+    images = [
+      { src: '/img-blackcurrant.jpg', alt: 'Black Currant Muffin' }
+    ];
   } else {
     images = [
-      { src: `/img-${currentProduct.id}.png`, alt: currentProduct.name }
+      { src: `/img-${currentProduct.id}.jpg`, alt: currentProduct.name }
     ];
   }
 
@@ -907,11 +933,11 @@ function openProductBoxLightbox(boxKey) {
 }
 
 function initPackagingSelector() {
-  const classicCard = document.getElementById('modal-pkg-classic');
-  const lushCard = document.getElementById('modal-pkg-lush');
-  const warningMsg = document.getElementById('modal-pkg-warning');
-  const deselectContainer = document.getElementById('modal-pkg-deselect-container');
-  const btnDeselect = document.getElementById('btn-modal-deselect-box');
+  const classicCard = document.getElementById('pkg-card-classic');
+  const lushCard = document.getElementById('pkg-card-lush');
+  const warningMsg = document.getElementById('pkg-warning-msg');
+  const deselectContainer = document.getElementById('pkg-deselect-container');
+  const btnDeselect = document.getElementById('btn-deselect-box');
   const packagingGrid = document.querySelector('.packaging-cards-grid');
 
   // If viewing a muffin, completely remove the Lush Luxury Box option
