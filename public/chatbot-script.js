@@ -225,19 +225,21 @@
                 ]
             },
             strawberry: { 
-                name: "Strawberry Muffins", 
+                name: "Strawberry Muffin", 
+                type: "muffin", 
                 emoji: "🍓", 
-                img: "/img-strawberry.png?v=2", 
-                color: "#FFEAEB", 
-                review: "Soft and airy sponge folded with real farm-fresh Mahabaleshwar strawberries and compote. Light, fruity, and naturally sweet.", 
-                stars: 5, 
+                img: "/img-strawberry.jpg", 
+                color: "#FCEEEE", 
+                nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" },
+                review: "Soft, moist cake loaded with real strawberry compote and topped with a buttery streusel crumble.", 
+                ingredients: "Fresh Strawberry Compote, Organic Wheat Flour, Unsalted Butter, Pure Vanilla, Brown Sugar.", 
                 price: 140, 
-                nutrition: { Calories: "175 kcal", Carbs: "24g", Protein: "4.5g", Fat: "7g", Sugar: "10g", Fibre: "1.8g", Sodium: "40mg", Preservatives: "None" }, 
-                tags: ["Real Fruit", "Soft Baked", "Zero Preservatives"],
+                popular: false,
+                tags: ["Real Fruit", "Farm Fresh", "Crumble Top"],
                 boxes: [
-                    { id: 'strawberry_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 70, img: '/box-classic.jpg' },
-                    { id: 'strawberry_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 140, img: '/box-lush.jpg', popular: true },
-                    { id: 'strawberry_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 210, img: '/box-extra.jpg' }
+                    { id: 'strawberry_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 70, img: '/box-strawberry-1.jpg' },
+                    { id: 'strawberry_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 140, img: '/box-strawberry-2.jpg', popular: true },
+                    { id: 'strawberry_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 210, img: '/box-strawberry-2.jpg' }
                 ]
             },
             pinacolada: { 
@@ -1149,7 +1151,7 @@
         let currentQVTab = "nut";
 
         const COOKIE_PRICES = { almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220, strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155, blackcurrant: 150 };
-        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.png?v=2", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
+        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.jpg", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
 
         // ── Merge a main-site cart (array of {id,quantity,...}) into chatbot's cart ──
         function mergeMainCart(mainCartItems) {

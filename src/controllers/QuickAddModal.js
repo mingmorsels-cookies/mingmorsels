@@ -212,9 +212,9 @@ export const PRODUCT_BOX_CATALOG = {
   },
   strawberry: {
     id: 'strawberry',
-    name: 'Strawberry Muffins',
-    tagline: 'Soft, moist cake with strawberry compote & crumble top',
-    image: '/img-strawberry.png',
+    name: 'Strawberry Muffin',
+    tagline: 'Delicate vanilla sponge infused with fresh Mahabaleshwar strawberries',
+    image: '/img-strawberry.jpg',
     unitName: 'Muffins',
     boxes: [
       {
@@ -223,7 +223,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Muffins',
         price: 70,
         desc: '2 Fresh warm strawberry muffins with crumble glaze.',
-        img: '/box-classic.jpg'
+        img: '/box-strawberry-1.jpg'
       },
       {
         id: 'strawberry_box_4pcs',
@@ -231,7 +231,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 4 Muffins',
         price: 140,
         desc: '4 Soft strawberry compote muffins in bakery treat box.',
-        img: '/box-lush.jpg',
+        img: '/box-strawberry-2.jpg',
         popular: true
       },
       {
