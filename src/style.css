@@ -2568,10 +2568,10 @@ body {
 
 .cart-drawer {
   position: fixed;
-  right: -420px;
+  right: -520px;
   top: 0;
-  width: 400px;
-  max-width: 90vw;
+  width: 480px;
+  max-width: 95vw;
   height: 100vh;
   background: #FFFDF9;
   color: #1A120B;
