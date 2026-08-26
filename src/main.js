@@ -17,7 +17,21 @@ import { initPairingQuiz, showPairingQuiz } from './PairingQuiz.js';
 import { initSocialGallery } from './SocialGallery.js';
 import { initNetworkMonitor, saveActiveSession, getSavedSession, showRecoveryBanner, SessionType } from './sessionState.js';
 
-import { openQuickAddModal } from './controllers/QuickAddModal.js';
+import { openQuickAddModal, PRODUCT_BOX_CATALOG } from './controllers/QuickAddModal.js';
+
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  Object.values(PRODUCT_BOX_CATALOG).forEach(product => {
+    product.boxes?.forEach(box => {
+      if (box.img) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = box.img;
+        document.head.appendChild(link);
+      }
+    });
+  });
+}
 import { init3DEnvironment } from './controllers/ThreeController.js';
 
 // Prevent browser scroll restoration miscalculations & start at Hero
