@@ -221,7 +221,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'strawberry_single_2pcs',
         name: 'Snack Pack',
         countLabel: 'Up to 2 Muffins',
-        price: 70,
+        price:  80,
         desc: '2 Fresh warm strawberry muffins with crumble glaze.',
         img: ''
       },
@@ -229,7 +229,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'strawberry_box_4pcs',
         name: 'Classic Box',
         countLabel: 'Up to 4 Muffins',
-        price: 140,
+        price:  160,
         desc: '4 Soft strawberry compote muffins in bakery treat box.',
         img: '',
         popular: true
@@ -238,7 +238,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'strawberry_party_6pcs',
         name: 'Family Pack',
         countLabel: 'Up to 6 Muffins',
-        price: 210,
+        price:  240,
         desc: '6 Gourmet muffins ideal for family sharing and tea.',
         img: '/box-extra.jpg'
       }
@@ -255,7 +255,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'pinacolada_single_2pcs',
         name: 'Snack Pack',
         countLabel: 'Up to 2 Muffins',
-        price: 75,
+        price:  80,
         desc: '2 Tropical muffins with coconut and pineapple.',
         img: ''
       },
@@ -263,7 +263,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'pinacolada_box_4pcs',
         name: 'Classic Box',
         countLabel: 'Up to 4 Muffins',
-        price: 150,
+        price:  160,
         desc: '4 Tropical bliss muffins in signature gift box.',
         img: '',
         popular: true
@@ -272,7 +272,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'pinacolada_party_6pcs',
         name: 'Family Pack',
         countLabel: 'Up to 6 Muffins',
-        price: 225,
+        price:  240,
         desc: '6 Refreshing island-flavor muffins for sharing.',
         img: ''
       }
@@ -289,7 +289,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'butterscotch_single_2pcs',
         name: 'Snack Pack',
         countLabel: 'Up to 2 Muffins',
-        price: 75,
+        price:  80,
         desc: '2 Sweet caramel muffins with rich butterscotch crunch.',
         img: ''
       },
@@ -297,7 +297,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'butterscotch_box_4pcs',
         name: 'Classic Box',
         countLabel: 'Up to 4 Muffins',
-        price: 150,
+        price:  160,
         desc: '4 Rich butterscotch crunch muffins in gift packaging.',
         img: '',
         popular: true
@@ -306,7 +306,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'butterscotch_party_6pcs',
         name: 'Family Pack',
         countLabel: 'Up to 6 Muffins',
-        price: 225,
+        price:  240,
         desc: '6 Caramel indulgence muffins for sweet lovers.',
         img: ''
       }
@@ -323,7 +323,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'chocochip_single_2pcs',
         name: 'Snack Pack',
         countLabel: 'Up to 2 Muffins',
-        price: 80,
+        price:  80,
         desc: '2 Fudgy dark chocolate chip muffins.',
         img: ''
       },
@@ -331,7 +331,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'chocochip_box_4pcs',
         name: 'Classic Box',
         countLabel: 'Up to 4 Muffins',
-        price: 160,
+        price:  160,
         desc: '4 Intense chocolate chip muffins in elegant packaging.',
         img: '',
         popular: true
@@ -340,7 +340,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'chocochip_party_6pcs',
         name: 'Family Pack',
         countLabel: 'Up to 6 Muffins',
-        price: 240,
+        price:  240,
         desc: '6 Rich chocochip indulgence muffins for chocolate lovers.',
         img: ''
       }
@@ -357,7 +357,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'blackcurrant_single_2pcs',
         name: 'Snack Pack',
         countLabel: 'Up to 2 Muffins',
-        price: 75,
+        price:  80,
         desc: '2 Delicious whole wheat black currant muffins.',
         img: ''
       },
@@ -365,7 +365,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'blackcurrant_box_4pcs',
         name: 'Classic Box',
         countLabel: 'Up to 4 Muffins',
-        price: 150,
+        price:  160,
         desc: '4 Tangy black currant muffins in signature box.',
         img: '',
         popular: true
@@ -374,7 +374,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'blackcurrant_party_6pcs',
         name: 'Family Pack',
         countLabel: 'Up to 6 Muffins',
-        price: 225,
+        price:  240,
         desc: '6 Beautifully baked black currant muffins for sharing.',
         img: ''
       }
