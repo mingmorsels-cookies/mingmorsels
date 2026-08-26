@@ -214,7 +214,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'strawberry',
     name: 'Strawberry Muffin',
     tagline: 'Delicate vanilla sponge infused with fresh Mahabaleshwar strawberries',
-    image: '/img-strawberry.jpg',
+    image: '',
     unitName: 'Muffins',
     boxes: [
       {
@@ -223,7 +223,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Muffins',
         price: 70,
         desc: '2 Fresh warm strawberry muffins with crumble glaze.',
-        img: '/box-strawberry-1.jpg'
+        img: ''
       },
       {
         id: 'strawberry_box_4pcs',
@@ -231,7 +231,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 4 Muffins',
         price: 140,
         desc: '4 Soft strawberry compote muffins in bakery treat box.',
-        img: '/box-strawberry-2.jpg',
+        img: '',
         popular: true
       },
       {
@@ -248,7 +248,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'pinacolada',
     name: 'Pinacolada Muffins',
     tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes',
-    image: '/img-pinacolada.jpg',
+    image: '',
     unitName: 'Muffins',
     boxes: [
       {
@@ -257,7 +257,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Muffins',
         price: 75,
         desc: '2 Tropical muffins with coconut and pineapple.',
-        img: '/box-pinacolada-1.jpg'
+        img: ''
       },
       {
         id: 'pinacolada_box_4pcs',
@@ -265,7 +265,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 4 Muffins',
         price: 150,
         desc: '4 Tropical bliss muffins in signature gift box.',
-        img: '/box-pinacolada-2.jpg',
+        img: '',
         popular: true
       },
       {
@@ -274,7 +274,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 6 Muffins',
         price: 225,
         desc: '6 Refreshing island-flavor muffins for sharing.',
-        img: '/box-pinacolada-2.jpg'
+        img: ''
       }
     ]
   },
@@ -282,7 +282,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'butterscotch',
     name: 'Butterscotch Muffins',
     tagline: 'Caramel cake base stuffed with crunchy butterscotch drops',
-    image: '/img-butterscotch.jpg',
+    image: '',
     unitName: 'Muffins',
     boxes: [
       {
@@ -291,7 +291,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Muffins',
         price: 75,
         desc: '2 Sweet caramel muffins with rich butterscotch crunch.',
-        img: '/box-butterscotch-1.jpg'
+        img: ''
       },
       {
         id: 'butterscotch_box_4pcs',
@@ -299,7 +299,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 4 Muffins',
         price: 150,
         desc: '4 Rich butterscotch crunch muffins in gift packaging.',
-        img: '/box-butterscotch-2.jpg',
+        img: '',
         popular: true
       },
       {
@@ -308,7 +308,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 6 Muffins',
         price: 225,
         desc: '6 Caramel indulgence muffins for sweet lovers.',
-        img: '/box-butterscotch-2.jpg'
+        img: ''
       }
     ]
   },
@@ -316,7 +316,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'chocochip',
     name: 'Chocochip Muffins',
     tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips',
-    image: '/img-chocochip.jpg',
+    image: '',
     unitName: 'Muffins',
     boxes: [
       {
@@ -325,7 +325,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Muffins',
         price: 80,
         desc: '2 Fudgy dark chocolate chip muffins.',
-        img: '/box-chocochip-1.jpg'
+        img: ''
       },
       {
         id: 'chocochip_box_4pcs',
@@ -333,7 +333,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 4 Muffins',
         price: 160,
         desc: '4 Intense chocolate chip muffins in elegant packaging.',
-        img: '/box-chocochip-2.jpg',
+        img: '',
         popular: true
       },
       {
@@ -342,7 +342,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 6 Muffins',
         price: 240,
         desc: '6 Rich chocochip indulgence muffins for chocolate lovers.',
-        img: '/box-chocochip-2.jpg'
+        img: ''
       }
     ]
   },
@@ -350,7 +350,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'blackcurrant',
     name: 'Black Currant Muffin',
     tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
-    image: '/img-blackcurrant.jpg',
+    image: '',
     unitName: 'Muffins',
     boxes: [
       {
@@ -359,7 +359,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Muffins',
         price: 75,
         desc: '2 Delicious whole wheat black currant muffins.',
-        img: '/box-blackcurrant-1.jpg'
+        img: ''
       },
       {
         id: 'blackcurrant_box_4pcs',
@@ -367,7 +367,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 4 Muffins',
         price: 150,
         desc: '4 Tangy black currant muffins in signature box.',
-        img: '/box-blackcurrant-2.jpg',
+        img: '',
         popular: true
       },
       {
@@ -376,7 +376,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 6 Muffins',
         price: 225,
         desc: '6 Beautifully baked black currant muffins for sharing.',
-        img: '/box-blackcurrant-2.jpg'
+        img: ''
       }
     ]
   }
@@ -674,12 +674,12 @@ function renderBoxOptionCards() {
           background: #EFE9E0;
           margin-bottom: 10px;
         ">
-          <img src="${box.img}" alt="${box.name}" fetchpriority="high" decoding="async" style="
+          ${box.img ? `<img src="${box.img}" alt="${box.name}" fetchpriority="high" decoding="async" style="
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-          " onerror="this.src='/img-almond.png'" />
+          " />` : ''}
 
           <!-- Selected Check Badge -->
           ${isSelected ? `
