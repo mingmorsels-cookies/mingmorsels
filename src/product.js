@@ -1150,7 +1150,7 @@ const PRODUCT_NAMES = {
 
 const PRODUCT_PRICES = {
   almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220,
-  strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155, blackcurrant: 150
+  strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40
 };
 
 function loadCartFromStorage() {
@@ -1775,7 +1775,7 @@ async function handleRazorpayProductCheckout() {
     const COOKIE_PRICES = {
       almond: 180, rose: 190, oatsnuts: 170, orange: 185,
       walnut: 210, walnut_sf: 220,
-      strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155, blackcurrant: 150
+      strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40
     };
 
     const normalizedCart = items.map(item => {
