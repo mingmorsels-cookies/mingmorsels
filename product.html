@@ -240,7 +240,24 @@
         <!-- Left Column: Product Image Gallery -->
         <div class="product-gallery-col">
           <div class="product-main-image-wrapper">
-            <img id="product-main-image" src="" alt="Product Image" loading="lazy">
+            <img id="product-main-image" src="" alt="Product Image" fetchpriority="high" decoding="async">
+            <script>
+              (function() {
+                var p = new URLSearchParams(window.location.search).get('id');
+                var m = {
+                  'orange': '/orange-peel/10.jpg',
+                  'oatsnuts': '/oats-nuts/2.jpg',
+                  'rose': '/rose-petal/2.jpg',
+                  'almond': '/almond/2.jpg',
+                  'chocochip': '/img-chocochip.jpg',
+                  'blackcurrant': '/img-blackcurrant.jpg',
+                  'pinacolada': '/img-pinacolada.jpg',
+                  'butterscotch': '/img-butterscotch.jpg',
+                  'strawberry': '/img-strawberry.jpg'
+                };
+                if (p && m[p]) { document.getElementById('product-main-image').src = m[p]; }
+              })();
+            </script>
           </div>
           <div class="product-thumbnails">
           </div>
