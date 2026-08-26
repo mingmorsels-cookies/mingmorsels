@@ -105,7 +105,19 @@ class CartStore {
     return this.items.reduce((total, item) => {
       const price = Number(item.price) || 180;
       const qty = Number(item.quantity) || 1;
-      return total + (price * qty);
+      let lineTotal = price * qty;
+      
+      const boxPrice = Number(item.boxPrice) || 0;
+      const boxCapacity = Number(item.boxCapacity) || 0;
+      const itemCountPerUnit = Number(item.itemCountPerUnit) || 1;
+      
+      if (boxPrice > 0 && boxCapacity > 0) {
+        const totalItems = qty * itemCountPerUnit;
+        const boxesNeeded = Math.ceil(totalItems / boxCapacity);
+        lineTotal += boxesNeeded * boxPrice;
+      }
+      
+      return total + lineTotal;
     }, 0);
   }
 
@@ -140,7 +152,10 @@ class CartStore {
         price: Number(newItem.price) > 0 ? Number(newItem.price) : 180,
         quantity: Number(newItem.quantity) || 1,
         image: newItem.image || '/logo.png',
-        packaging: packaging
+        packaging: packaging,
+        boxPrice: Number(newItem.boxPrice) || 0,
+        boxCapacity: Number(newItem.boxCapacity) || 0,
+        itemCountPerUnit: Number(newItem.itemCountPerUnit) || 1
       });
     }
 

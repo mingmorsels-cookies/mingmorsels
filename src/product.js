@@ -863,14 +863,23 @@ function initPackSizeSelector() {
 
 function updatePriceDisplay() {
   let boxExtra = 0;
-  if (selectedPackaging === 'classic') boxExtra = 15;
-  else if (selectedPackaging === 'lush') boxExtra = 130;
+  let boxCapacity = 0;
+  if (selectedPackaging === 'classic') { boxExtra = 15; boxCapacity = 10; }
+  else if (selectedPackaging === 'lush') { boxExtra = 130; boxCapacity = 4; }
 
   const boxOptions = COOKIE_BOX_OPTIONS[currentProduct.id];
   const basePrice = (boxOptions && selectedBoxOption) ? selectedBoxOption.price : (currentProduct.price || 160);
-  const totalUnit = basePrice + boxExtra;
+  
+  const itemCountPerUnit = (currentProduct.type === 'muffin') ? 1 : (selectedBoxOption ? (selectedBoxOption.cookieCount || 1) : 1);
+  const totalItems = selectedQuantity * itemCountPerUnit;
+  
+  let totalBoxPrice = 0;
+  if (boxCapacity > 0) {
+    totalBoxPrice = Math.ceil(totalItems / boxCapacity) * boxExtra;
+  }
+
   const btnTotal = document.getElementById('p-btn-total-price');
-  if (btnTotal) btnTotal.textContent = `₹${totalUnit * selectedQuantity}`;
+  if (btnTotal) btnTotal.textContent = `₹${(basePrice * selectedQuantity) + totalBoxPrice}`;
 
   const deselectContainer = document.getElementById('pkg-deselect-container');
   if (deselectContainer) {
@@ -1174,15 +1183,18 @@ function loadCartFromStorage() {
 
 function addToCart(product, qty) {
   let boxExtra = 0;
+  let boxCapacity = 0;
   let boxName = 'Standard Brand Box';
   let boxImg = null;
 
   if (selectedPackaging === 'classic') {
     boxExtra = 15;
+    boxCapacity = 10;
     boxName = 'Signature Treat Box (+₹15)';
     boxImg = '/box-classic.jpg';
   } else if (selectedPackaging === 'lush') {
     boxExtra = 130;
+    boxCapacity = 4;
     boxName = 'Lush Luxury Box (+₹130)';
     boxImg = '/box-lush.jpg';
   }
@@ -1191,6 +1203,7 @@ function addToCart(product, qty) {
   let cartItemName = product.name;
   let cartItemImg = `/img-${product.id}.png`;
   let unitPrice = Number(product.price || 160);
+  let itemCountPerUnit = product.type === 'muffin' ? 1 : 1;
 
   const boxOptions = COOKIE_BOX_OPTIONS[product.id];
   if (boxOptions && selectedBoxOption) {
@@ -1198,14 +1211,13 @@ function addToCart(product, qty) {
     cartItemId = selectedBoxOption.id;
     cartItemName = `${product.name} (${selectedBoxOption.name} - ${selectedBoxOption.countLabel})`;
     cartItemImg = selectedBoxOption.img;
+    itemCountPerUnit = selectedBoxOption.cookieCount || 1;
   }
 
   if (selectedPackaging !== 'none') {
     cartItemId = `${cartItemId}_${selectedPackaging}`;
     cartItemName = `${cartItemName} + ${boxName}`;
   }
-
-  unitPrice += boxExtra;
 
   cartStore.addItem({
     id: cartItemId,
@@ -1215,7 +1227,10 @@ function addToCart(product, qty) {
     quantity: qty,
     packaging: selectedPackaging !== 'none' ? boxName : 'Standard Packaging',
     image: cartItemImg,
-    boxImage: boxImg
+    boxImage: boxImg,
+    boxPrice: boxExtra,
+    boxCapacity: boxCapacity,
+    itemCountPerUnit: itemCountPerUnit
   });
 
   updateCartBadge();
@@ -1291,10 +1306,30 @@ function renderCartDrawerBody() {
 
   let subtotal = 0;
   body.innerHTML = cart.map(item => {
-    const itemTotal = (item.price || 180) * (item.quantity || 1);
-    subtotal += itemTotal;
+    const price = Number(item.price) || 180;
+    const qty = Number(item.quantity) || 1;
+    let lineTotal = price * qty;
+    
+    const boxPrice = Number(item.boxPrice) || 0;
+    const boxCapacity = Number(item.boxCapacity) || 0;
+    const itemCountPerUnit = Number(item.itemCountPerUnit) || 1;
+    
+    let boxesNeeded = 0;
+    if (boxPrice > 0 && boxCapacity > 0) {
+      const totalItems = qty * itemCountPerUnit;
+      boxesNeeded = Math.ceil(totalItems / boxCapacity);
+      lineTotal += boxesNeeded * boxPrice;
+    }
+    
+    subtotal += lineTotal;
     const baseKey = String(item.productId || item.id || '').split('_')[0].toLowerCase();
     const imgSrc = item.image || item.img || PRODUCT_IMAGE_MAP[baseKey] || '/img-almond.png?v=2';
+
+    let priceDetailsHTML = `₹${price} × ${qty}`;
+    if (boxesNeeded > 0) {
+      priceDetailsHTML += ` <br><span style="font-size: 11px; color: #a38c75;">+ Packaging: ₹${boxPrice} × ${boxesNeeded}</span>`;
+    }
+    priceDetailsHTML += `<br><strong>Total: ₹${lineTotal}</strong>`;
 
     return `
       <div class="cart-item-row" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06);">
@@ -1304,7 +1339,7 @@ function renderCartDrawerBody() {
           </div>
           <div class="cart-item-info">
             <h5 style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #3D2000;">${item.name}</h5>
-            <span class="cart-item-price" style="font-size: 13px; color: #705840;">₹${item.price} × ${item.quantity} = ₹${itemTotal}</span>
+            <span class="cart-item-price" style="font-size: 13px; color: #705840; line-height: 1.4; display: inline-block;">${priceDetailsHTML}</span>
           </div>
         </div>
         <div class="cart-item-actions" style="display: flex; align-items: center; gap: 8px;">
