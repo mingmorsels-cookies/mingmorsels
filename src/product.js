@@ -197,7 +197,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Delicate vanilla sponge infused with fresh Mahabaleshwar strawberries',
-    price:  160,
+    price:   40,
     rating: '4.95',
     reviewsCount: 130,
     badges: ['Real Fruit', 'Farm Fresh', 'Crumble Top'],
@@ -217,7 +217,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.',
-    price:  160,
+    price:   40,
     rating: '4.89',
     reviewsCount: 78,
     badges: ['Tropical Fruit', 'Golden Sponge', 'Toasted Coconut'],
@@ -236,7 +236,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Rich caramelized brown sugar sponge studded with crunchy butterscotch praline morsels.',
-    price:  160,
+    price:   40,
     rating: '4.96',
     reviewsCount: 156,
     badges: ['Caramel Praline', 'Rich Butter', 'Baker Special'],
@@ -255,7 +255,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips.',
-    price:  160,
+    price:   40,
     rating: '4.98',
     reviewsCount: 210,
     badges: ['70% Dark Cocoa', 'Belgian Choco', 'Molten Center'],
@@ -275,7 +275,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
-    price:  160,
+    price:   40,
     rating: '4.85',
     reviewsCount: 95,
     badges: ['Whole Wheat', 'Tangy Currants', 'No Margarine'],
@@ -496,6 +496,17 @@ function renderProductDetails() {
   document.getElementById('p-stars').textContent = '★'.repeat(Math.round(parseFloat(p.rating)));
   document.getElementById('p-rating').textContent = `${p.rating} (${p.reviewsCount} Verified Reviews)`;
   document.getElementById('p-price').textContent = p.price;
+  
+  const priceUnitEl = document.querySelector('.p-price-card .price-unit');
+  if (priceUnitEl) {
+    if (p.type === 'muffin') {
+      priceUnitEl.textContent = '/ piece (freshly baked single muffin)';
+    } else {
+      // Default for cookies before pack selection kicks in
+      priceUnitEl.textContent = '/ box (6 freshly baked pieces)';
+    }
+  }
+
   document.getElementById('p-desc').textContent = p.desc;
   document.getElementById('p-btn-total-price').textContent = `₹${p.price * selectedQuantity}`;
 
