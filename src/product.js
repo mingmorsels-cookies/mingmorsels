@@ -719,6 +719,12 @@ function initProductGallery() {
       { src: '/box-pinacolada-1.jpg', alt: 'Pinacolada Snack Pack' },
       { src: '/box-pinacolada-2.jpg', alt: 'Pinacolada Box' }
     ];
+  } else if (currentProduct.id === 'butterscotch') {
+    images = [
+      { src: '/img-butterscotch.jpg', alt: 'Butterscotch Muffin' },
+      { src: '/box-butterscotch-1.jpg', alt: 'Butterscotch Snack Pack' },
+      { src: '/box-butterscotch-2.jpg', alt: 'Butterscotch Box' }
+    ];
   } else if (currentProduct.id === 'strawberry') {
     images = [
       { src: '/img-strawberry.jpg', alt: 'Strawberry Muffin' },
