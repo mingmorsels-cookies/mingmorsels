@@ -713,6 +713,12 @@ function initProductGallery() {
       { src: '/box-blackcurrant-1.jpg', alt: 'Blackcurrant Snack Pack' },
       { src: '/box-blackcurrant-2.jpg', alt: 'Blackcurrant Box' }
     ];
+  } else if (currentProduct.id === 'pinacolada') {
+    images = [
+      { src: '/img-pinacolada.jpg', alt: 'Pinacolada Muffin' },
+      { src: '/box-pinacolada-1.jpg', alt: 'Pinacolada Snack Pack' },
+      { src: '/box-pinacolada-2.jpg', alt: 'Pinacolada Box' }
+    ];
   } else if (currentProduct.id === 'strawberry') {
     images = [
       { src: '/img-strawberry.jpg', alt: 'Strawberry Muffin' },
