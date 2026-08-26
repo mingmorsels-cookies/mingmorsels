@@ -701,6 +701,12 @@ function initProductGallery() {
       { src: '/almond/4.jpg', alt: 'Almond Features' },
       { src: '/almond/3.jpg', alt: 'Almond Mixed Platter' }
     ];
+  } else if (currentProduct.id === 'chocochip') {
+    images = [
+      { src: '/img-chocochip.jpg', alt: 'Chocochip Muffin' },
+      { src: '/box-chocochip-1.jpg', alt: 'Chocochip Snack Pack' },
+      { src: '/box-chocochip-2.jpg', alt: 'Chocochip Box' }
+    ];
   } else {
     // Fallback: no images defined yet
     images = [];
