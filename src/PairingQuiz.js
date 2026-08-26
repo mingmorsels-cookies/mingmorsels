@@ -4,11 +4,11 @@ import './PairingQuiz.css';
 let onAddToCartCallback = null;
 
 const PRODUCT_VECTORS = {
-  almond: { id: 'almond', name: 'Roasted Almond Cookie', img: '/img-almond.png', price: 160, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
-  rose: { id: 'rose', name: 'Organic Rose Petal Cookie', img: '/img-rose.png', price: 150, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
-  oatsnuts: { id: 'oatsnuts', name: 'Oats & Roasted Nuts Cookie', img: '/img-oats.png', price: 160, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
-  orange: { id: 'orange', name: 'Zesty Orange Peel Cookie', img: '/img-orange.png', price: 160, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
-  strawberry: { id: 'strawberry', name: 'Wild Strawberry Muffin', img: '/img-strawberry.png', price: 165, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
+  almond: { id: 'almond', name: 'Roasted Almond Cookie', img: '/almond/2.jpg', price: 160, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  rose: { id: 'rose', name: 'Organic Rose Petal Cookie', img: '/rose-petal/2.jpg', price: 150, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
+  oatsnuts: { id: 'oatsnuts', name: 'Oats & Roasted Nuts Cookie', img: '/oats-nuts/2.jpg', price: 160, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
+  orange: { id: 'orange', name: 'Zesty Orange Peel Cookie', img: '/orange-peel/10.jpg', price: 160, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
+  strawberry: { id: 'strawberry', name: 'Wild Strawberry Muffin', img: '/img-strawberry.jpg', price: 165, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
   chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 175, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } }
 };
 
