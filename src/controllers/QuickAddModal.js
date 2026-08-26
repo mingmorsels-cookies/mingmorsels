@@ -551,7 +551,7 @@ export function openQuickAddModal(productKey) {
 
   if (product.unitName === 'Muffins') {
     if (headerSection) headerSection.style.display = 'none';
-    if (gridContainer) gridContainer.style.display = 'none';
+    if (gridContainer) gridContainer.style.display = 'block';
     if (qtyLabel) qtyLabel.textContent = 'Quantity:';
   } else {
     if (headerSection) headerSection.style.display = 'block';
