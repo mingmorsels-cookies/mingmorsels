@@ -1150,8 +1150,8 @@
         let currentQVKey = "";
         let currentQVTab = "nut";
 
-        const COOKIE_PRICES = { almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220, strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155, blackcurrant: 150 };
-        const LOCAL_IMAGES = { almond: "/img-almond.png?v=2", rose: "/img-rose.png?v=2", oatsnuts: "/img-oats.png?v=2", orange: "/img-orange.png?v=2", walnut: "/img-walnut.png?v=2", walnut_sf: "/img-walnut-sf.png?v=2", strawberry: "/img-strawberry.jpg", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
+        const COOKIE_PRICES = { almond: 40, rose: 40, oatsnuts: 40, orange: 40, walnut: 40, walnut_sf: 40, strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40 };
+        const LOCAL_IMAGES = { almond: "/almond/2.jpg", rose: "/rose-petal/2.jpg", oatsnuts: "/oats-nuts/2.jpg", orange: "/orange-peel/10.jpg", walnut: "/sugarfree_walnut_cookie.png", walnut_sf: "/sugarfree_walnut_cookie.png", strawberry: "/img-strawberry.jpg", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
 
         // ── Merge a main-site cart (array of {id,quantity,...}) into chatbot's cart ──
         function mergeMainCart(mainCartItems) {
