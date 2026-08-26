@@ -2,12 +2,12 @@
 import './GiftBoxBuilder.css';
 
 const AVAILABLE_ITEMS = [
-  { id: 'almond', name: 'Almond Cookie', img: '/almond/2.jpg', price: 160, type: 'cookie' },
-  { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/2.jpg', price: 150, type: 'cookie' },
-  { id: 'oatsnuts', name: 'Oats & Nuts Cookie', img: '/oats-nuts/2.jpg', price: 135, type: 'cookie' },
-  { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/10.jpg', price: 160, type: 'cookie' },
-  { id: 'walnut', name: 'Walnut Cookie', img: '/sugarfree_walnut_cookie.png', price: 210, type: 'cookie' },
-  { id: 'walnut_sf', name: 'Sugar-Free Walnut Cookie', img: '/sugarfree_walnut_cookie.png', price: 220, type: 'cookie' },
+  { id: 'almond', name: 'Almond Cookie', img: '/almond/2.jpg', price: 40, type: 'cookie' },
+  { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/2.jpg', price: 40, type: 'cookie' },
+  { id: 'oatsnuts', name: 'Oats & Nuts Cookie', img: '/oats-nuts/2.jpg', price: 40, type: 'cookie' },
+  { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/10.jpg', price: 40, type: 'cookie' },
+  { id: 'walnut', name: 'Walnut Cookie', img: '/sugarfree_walnut_cookie.png', price: 40, type: 'cookie' },
+  { id: 'walnut_sf', name: 'Sugar-Free Walnut Cookie', img: '/sugarfree_walnut_cookie.png', price: 40, type: 'cookie' },
   { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.jpg', price: 40, type: 'muffin' },
   { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.jpg', price: 40, type: 'muffin' },
   { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.jpg', price: 40, type: 'muffin' },
