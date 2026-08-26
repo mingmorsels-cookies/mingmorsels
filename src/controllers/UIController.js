@@ -340,6 +340,9 @@ export class UIController {
       if (isOpen) {
         drawer.classList.remove('open', 'active');
         launcherBtn.classList.remove('active');
+        if (tooltip && tooltip.dataset.dismissed !== 'true') {
+          tooltip.classList.add('show');
+        }
       } else {
         drawer.classList.add('open', 'active');
         launcherBtn.classList.add('active');
@@ -356,17 +359,21 @@ export class UIController {
       e.stopPropagation();
       drawer.classList.remove('open', 'active');
       launcherBtn.classList.remove('active');
+      if (tooltip && tooltip.dataset.dismissed !== 'true') {
+        tooltip.classList.add('show');
+      }
     });
 
     tooltipClose?.addEventListener('click', (e) => {
       e.stopPropagation();
       tooltip?.classList.remove('show');
+      if (tooltip) tooltip.dataset.dismissed = 'true';
     });
 
     // Automatically display helpful tooltip after 3 seconds
     setTimeout(() => {
-      if (!drawer.classList.contains('open')) {
-        tooltip?.classList.add('show');
+      if (!drawer.classList.contains('open') && tooltip && tooltip.dataset.dismissed !== 'true') {
+        tooltip.classList.add('show');
       }
     }, 3000);
   }
