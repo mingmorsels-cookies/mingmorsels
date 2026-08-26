@@ -34,7 +34,8 @@ export class LiveFeedController {
       { name: "Chocochip Muffins", img: "/img-chocochip.jpg" },
       { name: "Oats Nuts Cookies", img: "/oatsnuts_cookie.png" },
       { name: "Butterscotch Muffins", img: "/img-butterscotch.jpg" },
-      { name: "Pinacolada Muffins", img: "/img-pinacolada.jpg" }
+      { name: "Pinacolada Muffins", img: "/img-pinacolada.jpg" },
+      { name: "Blackcurrant Muffins", img: "/img-blackcurrant.jpg" }
     ];
 
     this.timesAgo = ["Just now", "2m ago", "5m ago", "12m ago", "18m ago", "34m ago", "42m ago", "1h ago"];

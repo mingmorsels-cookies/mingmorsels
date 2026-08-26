@@ -19,7 +19,8 @@ export const COOKIE_DATA = {
   strawberry: { name: "Strawberry Muffins", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
   pinacolada: { name: "Pinacolada Muffins", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 40, link: "/product.html?id=pinacolada", image: "/img-pinacolada.jpg" },
   butterscotch: { name: "Butterscotch Muffins", description: "Caramelized cake base with crunchy butterscotch drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.jpg" },
-  chocochip: { name: "Chocochip Muffins", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.jpg" }
+  chocochip: { name: "Chocochip Muffins", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.jpg" },
+  blackcurrant: { name: "Blackcurrant Muffins", description: "Tart and sweet blackcurrants baked into a soft muffin.", price: 40, link: "/product.html?id=blackcurrant", image: "/img-blackcurrant.jpg" }
 };
 
 export class UIController {
@@ -786,6 +787,8 @@ export class UIController {
                      { id: 'walnut',       reason: 'Double crunch, double the joy' }],
       chocochip:        [{ id: 'almond',       reason: 'Nut crunch against chocolate fudge' },
                      { id: 'strawberry',   reason: 'Choco + berry — a crowd favourite' }],
+      blackcurrant:     [{ id: 'rose',         reason: 'Floral notes enhance the berry tartness' },
+                     { id: 'oatsnuts',     reason: 'Wholesome crunch meets fruity burst' }]
     };
 
     const seen = new Set();
