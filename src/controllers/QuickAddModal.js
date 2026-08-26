@@ -577,6 +577,14 @@ function renderBoxOptionCards() {
   const container = document.getElementById('qa-box-grid');
   if (!container || !currentSelectedProduct) return;
 
+  if (currentSelectedProduct.boxes.length === 1) {
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+  } else {
+    container.style.display = 'grid';
+    container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+  }
+
   container.innerHTML = currentSelectedProduct.boxes.map((box, index) => {
     const isSelected = index === currentSelectedBoxIndex;
     const cardBorder = isSelected ? '2px solid #5B2C6F' : '1.5px solid #E8E0D7';
