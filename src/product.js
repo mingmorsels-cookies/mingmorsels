@@ -707,6 +707,12 @@ function initProductGallery() {
       { src: '/box-chocochip-1.jpg', alt: 'Chocochip Snack Pack' },
       { src: '/box-chocochip-2.jpg', alt: 'Chocochip Box' }
     ];
+  } else if (currentProduct.id === 'blackcurrant') {
+    images = [
+      { src: '/img-blackcurrant.jpg', alt: 'Blackcurrant Muffin' },
+      { src: '/box-blackcurrant-1.jpg', alt: 'Blackcurrant Snack Pack' },
+      { src: '/box-blackcurrant-2.jpg', alt: 'Blackcurrant Box' }
+    ];
   } else {
     // Fallback: no images defined yet
     images = [];
