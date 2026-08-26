@@ -218,29 +218,13 @@ export const PRODUCT_BOX_CATALOG = {
     unitName: 'Muffins',
     boxes: [
       {
-        id: 'strawberry_single_2pcs',
-        name: 'Snack Pack',
-        countLabel: 'Up to 2 Muffins',
-        price:  80,
-        desc: '2 Fresh warm strawberry muffins with crumble glaze.',
-        img: ''
-      },
-      {
-        id: 'strawberry_box_4pcs',
-        name: 'Classic Box',
-        countLabel: 'Up to 4 Muffins',
-        price:  160,
-        desc: '4 Soft strawberry compote muffins in bakery treat box.',
-        img: '',
+        id: 'strawberry_single',
+        name: 'Single Muffin',
+        countLabel: '1 Muffin',
+        price: 40,
+        desc: 'Freshly baked delicious single muffin.',
+        img: '/img-strawberry.jpg',
         popular: true
-      },
-      {
-        id: 'strawberry_party_6pcs',
-        name: 'Family Pack',
-        countLabel: 'Up to 6 Muffins',
-        price:  240,
-        desc: '6 Gourmet muffins ideal for family sharing and tea.',
-        img: '/box-extra.jpg'
       }
     ]
   },
@@ -252,29 +236,13 @@ export const PRODUCT_BOX_CATALOG = {
     unitName: 'Muffins',
     boxes: [
       {
-        id: 'pinacolada_single_2pcs',
-        name: 'Snack Pack',
-        countLabel: 'Up to 2 Muffins',
-        price:  80,
-        desc: '2 Tropical muffins with coconut and pineapple.',
-        img: ''
-      },
-      {
-        id: 'pinacolada_box_4pcs',
-        name: 'Classic Box',
-        countLabel: 'Up to 4 Muffins',
-        price:  160,
-        desc: '4 Tropical bliss muffins in signature gift box.',
-        img: '',
+        id: 'pinacolada_single',
+        name: 'Single Muffin',
+        countLabel: '1 Muffin',
+        price: 40,
+        desc: 'Freshly baked delicious single muffin.',
+        img: '/img-pinacolada.jpg',
         popular: true
-      },
-      {
-        id: 'pinacolada_party_6pcs',
-        name: 'Family Pack',
-        countLabel: 'Up to 6 Muffins',
-        price:  240,
-        desc: '6 Refreshing island-flavor muffins for sharing.',
-        img: ''
       }
     ]
   },
@@ -286,29 +254,13 @@ export const PRODUCT_BOX_CATALOG = {
     unitName: 'Muffins',
     boxes: [
       {
-        id: 'butterscotch_single_2pcs',
-        name: 'Snack Pack',
-        countLabel: 'Up to 2 Muffins',
-        price:  80,
-        desc: '2 Sweet caramel muffins with rich butterscotch crunch.',
-        img: ''
-      },
-      {
-        id: 'butterscotch_box_4pcs',
-        name: 'Classic Box',
-        countLabel: 'Up to 4 Muffins',
-        price:  160,
-        desc: '4 Rich butterscotch crunch muffins in gift packaging.',
-        img: '',
+        id: 'butterscotch_single',
+        name: 'Single Muffin',
+        countLabel: '1 Muffin',
+        price: 40,
+        desc: 'Freshly baked delicious single muffin.',
+        img: '/img-butterscotch.jpg',
         popular: true
-      },
-      {
-        id: 'butterscotch_party_6pcs',
-        name: 'Family Pack',
-        countLabel: 'Up to 6 Muffins',
-        price:  240,
-        desc: '6 Caramel indulgence muffins for sweet lovers.',
-        img: ''
       }
     ]
   },
@@ -320,29 +272,13 @@ export const PRODUCT_BOX_CATALOG = {
     unitName: 'Muffins',
     boxes: [
       {
-        id: 'chocochip_single_2pcs',
-        name: 'Snack Pack',
-        countLabel: 'Up to 2 Muffins',
-        price:  80,
-        desc: '2 Fudgy dark chocolate chip muffins.',
-        img: ''
-      },
-      {
-        id: 'chocochip_box_4pcs',
-        name: 'Classic Box',
-        countLabel: 'Up to 4 Muffins',
-        price:  160,
-        desc: '4 Intense chocolate chip muffins in elegant packaging.',
-        img: '',
+        id: 'chocochip_single',
+        name: 'Single Muffin',
+        countLabel: '1 Muffin',
+        price: 40,
+        desc: 'Freshly baked delicious single muffin.',
+        img: '/img-chocochip.jpg',
         popular: true
-      },
-      {
-        id: 'chocochip_party_6pcs',
-        name: 'Family Pack',
-        countLabel: 'Up to 6 Muffins',
-        price:  240,
-        desc: '6 Rich chocochip indulgence muffins for chocolate lovers.',
-        img: ''
       }
     ]
   },
@@ -354,29 +290,13 @@ export const PRODUCT_BOX_CATALOG = {
     unitName: 'Muffins',
     boxes: [
       {
-        id: 'blackcurrant_single_2pcs',
-        name: 'Snack Pack',
-        countLabel: 'Up to 2 Muffins',
-        price:  80,
-        desc: '2 Delicious whole wheat black currant muffins.',
-        img: ''
-      },
-      {
-        id: 'blackcurrant_box_4pcs',
-        name: 'Classic Box',
-        countLabel: 'Up to 4 Muffins',
-        price:  160,
-        desc: '4 Tangy black currant muffins in signature box.',
-        img: '',
+        id: 'blackcurrant_single',
+        name: 'Single Muffin',
+        countLabel: '1 Muffin',
+        price: 40,
+        desc: 'Freshly baked delicious single muffin.',
+        img: '/img-blackcurrant.jpg',
         popular: true
-      },
-      {
-        id: 'blackcurrant_party_6pcs',
-        name: 'Family Pack',
-        countLabel: 'Up to 6 Muffins',
-        price:  240,
-        desc: '6 Beautifully baked black currant muffins for sharing.',
-        img: ''
       }
     ]
   }
@@ -441,7 +361,7 @@ export function initQuickAddModal() {
       ">&times;</button>
 
       <!-- Header -->
-      <div style="
+      <div id="qa-header-section" style="
         padding: 22px 24px 12px;
       ">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; padding-right: 36px;">
@@ -466,7 +386,7 @@ export function initQuickAddModal() {
       </div>
 
       <!-- 3-Box Horizontal Card Grid -->
-      <div style="padding: 12px 24px 18px; overflow-x: auto;">
+      <div id="qa-grid-container" style="padding: 12px 24px 18px; overflow-x: auto;">
         <div id="qa-box-grid" style="
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -489,7 +409,7 @@ export function initQuickAddModal() {
       ">
         <!-- Quantity Stepper -->
         <div style="display: flex; align-items: center; gap: 10px;">
-          <span style="font-size: 13.5px; font-weight: 600; color: #3D2000;">Boxes:</span>
+          <span id="qa-qty-label" style="font-size: 13.5px; font-weight: 600; color: #3D2000;">Boxes:</span>
           <div style="display: inline-flex; align-items: center; background: #FFF; border: 1.5px solid #D5C4B3; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.04);">
             <button id="qa-qty-minus" style="padding: 6px 12px; background: transparent; border: none; font-size: 16px; font-weight: 700; cursor: pointer; color: #3D2000;">−</button>
             <span id="qa-qty-display" style="padding: 0 10px; font-size: 15px; font-weight: 700; color: #3D2000; min-width: 20px; text-align: center;">1</span>
@@ -624,6 +544,20 @@ export function openQuickAddModal(productKey) {
   currentSelectedProduct = product;
   currentSelectedBoxIndex = product.boxes.findIndex(b => b.popular) !== -1 ? product.boxes.findIndex(b => b.popular) : 0;
   currentQuantity = 1;
+
+  const headerSection = document.getElementById('qa-header-section');
+  const gridContainer = document.getElementById('qa-grid-container');
+  const qtyLabel = document.getElementById('qa-qty-label');
+
+  if (product.unitName === 'Muffins') {
+    if (headerSection) headerSection.style.display = 'none';
+    if (gridContainer) gridContainer.style.display = 'none';
+    if (qtyLabel) qtyLabel.textContent = 'Quantity:';
+  } else {
+    if (headerSection) headerSection.style.display = 'block';
+    if (gridContainer) gridContainer.style.display = 'block';
+    if (qtyLabel) qtyLabel.textContent = 'Boxes:';
+  }
 
   renderBoxOptionCards();
   updateQuickAddFooter();
