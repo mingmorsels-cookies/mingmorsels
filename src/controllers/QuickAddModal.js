@@ -10,7 +10,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'almond',
     name: 'Almond Rich Cookies',
     tagline: 'Whole roasted California almonds & raw organic honey',
-    image: '/img-almond.png',
+    image: '/almond/1.jpg',
     unitName: 'Cookies',
     boxes: [
       {
@@ -78,7 +78,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'oatsnuts',
     name: 'Oats & Nuts Cookies',
     tagline: 'Rolled oats, roasted almonds, pistachios & honey',
-    image: '/img-oats.png',
+    image: '/oats-nuts/1.jpg',
     unitName: 'Cookies',
     boxes: [
       {
@@ -112,7 +112,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'orange',
     name: 'Orange Peel Cookies',
     tagline: 'Zesty sun-dried orange peel with citrus butter',
-    image: '/img-orange.png',
+    image: '/orange-peel/1.jpg',
     unitName: 'Cookies',
     boxes: [
       {

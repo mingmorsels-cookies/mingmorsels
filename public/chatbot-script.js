@@ -131,7 +131,7 @@
             almond: { 
                 name: "Almond Rich Cookies", 
                 emoji: "🌰", 
-                img: "/img-almond.png?v=2", 
+                img: "/almond/1.jpg", 
                 color: "#FFF3DC", 
                 review: "A timeless classic reimagined. Crafted with whole roasted premium California almonds, organic cow butter, and raw honey. Crumbly on the outside, meltingly soft inside.", 
                 stars: 5, 
@@ -163,7 +163,7 @@
             oatsnuts: { 
                 name: "Oats & Nuts Cookies", 
                 emoji: "🌾", 
-                img: "/img-oats.png?v=2", 
+                img: "/oats-nuts/1.jpg", 
                 color: "#F5F0E8", 
                 review: "Packed with rolled oats, California walnuts, flaxseeds, and organic raw honey. Hearty, filling, and deeply nutritious for clean energy.", 
                 stars: 5, 
@@ -179,7 +179,7 @@
             orange: { 
                 name: "Orange Peel Cookies", 
                 emoji: "🍊", 
-                img: "/img-orange.png?v=2", 
+                img: "/orange-peel/1.jpg", 
                 color: "#FFF0E0", 
                 review: "Bursting with natural citrus oils from cold-pressed orange peels and Ceylon cinnamon. A refreshing zesty twist on classic shortbread.", 
                 stars: 5, 
@@ -1151,7 +1151,7 @@
         let currentQVTab = "nut";
 
         const COOKIE_PRICES = { almond: 40, rose: 40, oatsnuts: 40, orange: 40, walnut: 40, walnut_sf: 40, strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40 };
-        const LOCAL_IMAGES = { almond: "/almond/2.jpg", rose: "/rose-petal/1.jpg", oatsnuts: "/oats-nuts/2.jpg", orange: "/orange-peel/1.jpg", walnut: "/sugarfree_walnut_cookie.png", walnut_sf: "/sugarfree_walnut_cookie.png", strawberry: "/img-strawberry.jpg", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
+        const LOCAL_IMAGES = { almond: "/almond/1.jpg", rose: "/rose-petal/1.jpg", oatsnuts: "/oats-nuts/1.jpg", orange: "/orange-peel/1.jpg", walnut: "/sugarfree_walnut_cookie.png", walnut_sf: "/sugarfree_walnut_cookie.png", strawberry: "/img-strawberry.jpg", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
 
         // ── Merge a main-site cart (array of {id,quantity,...}) into chatbot's cart ──
         function mergeMainCart(mainCartItems) {
@@ -1354,7 +1354,7 @@
                                 height: 100%;
                                 object-fit: cover;
                                 display: block;
-                            " onerror="this.src='${product.img || '/img-almond.png?v=2'}'" />
+                            " onerror="this.src='${product.img || '/almond/1.jpg'}'" />
 
                             ${isSelected ? `
                                 <div style="

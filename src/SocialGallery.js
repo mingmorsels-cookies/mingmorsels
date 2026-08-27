@@ -30,7 +30,7 @@ const REVIEWS_DATA = [
     initials: "PN",
     avatarBg: "linear-gradient(135deg, #2E7D32, #66BB6A)",
     text: "As a fitness coach, finding 100% pure cow butter and oats cookies with zero refined sugar is rare. mingmorsels nailed the recipe!",
-    img: "/unboxing_oats.png?v=2",
+    img: "/oats-nuts/1.jpg",
     tag: "🌾 Oats Cookies Box",
     stars: "★★★★★"
   },
@@ -50,7 +50,7 @@ const REVIEWS_DATA = [
     initials: "SK",
     avatarBg: "linear-gradient(135deg, #E91E63, #FF4081)",
     text: "Delivered within 3 hours in Indiranagar! The vacuum seal keeps the cookies crisp like they were just pulled out of the stone oven.",
-    img: "/almond_cookie.png?v=2",
+    img: "/almond/1.jpg",
     tag: "🍪 Almond Rich Cookies",
     stars: "★★★★★"
   },
@@ -70,7 +70,7 @@ const REVIEWS_DATA = [
     initials: "MK",
     avatarBg: "linear-gradient(135deg, #FF6F00, #FFA000)",
     text: "The Orange Peel cookies have the most uplifting citrus zest notes. Pair it with Earl Grey tea for the ultimate evening treat.",
-    img: "/almond_cookie.png?v=2",
+    img: "/orange-peel/1.jpg",
     tag: "🍊 Orange Peel Delight",
     stars: "★★★★★"
   },

@@ -4,10 +4,10 @@ import './PairingQuiz.css';
 let onAddToCartCallback = null;
 
 const PRODUCT_VECTORS = {
-  almond: { id: 'almond', name: 'Almond Rich Cookies', img: '/almond/2.jpg', price: 40, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
-  rose: { id: 'rose', name: 'Organic Rose Petal Cookie', img: '/rose-petal/2.jpg', price: 40, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
-  oatsnuts: { id: 'oatsnuts', name: 'Oats & Roasted Nuts Cookie', img: '/oats-nuts/2.jpg', price: 40, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
-  orange: { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/10.jpg', price: 40, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
+  almond: { id: 'almond', name: 'Almond Rich Cookies', img: '/almond/1.jpg', price: 40, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  rose: { id: 'rose', name: 'Organic Rose Petal Cookie', img: '/rose-petal/1.jpg', price: 40, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
+  oatsnuts: { id: 'oatsnuts', name: 'Oats & Roasted Nuts Cookie', img: '/oats-nuts/1.jpg', price: 40, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
+  orange: { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/1.jpg', price: 40, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
   strawberry: { id: 'strawberry', name: 'Wild Strawberry Muffin', img: '/img-strawberry.jpg', price: 40, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
   chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 40, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } }
 };
@@ -85,7 +85,7 @@ function injectQuizHTML() {
           </div>
 
           <div class="quiz-result-box">
-            <img id="quiz-result-img" src="/img-oats.png" alt="Recommendation" class="result-img" onerror="this.src='/img-almond.png'" />
+            <img id="quiz-result-img" src="/img-oats.png" alt="Recommendation" class="result-img" onerror="this.src='/almond/1.jpg'" />
             <h3 id="quiz-result-title" class="result-title">Almond Rich Cookies</h3>
             <p id="quiz-result-reason" class="result-reason" style="font-size: 13px; color: #A39282; margin: 10px 0 16px;"></p>
             <button id="btn-quiz-add-cart" class="btn-add-box-cart">Add Perfect Pair to Order • ₹<span id="quiz-result-price">160</span></button>

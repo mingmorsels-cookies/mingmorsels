@@ -2,10 +2,10 @@
 import './GiftBoxBuilder.css';
 
 const AVAILABLE_ITEMS = [
-  { id: 'almond', name: 'Almond Cookie', img: '/almond/2.jpg', price: 40, type: 'cookie' },
+  { id: 'almond', name: 'Almond Rich Cookie', img: '/almond/1.jpg', price: 40, type: 'cookie' },
   { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/1.jpg', price: 40, type: 'cookie' },
-  { id: 'oatsnuts', name: 'Oats & Nuts Cookie', img: '/oats-nuts/2.jpg', price: 40, type: 'cookie' },
-  { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/10.jpg', price: 40, type: 'cookie' },
+  { id: 'oatsnuts', name: 'Oats & Nuts Cookie', img: '/oats-nuts/1.jpg', price: 40, type: 'cookie' },
+  { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/1.jpg', price: 40, type: 'cookie' },
   { id: 'walnut', name: 'Walnut Cookie', img: '/sugarfree_walnut_cookie.png', price: 40, type: 'cookie' },
   { id: 'walnut_sf', name: 'Sugar-Free Walnut Cookie', img: '/sugarfree_walnut_cookie.png', price: 40, type: 'cookie' },
   { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.jpg', price: 40, type: 'muffin' },

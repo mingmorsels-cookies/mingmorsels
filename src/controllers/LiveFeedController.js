@@ -26,13 +26,13 @@ export class LiveFeedController {
 
     this.products = [
       { name: "Rose Petal Cookies", img: "/rose-petal/1.jpg" },
-      { name: "Almond Rich Cookies", img: "/almond_cookie.png" },
+      { name: "Almond Rich Cookies", img: "/almond/1.jpg" },
       { name: "Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
       { name: "Sugar-Free Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
       { name: "Strawberry Muffins", img: "/strawberry_muffin.png" },
-      { name: "Orange Peel Cookies", img: "/almond_cookie.png" },
+      { name: "Orange Peel Cookies", img: "/orange-peel/1.jpg" },
       { name: "Chocochip Muffins", img: "/img-chocochip.jpg" },
-      { name: "Oats Nuts Cookies", img: "/oatsnuts_cookie.png" },
+      { name: "Oats Nuts Cookies", img: "/oats-nuts/1.jpg" },
       { name: "Butterscotch Muffins", img: "/img-butterscotch.jpg" },
       { name: "Pinacolada Muffins", img: "/img-pinacolada.jpg" },
       { name: "Blackcurrant Muffins", img: "/img-blackcurrant.jpg" }

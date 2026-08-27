@@ -10,10 +10,10 @@ import { initFlowingMenu } from '../FlowingMenu.js';
 import { createTextType } from '../TextType.js';
 
 export const COOKIE_DATA = {
-  almond: { name: "Almond Rich Cookies", description: "Roasted almonds, rich buttery crunch.", price: 180, link: "/product.html?id=almond", image: "/almond_cookie.png" },
+  almond: { name: "Almond Rich Cookies", description: "Roasted almonds, rich buttery crunch.", price: 180, link: "/product.html?id=almond", image: "/almond/1.jpg" },
   rose: { name: "Rose Petal Cookies", description: "Infused with organic rose petals, delicate aroma.", price: 190, link: "/product.html?id=rose", image: "/rose-petal/1.jpg" },
-  oatsnuts: { name: "Oats Nuts Cookies", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 170, link: "/product.html?id=oatsnuts", image: "/oatsnuts_cookie.png" },
-  orange: { name: "Orange Peel Cookies", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 185, link: "/product.html?id=orange", image: "/almond_cookie.png" },
+  oatsnuts: { name: "Oats Nuts Cookies", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 170, link: "/product.html?id=oatsnuts", image: "/oats-nuts/1.jpg" },
+  orange: { name: "Orange Peel Cookies", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 185, link: "/product.html?id=orange", image: "/orange-peel/1.jpg" },
   walnut: { name: "Walnut Cookies", description: "Rich crunchy California walnuts baked into buttery dough.", price: 210, link: "/product.html?id=walnut", image: "/sugarfree_walnut_cookie.png" },
   walnut_sf: { name: "Sugar-Free Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 220, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
   strawberry: { name: "Strawberry Muffins", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
@@ -261,9 +261,9 @@ export class UIController {
     if (!root) return;
 
     const items = [
-      { link: '/product.html?id=almond', text: 'Almond Rich Cookies', image: '/almond_cookie.png' },
+      { link: '/product.html?id=almond', text: 'Almond Rich Cookies', image: '/almond/1.jpg' },
       { link: '/product.html?id=rose', text: 'Rose Petal Cookies', image: '/rose-petal/1.jpg' },
-      { link: '/product.html?id=oatsnuts', text: 'Oats & Nuts Cookies', image: '/oatsnuts_cookie.png' },
+      { link: '/product.html?id=oatsnuts', text: 'Oats & Nuts Cookies', image: '/oats-nuts/1.jpg' },
       { link: '/product.html?id=chocochip', text: 'Chocochip Muffins', image: '/img-chocochip.jpg' },
       { link: '/product.html?id=butterscotch', text: 'Butterscotch Muffins', image: '/img-butterscotch.jpg' }
     ];
@@ -427,7 +427,7 @@ export class UIController {
       resultsList.innerHTML = matches.map(([id, item]) => `
         <div class="search-result-item" data-id="${id}" style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; margin-bottom:8px; background:rgba(250,246,240,0.06); border-radius:10px; border:1px solid rgba(200,150,12,0.2); cursor:pointer;">
           <div style="display:flex; align-items:center; gap:14px;">
-            <img src="${item.image || '/img-almond.png'}" alt="${item.name}" style="width:48px; height:48px; border-radius:8px; object-fit:cover;" onerror="this.src='/img-almond.png'" />
+            <img src="${item.image || '/almond/1.jpg'}" alt="${item.name}" style="width:48px; height:48px; border-radius:8px; object-fit:cover;" onerror="this.src='/almond/1.jpg'" />
             <div style="text-align:left;">
               <h4 style="margin:0; font-size:15px; color:#FAF6F0;">${item.name}</h4>
               <p style="margin:2px 0 0; font-size:12px; color:rgba(250,246,240,0.6);">${item.description}</p>
@@ -666,7 +666,7 @@ export class UIController {
           row.style.cssText = 'display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #EADCCB;';
           row.innerHTML = `
             <div class="cart-item-thumb" style="width:48px; height:48px; border-radius:8px; overflow:hidden; background:#FFF; flex-shrink:0;">
-              <img src="${item.image || '/almond_cookie.png'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/almond_cookie.png'" />
+              <img src="${item.image || '/almond/1.jpg'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/almond/1.jpg'" />
             </div>
             <div class="cart-item-detail" style="flex:1; margin:0 12px; text-align:left;">
               <h4 class="cart-item-title" style="margin:0; font-size:13px; font-weight:700; color:#3D2000;">${item.name}</h4>
@@ -696,7 +696,7 @@ export class UIController {
               ${recommendations.map(rec => `
                 <div class="ai-rec-chip">
                   <div class="ai-rec-chip-img">
-                    <img src="${rec.image}" alt="${rec.name}" onerror="this.src='/almond_cookie.png'" />
+                    <img src="${rec.image}" alt="${rec.name}" onerror="this.src='/almond/1.jpg'" />
                   </div>
                   <div class="ai-rec-chip-info">
                     <span class="ai-rec-chip-name">${rec.name}</span>

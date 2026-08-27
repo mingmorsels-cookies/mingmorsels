@@ -1292,12 +1292,12 @@ function renderCartDrawerBody() {
   }
 
   const PRODUCT_IMAGE_MAP = {
-    almond: '/img-almond.png?v=2',
+    almond: '/almond/1.jpg',
     rose: '/rose-petal/1.jpg',
-    oatsnuts: '/img-oats.png?v=2',
-    orange: '/img-orange.png?v=2',
-    walnut: '/img-walnut.png?v=2',
-    walnut_sf: '/img-walnut-sf.png?v=2',
+    oatsnuts: '/oats-nuts/1.jpg',
+    orange: '/orange-peel/1.jpg',
+    walnut: '/sugarfree_walnut_cookie.png',
+    walnut_sf: '/sugarfree_walnut_cookie.png',
     strawberry: '/img-strawberry.jpg',
     pinacolada: '/img-pinacolada.jpg',
     butterscotch: '/img-butterscotch.jpg',
@@ -1324,7 +1324,7 @@ function renderCartDrawerBody() {
     
     subtotal += lineTotal;
     const baseKey = String(item.productId || item.id || '').split('_')[0].toLowerCase();
-    const imgSrc = item.image || item.img || PRODUCT_IMAGE_MAP[baseKey] || '/img-almond.png?v=2';
+    const imgSrc = item.image || item.img || PRODUCT_IMAGE_MAP[baseKey] || '/almond/1.jpg';
 
     let priceDetailsHTML = `₹${price} × ${qty}`;
     if (boxesNeeded > 0) {
@@ -1336,7 +1336,7 @@ function renderCartDrawerBody() {
       <div class="cart-item-row" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06);">
         <div style="display: flex; align-items: center; gap: 12px;">
           <div style="width: 48px; height: 48px; min-width: 48px; border-radius: 8px; overflow: hidden; background: #FFFDF9; border: 1px solid rgba(61, 32, 0, 0.10); display: flex; align-items: center; justify-content: center;">
-            <img src="${imgSrc}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/img-almond.png?v=2'" />
+            <img src="${imgSrc}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/almond/1.jpg'" />
           </div>
           <div class="cart-item-info">
             <h5 style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #3D2000;">${item.name}</h5>
@@ -2004,7 +2004,7 @@ function initLivePurchaseNotifications() {
   ];
 
   const products = [
-    { name: 'Almond Rich Cookies', img: '/img-almond.png?v=2' },
+    { name: 'Almond Rich Cookies', img: '/almond/1.jpg' },
     { name: 'Rose Petal Cookies', img: '/rose-petal/1.jpg' },
     { name: 'Oats & Nuts Cookies', img: '/img-oats.png?v=2' },
     { name: 'Orange Peel Cookies', img: '/img-orange.png?v=2' },
