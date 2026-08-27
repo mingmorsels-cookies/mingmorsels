@@ -1216,11 +1216,7 @@ export class ThreeController {
 
         group.rotation.x = THREE.MathUtils.lerp(1.1, targetRotX, scrollRatio);
         group.rotation.z = THREE.MathUtils.lerp(0.2, -0.1, scrollRatio);
-        if (scrollRatio < 0.1) {
-          group.rotation.y = this.heroSpinAngle;
-        } else {
-          group.rotation.y = THREE.MathUtils.lerp(this.heroSpinAngle, -0.2, scrollRatio);
-        }
+        group.rotation.y = this.heroSpinAngle;
         group.visible = true;
         return;
       }

@@ -47,19 +47,6 @@ export class ScrollTimelineController {
         }
       });
 
-      // Hero spin loop
-      const heroSpinObj = { y: almond.rotation.y };
-      this.heroSpin = gsap.to(heroSpinObj, {
-        y: heroSpinObj.y + Math.PI * 2,
-        duration: 16,
-        repeat: -1,
-        ease: "none",
-        onUpdate: () => {
-          if (almond && almond.rotation) {
-            almond.rotation.y = heroSpinObj.y;
-          }
-        }
-      });
 
       // Stage 1: Dynamic Theme & Background Transition
       ScrollTrigger.create({
