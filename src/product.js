@@ -691,7 +691,12 @@ function initProductGallery() {
       { src: '/orange-peel/4.jpg', alt: 'Orange Peel Image 4' }
     ];
   } else if (currentProduct.id === 'oatsnuts') {
-    images = [];
+    images = [
+      { src: '/oats-nuts/1.jpg', alt: 'Oats Nuts Cookies Image 1' },
+      { src: '/oats-nuts/2.jpg', alt: 'Oats Nuts Cookies Image 2' },
+      { src: '/oats-nuts/3.jpg', alt: 'Oats Nuts Cookies Image 3' },
+      { src: '/oats-nuts/4.jpg', alt: 'Oats Nuts Cookies Image 4' }
+    ];
   } else if (currentProduct.id === 'rose') {
     images = [
       { src: '/rose-petal/1.jpg', alt: 'Rose Petal Image 1' },
