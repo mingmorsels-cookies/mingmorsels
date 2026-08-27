@@ -689,11 +689,11 @@ function initProductGallery() {
     images = [];
   } else if (currentProduct.id === 'rose') {
     images = [
-      { src: '/rose-petal/1.jpg', alt: 'Rose Petal Cookies with Milk' },
-      { src: '/rose-petal/2.jpg', alt: 'Rose Petal Box and Packets' },
-      { src: '/rose-petal/3.jpg', alt: 'Rose Petal Box Front' },
-      { src: '/rose-petal/4.jpg', alt: 'Rose Petal Features' },
-      { src: '/rose-petal/5.jpg', alt: 'Rose Petal Platter' }
+      { src: '/rose-petal/1.jpg', alt: 'Rose Petal Image 1' },
+      { src: '/rose-petal/2.jpg', alt: 'Rose Petal Image 2' },
+      { src: '/rose-petal/3.jpg', alt: 'Rose Petal Image 3' },
+      { src: '/rose-petal/4.jpg', alt: 'Rose Petal Image 4' },
+      { src: '/rose-petal/5.jpg', alt: 'Rose Petal Image 5' }
     ];
   } else if (currentProduct.id === 'almond') {
     images = [];
