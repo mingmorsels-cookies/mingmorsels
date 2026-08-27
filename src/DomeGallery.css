@@ -1,5 +1,5 @@
 /* ============================================================
-   DomeGallery.css — Exact React Bits Specification
+   DomeGallery.css — Immersive 3D Spherical Dome Gallery
    ============================================================ */
 
 body.dg-scroll-lock {
@@ -12,7 +12,7 @@ body.dg-scroll-lock {
   width: 100%;
   height: 100%;
   --radius: 560px;
-  --viewer-pad: 64px;
+  --viewer-pad: 48px;
   --circ: calc(var(--radius) * 3.14159);
   --rot-y: calc((360deg / var(--segments-x)) / 2);
   --rot-x: calc((360deg / var(--segments-y)) / 2);
@@ -52,7 +52,7 @@ main.sphere-main:active {
   height: 100%;
   display: grid;
   place-items: center;
-  perspective: calc(var(--radius) * 2);
+  perspective: calc(var(--radius) * 2.2);
   perspective-origin: 50% 50%;
   contain: layout paint size;
 }
@@ -72,13 +72,13 @@ main.sphere-main:active {
 }
 
 .overlay {
-  background-image: radial-gradient(rgba(13, 12, 19, 0) 60%, var(--overlay-blur-color, #0d0c13) 100%);
+  background-image: radial-gradient(rgba(13, 12, 19, 0) 55%, var(--overlay-blur-color, #0d0c13) 98%);
 }
 
 .overlay--blur {
-  -webkit-mask-image: radial-gradient(rgba(13, 12, 19, 0) 65%, var(--overlay-blur-color, #0d0c13) 90%);
-  mask-image: radial-gradient(rgba(13, 12, 19, 0) 65%, var(--overlay-blur-color, #0d0c13) 90%);
-  backdrop-filter: blur(4px);
+  -webkit-mask-image: radial-gradient(rgba(13, 12, 19, 0) 65%, var(--overlay-blur-color, #0d0c13) 92%);
+  mask-image: radial-gradient(rgba(13, 12, 19, 0) 65%, var(--overlay-blur-color, #0d0c13) 92%);
+  backdrop-filter: blur(3px);
 }
 
 .item {
@@ -101,39 +101,157 @@ main.sphere-main:active {
 .item__image {
   position: absolute;
   display: block;
-  inset: 8px;
-  border-radius: var(--tile-radius, 28px);
-  background: #1a1824;
+  inset: 6px;
+  border-radius: var(--tile-radius, 22px);
+  background: transparent;
   overflow: hidden;
   backface-visibility: hidden;
-  transition: transform 300ms cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 300ms ease;
+  transition: transform 250ms cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 250ms ease;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   pointer-events: auto;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
 }
 
 .item__image:hover {
-  transform: scale(1.05) translateZ(10px);
-  box-shadow: 0 16px 40px -5px rgba(0, 0, 0, 0.7);
+  transform: scale(1.04) translateZ(8px);
 }
 
 .item__image:focus {
   outline: none;
 }
 
-.item__image img {
+/* ── DOM Comment Card Tile on Sphere ───────────────────────── */
+.crew-dome-card {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background: linear-gradient(145deg, #1A1826 0%, #111019 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.32);
+  border-radius: var(--tile-radius, 22px);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
   pointer-events: none;
-  backface-visibility: hidden;
-  filter: var(--image-filter, grayscale(1));
+  user-select: none;
 }
 
+.crew-dome-card--accent {
+  background: linear-gradient(145deg, #241D14 0%, #17120B 100%);
+  border-color: rgba(229, 184, 75, 0.55);
+  box-shadow: 0 10px 32px -5px rgba(229, 184, 75, 0.15), 0 10px 30px -5px rgba(0, 0, 0, 0.6);
+}
+
+.cdc-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cdc-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F5D061 0%, #C6960C 100%);
+  color: #1A0C00;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 17px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(198, 150, 12, 0.3);
+}
+
+.cdc-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cdc-name {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cdc-role {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  color: #E5B84B;
+  line-height: 1.2;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cdc-quote {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #FFF8E7;
+  line-height: 1.35;
+  background: rgba(229, 184, 75, 0.1);
+  border-left: 3px solid #E5B84B;
+  padding: 5px 8px;
+  border-radius: 0 6px 6px 0;
+  margin: 6px 0 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cdc-desc {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 11px;
+  color: #C0BCCD;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cdc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding-top: 5px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.cdc-tag {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #E5B84B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cdc-expand {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #8C869A;
+}
+
+/* ── Lightbox / Expanded Pop-up Modal ──────────────────────── */
 .viewer {
   position: absolute;
   inset: 0;
@@ -146,27 +264,22 @@ main.sphere-main:active {
 }
 
 .viewer .frame {
-  height: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--enlarge-radius, 32px);
+  width: 440px;
+  max-width: 90vw;
+  min-height: 280px;
+  border-radius: 28px;
   display: flex;
-}
-
-@media (max-aspect-ratio: 1/1) {
-  .viewer .frame {
-    height: auto;
-    width: 100%;
-  }
+  pointer-events: none;
 }
 
 .viewer .scrim {
   position: absolute;
   inset: 0;
   z-index: 10;
-  background: rgba(5, 4, 8, 0.65);
+  background: rgba(5, 4, 8, 0.7);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 500ms ease;
+  transition: opacity 350ms ease;
   backdrop-filter: blur(8px);
 }
 
@@ -178,32 +291,146 @@ main.sphere-main:active {
 .viewer .enlarge {
   position: absolute;
   z-index: 30;
-  border-radius: var(--enlarge-radius, 32px);
+  width: 440px;
+  max-width: 90vw;
+  border-radius: 28px;
   overflow: hidden;
-  transition:
-    transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 500ms ease;
+  background: linear-gradient(145deg, #1C1A29 0%, #100F17 100%);
+  border: 1.5px solid rgba(229, 184, 75, 0.5);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(229, 184, 75, 0.2);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease;
   transform-origin: top left;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  background: #14121d;
+  pointer-events: auto;
 }
 
-.viewer .enlarge img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: var(--image-filter, grayscale(1));
+.viewer .enlarge.enlarge--accent {
+  background: linear-gradient(145deg, #2A2114 0%, #171109 100%);
+  border-color: #E5B84B;
 }
 
-.sphere-root .enlarge-closing img {
-  filter: var(--image-filter, grayscale(1));
+.dome-popup-card {
+  padding: 30px 26px 24px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  position: relative;
+}
+
+.dome-popup-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #E5B84B;
+  transition: all 0.2s ease;
+}
+
+.dome-popup-close-btn:hover {
+  background: rgba(229, 184, 75, 0.2);
+  transform: scale(1.1);
+}
+
+.dome-popup-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.dome-popup-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F5D061 0%, #C6960C 100%);
+  color: #1A0C00;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 24px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(198, 150, 12, 0.35);
+}
+
+.dome-popup-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.dome-popup-name {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 20px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.dome-popup-role {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #E5B84B;
+}
+
+.dome-popup-quote {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFF8E7;
+  line-height: 1.45;
+  margin: 6px 0 14px;
+  background: rgba(229, 184, 75, 0.12);
+  border-left: 3.5px solid #E5B84B;
+  padding: 10px 14px;
+  border-radius: 0 10px 10px 0;
+}
+
+.dome-popup-desc {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 14.5px;
+  color: #D2CEE0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.dome-popup-footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dome-popup-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #E5B84B;
 }
 
 .edge-fade {
   position: absolute;
   left: 0;
   right: 0;
-  height: 140px;
+  height: 130px;
   z-index: 5;
   pointer-events: none;
   background: linear-gradient(to bottom, transparent, var(--overlay-blur-color, #0d0c13));
@@ -221,14 +448,14 @@ main.sphere-main:active {
 /* ── Section Wrapper ───────────────────────────────────────── */
 .dome-gallery-section {
   background: #0d0c13;
-  padding: 80px 0 40px;
+  padding: 70px 0 30px;
   position: relative;
   overflow: hidden;
 }
 
 .dome-gallery-header {
   text-align: center;
-  padding: 0 24px 30px;
+  padding: 0 24px 24px;
 }
 
 .dome-gallery-section .crew-section-tag {
@@ -249,13 +476,13 @@ main.sphere-main:active {
   font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
   font-size: 13px;
   font-weight: 600;
-  color: #D4AF37;
+  color: #E5B84B;
   margin-top: 8px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  background: rgba(229, 184, 75, 0.12);
+  border: 1px solid rgba(229, 184, 75, 0.25);
   padding: 5px 16px;
   border-radius: 50px;
 }
@@ -263,12 +490,12 @@ main.sphere-main:active {
 .dome-gallery-container {
   position: relative;
   width: 100%;
-  height: 680px;
+  height: 640px;
   overflow: hidden;
 }
 
 @media (max-width: 768px) {
   .dome-gallery-container {
-    height: 520px;
+    height: 500px;
   }
 }
