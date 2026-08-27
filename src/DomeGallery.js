@@ -1,70 +1,152 @@
 /**
  * DomeGallery.js
- * Exact JavaScript + CSS implementation of the React Bits DomeGallery component.
- * Renders an immersive 3D spherical dome of grayscale tiles with inertia drag physics,
- * edge blur gradients, and smooth click-to-enlarge lightbox animation.
+ * Immersive 3D Spherical Dome Gallery for Cookie Crew Comments.
+ * Dark luxury aesthetic with crisp typography, momentum drag physics,
+ * and smooth click-to-enlarge card lightbox.
  */
 
 import './DomeGallery.css';
 
-const DEFAULT_IMAGES = [
+// ── 8 Crew Members & Comments ────────────────────────────────────────────────
+const CREW_MEMBERS = [
   {
-    src: 'https://images.unsplash.com/photo-1755331039789-7e5680e26e8f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0',
-    alt: 'Abstract art'
+    initial: 'L',
+    name: 'Lokesh',
+    role: 'Research & Development',
+    quote: '“The flavour scientist on a secret mission.”',
+    desc: 'Constantly experimenting—one day he’ll crack the unbeatable flavour.',
+    accent: false
   },
   {
-    src: 'https://images.unsplash.com/photo-1755569309049-98410b94f66d?q=80&w=772&auto=format&fit=crop&ixlib=rb-4.1.0',
-    alt: 'Modern sculpture'
+    initial: 'S',
+    name: 'Sowmya',
+    role: 'Packing Head',
+    quote: '“Master of neatness, the queen of clean corners.”',
+    desc: 'Every pack looks perfect—you’ll swear precision is her superpower.',
+    accent: false
   },
   {
-    src: 'https://images.unsplash.com/photo-1755497595318-7e5e3523854f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0',
-    alt: 'Digital artwork'
+    initial: 'S',
+    name: 'Shree Raksha',
+    role: 'Finance Head (CA)',
+    quote: '“Keeps the numbers clean and the business steady.”',
+    desc: 'From compliance to clarity, she ensures MingMorsels grows the right way.',
+    accent: false
   },
   {
-    src: 'https://images.unsplash.com/photo-1755353985163-c2a0fe5ac3d8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0',
-    alt: 'Contemporary art'
+    initial: 'A',
+    name: 'Arun Narayanan K',
+    role: 'Founder & Creative Head',
+    quote: '“Chief Cookie Dreamer.”',
+    desc: 'Believes every cookie should tell a story. Obsessed with getting every bite right.',
+    accent: true
   },
   {
-    src: 'https://images.unsplash.com/photo-1745965976680-d00be7dc0377?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0',
-    alt: 'Geometric pattern'
+    initial: 'D',
+    name: 'Dharshini K',
+    role: 'Operations Excellence Lead',
+    quote: '“Runs the show so smoothly, even chaos listens to her.”',
+    desc: 'If something’s on track, it’s probably because she double-checked it… twice.',
+    accent: false
   },
   {
-    src: 'https://images.unsplash.com/photo-1752588975228-21f44630bb3c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0',
-    alt: 'Textured surface'
+    initial: 'B',
+    name: 'Bishu Mehra',
+    role: 'Sales & Operations Supervisor',
+    quote: '“Sells cookies like they’re happiness in a box.”',
+    desc: 'Can talk to anyone, anywhere—might even convince a cookie to sell itself.',
+    accent: false
   },
   {
-    src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=774&auto=format&fit=crop',
-    alt: 'Portrait'
+    initial: 'N',
+    name: 'Nafees Khan',
+    role: 'Business Development & Institutional Sales',
+    quote: '“Turns handshakes into long-term partnerships.”',
+    desc: 'Calm, strategic, and the reason MingMorsels enters premium spaces.',
+    accent: false
   },
   {
-    src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=774&auto=format&fit=crop',
-    alt: 'Artisanal Portrait'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=774&auto=format&fit=crop',
-    alt: 'Creativity'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=774&auto=format&fit=crop',
-    alt: 'Artisan'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=800&auto=format&fit=crop',
-    alt: 'Bakery craftsmanship'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop',
-    alt: 'Fresh dough crafting'
+    initial: 'D',
+    name: 'Daniel',
+    role: 'Chef · Production',
+    quote: '“Kitchen wizard with a whisk and wild ideas.”',
+    desc: 'If your cookie tastes amazing… he’s definitely the reason.',
+    accent: true
   }
 ];
 
-const DEFAULTS = {
-  maxVerticalRotationDeg: 5,
-  dragSensitivity: 20,
-  enlargeTransitionMs: 300,
-  segments: 35
-};
+// Generates high-contrast, dark luxury vector comment card Base64 data URLs
+function createDarkCommentCardSVG(member) {
+  const isAccent = member.accent;
+  const bgGradStart = isAccent ? '#251F14' : '#181622';
+  const bgGradEnd = isAccent ? '#1A140A' : '#0F0E16';
+  const borderColor = isAccent ? '#E5B84B' : 'rgba(212, 175, 55, 0.35)';
 
+  const words = member.desc.split(' ');
+  let line1 = '', line2 = '', line3 = '';
+  words.forEach(w => {
+    if ((line1 + ' ' + w).length < 36) {
+      line1 = (line1 + ' ' + w).trim();
+    } else if ((line2 + ' ' + w).length < 36) {
+      line2 = (line2 + ' ' + w).trim();
+    } else {
+      line3 = (line3 + ' ' + w).trim();
+    }
+  });
+
+  const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 380" width="540" height="380">
+  <defs>
+    <linearGradient id="cardBg_${member.initial}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${bgGradStart}"/>
+      <stop offset="100%" stop-color="${bgGradEnd}"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5D061"/>
+      <stop offset="100%" stop-color="#C6960C"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Base Squircle -->
+  <rect width="534" height="374" x="3" y="3" rx="28" fill="url(#cardBg_${member.initial})" stroke="${borderColor}" stroke-width="2.5" />
+  
+  <!-- Avatar Badge -->
+  <circle cx="62" cy="64" r="32" fill="url(#goldGrad)" />
+  <text x="62" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" fill="#1A0C00" text-anchor="middle">${member.initial}</text>
+  
+  <!-- Name & Role -->
+  <text x="112" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="23" font-weight="800" fill="#FFFFFF">${member.name}</text>
+  <text x="112" y="82" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#E5B84B">${member.role}</text>
+  
+  <!-- Divider -->
+  <line x1="30" y1="114" x2="510" y2="114" stroke="rgba(212,175,55,0.2)" stroke-width="1.5"/>
+  
+  <!-- Quote Highlight -->
+  <rect x="30" y="132" width="480" height="74" rx="14" fill="rgba(229,184,75,0.12)" />
+  <rect x="30" y="132" width="5" height="74" rx="2.5" fill="#E5B84B" />
+  <text x="48" y="176" font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="700" fill="#FFF8E7">${member.quote}</text>
+  
+  <!-- Description -->
+  <text x="36" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#C5C0D0">${line1}</text>
+  ${line2 ? `<text x="36" y="268" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#C5C0D0">${line2}</text>` : ''}
+  ${line3 ? `<text x="36" y="296" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#C5C0D0">${line3}</text>` : ''}
+  
+  <!-- Footer -->
+  <line x1="30" y1="318" x2="510" y2="318" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="36" y="352" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" fill="#E5B84B">🍪 MING MORSELS COOKIE CREW</text>
+  <text x="504" y="352" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#A09BAE" text-anchor="end">🔍 Tap to expand</text>
+</svg>
+`.trim();
+
+  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
+}
+
+const CREW_CARD_IMAGES = CREW_MEMBERS.map(m => ({
+  src: createDarkCommentCardSVG(m),
+  alt: `${m.name} - ${m.quote}`
+}));
+
+// ── Math & Rotation Helpers ──────────────────────────────────────────────────
 const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 const normalizeAngle = d => ((d % 360) + 360) % 360;
 const wrapAngleSigned = deg => {
@@ -77,6 +159,7 @@ const getDataNumber = (el, name, fallback) => {
   return Number.isFinite(n) ? n : fallback;
 };
 
+// Generates the spherical grid items with the 8 comments repeated seamlessly
 function buildItems(pool, seg) {
   const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
   const evenYs = [-4, -2, 0, 2, 4];
@@ -88,31 +171,7 @@ function buildItems(pool, seg) {
   });
 
   const totalSlots = coords.length;
-  if (pool.length === 0) {
-    return coords.map(c => ({ ...c, src: '', alt: '' }));
-  }
-
-  const normalizedImages = pool.map(image => {
-    if (typeof image === 'string') {
-      return { src: image, alt: '' };
-    }
-    return { src: image.src || '', alt: image.alt || '' };
-  });
-
-  const usedImages = Array.from({ length: totalSlots }, (_, i) => normalizedImages[i % normalizedImages.length]);
-
-  for (let i = 1; i < usedImages.length; i++) {
-    if (usedImages[i].src === usedImages[i - 1].src) {
-      for (let j = i + 1; j < usedImages.length; j++) {
-        if (usedImages[j].src !== usedImages[i].src) {
-          const tmp = usedImages[i];
-          usedImages[i] = usedImages[j];
-          usedImages[j] = tmp;
-          break;
-        }
-      }
-    }
-  }
+  const usedImages = Array.from({ length: totalSlots }, (_, i) => pool[i % pool.length]);
 
   return coords.map((c, i) => ({
     ...c,
@@ -130,23 +189,23 @@ function computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments) {
 
 export function initDomeGallery(containerEl, userProps = {}) {
   const props = {
-    images: DEFAULT_IMAGES,
+    images: CREW_CARD_IMAGES,
     fit: 0.5,
     fitBasis: 'auto',
     minRadius: 600,
     maxRadius: Infinity,
     padFactor: 0.25,
     overlayBlurColor: '#0d0c13',
-    maxVerticalRotationDeg: DEFAULTS.maxVerticalRotationDeg,
-    dragSensitivity: DEFAULTS.dragSensitivity,
-    enlargeTransitionMs: DEFAULTS.enlargeTransitionMs,
-    segments: DEFAULTS.segments,
+    maxVerticalRotationDeg: 5,
+    dragSensitivity: 20,
+    enlargeTransitionMs: 300,
+    segments: 35,
     dragDampening: 2,
-    openedImageWidth: '400px',
-    openedImageHeight: '400px',
+    openedImageWidth: '460px',
+    openedImageHeight: '330px',
     imageBorderRadius: '28px',
     openedImageBorderRadius: '32px',
-    grayscale: true,
+    grayscale: false,
     ...userProps
   };
 
@@ -162,7 +221,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
         --enlarge-radius: ${props.openedImageBorderRadius};
         --image-filter: ${props.grayscale ? 'grayscale(1)' : 'none'};
       ">
-      <main class="sphere-main">
+      <main class="sphere-main" title="Drag to spin the dome • Click any card to expand">
         <div class="stage">
           <div class="sphere">
             ${items.map((it, i) => `
@@ -184,9 +243,9 @@ export function initDomeGallery(containerEl, userProps = {}) {
                   class="item__image"
                   role="button"
                   tabindex="0"
-                  aria-label="${it.alt || 'Open image'}"
+                  aria-label="${it.alt || 'Open comment'}"
                 >
-                  <img src="${it.src}" draggable="false" alt="${it.alt}" loading="lazy" />
+                  <img src="${it.src}" draggable="false" alt="${it.alt}" />
                 </div>
               </div>
             `).join('')}
@@ -285,10 +344,6 @@ export function initDomeGallery(containerEl, userProps = {}) {
     const viewerPad = Math.max(8, Math.round(minDim * props.padFactor));
     rootRef.style.setProperty('--radius', `${lockedRadius}px`);
     rootRef.style.setProperty('--viewer-pad', `${viewerPad}px`);
-    rootRef.style.setProperty('--overlay-blur-color', props.overlayBlurColor);
-    rootRef.style.setProperty('--tile-radius', props.imageBorderRadius);
-    rootRef.style.setProperty('--enlarge-radius', props.openedImageBorderRadius);
-    rootRef.style.setProperty('--image-filter', props.grayscale ? 'grayscale(1)' : 'none');
     applyTransform(rotation.x, rotation.y);
 
     const enlargedOverlay = viewerRef?.querySelector('.enlarge');
@@ -439,7 +494,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
     if (rotY < -180) rotY += 360;
     const rotX = -parentRot.rotateX - rotation.x;
     parent.style.setProperty('--rot-y-delta', `${rotY}deg`);
-    parent.style.setProperty('--rot-x-delta', `${rotX}deg`);
+    parent.style.setProperty('--rot-x-delta', `${-parentRot.rotateX - rotation.x}deg`);
     const refDiv = document.createElement('div');
     refDiv.className = 'item__image item__image--reference';
     refDiv.style.opacity = '0';
@@ -474,7 +529,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
     overlay.style.zIndex = '30';
     overlay.style.willChange = 'transform, opacity';
     overlay.style.transformOrigin = 'top left';
-    overlay.style.transition = `transform ${props.enlargeTransitionMs}ms ease, opacity ${props.enlargeTransitionMs}ms ease`;
+    overlay.style.transition = `transform ${props.enlargeTransitionMs}ms cubic-bezier(0.16, 1, 0.3, 1), opacity ${props.enlargeTransitionMs}ms ease`;
     const rawSrc = parent.dataset.src || el.querySelector('img')?.src || '';
     const img = document.createElement('img');
     img.src = rawSrc;
@@ -574,7 +629,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
     const originalImg = overlay.querySelector('img');
     if (originalImg) {
       const img = originalImg.cloneNode();
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;filter:grayscale(1);';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
       animatingOverlay.appendChild(img);
     }
     overlay.remove();
