@@ -16,7 +16,7 @@ import { initGiftBoxBuilder, showBoxBuilder } from './GiftBoxBuilder.js';
 import { initPairingQuiz, showPairingQuiz } from './PairingQuiz.js';
 import { initSocialGallery } from './SocialGallery.js';
 import { initDomeGallery } from './DomeGallery.js';
-import { initParticleText } from './ParticleText.js';
+import { initStrokeText } from './StrokeText.js';
 import { initNetworkMonitor, saveActiveSession, getSavedSession, showRecoveryBanner, SessionType } from './sessionState.js';
 
 import { openQuickAddModal, PRODUCT_BOX_CATALOG } from './controllers/QuickAddModal.js';
@@ -86,26 +86,22 @@ async function startApp() {
     const domeRoot = document.getElementById('dome-gallery-root');
     if (domeRoot) initDomeGallery(domeRoot);
 
-    const particleTextRoot = document.getElementById('particle-text-root');
-    if (particleTextRoot) {
-      initParticleText(particleTextRoot, {
+    const strokeTextRoot = document.getElementById('stroke-text-root');
+    if (strokeTextRoot) {
+      initStrokeText(strokeTextRoot, {
         text: 'Unit of Miora Delights Private Limited',
-        textAlign: 'left',
-        particleSize: 3.2,
-        density: 1.5, // Dense and solid glyph definition
-        color: '#0F0600', // Deepest dark roast espresso for 100% contrast & readability
-        highlightColor: '#3A1E04',
-        scatter: 190,
-        gatherDuration: 1300,
-        stagger: 320,
-        pointerRepel: 50,
-        repelRadius: 130,
-        idleDrift: 0.5,
-        trigger: 'hover',
-        fontSize: 'clamp(2rem, 4.4vw, 3.4rem)', // Noticeably larger, bold font
+        strokeColor: '#C6960C',
+        fillColor: '#3D2000',
+        strokeWidth: 1.6,
+        drawDuration: 1.6,
+        fillDelay: 0.15,
+        stagger: 0.035,
+        ease: 'power2.out',
+        trigger: 'scroll',
+        fillMode: 'wipe',
+        fontSize: 52,
         fontWeight: 800,
-        fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
-        glow: false
+        letterSpacing: -0.5
       });
     }
 
