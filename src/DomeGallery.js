@@ -1,8 +1,8 @@
 /**
  * DomeGallery.js
- * JavaScript + CSS implementation of the React Bits DomeGallery component.
- * Renders an interactive 3D sphere of Cookie Crew comment cards with
- * gesture drag physics, momentum inertia, and animated card enlargement.
+ * High-performance 3D Dome Gallery for Cookie Crew Comments.
+ * Features crisp vector card rendering, momentum drag inertia,
+ * and smooth click-to-expand card view with zero broken tiles.
  */
 
 import './DomeGallery.css';
@@ -38,7 +38,7 @@ const CREW_MEMBERS = [
     name: 'Arun Narayanan K',
     role: 'Founder & Creative Head',
     quote: '“Chief Cookie Dreamer.”',
-    desc: 'Believes every cookie should tell a story. Obsessed with getting every bite right.',
+    desc: 'Believes every cookie should tell a story. From first batch to thousandth box, obsessed with getting every bite right.',
     accent: true
   },
   {
@@ -75,62 +75,66 @@ const CREW_MEMBERS = [
   }
 ];
 
-// Helper to create crisp, high-resolution SVG comment card data URLs
+// Generates base64-encoded SVG card image data URLs (100% cross-browser compatible)
 function createCommentCardSVG(member) {
   const isAccent = member.accent;
-  const bgFill = isAccent ? 'url(#bg_accent)' : '#FFFFFF';
-  const strokeColor = isAccent ? '#E5B84B' : '#E8DED1';
+  const bgFill = isAccent ? '#FFFDF4' : '#FFFFFF';
+  const strokeColor = isAccent ? '#D9A31E' : '#E2D6C5';
 
-  // Word wrap description for SVG
+  // Format description lines cleanly
   const words = member.desc.split(' ');
-  let line1 = '', line2 = '';
+  let line1 = '', line2 = '', line3 = '';
   words.forEach(w => {
-    if ((line1 + ' ' + w).length < 42) {
+    if ((line1 + ' ' + w).length < 38) {
       line1 = (line1 + ' ' + w).trim();
-    } else {
+    } else if ((line2 + ' ' + w).length < 38) {
       line2 = (line2 + ' ' + w).trim();
+    } else {
+      line3 = (line3 + ' ' + w).trim();
     }
   });
 
   const svg = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 370" width="520" height="370">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 380" width="540" height="380">
   <defs>
-    <linearGradient id="bg_accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFFDF7"/>
-      <stop offset="100%" stop-color="#FFF4DC"/>
+    <linearGradient id="avatarGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FCEFD8"/>
+      <stop offset="100%" stop-color="#F7DEB8"/>
     </linearGradient>
   </defs>
-  <!-- Card Background -->
-  <rect width="516" height="366" x="2" y="2" rx="26" fill="${bgFill}" stroke="${strokeColor}" stroke-width="2.5" />
+  <!-- Card Base -->
+  <rect width="534" height="374" x="3" y="3" rx="28" fill="${bgFill}" stroke="${strokeColor}" stroke-width="3" />
   
-  <!-- Avatar Badge -->
-  <circle cx="56" cy="58" r="28" fill="#F9E3C4" stroke="#C6960C" stroke-width="2" stroke-opacity="0.4"/>
-  <text x="56" y="66" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="800" fill="#7C4A1E" text-anchor="middle">${member.initial}</text>
+  <!-- Header: Avatar Circle -->
+  <circle cx="62" cy="64" r="32" fill="url(#avatarGrad)" stroke="#C6960C" stroke-width="2.5" />
+  <text x="62" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#7C4A1E" text-anchor="middle">${member.initial}</text>
   
-  <!-- Name & Role -->
-  <text x="98" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#3D2000">${member.name}</text>
-  <text x="98" y="74" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#A07020">${member.role}</text>
+  <!-- Header: Name & Role -->
+  <text x="110" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="23" font-weight="800" fill="#3D2000">${member.name}</text>
+  <text x="110" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" fill="#A07020">${member.role}</text>
   
   <!-- Divider -->
-  <line x1="28" y1="102" x2="492" y2="102" stroke="#EFE7DC" stroke-width="1.5"/>
+  <line x1="32" y1="112" x2="508" y2="112" stroke="#EFE7DC" stroke-width="2"/>
   
-  <!-- Quote Highlight -->
-  <rect x="28" y="122" width="464" height="66" rx="12" fill="rgba(198,150,12,0.08)" />
-  <rect x="28" y="122" width="4.5" height="66" rx="2" fill="#C6960C" />
-  <text x="44" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#3D2000">${member.quote}</text>
+  <!-- Quote Highlight Banner -->
+  <rect x="32" y="130" width="476" height="74" rx="14" fill="rgba(198,150,12,0.09)" />
+  <rect x="32" y="130" width="6" height="74" rx="3" fill="#C6960C" />
+  <text x="50" y="174" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="700" fill="#3D2000">${member.quote}</text>
   
-  <!-- Description -->
-  <text x="32" y="222" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500" fill="#5A4030">${line1}</text>
-  <text x="32" y="248" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500" fill="#5A4030">${line2}</text>
+  <!-- Description Text -->
+  <text x="36" y="238" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#5A4030">${line1}</text>
+  ${line2 ? `<text x="36" y="266" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#5A4030">${line2}</text>` : ''}
+  ${line3 ? `<text x="36" y="294" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" fill="#5A4030">${line3}</text>` : ''}
   
   <!-- Footer -->
-  <line x1="28" y1="286" x2="492" y2="286" stroke="#EFE7DC" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="32" y="324" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#7C4A1E">🍪 MING MORSELS COOKIE CREW</text>
-  <text x="488" y="324" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#C6960C" text-anchor="end">🔍 Tap to expand</text>
+  <line x1="32" y1="316" x2="508" y2="316" stroke="#EFE7DC" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <text x="36" y="352" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5" font-weight="800" fill="#7C4A1E">🍪 MING MORSELS COOKIE CREW</text>
+  <text x="504" y="352" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5" font-weight="700" fill="#C6960C" text-anchor="end">🔍 Tap to expand</text>
 </svg>
 `.trim();
 
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+  // UTF-8 to Base64 data URL
+  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
 }
 
 const CREW_IMAGES = CREW_MEMBERS.map(m => ({
@@ -138,14 +142,7 @@ const CREW_IMAGES = CREW_MEMBERS.map(m => ({
   alt: `${m.name} - ${m.quote}`
 }));
 
-// ── React Bits Constants & Helpers ───────────────────────────────────────────
-const DEFAULTS = {
-  maxVerticalRotationDeg: 5,
-  dragSensitivity: 20,
-  enlargeTransitionMs: 300,
-  segments: 35
-};
-
+// ── Math & Rotation Helpers ──────────────────────────────────────────────────
 const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 const normalizeAngle = d => ((d % 360) + 360) % 360;
 const wrapAngleSigned = deg => {
@@ -158,42 +155,20 @@ const getDataNumber = (el, name, fallback) => {
   return Number.isFinite(n) ? n : fallback;
 };
 
+// Generates larger, less congested card placements across the dome
 function buildItems(pool, seg) {
-  const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
-  const evenYs = [-4, -2, 0, 2, 4];
-  const oddYs = [-3, -1, 1, 3, 5];
+  const xCols = Array.from({ length: seg }, (_, i) => -19 + i * 2.4);
+  const evenYs = [-2.2, 0, 2.2];
+  const oddYs  = [-1.1, 1.1];
 
   const coords = xCols.flatMap((x, c) => {
     const ys = c % 2 === 0 ? evenYs : oddYs;
-    return ys.map(y => ({ x, y, sizeX: 2, sizeY: 2 }));
+    return ys.map(y => ({ x: Number(x.toFixed(2)), y, sizeX: 2.8, sizeY: 2.1 }));
   });
 
   const totalSlots = coords.length;
-  if (pool.length === 0) {
-    return coords.map(c => ({ ...c, src: '', alt: '' }));
-  }
-
-  const normalizedImages = pool.map(image => {
-    if (typeof image === 'string') {
-      return { src: image, alt: '' };
-    }
-    return { src: image.src || '', alt: image.alt || '' };
-  });
-
-  const usedImages = Array.from({ length: totalSlots }, (_, i) => normalizedImages[i % normalizedImages.length]);
-
-  for (let i = 1; i < usedImages.length; i++) {
-    if (usedImages[i].src === usedImages[i - 1].src) {
-      for (let j = i + 1; j < usedImages.length; j++) {
-        if (usedImages[j].src !== usedImages[i].src) {
-          const tmp = usedImages[i];
-          usedImages[i] = usedImages[j];
-          usedImages[j] = tmp;
-          break;
-        }
-      }
-    }
-  }
+  // Repeat existing 8 crew comments seamlessly across all slots
+  const usedImages = Array.from({ length: totalSlots }, (_, i) => pool[i % pool.length]);
 
   return coords.map((c, i) => ({
     ...c,
@@ -213,28 +188,27 @@ function computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments) {
 export function initDomeGallery(containerEl, userProps = {}) {
   const props = {
     images: CREW_IMAGES,
-    fit: 0.5,
+    fit: 0.52,
     fitBasis: 'auto',
-    minRadius: 600,
+    minRadius: 580,
     maxRadius: Infinity,
-    padFactor: 0.25,
+    padFactor: 0.2,
     overlayBlurColor: '#FAF6F0',
-    maxVerticalRotationDeg: DEFAULTS.maxVerticalRotationDeg,
-    dragSensitivity: DEFAULTS.dragSensitivity,
-    enlargeTransitionMs: DEFAULTS.enlargeTransitionMs,
-    segments: DEFAULTS.segments,
+    maxVerticalRotationDeg: 6,
+    dragSensitivity: 18,
+    enlargeTransitionMs: 320,
+    segments: 16, // Clean, spacious, larger tiles
     dragDampening: 2,
-    openedImageWidth: '420px',
-    openedImageHeight: '300px',
-    imageBorderRadius: '16px',
-    openedImageBorderRadius: '24px',
+    openedImageWidth: '480px',
+    openedImageHeight: '340px',
+    imageBorderRadius: '20px',
+    openedImageBorderRadius: '28px',
     grayscale: false,
     ...userProps
   };
 
   const items = buildItems(props.images, props.segments);
 
-  // Render DOM structure matching React Bits component
   containerEl.innerHTML = `
     <div class="sphere-root"
       style="
@@ -245,7 +219,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
         --enlarge-radius: ${props.openedImageBorderRadius};
         --image-filter: ${props.grayscale ? 'grayscale(1)' : 'none'};
       ">
-      <main class="sphere-main">
+      <main class="sphere-main" title="Drag to spin the dome • Click any card to expand">
         <div class="stage">
           <div class="sphere">
             ${items.map((it, i) => `
@@ -302,7 +276,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
   const startRot = { x: 0, y: 0 };
   let startPos = null;
   let dragging = false;
-  let moved = false;
+  let hasMovedFar = false;
   let inertiaRAF = null;
   let opening = false;
   let openStartedAt = 0;
@@ -417,23 +391,22 @@ export function initDomeGallery(containerEl, userProps = {}) {
     if (focusedEl) return;
     stopInertia();
     dragging = true;
-    moved = false;
+    hasMovedFar = false;
     startRot.x = rotation.x;
     startRot.y = rotation.y;
     startPos = { x: e.clientX, y: e.clientY };
     lastMovePos = { ...startPos };
     lastMoveTime = performance.now();
     velocity = { x: 0, y: 0 };
-    mainRef.setPointerCapture(e.pointerId);
   }, { passive: true });
 
-  mainRef.addEventListener('pointermove', e => {
+  window.addEventListener('pointermove', e => {
     if (focusedEl || !dragging || !startPos) return;
     const dxTotal = e.clientX - startPos.x;
     const dyTotal = e.clientY - startPos.y;
-    if (!moved) {
+    if (!hasMovedFar) {
       const dist2 = dxTotal * dxTotal + dyTotal * dyTotal;
-      if (dist2 > 16) moved = true;
+      if (dist2 > 25) hasMovedFar = true;
     }
     const nextX = clamp(
       startRot.x - dyTotal / props.dragSensitivity,
@@ -457,20 +430,21 @@ export function initDomeGallery(containerEl, userProps = {}) {
     lastMoveTime = now;
   }, { passive: true });
 
-  const onPointerEnd = () => {
+  const onPointerEnd = e => {
     if (!dragging) return;
     dragging = false;
     if (Math.abs(velocity.x) > 0.005 || Math.abs(velocity.y) > 0.005) {
       startInertia(velocity.x, velocity.y);
     }
-    if (moved) lastDragEndAt = performance.now();
-    moved = false;
+    if (hasMovedFar) {
+      lastDragEndAt = performance.now();
+    }
   };
 
-  mainRef.addEventListener('pointerup', onPointerEnd, { passive: true });
-  mainRef.addEventListener('pointercancel', onPointerEnd, { passive: true });
+  window.addEventListener('pointerup', onPointerEnd, { passive: true });
+  window.addEventListener('pointercancel', onPointerEnd, { passive: true });
 
-  // Open / Enlarge Item
+  // Open / Expand Item
   const openItemFromElement = el => {
     if (opening) return;
     opening = true;
@@ -482,8 +456,8 @@ export function initDomeGallery(containerEl, userProps = {}) {
     el.setAttribute('data-focused', 'true');
     const offsetX = getDataNumber(parent, 'offsetX', 0);
     const offsetY = getDataNumber(parent, 'offsetY', 0);
-    const sizeX = getDataNumber(parent, 'sizeX', 2);
-    const sizeY = getDataNumber(parent, 'sizeY', 2);
+    const sizeX = getDataNumber(parent, 'sizeX', 2.8);
+    const sizeY = getDataNumber(parent, 'sizeY', 2.1);
     const parentRot = computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, props.segments);
     const parentY = normalizeAngle(parentRot.rotateY);
     const globalY = normalizeAngle(rotation.y);
@@ -492,6 +466,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
     const rotX = -parentRot.rotateX - rotation.x;
     parent.style.setProperty('--rot-y-delta', `${rotY}deg`);
     parent.style.setProperty('--rot-x-delta', `${rotX}deg`);
+
     const refDiv = document.createElement('div');
     refDiv.className = 'item__image item__image--reference';
     refDiv.style.opacity = '0';
@@ -515,6 +490,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
     originalTilePosition = { left: tileR.left, top: tileR.top, width: tileR.width, height: tileR.height };
     el.style.visibility = 'hidden';
     el.style.zIndex = 0;
+
     const overlay = document.createElement('div');
     overlay.className = 'enlarge';
     overlay.style.position = 'absolute';
@@ -526,12 +502,14 @@ export function initDomeGallery(containerEl, userProps = {}) {
     overlay.style.zIndex = '30';
     overlay.style.willChange = 'transform, opacity';
     overlay.style.transformOrigin = 'top left';
-    overlay.style.transition = `transform ${props.enlargeTransitionMs}ms ease, opacity ${props.enlargeTransitionMs}ms ease`;
+    overlay.style.transition = `transform ${props.enlargeTransitionMs}ms cubic-bezier(0.16, 1, 0.3, 1), opacity ${props.enlargeTransitionMs}ms ease`;
+
     const rawSrc = parent.dataset.src || el.querySelector('img')?.src || '';
     const img = document.createElement('img');
     img.src = rawSrc;
     overlay.appendChild(img);
     viewerRef.appendChild(overlay);
+
     const tx0 = tileR.left - frameR.left;
     const ty0 = tileR.top - frameR.top;
     const sx0 = tileR.width / frameR.width;
@@ -583,9 +561,9 @@ export function initDomeGallery(containerEl, userProps = {}) {
     }
   };
 
-  // Scrim / Close Dialog
+  // Close Dialog
   const close = () => {
-    if (performance.now() - openStartedAt < 250) return;
+    if (performance.now() - openStartedAt < 200) return;
     const el = focusedEl;
     if (!el) return;
     const parent = el.parentElement;
@@ -622,7 +600,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
     };
     const animatingOverlay = document.createElement('div');
     animatingOverlay.className = 'enlarge-closing';
-    animatingOverlay.style.cssText = `position:absolute;left:${overlayRelativeToRoot.left}px;top:${overlayRelativeToRoot.top}px;width:${overlayRelativeToRoot.width}px;height:${overlayRelativeToRoot.height}px;z-index:9999;border-radius: var(--enlarge-radius, 24px);overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:all ${props.enlargeTransitionMs}ms ease-out;pointer-events:none;margin:0;transform:none;`;
+    animatingOverlay.style.cssText = `position:absolute;left:${overlayRelativeToRoot.left}px;top:${overlayRelativeToRoot.top}px;width:${overlayRelativeToRoot.width}px;height:${overlayRelativeToRoot.height}px;z-index:9999;border-radius: var(--enlarge-radius, 28px);overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:all ${props.enlargeTransitionMs}ms ease-out;pointer-events:none;margin:0;transform:none;`;
     const originalImg = overlay.querySelector('img');
     if (originalImg) {
       const img = originalImg.cloneNode();
@@ -677,15 +655,14 @@ export function initDomeGallery(containerEl, userProps = {}) {
     if (e.key === 'Escape') close();
   });
 
-  // Click on tile
-  sphereRef.addEventListener('click', e => {
-    const tile = e.target.closest('.item__image');
-    if (!tile) return;
-    if (dragging) return;
-    if (moved) return;
-    if (performance.now() - lastDragEndAt < 80) return;
-    if (opening) return;
-    openItemFromElement(tile);
+  // Direct Click on tile with drag tolerance
+  sphereRef.querySelectorAll('.item__image').forEach(tile => {
+    tile.addEventListener('click', e => {
+      e.stopPropagation();
+      if (hasMovedFar || opening) return;
+      if (performance.now() - lastDragEndAt < 100) return;
+      openItemFromElement(tile);
+    });
   });
 
   return () => {
