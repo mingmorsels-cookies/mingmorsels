@@ -7922,3 +7922,176 @@ body.no-webgl #webgl-canvas {
     transform: scale(1) translateY(0);
   }
 }
+
+/* ============================================================
+   MEET THE COOKIE CREW — Masonry Section
+   ============================================================ */
+.crew-section {
+  background: #FAF6F0;
+  padding: 80px 24px 96px;
+}
+
+.crew-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.crew-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.crew-section-tag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: rgba(198, 150, 12, 0.1);
+  border: 1px solid rgba(198, 150, 12, 0.25);
+  padding: 5px 16px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+}
+
+.crew-title {
+  font-family: var(--font-sans);
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.crew-subtitle {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-text-light);
+}
+
+/* Masonry via CSS columns */
+.crew-masonry {
+  column-count: 3;
+  column-gap: 20px;
+}
+
+.crew-card {
+  break-inside: avoid;
+  background: #FFFFFF;
+  border: 1px solid #EDE6DC;
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 18px rgba(61, 32, 0, 0.06);
+  transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+  display: inline-block;
+  width: 100%;
+}
+
+.crew-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(61, 32, 0, 0.12);
+}
+
+.crew-card--accent {
+  background: linear-gradient(135deg, #FFF8ED 0%, #FFF3DC 100%);
+  border-color: rgba(198, 150, 12, 0.3);
+}
+
+.crew-card-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.crew-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--avatar-bg, #F9E3C4);
+  color: var(--avatar-color, #7C4A1E);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid rgba(198, 150, 12, 0.2);
+}
+
+.crew-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.crew-name {
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.3;
+}
+
+.crew-role {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  color: var(--color-text-light);
+}
+
+.crew-quote {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.crew-desc {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: #5A4030;
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+.crew-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.crew-tag {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--color-accent);
+  background: rgba(198, 150, 12, 0.1);
+  border: 1px solid rgba(198, 150, 12, 0.25);
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .crew-masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .crew-masonry {
+    column-count: 1;
+  }
+  .crew-section {
+    padding: 56px 16px 72px;
+  }
+}
