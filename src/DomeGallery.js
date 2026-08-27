@@ -1,11 +1,13 @@
 /**
  * DomeGallery.js
- * 3D Sphere / Dome of Cookie Crew Comments with Interactive Pop-up Expand.
+ * 3D Sphere / Dome of Cookie Crew Comments & Testimonials.
+ * Renders interactive comment cards across a rotating 3D dome
+ * with momentum drag physics and a smooth non-fullscreen popup modal.
  */
 
 import './DomeGallery.css';
 
-// ── Crew comments data ───────────────────────────────────────────────────────
+// ── 8 Crew Members & Comments ────────────────────────────────────────────────
 const CREW_COMMENTS = [
   {
     id: 'lokesh',
@@ -14,7 +16,7 @@ const CREW_COMMENTS = [
     role: 'Research & Development',
     quote: '“The flavour scientist on a secret mission.”',
     desc: 'Constantly experimenting—one day he’ll crack the unbeatable flavour.',
-    tags: ['R&D', 'Flavour Scientist']
+    accent: false
   },
   {
     id: 'sowmya',
@@ -23,7 +25,7 @@ const CREW_COMMENTS = [
     role: 'Packing Head',
     quote: '“Master of neatness, the queen of clean corners.”',
     desc: 'Every pack looks perfect—you’ll swear precision is her superpower.',
-    tags: ['Packing Head', 'Quality First']
+    accent: false
   },
   {
     id: 'shree',
@@ -32,7 +34,7 @@ const CREW_COMMENTS = [
     role: 'Finance Head (CA)',
     quote: '“Keeps the numbers clean and the business steady.”',
     desc: 'From compliance to clarity, she ensures MingMorsels grows the right way.',
-    tags: ['Finance Head', 'Chartered Accountant']
+    accent: false
   },
   {
     id: 'arun',
@@ -41,7 +43,6 @@ const CREW_COMMENTS = [
     role: 'Founder & Creative Head',
     quote: '“Chief Cookie Dreamer.”',
     desc: 'Believes every cookie should tell a story. From the first batch to the thousandth box, he’s still obsessed with getting every bite right.',
-    tags: ['Founder', 'Creative Head', 'Baker at Heart'],
     accent: true
   },
   {
@@ -50,8 +51,8 @@ const CREW_COMMENTS = [
     name: 'Dharshini K',
     role: 'Operations Excellence Lead',
     quote: '“Runs the show so smoothly, even chaos listens to her.”',
-    desc: 'If something’s on track, it’s probably because she double-checked it... twice.',
-    tags: ['Operations', 'Excellence Lead']
+    desc: 'If something’s on track, it’s probably because she double-checked it… twice.',
+    accent: false
   },
   {
     id: 'bishu',
@@ -60,7 +61,7 @@ const CREW_COMMENTS = [
     role: 'Sales & Operations Supervisor',
     quote: '“Sells cookies like they’re happiness in a box.”',
     desc: 'Can talk to anyone, anywhere—might even convince a cookie to sell itself.',
-    tags: ['Sales & Ops', 'Customer Joy']
+    accent: false
   },
   {
     id: 'nafees',
@@ -69,7 +70,7 @@ const CREW_COMMENTS = [
     role: 'Business Development & Institutional Sales Head',
     quote: '“Turns handshakes into long-term partnerships.”',
     desc: 'Calm, strategic, and the reason MingMorsels enters premium spaces.',
-    tags: ['Business Dev', 'Institutional Partnerships']
+    accent: false
   },
   {
     id: 'daniel',
@@ -77,27 +78,41 @@ const CREW_COMMENTS = [
     name: 'Daniel',
     role: 'Chef · Production',
     quote: '“Kitchen wizard with a whisk and wild ideas.”',
-    desc: 'If your cookie tastes amazing... he’s definitely the reason.',
-    tags: ['Chef', 'Production', 'Master Baker'],
+    desc: 'If your cookie tastes amazing… he’s definitely the reason.',
     accent: true
   }
 ];
 
-// ── Pure helpers ─────────────────────────────────────────────────────────────
-const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+// ── Helpers ──────────────────────────────────────────────────────────────────
+const clamp          = (v, min, max) => Math.min(Math.max(v, min), max);
+const normalizeAngle = d => ((d % 360) + 360) % 360;
 const wrapAngleSigned = deg => { const a = (((deg + 180) % 360) + 360) % 360; return a - 180; };
+const getDataNumber  = (el, name, fallback) => {
+  const attr = el.dataset[name] ?? el.getAttribute(`data-${name}`);
+  const n = attr == null ? NaN : parseFloat(attr);
+  return Number.isFinite(n) ? n : fallback;
+};
 
+// Builds a clean, uncongested spherical distribution of cards
 function buildItems(pool, seg) {
-  const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
-  const evenYs = [-4, -2, 0, 2, 4];
-  const oddYs = [-3, -1, 1, 3, 5];
-  const coords = xCols.flatMap((x, c) => (c % 2 === 0 ? evenYs : oddYs).map(y => ({ x, y, sizeX: 2.5, sizeY: 1.8 })));
+  // Distribute items with enough spacing (2 to 3 rows, spaced columns)
+  const xCols = Array.from({ length: seg }, (_, i) => -18 + i * 2.6);
+  const evenYs = [-1.8, 0, 1.8];
+  const oddYs  = [-0.9, 0.9];
+
+  const coords = xCols.flatMap((x, c) => (c % 2 === 0 ? evenYs : oddYs).map(y => ({
+    x: Number(x.toFixed(2)),
+    y,
+    sizeX: 3.1,
+    sizeY: 2.3
+  })));
+
   const totalSlots = coords.length;
-  
-  if (!pool.length) return coords.map(c => ({ ...c, member: null }));
-  
+  if (!pool.length) return coords.map(c => ({ ...c, data: null }));
+
   const used = Array.from({ length: totalSlots }, (_, i) => pool[i % pool.length]);
-  // distribute to avoid consecutive duplicate cards
+
+  // Shuffle to prevent exact duplicates sitting directly next to each other
   for (let i = 1; i < used.length; i++) {
     if (used[i].id === used[i - 1].id) {
       for (let j = i + 1; j < used.length; j++) {
@@ -113,33 +128,47 @@ function buildItems(pool, seg) {
 
   return coords.map((c, i) => ({
     ...c,
-    member: used[i]
+    data: used[i]
   }));
 }
 
-// ── Public init ──────────────────────────────────────────────────────────────
+function computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments) {
+  const unit = 360 / segments / 2;
+  return {
+    rotateY: unit * (offsetX + (sizeX - 1) / 2),
+    rotateX: unit * (offsetY - (sizeY - 1) / 2),
+  };
+}
+
+// ── Public Init ──────────────────────────────────────────────────────────────
 export function initDomeGallery(containerEl, opts = {}) {
   const {
     crew                = CREW_COMMENTS,
     fit                 = 0.52,
+    fitBasis            = 'auto',
     minRadius           = 540,
-    maxRadius           = Infinity,
+    maxRadius           = 780,
+    padFactor           = 0.18,
     overlayBlurColor    = '#FAF6F0',
-    maxVerticalRotation = 6,
-    dragSensitivity     = 22,
-    segments            = 32,
+    maxVerticalRotation = 7,
+    dragSensitivity     = 18,
+    enlargeTransitionMs = 320,
+    segments            = 14,
     dragDampening       = 1.8,
+    openedCardWidth     = '400px',
   } = opts;
 
-  // ── Build DOM ──────────────────────────────────────────────────────────────
+  // ── Build DOM ─────────────────────────────────────────────────────────────
   containerEl.innerHTML = `
     <div class="sphere-root"
       style="
         --segments-x:${segments};
         --segments-y:${segments};
         --overlay-blur-color:${overlayBlurColor};
+        --tile-radius:18px;
+        --enlarge-radius:24px;
       ">
-      <main class="sphere-main">
+      <main class="sphere-main" title="Click and drag to rotate the Cookie Crew dome">
         <div class="stage"><div class="sphere"></div></div>
         <div class="overlay"></div>
         <div class="overlay overlay--blur"></div>
@@ -147,94 +176,107 @@ export function initDomeGallery(containerEl, opts = {}) {
         <div class="edge-fade edge-fade--bottom"></div>
         <div class="viewer">
           <div class="scrim"></div>
-          <div id="crew-popup-slot"></div>
+          <div class="frame"></div>
         </div>
       </main>
     </div>`;
 
-  const root       = containerEl.querySelector('.sphere-root');
-  const mainEl     = containerEl.querySelector('.sphere-main');
-  const sphereEl   = containerEl.querySelector('.sphere');
-  const scrimEl    = containerEl.querySelector('.scrim');
-  const popupSlot  = containerEl.querySelector('#crew-popup-slot');
+  const root     = containerEl.querySelector('.sphere-root');
+  const mainEl   = containerEl.querySelector('.sphere-main');
+  const sphereEl = containerEl.querySelector('.sphere');
+  const viewerEl = containerEl.querySelector('.viewer');
+  const scrimEl  = containerEl.querySelector('.scrim');
+  const frameEl  = containerEl.querySelector('.frame');
 
-  // ── State ──────────────────────────────────────────────────────────────────
+  // ── State ─────────────────────────────────────────────────────────────────
   const rot        = { x: 0, y: 0 };
   const startRot   = { x: 0, y: 0 };
   let startPos     = null;
   let dragging     = false;
   let moved        = false;
   let inertiaRAF   = null;
+  let focusedEl    = null;
+  let origTilePos  = null;
+  let opening      = false;
+  let openStartAt  = 0;
   let lastDragEndAt = 0;
   let scrollLocked = false;
-  let activePopup  = null;
 
-  // Velocity tracking
   let lastPTime = 0;
   let lastPPos  = { x: 0, y: 0 };
   let vel       = { x: 0, y: 0 };
 
   const lockScroll   = () => { if (scrollLocked) return; scrollLocked = true;  document.body.classList.add('dg-scroll-lock'); };
-  const unlockScroll = () => { if (!scrollLocked) return; scrollLocked = false; document.body.classList.remove('dg-scroll-lock'); };
+  const unlockScroll = () => {
+    if (!scrollLocked || root.getAttribute('data-enlarging') === 'true') return;
+    scrollLocked = false; document.body.classList.remove('dg-scroll-lock');
+  };
 
-  // ── Transform ──────────────────────────────────────────────────────────────
   const applyTransform = (x, y) => {
     sphereEl.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${x}deg) rotateY(${y}deg)`;
   };
   applyTransform(0, 0);
 
-  // ── Build comment tiles ────────────────────────────────────────────────────
+  // ── Build Tiles ───────────────────────────────────────────────────────────
   const items = buildItems(crew, segments);
+
   items.forEach((it, idx) => {
-    const member = it.member;
+    const member = it.data;
     if (!member) return;
 
     const item = document.createElement('div');
     item.className = 'item';
-    item.dataset.index = idx;
+    Object.assign(item.dataset, {
+      crewId: member.id,
+      offsetX: it.x,
+      offsetY: it.y,
+      sizeX: it.sizeX,
+      sizeY: it.sizeY,
+      index: idx
+    });
     item.style.cssText = `--offset-x:${it.x};--offset-y:${it.y};--item-size-x:${it.sizeX};--item-size-y:${it.sizeY};`;
 
-    const card = document.createElement('div');
-    card.className = `item__card${member.accent ? ' item__card--accent' : ''}`;
-    card.setAttribute('role', 'button');
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('aria-label', `${member.name} comment: ${member.quote}`);
+    const cardWrap = document.createElement('div');
+    cardWrap.className = 'item__image';
+    cardWrap.setAttribute('role', 'button');
+    cardWrap.setAttribute('tabindex', '0');
+    cardWrap.setAttribute('aria-label', `Read comments by ${member.name}`);
 
-    card.innerHTML = `
-      <div class="item-card-top">
-        <div class="item-avatar-mini">${member.initial}</div>
-        <div class="item-author-info">
-          <span class="item-author-name">${member.name}</span>
-          <span class="item-author-role">${member.role}</span>
+    cardWrap.innerHTML = `
+      <div class="dome-comment-card ${member.accent ? 'dome-comment-card--accent' : ''}">
+        <div class="dome-card-top">
+          <div class="dome-card-avatar">${member.initial}</div>
+          <div class="dome-card-header-text">
+            <div class="dome-card-name">${member.name}</div>
+            <div class="dome-card-role">${member.role}</div>
+          </div>
         </div>
-      </div>
-      <p class="item-card-quote">${member.quote}</p>
-      <div class="item-card-footer">
-        <span class="item-tap-hint">Tap to expand ↗</span>
+        <div class="dome-card-quote">${member.quote}</div>
+        <div class="dome-card-desc">${member.desc}</div>
+        <div class="dome-card-tap-hint"><span>🔍 Click to expand</span></div>
       </div>
     `;
 
-    card.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (dragging || moved || performance.now() - lastDragEndAt < 90) return;
-      openPopup(member);
-    });
-
-    item.appendChild(card);
+    item.appendChild(cardWrap);
     sphereEl.appendChild(item);
   });
 
-  // ── Resize Observer ────────────────────────────────────────────────────────
+  // ── Responsive Radius ─────────────────────────────────────────────────────
   const ro = new ResizeObserver(([{ contentRect: cr }]) => {
     const w = Math.max(1, cr.width), h = Math.max(1, cr.height);
-    const minDim = Math.min(w, h);
-    const radius = clamp(minDim * fit, minRadius, maxRadius);
+    const minDim = Math.min(w, h), maxDim = Math.max(w, h), aspect = w / h;
+    const basis = fitBasis === 'min' ? minDim : fitBasis === 'max' ? maxDim :
+                  fitBasis === 'width' ? w : fitBasis === 'height' ? h :
+                  (aspect >= 1.3 ? w : minDim);
+    const radius = clamp(Math.min(basis * fit, h * 1.4), minRadius, maxRadius);
+    const pad    = Math.max(8, Math.round(minDim * padFactor));
     root.style.setProperty('--radius', `${Math.round(radius)}px`);
+    root.style.setProperty('--viewer-pad', `${pad}px`);
     applyTransform(rot.x, rot.y);
   });
   ro.observe(root);
 
-  // ── Inertia Physics ────────────────────────────────────────────────────────
+  // ── Inertia & Drag ────────────────────────────────────────────────────────
   const stopInertia = () => { if (inertiaRAF) { cancelAnimationFrame(inertiaRAF); inertiaRAF = null; } };
 
   const startInertia = (vx, vy) => {
@@ -247,12 +289,8 @@ export function initDomeGallery(containerEl, opts = {}) {
     const maxF = Math.round(90 + 270 * d);
 
     const step = () => {
-      vX *= fric;
-      vY *= fric;
-      if ((Math.abs(vX) < stop && Math.abs(vY) < stop) || ++frames > maxF) {
-        inertiaRAF = null;
-        return;
-      }
+      vX *= fric; vY *= fric;
+      if ((Math.abs(vX) < stop && Math.abs(vY) < stop) || ++frames > maxF) { inertiaRAF = null; return; }
       rot.x = clamp(rot.x - vY / 200, -maxVerticalRotation, maxVerticalRotation);
       rot.y = wrapAngleSigned(rot.y + vX / 200);
       applyTransform(rot.x, rot.y);
@@ -262,109 +300,222 @@ export function initDomeGallery(containerEl, opts = {}) {
     inertiaRAF = requestAnimationFrame(step);
   };
 
-  // ── Pointer Dragging ───────────────────────────────────────────────────────
   mainEl.addEventListener('pointerdown', e => {
-    if (activePopup) return;
+    if (focusedEl) return;
     stopInertia();
-    dragging = true;
-    moved = false;
-    startRot.x = rot.x;
-    startRot.y = rot.y;
+    dragging = true; moved = false;
+    startRot.x = rot.x; startRot.y = rot.y;
     startPos = { x: e.clientX, y: e.clientY };
-    lastPPos = { ...startPos };
-    lastPTime = performance.now();
-    vel = { x: 0, y: 0 };
+    lastPPos = { ...startPos }; lastPTime = performance.now(); vel = { x: 0, y: 0 };
     mainEl.setPointerCapture(e.pointerId);
   }, { passive: true });
 
   mainEl.addEventListener('pointermove', e => {
-    if (!dragging || !startPos || activePopup) return;
-    const dx = e.clientX - startPos.x;
-    const dy = e.clientY - startPos.y;
+    if (!dragging || !startPos || focusedEl) return;
+    const dx = e.clientX - startPos.x, dy = e.clientY - startPos.y;
     if (!moved && dx * dx + dy * dy > 16) moved = true;
-
     rot.x = clamp(startRot.x - dy / dragSensitivity, -maxVerticalRotation, maxVerticalRotation);
     rot.y = wrapAngleSigned(startRot.y + dx / dragSensitivity);
     applyTransform(rot.x, rot.y);
-
-    const now = performance.now();
-    const dt = now - lastPTime;
-    if (dt > 0) {
-      vel.x = (e.clientX - lastPPos.x) / dt;
-      vel.y = (e.clientY - lastPPos.y) / dt;
-    }
-    lastPPos = { x: e.clientX, y: e.clientY };
-    lastPTime = now;
+    const now = performance.now(), dt = now - lastPTime;
+    if (dt > 0) { vel.x = (e.clientX - lastPPos.x) / dt; vel.y = (e.clientY - lastPPos.y) / dt; }
+    lastPPos = { x: e.clientX, y: e.clientY }; lastPTime = now;
   }, { passive: true });
 
   const onPointerEnd = () => {
     if (!dragging) return;
     dragging = false;
-    if (Math.abs(vel.x) > 0.005 || Math.abs(vel.y) > 0.005) {
-      startInertia(vel.x, vel.y);
-    }
+    if (Math.abs(vel.x) > 0.005 || Math.abs(vel.y) > 0.005) startInertia(vel.x, vel.y);
     if (moved) lastDragEndAt = performance.now();
     moved = false;
   };
-  mainEl.addEventListener('pointerup', onPointerEnd, { passive: true });
+  mainEl.addEventListener('pointerup',     onPointerEnd, { passive: true });
   mainEl.addEventListener('pointercancel', onPointerEnd, { passive: true });
 
-  // ── Pop-up Expand / Close ──────────────────────────────────────────────────
-  function openPopup(member) {
-    if (activePopup) closePopup();
+  // ── Open / Expand Comment Modal ───────────────────────────────────────────
+  const openTile = el => {
+    if (opening) return;
+    opening = true; openStartAt = performance.now(); lockScroll();
 
-    lockScroll();
-    const tagsHTML = (member.tags || []).map(t => `<span class="crew-popup-tag">${t}</span>`).join('');
+    const parent = el.parentElement;
+    focusedEl = el;
 
-    const popup = document.createElement('div');
-    popup.className = 'crew-popup-card';
-    popup.innerHTML = `
-      <button class="crew-popup-close" aria-label="Close comment">✕</button>
-      <div class="crew-popup-header">
-        <div class="crew-popup-avatar">${member.initial}</div>
-        <div class="crew-popup-meta">
-          <span class="crew-popup-name">${member.name}</span>
-          <span class="crew-popup-role">${member.role}</span>
-        </div>
-      </div>
-      <p class="crew-popup-quote">${member.quote}</p>
-      <p class="crew-popup-desc">${member.desc}</p>
-      ${tagsHTML ? `<div class="crew-popup-tags">${tagsHTML}</div>` : ''}
+    const crewId = parent.dataset.crewId;
+    const member = crew.find(c => c.id === crewId) || crew[0];
+
+    const offX = getDataNumber(parent, 'offsetX', 0);
+    const offY = getDataNumber(parent, 'offsetY', 0);
+    const szX  = getDataNumber(parent, 'sizeX', 3.1);
+    const szY  = getDataNumber(parent, 'sizeY', 2.3);
+    const pr   = computeItemBaseRotation(offX, offY, szX, szY, segments);
+
+    let rotY = -(normalizeAngle(pr.rotateY) + normalizeAngle(rot.y)) % 360;
+    if (rotY < -180) rotY += 360;
+    parent.style.setProperty('--rot-y-delta', `${rotY}deg`);
+    parent.style.setProperty('--rot-x-delta', `${-pr.rotateX - rot.x}deg`);
+
+    const refDiv = document.createElement('div');
+    refDiv.className = 'item__image item__image--reference';
+    refDiv.style.cssText = `opacity:0;transform:rotateX(${-pr.rotateX}deg) rotateY(${-pr.rotateY}deg);`;
+    parent.appendChild(refDiv);
+    void refDiv.offsetHeight;
+
+    const tileR  = refDiv.getBoundingClientRect();
+    const mainR  = mainEl.getBoundingClientRect();
+    const frameR = frameEl.getBoundingClientRect();
+
+    if (!mainR || !frameR || tileR.width <= 0) {
+      opening = false; focusedEl = null; parent.removeChild(refDiv); unlockScroll(); return;
+    }
+
+    origTilePos = { left: tileR.left, top: tileR.top, width: tileR.width, height: tileR.height };
+    el.style.visibility = 'hidden'; el.style.zIndex = 0;
+
+    // Pop-up modal overlay
+    const ov = document.createElement('div');
+    ov.className = `enlarge ${member.accent ? 'enlarge--accent' : ''}`;
+    ov.style.cssText = `
+      position: absolute;
+      left: ${frameR.left - mainR.left}px;
+      top: ${frameR.top - mainR.top}px;
+      width: ${openedCardWidth};
+      max-width: 90vw;
+      opacity: 0;
+      z-index: 30;
+      will-change: transform, opacity;
+      transform-origin: top left;
+      transition: transform ${enlargeTransitionMs}ms cubic-bezier(0.16, 1, 0.3, 1), opacity ${enlargeTransitionMs}ms ease;
     `;
 
-    popup.querySelector('.crew-popup-close').addEventListener('click', (e) => {
-      e.stopPropagation();
-      closePopup();
-    });
+    ov.innerHTML = `
+      <div class="dome-popup-card">
+        <button type="button" class="dome-popup-close-btn" aria-label="Close dialog">✕</button>
+        <div>
+          <div class="dome-popup-top">
+            <div class="dome-popup-avatar">${member.initial}</div>
+            <div class="dome-popup-header-text">
+              <div class="dome-popup-name">${member.name}</div>
+              <div class="dome-popup-role">${member.role}</div>
+            </div>
+          </div>
+          <div class="dome-popup-quote">${member.quote}</div>
+          <p class="dome-popup-desc">${member.desc}</p>
+        </div>
+        <div class="dome-popup-footer">
+          <span class="dome-popup-badge">🍪 Ming Morsels Cookie Crew</span>
+          <span style="font-size:12px;color:#A07020;font-weight:600;">#MadeWithPassion</span>
+        </div>
+      </div>
+    `;
 
-    popupSlot.innerHTML = '';
-    popupSlot.appendChild(popup);
-    activePopup = popup;
+    viewerEl.appendChild(ov);
 
-    requestAnimationFrame(() => {
-      root.setAttribute('data-enlarging', 'true');
-    });
-  }
+    const tx0 = tileR.left - frameR.left;
+    const ty0 = tileR.top - frameR.top;
+    const sx0 = (tileR.width / (parseFloat(openedCardWidth) || frameR.width)) || 1;
+    const sy0 = (tileR.height / (frameR.height || 260)) || 1;
 
-  function closePopup() {
-    if (!activePopup) return;
-    root.removeAttribute('data-enlarging');
-    
+    ov.style.transform = `translate(${tx0}px, ${ty0}px) scale(${sx0}, ${sy0})`;
+
     setTimeout(() => {
-      popupSlot.innerHTML = '';
-      activePopup = null;
-      unlockScroll();
-    }, 280);
-  }
+      if (!ov.parentElement) return;
+      ov.style.opacity = '1';
+      ov.style.transform = 'translate(0, 0) scale(1, 1)';
+      root.setAttribute('data-enlarging', 'true');
+    }, 16);
 
-  scrimEl.addEventListener('click', closePopup);
-  window.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && activePopup) closePopup();
+    // Bind inner close button
+    const closeBtn = ov.querySelector('.dome-popup-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        closeTile();
+      });
+    }
+  };
+
+  // Tile click
+  sphereEl.addEventListener('click', e => {
+    const tile = e.target.closest('.item__image');
+    if (!tile) return;
+    if (dragging || moved) return;
+    if (performance.now() - lastDragEndAt < 80 || opening) return;
+    openTile(tile);
   });
 
-  return () => {
-    ro.disconnect();
-    stopInertia();
-    unlockScroll();
+  // ── Scrim / Close Modal ───────────────────────────────────────────────────
+  const closeTile = () => {
+    if (performance.now() - openStartAt < 200 || !focusedEl) return;
+    const el = focusedEl, parent = el.parentElement;
+    const ov = viewerEl.querySelector('.enlarge');
+    if (!ov) return;
+
+    const refDiv = parent.querySelector('.item__image--reference');
+    const op = origTilePos;
+
+    if (!op) {
+      ov.remove(); if (refDiv) refDiv.remove();
+      parent.style.setProperty('--rot-y-delta', '0deg'); parent.style.setProperty('--rot-x-delta', '0deg');
+      el.style.visibility = ''; el.style.zIndex = 0;
+      focusedEl = null; root.removeAttribute('data-enlarging'); opening = false; unlockScroll(); return;
+    }
+
+    const cur = ov.getBoundingClientRect(), rootR = root.getBoundingClientRect();
+    const animOv = document.createElement('div');
+    animOv.className = 'enlarge-closing';
+    animOv.style.cssText = `
+      position: absolute;
+      left: ${cur.left - rootR.left}px;
+      top: ${cur.top - rootR.top}px;
+      width: ${cur.width}px;
+      height: ${cur.height}px;
+      z-index: 9999;
+      border-radius: 24px;
+      background: #FFFFFF;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      transition: all ${enlargeTransitionMs}ms cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      margin: 0;
+      transform: none;
+    `;
+
+    ov.remove();
+    root.appendChild(animOv);
+    void animOv.getBoundingClientRect();
+
+    requestAnimationFrame(() => {
+      animOv.style.left    = `${op.left - rootR.left}px`;
+      animOv.style.top     = `${op.top - rootR.top}px`;
+      animOv.style.width   = `${op.width}px`;
+      animOv.style.height  = `${op.height}px`;
+      animOv.style.opacity = '0';
+    });
+
+    const cleanup = () => {
+      animOv.remove(); origTilePos = null; if (refDiv) refDiv.remove();
+      parent.style.transition = 'none'; el.style.transition = 'none';
+      parent.style.setProperty('--rot-y-delta', '0deg'); parent.style.setProperty('--rot-x-delta', '0deg');
+      requestAnimationFrame(() => {
+        el.style.visibility = ''; el.style.opacity = '0'; el.style.zIndex = 0;
+        focusedEl = null; root.removeAttribute('data-enlarging');
+        requestAnimationFrame(() => {
+          parent.style.transition = ''; el.style.transition = 'opacity 300ms ease-out';
+          requestAnimationFrame(() => {
+            el.style.opacity = '1';
+            setTimeout(() => {
+              el.style.transition = ''; el.style.opacity = ''; opening = false;
+              if (!dragging && root.getAttribute('data-enlarging') !== 'true') document.body.classList.remove('dg-scroll-lock');
+            }, 300);
+          });
+        });
+      });
+    };
+    animOv.addEventListener('transitionend', cleanup, { once: true });
   };
+
+  scrimEl.addEventListener('click', closeTile);
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') closeTile(); });
+
+  // ── Cleanup ───────────────────────────────────────────────────────────────
+  return () => { ro.disconnect(); stopInertia(); document.body.classList.remove('dg-scroll-lock'); };
 }
