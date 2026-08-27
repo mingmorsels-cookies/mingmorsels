@@ -455,6 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Render Related Products Grid
   renderRelatedProducts();
+  renderPairsWellWith();
 
   // Initialize Live Social Proof Purchase Popup
   try { initLivePurchaseNotifications(); } catch(e) { console.error('Live purchase pop-up error:', e); }
@@ -1927,6 +1928,46 @@ function renderRelatedProducts() {
       </div>
     </div>
   `).join('');
+}
+
+// ----------------------------------------------------
+// 6B. PAIRS WELL WITH STRIP (Below Gallery Thumbnails)
+// ----------------------------------------------------
+function renderPairsWellWith() {
+  const strip = document.getElementById('pairs-well-strip');
+  const cardsContainer = document.getElementById('pairs-well-cards');
+  if (!strip || !cardsContainer || !currentProduct) return;
+
+  // Show opposite type: if viewing a muffin, suggest cookies and vice versa
+  const oppositeType = currentProduct.type === 'muffin' ? 'cookie' : 'muffin';
+  const suggestions = Object.values(PRODUCTS_DATA)
+    .filter(p => p.type === oppositeType)
+    .slice(0, 3);
+
+  if (suggestions.length === 0) return;
+
+  cardsContainer.innerHTML = suggestions.map(prod => `
+    <a href="/product.html?id=${prod.id}" style="
+      flex: 1; min-width: 90px; max-width: 130px;
+      background: #fff;
+      border: 1px solid rgba(61,32,0,0.1);
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-decoration: none;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: pointer;
+    "
+    onmouseover="this.style.boxShadow='0 4px 16px rgba(200,150,12,0.18)'; this.style.transform='translateY(-2px)'"
+    onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'"
+    >
+      <span style="font-size: 24px;">${prod.type === 'muffin' ? '🧁' : '🍪'}</span>
+      <span style="font-size: 10.5px; font-weight: 700; color: #3D2000; text-align: center; line-height: 1.3;">${prod.name}</span>
+      <span style="font-size: 10px; color: #C8960C; font-weight: 600;">₹${prod.price}</span>
+    </a>
+  `).join('');
+
+  strip.style.display = 'block';
 }
 
 // ═══════════════════════════════════════════════════════════════
