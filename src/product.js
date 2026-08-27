@@ -684,7 +684,12 @@ function initProductGallery() {
   let images = [];
   
   if (currentProduct.id === 'orange') {
-    images = [];
+    images = [
+      { src: '/orange-peel/1.jpg', alt: 'Orange Peel Image 1' },
+      { src: '/orange-peel/2.jpg', alt: 'Orange Peel Image 2' },
+      { src: '/orange-peel/3.jpg', alt: 'Orange Peel Image 3' },
+      { src: '/orange-peel/4.jpg', alt: 'Orange Peel Image 4' }
+    ];
   } else if (currentProduct.id === 'oatsnuts') {
     images = [];
   } else if (currentProduct.id === 'rose') {
