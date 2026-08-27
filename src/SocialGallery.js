@@ -10,7 +10,7 @@ const REVIEWS_DATA = [
     initials: "AS",
     avatarBg: "linear-gradient(135deg, #C6960C, #E5B21D)",
     text: "Unboxing the 6-pack Rose & Almond box... the aroma of organic raw honey and fresh butter hit me instantly! Crisp and melt-in-mouth.",
-    img: "/unboxing_rose.jpg",
+    img: "/rose-petal/1.jpg",
     tag: "🌹 Rose Cookies Box",
     stars: "★★★★★"
   },

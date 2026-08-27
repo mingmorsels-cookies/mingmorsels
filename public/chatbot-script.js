@@ -1151,7 +1151,7 @@
         let currentQVTab = "nut";
 
         const COOKIE_PRICES = { almond: 40, rose: 40, oatsnuts: 40, orange: 40, walnut: 40, walnut_sf: 40, strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40 };
-        const LOCAL_IMAGES = { almond: "/almond/2.jpg", rose: "/rose-petal/2.jpg", oatsnuts: "/oats-nuts/2.jpg", orange: "/orange-peel/10.jpg", walnut: "/sugarfree_walnut_cookie.png", walnut_sf: "/sugarfree_walnut_cookie.png", strawberry: "/img-strawberry.jpg", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
+        const LOCAL_IMAGES = { almond: "/almond/2.jpg", rose: "/rose-petal/1.jpg", oatsnuts: "/oats-nuts/2.jpg", orange: "/orange-peel/1.jpg", walnut: "/sugarfree_walnut_cookie.png", walnut_sf: "/sugarfree_walnut_cookie.png", strawberry: "/img-strawberry.jpg", pinacolada: "/img-pinacolada.jpg", butterscotch: "/img-butterscotch.jpg", chocochip: "/img-chocochip.jpg", blackcurrant: "/img-blackcurrant.jpg" };
 
         // ── Merge a main-site cart (array of {id,quantity,...}) into chatbot's cart ──
         function mergeMainCart(mainCartItems) {
