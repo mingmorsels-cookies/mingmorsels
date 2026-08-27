@@ -684,34 +684,13 @@ function initProductGallery() {
   let images = [];
   
   if (currentProduct.id === 'orange') {
-    images = [
-      { src: '/orange-peel/10.jpg', alt: 'Orange Peel Box' },
-      { src: '/orange-peel/12.jpg', alt: 'Orange Peel Box Horizontal' },
-      { src: '/orange-peel/7.jpg', alt: 'Orange Peel Infographic' },
-      { src: '/orange-peel/9.jpg', alt: 'Orange Peel Features' },
-      { src: '/orange-peel/11.jpg', alt: 'Orange Peel Mixed' }
-    ];
+    images = [];
   } else if (currentProduct.id === 'oatsnuts') {
-    images = [
-      { src: '/oats-nuts/2.jpg', alt: 'Oats Nuts Box Horizontal' },
-      { src: '/oats-nuts/1.jpg', alt: 'Oats Nuts Box Vertical' },
-      { src: '/oats-nuts/4.jpg', alt: 'Oats Nuts Features' },
-      { src: '/oats-nuts/3.jpg', alt: 'Oats Nuts Mixed' }
-    ];
+    images = [];
   } else if (currentProduct.id === 'rose') {
-    images = [
-      { src: '/rose-petal/2.jpg', alt: 'Rose Petal Box Horizontal' },
-      { src: '/rose-petal/1.jpg', alt: 'Rose Petal Box Vertical' },
-      { src: '/rose-petal/4.jpg', alt: 'Rose Petal Features' },
-      { src: '/rose-petal/3.jpg', alt: 'Rose Petal Mixed Platter' }
-    ];
+    images = [];
   } else if (currentProduct.id === 'almond') {
-    images = [
-      { src: '/almond/2.jpg', alt: 'Almond Box Horizontal' },
-      { src: '/almond/1.jpg', alt: 'Almond Box Vertical' },
-      { src: '/almond/4.jpg', alt: 'Almond Features' },
-      { src: '/almond/3.jpg', alt: 'Almond Mixed Platter' }
-    ];
+    images = [];
   } else if (currentProduct.id === 'chocochip') {
     images = [
       { src: '/img-chocochip.jpg', alt: 'Chocochip Muffin' },
