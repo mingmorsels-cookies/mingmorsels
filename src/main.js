@@ -16,6 +16,7 @@ import { initGiftBoxBuilder, showBoxBuilder } from './GiftBoxBuilder.js';
 import { initPairingQuiz, showPairingQuiz } from './PairingQuiz.js';
 import { initSocialGallery } from './SocialGallery.js';
 import { initDomeGallery } from './DomeGallery.js';
+import { initParticleText } from './ParticleText.js';
 import { initNetworkMonitor, saveActiveSession, getSavedSession, showRecoveryBanner, SessionType } from './sessionState.js';
 
 import { openQuickAddModal, PRODUCT_BOX_CATALOG } from './controllers/QuickAddModal.js';
@@ -84,6 +85,28 @@ async function startApp() {
     initSocialGallery();
     const domeRoot = document.getElementById('dome-gallery-root');
     if (domeRoot) initDomeGallery(domeRoot);
+
+    const particleTextRoot = document.getElementById('particle-text-root');
+    if (particleTextRoot) {
+      initParticleText(particleTextRoot, {
+        text: 'Unit of Miora Delights Private Limited',
+        particleSize: 2.2,
+        density: 3,
+        color: '#3D2000',
+        highlightColor: '#C6960C',
+        scatter: 160,
+        gatherDuration: 1400,
+        stagger: 350,
+        pointerRepel: 40,
+        repelRadius: 110,
+        idleDrift: 0.6,
+        trigger: 'hover',
+        fontSize: 'clamp(1.1rem, 2.6vw, 1.9rem)',
+        fontWeight: 800,
+        fontFamily: 'inherit',
+        glow: true
+      });
+    }
 
     document.getElementById('btn-open-gift-builder')?.addEventListener('click', () => {
       saveActiveSession(SessionType.GIFT_BOX_BUILDER);
