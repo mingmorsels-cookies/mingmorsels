@@ -688,7 +688,13 @@ function initProductGallery() {
   } else if (currentProduct.id === 'oatsnuts') {
     images = [];
   } else if (currentProduct.id === 'rose') {
-    images = [];
+    images = [
+      { src: '/rose-petal/1.jpg', alt: 'Rose Petal Cookies with Milk' },
+      { src: '/rose-petal/2.jpg', alt: 'Rose Petal Box and Packets' },
+      { src: '/rose-petal/3.jpg', alt: 'Rose Petal Box Front' },
+      { src: '/rose-petal/4.jpg', alt: 'Rose Petal Features' },
+      { src: '/rose-petal/5.jpg', alt: 'Rose Petal Platter' }
+    ];
   } else if (currentProduct.id === 'almond') {
     images = [];
   } else if (currentProduct.id === 'chocochip') {
