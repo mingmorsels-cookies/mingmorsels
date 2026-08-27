@@ -32,10 +32,10 @@
 }
 
 .stroke-text-logo-img {
-  height: 64px;
+  height: 100px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(61, 32, 0, 0.12));
+  filter: drop-shadow(0 4px 14px rgba(61, 32, 0, 0.15));
   transition: transform 0.3s ease;
 }
 

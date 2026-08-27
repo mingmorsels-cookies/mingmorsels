@@ -90,11 +90,17 @@
   -webkit-user-drag: none;
 }
 
+/* Card tiles use contain so the full comment card is visible */
+.drift-wall__inner--card img {
+  object-fit: fill;
+  background: transparent;
+}
+
 .drift-wall__overlay {
   position: absolute;
   inset: 0;
   background: var(--dw-overlay);
-  opacity: 0.42;
+  opacity: 0.22; /* Lower so comment card text shows through */
   pointer-events: none;
   transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }

@@ -1,35 +1,122 @@
 /**
  * DriftWall.js
  * React Bits DriftWall Component — vanilla JS implementation.
- * Displays a drifting 3D wall of tiles with parallax pointer-follow,
- * alternating column velocities, hover lift, and smooth inertia.
+ * Displays Cookie Crew comment cards as drifting 3D tiles with
+ * parallax pointer-follow, alternating column velocities, hover lift, and smooth inertia.
  */
 
 import './DriftWall.css';
 
-// ── Cookie product imagery from the site ───────────────────────────────────
-const DEFAULT_ITEMS = [
-  { image: '/img-almond.png',        title: 'Almond Classic' },
-  { image: '/img-chocochip.jpg',     title: 'Choco Chip Delight' },
-  { image: '/img-blackcurrant.jpg',  title: 'Blackcurrant Burst' },
-  { image: '/img-butterscotch.jpg',  title: 'Butterscotch Dream' },
-  { image: '/img-strawberry.jpg',    title: 'Strawberry Bliss' },
-  { image: '/img-pinacolada.jpg',    title: 'Pina Colada Twist' },
-  { image: '/img-walnut.png',        title: 'Walnut Crunch' },
-  { image: '/img-oats.png',          title: 'Oats & Nuts' },
-  { image: '/img-rose.png',          title: 'Rose Petal' },
-  { image: '/img-orange.png',        title: 'Zesty Orange' },
-  { image: '/unboxing_lush.jpg',     title: 'Premium Unboxing' },
-  { image: '/unboxing_gable.jpg',    title: 'Gable Gift Box' },
-  { image: '/gift-box-lush.jpg',     title: 'Lush Gift Box' },
-  { image: '/box-chocochip-1.jpg',   title: 'Choco Box' },
-  { image: '/box-classic.jpg',       title: 'Classic Box' },
-  { image: '/box-butterscotch-1.jpg','title': 'Butterscotch Box' },
-  { image: '/box-strawberry-1.jpg',  title: 'Strawberry Box' },
-  { image: '/box-pinacolada-1.jpg',  title: 'Pina Colada Box' },
-  { image: '/unboxing_rose.jpg',     title: 'Rose Unboxing' },
-  { image: '/unboxing_oats.png',     title: 'Oats Unboxing' },
+// ── Cookie Crew Member Comments ─────────────────────────────────────────────
+const CREW_MEMBERS = [
+  {
+    initial: 'A',
+    name: 'Arun Narayanan K',
+    role: 'Founder & Creative Head',
+    quote: 'Chief Cookie Dreamer.',
+    desc: 'Believes every cookie should tell a story. Obsessed with getting every bite right.',
+    accent: true,
+  },
+  {
+    initial: 'D',
+    name: 'Dharshini K',
+    role: 'Operations Excellence Lead',
+    quote: 'Runs the show so smoothly, even chaos listens to her.',
+    desc: 'If something's on track, it's probably because she double-checked it… twice.',
+    accent: false,
+  },
+  {
+    initial: 'B',
+    name: 'Bishu Mehra',
+    role: 'Sales & Operations Supervisor',
+    quote: 'Sells cookies like they\'re happiness in a box.',
+    desc: 'Can talk to anyone, anywhere—might even convince a cookie to sell itself.',
+    accent: false,
+  },
+  {
+    initial: 'N',
+    name: 'Nafees Khan',
+    role: 'Business Development',
+    quote: 'Turns handshakes into long-term partnerships.',
+    desc: 'Calm, strategic, and the reason MingMorsels enters premium spaces.',
+    accent: false,
+  },
+  {
+    initial: 'D',
+    name: 'Daniel',
+    role: 'Chef · Production',
+    quote: 'Kitchen wizard with a whisk and wild ideas.',
+    desc: 'If your cookie tastes amazing… he's definitely the reason.',
+    accent: true,
+  },
+  {
+    initial: 'L',
+    name: 'Lokesh',
+    role: 'Research & Development',
+    quote: 'The flavour scientist on a secret mission.',
+    desc: 'Constantly experimenting—one day he'll crack the unbeatable flavour.',
+    accent: false,
+  },
+  {
+    initial: 'S',
+    name: 'Sowmya',
+    role: 'Packing Head',
+    quote: 'Master of neatness, the queen of clean corners.',
+    desc: 'Every pack looks perfect—you'll swear precision is her superpower.',
+    accent: false,
+  },
+  {
+    initial: 'S',
+    name: 'Shree Raksha',
+    role: 'Finance Head (CA)',
+    quote: 'Keeps the numbers clean and the business steady.',
+    desc: 'From compliance to clarity, she ensures MingMorsels grows the right way.',
+    accent: false,
+  },
 ];
+
+// Creates a crisp inline-SVG data URL for each crew member comment card
+function makeCrewCardDataURL(member) {
+  const bg1 = member.accent ? '#1E1508' : '#13111E';
+  const bg2 = member.accent ? '#120E05' : '#0C0B15';
+  const borderCol = member.accent ? '#E5B84B' : 'rgba(212,175,55,0.35)';
+  const avatarBg1 = '#F5D061';
+  const avatarBg2 = '#C6960C';
+
+  const truncate = (str, max) => str.length > max ? str.slice(0, max - 1) + '…' : str;
+  const q = truncate(member.quote, 52);
+  const d = truncate(member.desc, 60);
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 292" width="440" height="292">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${bg1}"/><stop offset="100%" stop-color="${bg2}"/></linearGradient>
+    <linearGradient id="av" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${avatarBg1}"/><stop offset="100%" stop-color="${avatarBg2}"/></linearGradient>
+  </defs>
+  <rect width="434" height="286" x="3" y="3" rx="22" fill="url(#bg)" stroke="${borderCol}" stroke-width="2"/>
+  <circle cx="52" cy="54" r="28" fill="url(#av)"/>
+  <text x="52" y="63" font-family="system-ui,-apple-system,sans-serif" font-size="22" font-weight="900" fill="#1A0C00" text-anchor="middle">${member.initial}</text>
+  <text x="93" y="47" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">${member.name}</text>
+  <text x="93" y="68" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#E5B84B">${member.role}</text>
+  <line x1="24" y1="94" x2="416" y2="94" stroke="rgba(212,175,55,0.18)" stroke-width="1.2"/>
+  <rect x="24" y="108" width="392" height="64" rx="12" fill="rgba(229,184,75,0.1)"/>
+  <rect x="24" y="108" width="4" height="64" rx="2" fill="#E5B84B"/>
+  <text x="36" y="148" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#FFF8E7">"${q}"</text>
+  <text x="28" y="202" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#C0BCCD">${d}</text>
+  <line x1="24" y1="240" x2="416" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="28" y="264" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="800" fill="#E5B84B">🍪 MING MORSELS CREW</text>
+</svg>`;
+
+  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
+}
+
+// Generate all 8 cards, then repeat to get 20 tiles for density
+const CREW_TILE_ITEMS = Array.from({ length: 20 }, (_, i) => {
+  const member = CREW_MEMBERS[i % CREW_MEMBERS.length];
+  return {
+    image: makeCrewCardDataURL(member),
+    title: `${member.name} — ${member.quote}`,
+  };
+});
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -43,25 +130,25 @@ export function initDriftWall(containerEl, userProps = {}) {
   if (!containerEl) return () => {};
 
   const props = {
-    items: DEFAULT_ITEMS,
+    items: CREW_TILE_ITEMS,
     columns: 5,
-    tileWidth: 220,
-    tileHeight: 148,
+    tileWidth: 240,
+    tileHeight: 160,
     gap: 16,
-    radius: 18,
+    radius: 20,
     tilt: 14,
     turn: -12,
     roll: 0,
     perspective: 1200,
     depth: 100,
-    speed: 38,
+    speed: 36,
     direction: 'up',
-    variance: 0.45,
+    variance: 0.42,
     parallax: 0.6,
     pauseOnHover: false,
     lift: 72,
-    fade: 0.58,
-    dim: 0.52,
+    fade: 0.55,
+    dim: 0.62,
     grayscale: false,
     overlayColor: '#0d0c13',
     ...userProps
@@ -69,7 +156,6 @@ export function initDriftWall(containerEl, userProps = {}) {
 
   const reduced = prefersReducedMotion();
 
-  // Build CSS vars string
   const cssVars = [
     `--dw-tile-w: ${props.tileWidth}px`,
     `--dw-tile-h: ${props.tileHeight}px`,
@@ -83,31 +169,29 @@ export function initDriftWall(containerEl, userProps = {}) {
     `--dw-edge: ${Math.max(0, (1 - props.fade) * 100)}%`,
   ].join('; ');
 
-  // Distribute items across columns
   const columnItems = Array.from({ length: props.columns }, () => []);
   props.items.forEach((item, i) => columnItems[i % props.columns].push(item));
   columnItems.forEach((col, i) => {
     if (!col.length) columnItems[i] = props.items.slice(0, 1);
   });
 
-  // Build DOM
   containerEl.innerHTML = `
-    <div class="drift-wall ${reduced ? 'drift-wall--reduced' : ''}" style="${cssVars}" role="group" aria-label="Drifting wall of cookie tiles">
+    <div class="drift-wall ${reduced ? 'drift-wall--reduced' : ''}" style="${cssVars}" role="group" aria-label="Cookie Crew comment cards">
       <div class="drift-wall__plane">
         ${columnItems.map((col, c) => `
           <div class="drift-wall__col" data-col-index="${c}">
             <div class="drift-wall__track" data-track="${c}">
-              ${/* 3 copies for seamless looping */ Array.from({ length: 3 }).map((_, copyIdx) =>
+              ${Array.from({ length: 3 }).map((_, copyIdx) =>
                 col.map((item, itemIdx) => `
                   <div
                     class="drift-wall__tile"
                     data-tile-id="${c}-${copyIdx}-${itemIdx}"
                     data-col="${c}"
                     tabindex="0"
-                    role="button"
-                    aria-label="${item.title || 'Cookie tile'}"
+                    role="img"
+                    aria-label="${item.title || 'Cookie crew comment'}"
                   >
-                    <span class="drift-wall__inner">
+                    <span class="drift-wall__inner drift-wall__inner--card">
                       <img src="${item.image}" alt="${item.title || ''}" loading="lazy" decoding="async" draggable="false" />
                       <span class="drift-wall__overlay" aria-hidden="true"></span>
                     </span>
@@ -128,40 +212,33 @@ export function initDriftWall(containerEl, userProps = {}) {
 
   let containerHeight = containerEl.offsetHeight || 600;
 
-  // Compute per-column metrics
-  const getColumnMeta = () => {
-    return columnItems.map(col => {
+  const getColumnMeta = () =>
+    columnItems.map(col => {
       const unit = props.tileHeight + props.gap;
       const copyHeight = Math.max(unit, col.length * unit);
-      const copies = Math.max(3, Math.ceil((containerHeight * 1.6) / copyHeight) + 1);
-      return { copyHeight, copies };
+      return { copyHeight };
     });
-  };
 
   let columnMeta = getColumnMeta();
 
-  // ResizeObserver
   const ro = new ResizeObserver(entries => {
     containerHeight = entries[0].contentRect.height || 600;
     columnMeta = getColumnMeta();
   });
   ro.observe(containerEl);
 
-  // Offsets & velocities
   const offsets = columnItems.map((_, c) => {
     const meta = columnMeta[c];
     return meta ? meta.copyHeight * ((c * 0.37) % 1) : 0;
   });
   const velocities = columnItems.map(() => 0);
 
-  // Base velocities — alternate up/down per column
   const dirSign = props.direction === 'up' ? 1 : -1;
   const baseVelocities = columnItems.map((_, c) => {
     const altSign = c % 2 === 0 ? 1 : -1;
     return props.speed * columnFactor(c, props.variance) * dirSign * altSign;
   });
 
-  // Parallax / pointer tracking
   const pointer = { x: 0, y: 0 };
   const pointerDamped = { x: 0, y: 0 };
 
@@ -171,10 +248,8 @@ export function initDriftWall(containerEl, userProps = {}) {
       `rotateX(${props.tilt + py}deg) rotateY(${props.turn + px}deg) rotateZ(${props.roll}deg) ` +
       `translateZ(${-props.depth}px)`;
   };
-
   applyPlaneTransform(0, 0);
 
-  // Active tile state
   let activeId = null;
   let hoveredCol = -1;
   let wallHovered = false;
@@ -183,13 +258,9 @@ export function initDriftWall(containerEl, userProps = {}) {
     if (id === activeId) return;
     activeId = id;
     hoveredCol = col;
-    allTiles.forEach(tile => {
-      if (tile.dataset.tileId === id) {
-        tile.classList.add('is-active');
-      } else {
-        tile.classList.remove('is-active');
-      }
-    });
+    allTiles.forEach(tile =>
+      tile.classList.toggle('is-active', tile.dataset.tileId === id)
+    );
   };
 
   const clearActive = () => {
@@ -198,7 +269,6 @@ export function initDriftWall(containerEl, userProps = {}) {
     allTiles.forEach(tile => tile.classList.remove('is-active'));
   };
 
-  // Pointer events
   wallEl.addEventListener('pointerenter', () => { wallHovered = true; });
   wallEl.addEventListener('pointerleave', () => {
     wallHovered = false;
@@ -219,13 +289,11 @@ export function initDriftWall(containerEl, userProps = {}) {
     setActive(tile.dataset.tileId, Number(tile.dataset.col));
   });
 
-  // Focus events for accessibility
   allTiles.forEach(tile => {
     tile.addEventListener('focus', () => setActive(tile.dataset.tileId, Number(tile.dataset.col)));
     tile.addEventListener('blur', clearActive);
   });
 
-  // rAF animation loop
   let lastTs = null;
   let rafId = null;
 
@@ -234,7 +302,6 @@ export function initDriftWall(containerEl, userProps = {}) {
     const dt = Math.min(0.05, Math.max(0, ts - lastTs) / 1000);
     lastTs = ts;
 
-    // Parallax tilt
     const maxTilt = props.parallax * 8;
     const targetX = pointer.x * maxTilt;
     const targetY = -pointer.y * maxTilt;
