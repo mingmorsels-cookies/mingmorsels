@@ -11,7 +11,7 @@ import { createTextType } from '../TextType.js';
 
 export const COOKIE_DATA = {
   almond: { name: "Almond Rich Cookies", description: "Roasted almonds, rich buttery crunch.", price: 180, link: "/product.html?id=almond", image: "/almond_cookie.png" },
-  rose: { name: "Rose Petal Cookies", description: "Infused with organic rose petals, delicate aroma.", price: 190, link: "/product.html?id=rose", image: "/rose_cookie.png" },
+  rose: { name: "Rose Petal Cookies", description: "Infused with organic rose petals, delicate aroma.", price: 190, link: "/product.html?id=rose", image: "/rose-petal/1.jpg" },
   oatsnuts: { name: "Oats Nuts Cookies", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 170, link: "/product.html?id=oatsnuts", image: "/oatsnuts_cookie.png" },
   orange: { name: "Orange Peel Cookies", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 185, link: "/product.html?id=orange", image: "/almond_cookie.png" },
   walnut: { name: "Walnut Cookies", description: "Rich crunchy California walnuts baked into buttery dough.", price: 210, link: "/product.html?id=walnut", image: "/sugarfree_walnut_cookie.png" },
@@ -262,7 +262,7 @@ export class UIController {
 
     const items = [
       { link: '/product.html?id=almond', text: 'Almond Rich Cookies', image: '/almond_cookie.png' },
-      { link: '/product.html?id=rose', text: 'Rose Petal Cookies', image: '/rose_cookie.png' },
+      { link: '/product.html?id=rose', text: 'Rose Petal Cookies', image: '/rose-petal/1.jpg' },
       { link: '/product.html?id=oatsnuts', text: 'Oats & Nuts Cookies', image: '/oatsnuts_cookie.png' },
       { link: '/product.html?id=chocochip', text: 'Chocochip Muffins', image: '/img-chocochip.jpg' },
       { link: '/product.html?id=butterscotch', text: 'Butterscotch Muffins', image: '/img-butterscotch.jpg' }

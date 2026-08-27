@@ -25,7 +25,7 @@ export class LiveFeedController {
     ];
 
     this.products = [
-      { name: "Rose Petal Cookies", img: "/rose_cookie.png" },
+      { name: "Rose Petal Cookies", img: "/rose-petal/1.jpg" },
       { name: "Almond Rich Cookies", img: "/almond_cookie.png" },
       { name: "Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
       { name: "Sugar-Free Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
@@ -55,7 +55,7 @@ export class LiveFeedController {
       this.popupEl.innerHTML = `
         <div class="live-purchase-accent"></div>
         <div class="live-purchase-img-wrap">
-          <img id="live-purchase-img" src="/rose_cookie.png" alt="Product" />
+          <img id="live-purchase-img" src="/rose-petal/1.jpg" alt="Product" />
         </div>
         <div class="live-purchase-content">
           <div class="live-purchase-header">
@@ -122,10 +122,10 @@ export class LiveFeedController {
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'NEW_ORDER') {
-            const firstItem = data.order?.items?.[0] || { name: 'Artisanal Cookies', image: '/img-rose.png' };
+            const firstItem = data.order?.items?.[0] || { name: 'Artisanal Cookies', image: '/rose-petal/1.jpg' };
             this.triggerPopup({
               profile: { name: data.order?.user_name || 'Connoisseur', location: 'Bengaluru, KA' },
-              product: { name: firstItem.name, img: firstItem.image || '/img-rose.png' },
+              product: { name: firstItem.name, img: firstItem.image || '/rose-petal/1.jpg' },
               timeAgo: 'Just now'
             });
             eventBus.emit(Events.ORDER_LIVE_UPDATE, data.order);

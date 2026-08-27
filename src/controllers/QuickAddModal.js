@@ -44,7 +44,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'rose',
     name: 'Rose Petal Cookies',
     tagline: 'Organic Damask rose petals with pure cow butter',
-    image: '/img-rose.png',
+    image: '/rose-petal/1.jpg',
     unitName: 'Cookies',
     boxes: [
       {

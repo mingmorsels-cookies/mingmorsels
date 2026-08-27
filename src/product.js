@@ -1293,7 +1293,7 @@ function renderCartDrawerBody() {
 
   const PRODUCT_IMAGE_MAP = {
     almond: '/img-almond.png?v=2',
-    rose: '/img-rose.png?v=2',
+    rose: '/rose-petal/1.jpg',
     oatsnuts: '/img-oats.png?v=2',
     orange: '/img-orange.png?v=2',
     walnut: '/img-walnut.png?v=2',
@@ -2005,7 +2005,7 @@ function initLivePurchaseNotifications() {
 
   const products = [
     { name: 'Almond Rich Cookies', img: '/img-almond.png?v=2' },
-    { name: 'Rose Petal Cookies', img: '/img-rose.png?v=2' },
+    { name: 'Rose Petal Cookies', img: '/rose-petal/1.jpg' },
     { name: 'Oats & Nuts Cookies', img: '/img-oats.png?v=2' },
     { name: 'Orange Peel Cookies', img: '/img-orange.png?v=2' },
     { name: 'Strawberry Muffin', img: '/img-strawberry.jpg' },
@@ -2028,7 +2028,7 @@ function initLivePurchaseNotifications() {
     popupEl.innerHTML = `
       <div class="live-purchase-accent"></div>
       <div class="live-purchase-img-wrap">
-        <img id="live-purchase-img" src="/img-rose.png?v=2" alt="Product" />
+        <img id="live-purchase-img" src="/rose-petal/1.jpg" alt="Product" />
       </div>
       <div class="live-purchase-content">
         <div class="live-purchase-header">

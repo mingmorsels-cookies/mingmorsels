@@ -147,7 +147,7 @@
             rose: { 
                 name: "Rose Petal Cookies", 
                 emoji: "🌹", 
-                img: "/img-rose.png?v=2", 
+                img: "/rose-petal/1.jpg", 
                 color: "#FDE8E8", 
                 review: "Floral sophistication in every bite. Infused with organic Damask rose petals and cardamom — delicate, aromatic, and perfect for tea-time luxury.", 
                 stars: 5, 
