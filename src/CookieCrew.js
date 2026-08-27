@@ -10,16 +10,6 @@ import { gsap } from 'gsap';
 // ─── Crew data ────────────────────────────────────────────────────────────────
 const CREW = [
   {
-    id: 'arun',
-    initial: 'A',
-    name: 'Arun Narayanan K',
-    role: 'Founder & Creative Head',
-    quote: '\u201cChief Cookie Dreamer.\u201d',
-    desc: 'Believes every cookie should tell a story. From the first batch to the thousandth box, he\u2019s still obsessed with getting every bite right.',
-    tags: ['Visionary', 'Baker at Heart'],
-    accent: true
-  },
-  {
     id: 'lokesh',
     initial: 'L',
     name: 'Lokesh',
@@ -44,6 +34,43 @@ const CREW = [
     role: 'Finance Head (CA)',
     quote: '\u201cKeeps the numbers clean and the business steady.\u201d',
     desc: 'From compliance to clarity, she ensures MingMorsels grows the right way.',
+    tags: []
+  },
+  {
+    id: 'arun',
+    initial: 'A',
+    name: 'Arun Narayanan K',
+    role: 'Founder & Creative Head',
+    quote: '\u201cChief Cookie Dreamer.\u201d',
+    desc: 'Believes every cookie should tell a story. From the first batch to the thousandth box, he\u2019s still obsessed with getting every bite right.',
+    tags: ['Visionary', 'Baker at Heart'],
+    accent: true
+  },
+  {
+    id: 'dharshini',
+    initial: 'D',
+    name: 'Dharshini K',
+    role: 'Operations Excellence Lead',
+    quote: '\u201cRuns the show so smoothly, even chaos listens to her.\u201d',
+    desc: 'If something\u2019s on track, it\u2019s probably because she double-checked it\u2026 twice.',
+    tags: []
+  },
+  {
+    id: 'bishu',
+    initial: 'B',
+    name: 'Bishu Mehra',
+    role: 'Sales & Operations Supervisor',
+    quote: '\u201cSells cookies like they\u2019re happiness in a box.\u201d',
+    desc: 'Can talk to anyone, anywhere\u2014might even convince a cookie to sell itself.',
+    tags: []
+  },
+  {
+    id: 'nafees',
+    initial: 'N',
+    name: 'Nafees Khan',
+    role: 'Business Development & Institutional Sales Head',
+    quote: '\u201cTurns handshakes into long-term partnerships.\u201d',
+    desc: 'Calm, strategic, and the reason MingMorsels enters premium spaces.',
     tags: []
   },
   {
