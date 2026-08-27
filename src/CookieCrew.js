@@ -122,9 +122,20 @@ function layoutCrew(container, isFirst) {
   const cols       = getColumns();
   const gap        = 20;
   const colW       = (totalWidth - gap * (cols - 1)) / cols;
-  const colHeights = new Array(cols).fill(0);
-  const items      = container.querySelectorAll('.crew-item-wrapper');
+  const items      = Array.from(container.querySelectorAll('.crew-item-wrapper'));
 
+  // ── Pass 1: set all card widths so the browser can reflow ──────────────────
+  items.forEach(wrapper => {
+    const card = wrapper.querySelector('.crew-card');
+    gsap.set(card, { width: colW });
+  });
+
+  // Force a synchronous reflow so offsetHeight values are correct below
+  // eslint-disable-next-line no-unused-expressions
+  container.offsetHeight;
+
+  // ── Pass 2: read heights, compute positions, animate ───────────────────────
+  const colHeights = new Array(cols).fill(0);
   let maxH = 0;
 
   items.forEach((wrapper, i) => {
@@ -136,8 +147,6 @@ function layoutCrew(container, isFirst) {
 
     colHeights[col] += cardH + gap;
     maxH = Math.max(maxH, colHeights[col]);
-
-    gsap.set(card, { width: colW });
 
     if (isFirst) {
       gsap.fromTo(
