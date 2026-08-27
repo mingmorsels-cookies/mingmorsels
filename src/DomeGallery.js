@@ -1,16 +1,15 @@
 /**
  * DomeGallery.js
- * 3D Sphere / Dome of Cookie Crew Comments & Testimonials.
- * Renders interactive comment cards across a rotating 3D dome
- * with momentum drag physics and a smooth non-fullscreen popup modal.
+ * JavaScript + CSS implementation of the React Bits DomeGallery component.
+ * Renders an interactive 3D sphere of Cookie Crew comment cards with
+ * gesture drag physics, momentum inertia, and animated card enlargement.
  */
 
 import './DomeGallery.css';
 
 // ── 8 Crew Members & Comments ────────────────────────────────────────────────
-const CREW_COMMENTS = [
+const CREW_MEMBERS = [
   {
-    id: 'lokesh',
     initial: 'L',
     name: 'Lokesh',
     role: 'Research & Development',
@@ -19,7 +18,6 @@ const CREW_COMMENTS = [
     accent: false
   },
   {
-    id: 'sowmya',
     initial: 'S',
     name: 'Sowmya',
     role: 'Packing Head',
@@ -28,7 +26,6 @@ const CREW_COMMENTS = [
     accent: false
   },
   {
-    id: 'shree',
     initial: 'S',
     name: 'Shree Raksha',
     role: 'Finance Head (CA)',
@@ -37,16 +34,14 @@ const CREW_COMMENTS = [
     accent: false
   },
   {
-    id: 'arun',
     initial: 'A',
     name: 'Arun Narayanan K',
     role: 'Founder & Creative Head',
     quote: '“Chief Cookie Dreamer.”',
-    desc: 'Believes every cookie should tell a story. From the first batch to the thousandth box, he’s still obsessed with getting every bite right.',
+    desc: 'Believes every cookie should tell a story. Obsessed with getting every bite right.',
     accent: true
   },
   {
-    id: 'dharshini',
     initial: 'D',
     name: 'Dharshini K',
     role: 'Operations Excellence Lead',
@@ -55,7 +50,6 @@ const CREW_COMMENTS = [
     accent: false
   },
   {
-    id: 'bishu',
     initial: 'B',
     name: 'Bishu Mehra',
     role: 'Sales & Operations Supervisor',
@@ -64,16 +58,14 @@ const CREW_COMMENTS = [
     accent: false
   },
   {
-    id: 'nafees',
     initial: 'N',
     name: 'Nafees Khan',
-    role: 'Business Development & Institutional Sales Head',
+    role: 'Business Development & Institutional Sales',
     quote: '“Turns handshakes into long-term partnerships.”',
     desc: 'Calm, strategic, and the reason MingMorsels enters premium spaces.',
     accent: false
   },
   {
-    id: 'daniel',
     initial: 'D',
     name: 'Daniel',
     role: 'Chef · Production',
@@ -83,43 +75,120 @@ const CREW_COMMENTS = [
   }
 ];
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-const clamp          = (v, min, max) => Math.min(Math.max(v, min), max);
+// Helper to create crisp, high-resolution SVG comment card data URLs
+function createCommentCardSVG(member) {
+  const isAccent = member.accent;
+  const bgFill = isAccent ? 'url(#bg_accent)' : '#FFFFFF';
+  const strokeColor = isAccent ? '#E5B84B' : '#E8DED1';
+
+  // Word wrap description for SVG
+  const words = member.desc.split(' ');
+  let line1 = '', line2 = '';
+  words.forEach(w => {
+    if ((line1 + ' ' + w).length < 42) {
+      line1 = (line1 + ' ' + w).trim();
+    } else {
+      line2 = (line2 + ' ' + w).trim();
+    }
+  });
+
+  const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 370" width="520" height="370">
+  <defs>
+    <linearGradient id="bg_accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFDF7"/>
+      <stop offset="100%" stop-color="#FFF4DC"/>
+    </linearGradient>
+  </defs>
+  <!-- Card Background -->
+  <rect width="516" height="366" x="2" y="2" rx="26" fill="${bgFill}" stroke="${strokeColor}" stroke-width="2.5" />
+  
+  <!-- Avatar Badge -->
+  <circle cx="56" cy="58" r="28" fill="#F9E3C4" stroke="#C6960C" stroke-width="2" stroke-opacity="0.4"/>
+  <text x="56" y="66" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="800" fill="#7C4A1E" text-anchor="middle">${member.initial}</text>
+  
+  <!-- Name & Role -->
+  <text x="98" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#3D2000">${member.name}</text>
+  <text x="98" y="74" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#A07020">${member.role}</text>
+  
+  <!-- Divider -->
+  <line x1="28" y1="102" x2="492" y2="102" stroke="#EFE7DC" stroke-width="1.5"/>
+  
+  <!-- Quote Highlight -->
+  <rect x="28" y="122" width="464" height="66" rx="12" fill="rgba(198,150,12,0.08)" />
+  <rect x="28" y="122" width="4.5" height="66" rx="2" fill="#C6960C" />
+  <text x="44" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#3D2000">${member.quote}</text>
+  
+  <!-- Description -->
+  <text x="32" y="222" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500" fill="#5A4030">${line1}</text>
+  <text x="32" y="248" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500" fill="#5A4030">${line2}</text>
+  
+  <!-- Footer -->
+  <line x1="28" y1="286" x2="492" y2="286" stroke="#EFE7DC" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="32" y="324" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#7C4A1E">🍪 MING MORSELS COOKIE CREW</text>
+  <text x="488" y="324" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#C6960C" text-anchor="end">🔍 Tap to expand</text>
+</svg>
+`.trim();
+
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
+const CREW_IMAGES = CREW_MEMBERS.map(m => ({
+  src: createCommentCardSVG(m),
+  alt: `${m.name} - ${m.quote}`
+}));
+
+// ── React Bits Constants & Helpers ───────────────────────────────────────────
+const DEFAULTS = {
+  maxVerticalRotationDeg: 5,
+  dragSensitivity: 20,
+  enlargeTransitionMs: 300,
+  segments: 35
+};
+
+const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 const normalizeAngle = d => ((d % 360) + 360) % 360;
-const wrapAngleSigned = deg => { const a = (((deg + 180) % 360) + 360) % 360; return a - 180; };
-const getDataNumber  = (el, name, fallback) => {
+const wrapAngleSigned = deg => {
+  const a = (((deg + 180) % 360) + 360) % 360;
+  return a - 180;
+};
+const getDataNumber = (el, name, fallback) => {
   const attr = el.dataset[name] ?? el.getAttribute(`data-${name}`);
   const n = attr == null ? NaN : parseFloat(attr);
   return Number.isFinite(n) ? n : fallback;
 };
 
-// Builds a clean, uncongested spherical distribution of cards
 function buildItems(pool, seg) {
-  // Distribute items with enough spacing (2 to 3 rows, spaced columns)
-  const xCols = Array.from({ length: seg }, (_, i) => -18 + i * 2.6);
-  const evenYs = [-1.8, 0, 1.8];
-  const oddYs  = [-0.9, 0.9];
+  const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
+  const evenYs = [-4, -2, 0, 2, 4];
+  const oddYs = [-3, -1, 1, 3, 5];
 
-  const coords = xCols.flatMap((x, c) => (c % 2 === 0 ? evenYs : oddYs).map(y => ({
-    x: Number(x.toFixed(2)),
-    y,
-    sizeX: 3.1,
-    sizeY: 2.3
-  })));
+  const coords = xCols.flatMap((x, c) => {
+    const ys = c % 2 === 0 ? evenYs : oddYs;
+    return ys.map(y => ({ x, y, sizeX: 2, sizeY: 2 }));
+  });
 
   const totalSlots = coords.length;
-  if (!pool.length) return coords.map(c => ({ ...c, data: null }));
+  if (pool.length === 0) {
+    return coords.map(c => ({ ...c, src: '', alt: '' }));
+  }
 
-  const used = Array.from({ length: totalSlots }, (_, i) => pool[i % pool.length]);
+  const normalizedImages = pool.map(image => {
+    if (typeof image === 'string') {
+      return { src: image, alt: '' };
+    }
+    return { src: image.src || '', alt: image.alt || '' };
+  });
 
-  // Shuffle to prevent exact duplicates sitting directly next to each other
-  for (let i = 1; i < used.length; i++) {
-    if (used[i].id === used[i - 1].id) {
-      for (let j = i + 1; j < used.length; j++) {
-        if (used[j].id !== used[i].id) {
-          const tmp = used[i];
-          used[i] = used[j];
-          used[j] = tmp;
+  const usedImages = Array.from({ length: totalSlots }, (_, i) => normalizedImages[i % normalizedImages.length]);
+
+  for (let i = 1; i < usedImages.length; i++) {
+    if (usedImages[i].src === usedImages[i - 1].src) {
+      for (let j = i + 1; j < usedImages.length; j++) {
+        if (usedImages[j].src !== usedImages[i].src) {
+          const tmp = usedImages[i];
+          usedImages[i] = usedImages[j];
+          usedImages[j] = tmp;
           break;
         }
       }
@@ -128,394 +197,500 @@ function buildItems(pool, seg) {
 
   return coords.map((c, i) => ({
     ...c,
-    data: used[i]
+    src: usedImages[i].src,
+    alt: usedImages[i].alt
   }));
 }
 
 function computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments) {
   const unit = 360 / segments / 2;
-  return {
-    rotateY: unit * (offsetX + (sizeX - 1) / 2),
-    rotateX: unit * (offsetY - (sizeY - 1) / 2),
-  };
+  const rotateY = unit * (offsetX + (sizeX - 1) / 2);
+  const rotateX = unit * (offsetY - (sizeY - 1) / 2);
+  return { rotateX, rotateY };
 }
 
-// ── Public Init ──────────────────────────────────────────────────────────────
-export function initDomeGallery(containerEl, opts = {}) {
-  const {
-    crew                = CREW_COMMENTS,
-    fit                 = 0.52,
-    fitBasis            = 'auto',
-    minRadius           = 540,
-    maxRadius           = 780,
-    padFactor           = 0.18,
-    overlayBlurColor    = '#FAF6F0',
-    maxVerticalRotation = 7,
-    dragSensitivity     = 18,
-    enlargeTransitionMs = 320,
-    segments            = 14,
-    dragDampening       = 1.8,
-    openedCardWidth     = '400px',
-  } = opts;
+// ── Public Initializer Function ──────────────────────────────────────────────
+export function initDomeGallery(containerEl, userProps = {}) {
+  const props = {
+    images: CREW_IMAGES,
+    fit: 0.5,
+    fitBasis: 'auto',
+    minRadius: 600,
+    maxRadius: Infinity,
+    padFactor: 0.25,
+    overlayBlurColor: '#FAF6F0',
+    maxVerticalRotationDeg: DEFAULTS.maxVerticalRotationDeg,
+    dragSensitivity: DEFAULTS.dragSensitivity,
+    enlargeTransitionMs: DEFAULTS.enlargeTransitionMs,
+    segments: DEFAULTS.segments,
+    dragDampening: 2,
+    openedImageWidth: '420px',
+    openedImageHeight: '300px',
+    imageBorderRadius: '16px',
+    openedImageBorderRadius: '24px',
+    grayscale: false,
+    ...userProps
+  };
 
-  // ── Build DOM ─────────────────────────────────────────────────────────────
+  const items = buildItems(props.images, props.segments);
+
+  // Render DOM structure matching React Bits component
   containerEl.innerHTML = `
     <div class="sphere-root"
       style="
-        --segments-x:${segments};
-        --segments-y:${segments};
-        --overlay-blur-color:${overlayBlurColor};
-        --tile-radius:18px;
-        --enlarge-radius:24px;
+        --segments-x: ${props.segments};
+        --segments-y: ${props.segments};
+        --overlay-blur-color: ${props.overlayBlurColor};
+        --tile-radius: ${props.imageBorderRadius};
+        --enlarge-radius: ${props.openedImageBorderRadius};
+        --image-filter: ${props.grayscale ? 'grayscale(1)' : 'none'};
       ">
-      <main class="sphere-main" title="Click and drag to rotate the Cookie Crew dome">
-        <div class="stage"><div class="sphere"></div></div>
+      <main class="sphere-main">
+        <div class="stage">
+          <div class="sphere">
+            ${items.map((it, i) => `
+              <div
+                class="item"
+                data-src="${it.src}"
+                data-offset-x="${it.x}"
+                data-offset-y="${it.y}"
+                data-size-x="${it.sizeX}"
+                data-size-y="${it.sizeY}"
+                style="
+                  --offset-x: ${it.x};
+                  --offset-y: ${it.y};
+                  --item-size-x: ${it.sizeX};
+                  --item-size-y: ${it.sizeY};
+                "
+              >
+                <div
+                  class="item__image"
+                  role="button"
+                  tabindex="0"
+                  aria-label="${it.alt || 'Open comment'}"
+                >
+                  <img src="${it.src}" draggable="false" alt="${it.alt}" />
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
         <div class="overlay"></div>
         <div class="overlay overlay--blur"></div>
         <div class="edge-fade edge-fade--top"></div>
         <div class="edge-fade edge-fade--bottom"></div>
+
         <div class="viewer">
           <div class="scrim"></div>
           <div class="frame"></div>
         </div>
       </main>
-    </div>`;
+    </div>
+  `;
 
-  const root     = containerEl.querySelector('.sphere-root');
-  const mainEl   = containerEl.querySelector('.sphere-main');
-  const sphereEl = containerEl.querySelector('.sphere');
-  const viewerEl = containerEl.querySelector('.viewer');
-  const scrimEl  = containerEl.querySelector('.scrim');
-  const frameEl  = containerEl.querySelector('.frame');
+  const rootRef = containerEl.querySelector('.sphere-root');
+  const mainRef = containerEl.querySelector('.sphere-main');
+  const sphereRef = containerEl.querySelector('.sphere');
+  const frameRef = containerEl.querySelector('.frame');
+  const viewerRef = containerEl.querySelector('.viewer');
+  const scrimRef = containerEl.querySelector('.scrim');
 
-  // ── State ─────────────────────────────────────────────────────────────────
-  const rot        = { x: 0, y: 0 };
-  const startRot   = { x: 0, y: 0 };
-  let startPos     = null;
-  let dragging     = false;
-  let moved        = false;
-  let inertiaRAF   = null;
-  let focusedEl    = null;
-  let origTilePos  = null;
-  let opening      = false;
-  let openStartAt  = 0;
+  let focusedEl = null;
+  let originalTilePosition = null;
+  const rotation = { x: 0, y: 0 };
+  const startRot = { x: 0, y: 0 };
+  let startPos = null;
+  let dragging = false;
+  let moved = false;
+  let inertiaRAF = null;
+  let opening = false;
+  let openStartedAt = 0;
   let lastDragEndAt = 0;
   let scrollLocked = false;
 
-  let lastPTime = 0;
-  let lastPPos  = { x: 0, y: 0 };
-  let vel       = { x: 0, y: 0 };
+  let lastMovePos = { x: 0, y: 0 };
+  let lastMoveTime = 0;
+  let velocity = { x: 0, y: 0 };
 
-  const lockScroll   = () => { if (scrollLocked) return; scrollLocked = true;  document.body.classList.add('dg-scroll-lock'); };
+  const lockScroll = () => {
+    if (scrollLocked) return;
+    scrollLocked = true;
+    document.body.classList.add('dg-scroll-lock');
+  };
+
   const unlockScroll = () => {
-    if (!scrollLocked || root.getAttribute('data-enlarging') === 'true') return;
-    scrollLocked = false; document.body.classList.remove('dg-scroll-lock');
+    if (!scrollLocked) return;
+    if (rootRef?.getAttribute('data-enlarging') === 'true') return;
+    scrollLocked = false;
+    document.body.classList.remove('dg-scroll-lock');
   };
 
-  const applyTransform = (x, y) => {
-    sphereEl.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${x}deg) rotateY(${y}deg)`;
+  const applyTransform = (xDeg, yDeg) => {
+    if (sphereRef) {
+      sphereRef.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(${yDeg}deg)`;
+    }
   };
-  applyTransform(0, 0);
 
-  // ── Build Tiles ───────────────────────────────────────────────────────────
-  const items = buildItems(crew, segments);
+  applyTransform(rotation.x, rotation.y);
 
-  items.forEach((it, idx) => {
-    const member = it.data;
-    if (!member) return;
+  // ResizeObserver for responsive radius
+  const ro = new ResizeObserver(entries => {
+    const cr = entries[0].contentRect;
+    const w = Math.max(1, cr.width),
+      h = Math.max(1, cr.height);
+    const minDim = Math.min(w, h),
+      maxDim = Math.max(w, h),
+      aspect = w / h;
+    let basis;
+    switch (props.fitBasis) {
+      case 'min':
+        basis = minDim;
+        break;
+      case 'max':
+        basis = maxDim;
+        break;
+      case 'width':
+        basis = w;
+        break;
+      case 'height':
+        basis = h;
+        break;
+      default:
+        basis = aspect >= 1.3 ? w : minDim;
+    }
+    let radius = basis * props.fit;
+    const heightGuard = h * 1.35;
+    radius = Math.min(radius, heightGuard);
+    radius = clamp(radius, props.minRadius, props.maxRadius);
+    const lockedRadius = Math.round(radius);
 
-    const item = document.createElement('div');
-    item.className = 'item';
-    Object.assign(item.dataset, {
-      crewId: member.id,
-      offsetX: it.x,
-      offsetY: it.y,
-      sizeX: it.sizeX,
-      sizeY: it.sizeY,
-      index: idx
-    });
-    item.style.cssText = `--offset-x:${it.x};--offset-y:${it.y};--item-size-x:${it.sizeX};--item-size-y:${it.sizeY};`;
-
-    const cardWrap = document.createElement('div');
-    cardWrap.className = 'item__image';
-    cardWrap.setAttribute('role', 'button');
-    cardWrap.setAttribute('tabindex', '0');
-    cardWrap.setAttribute('aria-label', `Read comments by ${member.name}`);
-
-    cardWrap.innerHTML = `
-      <div class="dome-comment-card ${member.accent ? 'dome-comment-card--accent' : ''}">
-        <div class="dome-card-top">
-          <div class="dome-card-avatar">${member.initial}</div>
-          <div class="dome-card-header-text">
-            <div class="dome-card-name">${member.name}</div>
-            <div class="dome-card-role">${member.role}</div>
-          </div>
-        </div>
-        <div class="dome-card-quote">${member.quote}</div>
-        <div class="dome-card-desc">${member.desc}</div>
-        <div class="dome-card-tap-hint"><span>🔍 Click to expand</span></div>
-      </div>
-    `;
-
-    item.appendChild(cardWrap);
-    sphereEl.appendChild(item);
+    const viewerPad = Math.max(8, Math.round(minDim * props.padFactor));
+    rootRef.style.setProperty('--radius', `${lockedRadius}px`);
+    rootRef.style.setProperty('--viewer-pad', `${viewerPad}px`);
+    applyTransform(rotation.x, rotation.y);
   });
+  ro.observe(rootRef);
 
-  // ── Responsive Radius ─────────────────────────────────────────────────────
-  const ro = new ResizeObserver(([{ contentRect: cr }]) => {
-    const w = Math.max(1, cr.width), h = Math.max(1, cr.height);
-    const minDim = Math.min(w, h), maxDim = Math.max(w, h), aspect = w / h;
-    const basis = fitBasis === 'min' ? minDim : fitBasis === 'max' ? maxDim :
-                  fitBasis === 'width' ? w : fitBasis === 'height' ? h :
-                  (aspect >= 1.3 ? w : minDim);
-    const radius = clamp(Math.min(basis * fit, h * 1.4), minRadius, maxRadius);
-    const pad    = Math.max(8, Math.round(minDim * padFactor));
-    root.style.setProperty('--radius', `${Math.round(radius)}px`);
-    root.style.setProperty('--viewer-pad', `${pad}px`);
-    applyTransform(rot.x, rot.y);
-  });
-  ro.observe(root);
-
-  // ── Inertia & Drag ────────────────────────────────────────────────────────
-  const stopInertia = () => { if (inertiaRAF) { cancelAnimationFrame(inertiaRAF); inertiaRAF = null; } };
+  // Inertia
+  const stopInertia = () => {
+    if (inertiaRAF) {
+      cancelAnimationFrame(inertiaRAF);
+      inertiaRAF = null;
+    }
+  };
 
   const startInertia = (vx, vy) => {
-    const d = clamp(dragDampening, 0, 1);
-    let vX = clamp(vx, -1.4, 1.4) * 80;
-    let vY = clamp(vy, -1.4, 1.4) * 80;
+    const MAX_V = 1.4;
+    let vX = clamp(vx, -MAX_V, MAX_V) * 80;
+    let vY = clamp(vy, -MAX_V, MAX_V) * 80;
     let frames = 0;
-    const fric = 0.94 + 0.055 * d;
-    const stop = 0.015 - 0.01 * d;
-    const maxF = Math.round(90 + 270 * d);
+    const d = clamp(props.dragDampening ?? 0.6, 0, 1);
+    const frictionMul = 0.94 + 0.055 * d;
+    const stopThreshold = 0.015 - 0.01 * d;
+    const maxFrames = Math.round(90 + 270 * d);
 
     const step = () => {
-      vX *= fric; vY *= fric;
-      if ((Math.abs(vX) < stop && Math.abs(vY) < stop) || ++frames > maxF) { inertiaRAF = null; return; }
-      rot.x = clamp(rot.x - vY / 200, -maxVerticalRotation, maxVerticalRotation);
-      rot.y = wrapAngleSigned(rot.y + vX / 200);
-      applyTransform(rot.x, rot.y);
+      vX *= frictionMul;
+      vY *= frictionMul;
+      if (Math.abs(vX) < stopThreshold && Math.abs(vY) < stopThreshold) {
+        inertiaRAF = null;
+        return;
+      }
+      if (++frames > maxFrames) {
+        inertiaRAF = null;
+        return;
+      }
+      const nextX = clamp(rotation.x - vY / 200, -props.maxVerticalRotationDeg, props.maxVerticalRotationDeg);
+      const nextY = wrapAngleSigned(rotation.y + vX / 200);
+      rotation.x = nextX;
+      rotation.y = nextY;
+      applyTransform(nextX, nextY);
       inertiaRAF = requestAnimationFrame(step);
     };
     stopInertia();
     inertiaRAF = requestAnimationFrame(step);
   };
 
-  mainEl.addEventListener('pointerdown', e => {
+  // Pointer drag gestures
+  mainRef.addEventListener('pointerdown', e => {
     if (focusedEl) return;
     stopInertia();
-    dragging = true; moved = false;
-    startRot.x = rot.x; startRot.y = rot.y;
+    dragging = true;
+    moved = false;
+    startRot.x = rotation.x;
+    startRot.y = rotation.y;
     startPos = { x: e.clientX, y: e.clientY };
-    lastPPos = { ...startPos }; lastPTime = performance.now(); vel = { x: 0, y: 0 };
-    mainEl.setPointerCapture(e.pointerId);
+    lastMovePos = { ...startPos };
+    lastMoveTime = performance.now();
+    velocity = { x: 0, y: 0 };
+    mainRef.setPointerCapture(e.pointerId);
   }, { passive: true });
 
-  mainEl.addEventListener('pointermove', e => {
-    if (!dragging || !startPos || focusedEl) return;
-    const dx = e.clientX - startPos.x, dy = e.clientY - startPos.y;
-    if (!moved && dx * dx + dy * dy > 16) moved = true;
-    rot.x = clamp(startRot.x - dy / dragSensitivity, -maxVerticalRotation, maxVerticalRotation);
-    rot.y = wrapAngleSigned(startRot.y + dx / dragSensitivity);
-    applyTransform(rot.x, rot.y);
-    const now = performance.now(), dt = now - lastPTime;
-    if (dt > 0) { vel.x = (e.clientX - lastPPos.x) / dt; vel.y = (e.clientY - lastPPos.y) / dt; }
-    lastPPos = { x: e.clientX, y: e.clientY }; lastPTime = now;
+  mainRef.addEventListener('pointermove', e => {
+    if (focusedEl || !dragging || !startPos) return;
+    const dxTotal = e.clientX - startPos.x;
+    const dyTotal = e.clientY - startPos.y;
+    if (!moved) {
+      const dist2 = dxTotal * dxTotal + dyTotal * dyTotal;
+      if (dist2 > 16) moved = true;
+    }
+    const nextX = clamp(
+      startRot.x - dyTotal / props.dragSensitivity,
+      -props.maxVerticalRotationDeg,
+      props.maxVerticalRotationDeg
+    );
+    const nextY = wrapAngleSigned(startRot.y + dxTotal / props.dragSensitivity);
+    if (rotation.x !== nextX || rotation.y !== nextY) {
+      rotation.x = nextX;
+      rotation.y = nextY;
+      applyTransform(nextX, nextY);
+    }
+
+    const now = performance.now();
+    const dt = now - lastMoveTime;
+    if (dt > 0) {
+      velocity.x = (e.clientX - lastMovePos.x) / dt;
+      velocity.y = (e.clientY - lastMovePos.y) / dt;
+    }
+    lastMovePos = { x: e.clientX, y: e.clientY };
+    lastMoveTime = now;
   }, { passive: true });
 
   const onPointerEnd = () => {
     if (!dragging) return;
     dragging = false;
-    if (Math.abs(vel.x) > 0.005 || Math.abs(vel.y) > 0.005) startInertia(vel.x, vel.y);
+    if (Math.abs(velocity.x) > 0.005 || Math.abs(velocity.y) > 0.005) {
+      startInertia(velocity.x, velocity.y);
+    }
     if (moved) lastDragEndAt = performance.now();
     moved = false;
   };
-  mainEl.addEventListener('pointerup',     onPointerEnd, { passive: true });
-  mainEl.addEventListener('pointercancel', onPointerEnd, { passive: true });
 
-  // ── Open / Expand Comment Modal ───────────────────────────────────────────
-  const openTile = el => {
+  mainRef.addEventListener('pointerup', onPointerEnd, { passive: true });
+  mainRef.addEventListener('pointercancel', onPointerEnd, { passive: true });
+
+  // Open / Enlarge Item
+  const openItemFromElement = el => {
     if (opening) return;
-    opening = true; openStartAt = performance.now(); lockScroll();
+    opening = true;
+    openStartedAt = performance.now();
+    lockScroll();
 
     const parent = el.parentElement;
     focusedEl = el;
-
-    const crewId = parent.dataset.crewId;
-    const member = crew.find(c => c.id === crewId) || crew[0];
-
-    const offX = getDataNumber(parent, 'offsetX', 0);
-    const offY = getDataNumber(parent, 'offsetY', 0);
-    const szX  = getDataNumber(parent, 'sizeX', 3.1);
-    const szY  = getDataNumber(parent, 'sizeY', 2.3);
-    const pr   = computeItemBaseRotation(offX, offY, szX, szY, segments);
-
-    let rotY = -(normalizeAngle(pr.rotateY) + normalizeAngle(rot.y)) % 360;
+    el.setAttribute('data-focused', 'true');
+    const offsetX = getDataNumber(parent, 'offsetX', 0);
+    const offsetY = getDataNumber(parent, 'offsetY', 0);
+    const sizeX = getDataNumber(parent, 'sizeX', 2);
+    const sizeY = getDataNumber(parent, 'sizeY', 2);
+    const parentRot = computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, props.segments);
+    const parentY = normalizeAngle(parentRot.rotateY);
+    const globalY = normalizeAngle(rotation.y);
+    let rotY = -(parentY + globalY) % 360;
     if (rotY < -180) rotY += 360;
+    const rotX = -parentRot.rotateX - rotation.x;
     parent.style.setProperty('--rot-y-delta', `${rotY}deg`);
-    parent.style.setProperty('--rot-x-delta', `${-pr.rotateX - rot.x}deg`);
-
+    parent.style.setProperty('--rot-x-delta', `${rotX}deg`);
     const refDiv = document.createElement('div');
     refDiv.className = 'item__image item__image--reference';
-    refDiv.style.cssText = `opacity:0;transform:rotateX(${-pr.rotateX}deg) rotateY(${-pr.rotateY}deg);`;
+    refDiv.style.opacity = '0';
+    refDiv.style.transform = `rotateX(${-parentRot.rotateX}deg) rotateY(${-parentRot.rotateY}deg)`;
     parent.appendChild(refDiv);
+
     void refDiv.offsetHeight;
 
-    const tileR  = refDiv.getBoundingClientRect();
-    const mainR  = mainEl.getBoundingClientRect();
-    const frameR = frameEl.getBoundingClientRect();
+    const tileR = refDiv.getBoundingClientRect();
+    const mainR = mainRef?.getBoundingClientRect();
+    const frameR = frameRef?.getBoundingClientRect();
 
-    if (!mainR || !frameR || tileR.width <= 0) {
-      opening = false; focusedEl = null; parent.removeChild(refDiv); unlockScroll(); return;
+    if (!mainR || !frameR || tileR.width <= 0 || tileR.height <= 0) {
+      opening = false;
+      focusedEl = null;
+      parent.removeChild(refDiv);
+      unlockScroll();
+      return;
     }
 
-    origTilePos = { left: tileR.left, top: tileR.top, width: tileR.width, height: tileR.height };
-    el.style.visibility = 'hidden'; el.style.zIndex = 0;
-
-    // Pop-up modal overlay
-    const ov = document.createElement('div');
-    ov.className = `enlarge ${member.accent ? 'enlarge--accent' : ''}`;
-    ov.style.cssText = `
-      position: absolute;
-      left: ${frameR.left - mainR.left}px;
-      top: ${frameR.top - mainR.top}px;
-      width: ${openedCardWidth};
-      max-width: 90vw;
-      opacity: 0;
-      z-index: 30;
-      will-change: transform, opacity;
-      transform-origin: top left;
-      transition: transform ${enlargeTransitionMs}ms cubic-bezier(0.16, 1, 0.3, 1), opacity ${enlargeTransitionMs}ms ease;
-    `;
-
-    ov.innerHTML = `
-      <div class="dome-popup-card">
-        <button type="button" class="dome-popup-close-btn" aria-label="Close dialog">✕</button>
-        <div>
-          <div class="dome-popup-top">
-            <div class="dome-popup-avatar">${member.initial}</div>
-            <div class="dome-popup-header-text">
-              <div class="dome-popup-name">${member.name}</div>
-              <div class="dome-popup-role">${member.role}</div>
-            </div>
-          </div>
-          <div class="dome-popup-quote">${member.quote}</div>
-          <p class="dome-popup-desc">${member.desc}</p>
-        </div>
-        <div class="dome-popup-footer">
-          <span class="dome-popup-badge">🍪 Ming Morsels Cookie Crew</span>
-          <span style="font-size:12px;color:#A07020;font-weight:600;">#MadeWithPassion</span>
-        </div>
-      </div>
-    `;
-
-    viewerEl.appendChild(ov);
-
+    originalTilePosition = { left: tileR.left, top: tileR.top, width: tileR.width, height: tileR.height };
+    el.style.visibility = 'hidden';
+    el.style.zIndex = 0;
+    const overlay = document.createElement('div');
+    overlay.className = 'enlarge';
+    overlay.style.position = 'absolute';
+    overlay.style.left = frameR.left - mainR.left + 'px';
+    overlay.style.top = frameR.top - mainR.top + 'px';
+    overlay.style.width = frameR.width + 'px';
+    overlay.style.height = frameR.height + 'px';
+    overlay.style.opacity = '0';
+    overlay.style.zIndex = '30';
+    overlay.style.willChange = 'transform, opacity';
+    overlay.style.transformOrigin = 'top left';
+    overlay.style.transition = `transform ${props.enlargeTransitionMs}ms ease, opacity ${props.enlargeTransitionMs}ms ease`;
+    const rawSrc = parent.dataset.src || el.querySelector('img')?.src || '';
+    const img = document.createElement('img');
+    img.src = rawSrc;
+    overlay.appendChild(img);
+    viewerRef.appendChild(overlay);
     const tx0 = tileR.left - frameR.left;
     const ty0 = tileR.top - frameR.top;
-    const sx0 = (tileR.width / (parseFloat(openedCardWidth) || frameR.width)) || 1;
-    const sy0 = (tileR.height / (frameR.height || 260)) || 1;
+    const sx0 = tileR.width / frameR.width;
+    const sy0 = tileR.height / frameR.height;
 
-    ov.style.transform = `translate(${tx0}px, ${ty0}px) scale(${sx0}, ${sy0})`;
+    const validSx0 = isFinite(sx0) && sx0 > 0 ? sx0 : 1;
+    const validSy0 = isFinite(sy0) && sy0 > 0 ? sy0 : 1;
+
+    overlay.style.transform = `translate(${tx0}px, ${ty0}px) scale(${validSx0}, ${validSy0})`;
 
     setTimeout(() => {
-      if (!ov.parentElement) return;
-      ov.style.opacity = '1';
-      ov.style.transform = 'translate(0, 0) scale(1, 1)';
-      root.setAttribute('data-enlarging', 'true');
+      if (!overlay.parentElement) return;
+      overlay.style.opacity = '1';
+      overlay.style.transform = 'translate(0px, 0px) scale(1, 1)';
+      rootRef?.setAttribute('data-enlarging', 'true');
     }, 16);
 
-    // Bind inner close button
-    const closeBtn = ov.querySelector('.dome-popup-close-btn');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        closeTile();
-      });
+    const wantsResize = props.openedImageWidth || props.openedImageHeight;
+    if (wantsResize) {
+      const onFirstEnd = ev => {
+        if (ev.propertyName !== 'transform') return;
+        overlay.removeEventListener('transitionend', onFirstEnd);
+        const prevTransition = overlay.style.transition;
+        overlay.style.transition = 'none';
+        const tempWidth = props.openedImageWidth || `${frameR.width}px`;
+        const tempHeight = props.openedImageHeight || `${frameR.height}px`;
+        overlay.style.width = tempWidth;
+        overlay.style.height = tempHeight;
+        const newRect = overlay.getBoundingClientRect();
+        overlay.style.width = frameR.width + 'px';
+        overlay.style.height = frameR.height + 'px';
+        void overlay.offsetWidth;
+        overlay.style.transition = `left ${props.enlargeTransitionMs}ms ease, top ${props.enlargeTransitionMs}ms ease, width ${props.enlargeTransitionMs}ms ease, height ${props.enlargeTransitionMs}ms ease`;
+        const centeredLeft = frameR.left - mainR.left + (frameR.width - newRect.width) / 2;
+        const centeredTop = frameR.top - mainR.top + (frameR.height - newRect.height) / 2;
+        requestAnimationFrame(() => {
+          overlay.style.left = `${centeredLeft}px`;
+          overlay.style.top = `${centeredTop}px`;
+          overlay.style.width = tempWidth;
+          overlay.style.height = tempHeight;
+        });
+        const cleanupSecond = () => {
+          overlay.removeEventListener('transitionend', cleanupSecond);
+          overlay.style.transition = prevTransition;
+        };
+        overlay.addEventListener('transitionend', cleanupSecond, { once: true });
+      };
+      overlay.addEventListener('transitionend', onFirstEnd);
     }
   };
 
-  // Tile click
-  sphereEl.addEventListener('click', e => {
-    const tile = e.target.closest('.item__image');
-    if (!tile) return;
-    if (dragging || moved) return;
-    if (performance.now() - lastDragEndAt < 80 || opening) return;
-    openTile(tile);
-  });
-
-  // ── Scrim / Close Modal ───────────────────────────────────────────────────
-  const closeTile = () => {
-    if (performance.now() - openStartAt < 200 || !focusedEl) return;
-    const el = focusedEl, parent = el.parentElement;
-    const ov = viewerEl.querySelector('.enlarge');
-    if (!ov) return;
-
+  // Scrim / Close Dialog
+  const close = () => {
+    if (performance.now() - openStartedAt < 250) return;
+    const el = focusedEl;
+    if (!el) return;
+    const parent = el.parentElement;
+    const overlay = viewerRef?.querySelector('.enlarge');
+    if (!overlay) return;
     const refDiv = parent.querySelector('.item__image--reference');
-    const op = origTilePos;
-
-    if (!op) {
-      ov.remove(); if (refDiv) refDiv.remove();
-      parent.style.setProperty('--rot-y-delta', '0deg'); parent.style.setProperty('--rot-x-delta', '0deg');
-      el.style.visibility = ''; el.style.zIndex = 0;
-      focusedEl = null; root.removeAttribute('data-enlarging'); opening = false; unlockScroll(); return;
+    const originalPos = originalTilePosition;
+    if (!originalPos) {
+      overlay.remove();
+      if (refDiv) refDiv.remove();
+      parent.style.setProperty('--rot-y-delta', '0deg');
+      parent.style.setProperty('--rot-x-delta', '0deg');
+      el.style.visibility = '';
+      el.style.zIndex = 0;
+      focusedEl = null;
+      rootRef?.removeAttribute('data-enlarging');
+      opening = false;
+      unlockScroll();
+      return;
     }
-
-    const cur = ov.getBoundingClientRect(), rootR = root.getBoundingClientRect();
-    const animOv = document.createElement('div');
-    animOv.className = 'enlarge-closing';
-    animOv.style.cssText = `
-      position: absolute;
-      left: ${cur.left - rootR.left}px;
-      top: ${cur.top - rootR.top}px;
-      width: ${cur.width}px;
-      height: ${cur.height}px;
-      z-index: 9999;
-      border-radius: 24px;
-      background: #FFFFFF;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      transition: all ${enlargeTransitionMs}ms cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-      margin: 0;
-      transform: none;
-    `;
-
-    ov.remove();
-    root.appendChild(animOv);
-    void animOv.getBoundingClientRect();
-
+    const currentRect = overlay.getBoundingClientRect();
+    const rootRect = rootRef.getBoundingClientRect();
+    const originalPosRelativeToRoot = {
+      left: originalPos.left - rootRect.left,
+      top: originalPos.top - rootRect.top,
+      width: originalPos.width,
+      height: originalPos.height
+    };
+    const overlayRelativeToRoot = {
+      left: currentRect.left - rootRect.left,
+      top: currentRect.top - rootRect.top,
+      width: currentRect.width,
+      height: currentRect.height
+    };
+    const animatingOverlay = document.createElement('div');
+    animatingOverlay.className = 'enlarge-closing';
+    animatingOverlay.style.cssText = `position:absolute;left:${overlayRelativeToRoot.left}px;top:${overlayRelativeToRoot.top}px;width:${overlayRelativeToRoot.width}px;height:${overlayRelativeToRoot.height}px;z-index:9999;border-radius: var(--enlarge-radius, 24px);overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:all ${props.enlargeTransitionMs}ms ease-out;pointer-events:none;margin:0;transform:none;`;
+    const originalImg = overlay.querySelector('img');
+    if (originalImg) {
+      const img = originalImg.cloneNode();
+      img.style.cssText = 'width:100%;height:100%;object-fit:fill;';
+      animatingOverlay.appendChild(img);
+    }
+    overlay.remove();
+    rootRef.appendChild(animatingOverlay);
+    void animatingOverlay.getBoundingClientRect();
     requestAnimationFrame(() => {
-      animOv.style.left    = `${op.left - rootR.left}px`;
-      animOv.style.top     = `${op.top - rootR.top}px`;
-      animOv.style.width   = `${op.width}px`;
-      animOv.style.height  = `${op.height}px`;
-      animOv.style.opacity = '0';
+      animatingOverlay.style.left = originalPosRelativeToRoot.left + 'px';
+      animatingOverlay.style.top = originalPosRelativeToRoot.top + 'px';
+      animatingOverlay.style.width = originalPosRelativeToRoot.width + 'px';
+      animatingOverlay.style.height = originalPosRelativeToRoot.height + 'px';
+      animatingOverlay.style.opacity = '0';
     });
-
     const cleanup = () => {
-      animOv.remove(); origTilePos = null; if (refDiv) refDiv.remove();
-      parent.style.transition = 'none'; el.style.transition = 'none';
-      parent.style.setProperty('--rot-y-delta', '0deg'); parent.style.setProperty('--rot-x-delta', '0deg');
+      animatingOverlay.remove();
+      originalTilePosition = null;
+      if (refDiv) refDiv.remove();
+      parent.style.transition = 'none';
+      el.style.transition = 'none';
+      parent.style.setProperty('--rot-y-delta', '0deg');
+      parent.style.setProperty('--rot-x-delta', '0deg');
       requestAnimationFrame(() => {
-        el.style.visibility = ''; el.style.opacity = '0'; el.style.zIndex = 0;
-        focusedEl = null; root.removeAttribute('data-enlarging');
+        el.style.visibility = '';
+        el.style.opacity = '0';
+        el.style.zIndex = 0;
+        focusedEl = null;
+        rootRef?.removeAttribute('data-enlarging');
         requestAnimationFrame(() => {
-          parent.style.transition = ''; el.style.transition = 'opacity 300ms ease-out';
+          parent.style.transition = '';
+          el.style.transition = 'opacity 300ms ease-out';
           requestAnimationFrame(() => {
             el.style.opacity = '1';
             setTimeout(() => {
-              el.style.transition = ''; el.style.opacity = ''; opening = false;
-              if (!dragging && root.getAttribute('data-enlarging') !== 'true') document.body.classList.remove('dg-scroll-lock');
+              el.style.transition = '';
+              el.style.opacity = '';
+              opening = false;
+              if (!dragging && rootRef?.getAttribute('data-enlarging') !== 'true')
+                document.body.classList.remove('dg-scroll-lock');
             }, 300);
           });
         });
       });
     };
-    animOv.addEventListener('transitionend', cleanup, { once: true });
+    animatingOverlay.addEventListener('transitionend', cleanup, { once: true });
   };
 
-  scrimEl.addEventListener('click', closeTile);
-  window.addEventListener('keydown', e => { if (e.key === 'Escape') closeTile(); });
+  scrimRef.addEventListener('click', close);
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') close();
+  });
 
-  // ── Cleanup ───────────────────────────────────────────────────────────────
-  return () => { ro.disconnect(); stopInertia(); document.body.classList.remove('dg-scroll-lock'); };
+  // Click on tile
+  sphereRef.addEventListener('click', e => {
+    const tile = e.target.closest('.item__image');
+    if (!tile) return;
+    if (dragging) return;
+    if (moved) return;
+    if (performance.now() - lastDragEndAt < 80) return;
+    if (opening) return;
+    openItemFromElement(tile);
+  });
+
+  return () => {
+    ro.disconnect();
+    stopInertia();
+    document.body.classList.remove('dg-scroll-lock');
+  };
 }
