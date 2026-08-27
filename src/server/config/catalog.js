@@ -152,7 +152,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (8 pcs)',
     stock: 90,
     rating: 5.0,
-    description: 'Standard brand box containing 8 freshly baked zesty orange peel cookies (No Margarine).'
+    description: 'Standard brand box containing 8 freshly baked orange peel cookies (No Margarine).'
   },
   'walnut': {
     id: 'walnut',

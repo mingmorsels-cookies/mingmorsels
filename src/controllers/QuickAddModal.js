@@ -128,7 +128,7 @@ export const PRODUCT_BOX_CATALOG = {
         name: 'Classic Box',
         countLabel: 'Up to 8 Cookies',
         price: 160,
-        desc: '8 Zesty orange treats in signature gift box.',
+        desc: '8 Orange peel treats in signature gift box.',
         img: '/orange-box-8pcs.jpg',
         popular: true
       },
