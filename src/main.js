@@ -91,21 +91,21 @@ async function startApp() {
       initParticleText(particleTextRoot, {
         text: 'Unit of Miora Delights Private Limited',
         textAlign: 'left',
-        particleSize: 2.6,
-        density: 2.4,
-        color: '#3D2000',
-        highlightColor: '#C6960C',
+        particleSize: 2.2,
+        density: 1.8, // Denser particles for sharp, solid typography
+        color: '#1A0C00', // Deep dark espresso chocolate for maximum clarity & contrast
+        highlightColor: '#4A2500', // Rich cocoa accent
         scatter: 180,
-        gatherDuration: 1400,
-        stagger: 350,
+        gatherDuration: 1300,
+        stagger: 320,
         pointerRepel: 45,
-        repelRadius: 120,
-        idleDrift: 0.6,
+        repelRadius: 110,
+        idleDrift: 0.5,
         trigger: 'hover',
-        fontSize: 'clamp(1.5rem, 3.3vw, 2.4rem)',
+        fontSize: 'clamp(1.5rem, 3.4vw, 2.5rem)',
         fontWeight: 800,
-        fontFamily: 'inherit',
-        glow: true
+        fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+        glow: false // Disabled fuzzy glow for ultra-sharp crisp text on cream background
       });
     }
 
