@@ -6,7 +6,7 @@ export const PRODUCT_CATALOG = {
   // Artisanal Cookies
   'almond': {
     id: 'almond',
-    name: 'Royal Roasted Almond Cookie',
+    name: 'Royal Almond Rich Cookies',
     category: 'cookie',
     price: 160,
     unit: 'box (8 pcs)',
@@ -16,7 +16,7 @@ export const PRODUCT_CATALOG = {
   },
   'almond_snack_2pcs': {
     id: 'almond_snack_2pcs',
-    name: 'Almond Cookies (Snack Pack - 2 Pcs)',
+    name: 'Almond Rich Cookies (Snack Pack - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
@@ -26,7 +26,7 @@ export const PRODUCT_CATALOG = {
   },
   'almond_classic_8pcs': {
     id: 'almond_classic_8pcs',
-    name: 'Almond Cookies (Classic Box - 8 Pcs)',
+    name: 'Almond Rich Cookies (Classic Box - 8 Pcs)',
     category: 'cookie',
     price: 160,
     unit: 'box (8 pcs)',
@@ -36,7 +36,7 @@ export const PRODUCT_CATALOG = {
   },
   'almond_family_12pcs': {
     id: 'almond_family_12pcs',
-    name: 'Almond Cookies (Family Pack - 12 Pcs)',
+    name: 'Almond Rich Cookies (Family Pack - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',

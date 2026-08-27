@@ -8,7 +8,7 @@ import { eventBus, Events } from './EventBus.js';
 export const PRODUCT_BOX_CATALOG = {
   almond: {
     id: 'almond',
-    name: 'Almond Cookies',
+    name: 'Almond Rich Cookies',
     tagline: 'Whole roasted California almonds & raw organic honey',
     image: '/img-almond.png',
     unitName: 'Cookies',

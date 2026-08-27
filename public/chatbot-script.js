@@ -86,7 +86,7 @@
         };
 
         const BOT_RESPONSES = {
-            all: { en: "Here is our complete artisan collection — <strong>6 Signature Cookies &amp; 5 Soft-Baked Muffins</strong>, all crafted with 100% natural ingredients:<br><br>🌰 <strong>Almond Cookies</strong> — Classic roasted almond crunch<br>🌹 <strong>Rose Petal Cookies</strong> — Damask rose &amp; cardamom aroma<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Hearty rolled oats &amp; walnuts<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment<br>🧠 <strong>Walnut Cookies</strong> — California walnuts &amp; butter crunch<br>🍃 <strong>Sugar-Free Walnut Cookies</strong> — 100% Sugar-free, sweetened with Stevia<br>🍓 <strong>Strawberry Muffins</strong> — Real Mahabaleshwar strawberries<br>🍍 <strong>Pinacolada Muffins</strong> — Tropical pineapple &amp; coconut<br>🧈 <strong>Butterscotch Muffins</strong> — Caramelized crunch bits<br>🍫 <strong>Chocochip Muffins</strong> — Rich dark chocolate chips<br>🫐 <strong>Black Currant Muffin</strong> — Tangy black currants &amp; vanilla<br><br>Tap any item above to learn more! ❆" },
+            all: { en: "Here is our complete artisan collection — <strong>6 Signature Cookies &amp; 5 Soft-Baked Muffins</strong>, all crafted with 100% natural ingredients:<br><br>🌰 <strong>Almond Rich Cookies</strong> — Classic roasted almond crunch<br>🌹 <strong>Rose Petal Cookies</strong> — Damask rose &amp; cardamom aroma<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Hearty rolled oats &amp; walnuts<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment<br>🧠 <strong>Walnut Cookies</strong> — California walnuts &amp; butter crunch<br>🍃 <strong>Sugar-Free Walnut Cookies</strong> — 100% Sugar-free, sweetened with Stevia<br>🍓 <strong>Strawberry Muffins</strong> — Real Mahabaleshwar strawberries<br>🍍 <strong>Pinacolada Muffins</strong> — Tropical pineapple &amp; coconut<br>🧈 <strong>Butterscotch Muffins</strong> — Caramelized crunch bits<br>🍫 <strong>Chocochip Muffins</strong> — Rich dark chocolate chips<br>🫐 <strong>Black Currant Muffin</strong> — Tangy black currants &amp; vanilla<br><br>Tap any item above to learn more! ❆" },
             natural: { en: "At <strong>The Cookie Atelier</strong>, we take purity seriously:<br><br>✅ <strong>No Dalda</strong> — no hydrogenated fat<br>✅ <strong>No Artificial Preservatives</strong><br>✅ <strong>No Harmful Oils</strong><br>✅ <strong>No Artificial Colours or Flavours</strong><br>✅ <strong>Real Ingredients</strong> — real rose petals, raw honey, pure butter 🌿" },
             hello: { en: "Hello and welcome to <strong>The Cookie Atelier</strong>! 🍪✨<br><br>We craft 4 Signature Cookies &amp; 4 Soft Muffins with 100% natural ingredients. You can:<br>• Ask about any cookie or muffin<br>• Tell me your mood for a suggestion<br>• Ask about ingredients, nutrition, or gifting 🎁" },
             fallback: { en: "I didn't quite catch that. You can ask about any cookie or muffin, share your mood, or tap any flavour pill above! ❆" }
@@ -129,7 +129,7 @@
 
         const COOKIES = {
             almond: { 
-                name: "Almond Cookies", 
+                name: "Almond Rich Cookies", 
                 emoji: "🌰", 
                 img: "/img-almond.png?v=2", 
                 color: "#FFF3DC", 
@@ -592,7 +592,7 @@
             // AI Intent Recognition: Smart Recommendation
             if (/recommend|suggest|which one|best seller|favorite|popular|top/.test(q)) {
                 return {
-                    text: `✨ <strong>AI Flavour Recommendation</strong><br>Our #1 Bestseller is <strong>Roasted Almond Cookies</strong> (Nutty & Buttery) paired with <strong>Double Dark Chocochip Muffin</strong>!<br><br>Want a personalized match? <button onclick="window.top.document.getElementById('btn-open-flavor-quiz')?.click()" style="background:var(--gold); border:none; color:#120E0B; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">Take AI Flavor Quiz</button>`,
+                    text: `✨ <strong>AI Flavour Recommendation</strong><br>Our #1 Bestseller is <strong>Roasted Almond Rich Cookies</strong> (Nutty & Buttery) paired with <strong>Double Dark Chocochip Muffin</strong>!<br><br>Want a personalized match? <button onclick="window.top.document.getElementById('btn-open-flavor-quiz')?.click()" style="background:var(--gold); border:none; color:#120E0B; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">Take AI Flavor Quiz</button>`,
                     card: 'almond'
                 };
             }

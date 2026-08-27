@@ -26,7 +26,7 @@ export class LiveFeedController {
 
     this.products = [
       { name: "Rose Petal Cookies", img: "/rose_cookie.png" },
-      { name: "Almond Cookies", img: "/almond_cookie.png" },
+      { name: "Almond Rich Cookies", img: "/almond_cookie.png" },
       { name: "Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
       { name: "Sugar-Free Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
       { name: "Strawberry Muffins", img: "/strawberry_muffin.png" },

@@ -8,7 +8,7 @@ import { authController } from './controllers/AuthController.js';
 const PRODUCTS_DATA = {
   almond: {
     id: 'almond',
-    name: 'Almond Cookies',
+    name: 'Almond Rich Cookies',
     category: 'Signature Cookie',
     categoryLink: 'Cookies',
     tagline: 'Crafted with whole roasted almonds — rich, buttery crunch with every single bite.',
@@ -291,7 +291,7 @@ const PRODUCTS_DATA = {
   }
 };
 
-// Authentic Bakery Box Sizes (Rose Petal & Roasted Almond Cookies)
+// Authentic Bakery Box Sizes (Rose Petal & Roasted Almond Rich Cookies)
 const COOKIE_BOX_OPTIONS = {
   rose: [
     {
@@ -701,7 +701,12 @@ function initProductGallery() {
       { src: '/rose-petal/5.jpg', alt: 'Rose Petal Image 5' }
     ];
   } else if (currentProduct.id === 'almond') {
-    images = [];
+    images = [
+      { src: '/almond/1.jpg', alt: 'Almond Rich Cookies Image 1' },
+      { src: '/almond/2.jpg', alt: 'Almond Rich Cookies Image 2' },
+      { src: '/almond/3.jpg', alt: 'Almond Rich Cookies Image 3' },
+      { src: '/almond/4.jpg', alt: 'Almond Rich Cookies Image 4' }
+    ];
   } else if (currentProduct.id === 'chocochip') {
     images = [
       { src: '/img-chocochip.jpg', alt: 'Chocochip Muffin' },
@@ -904,18 +909,18 @@ function openProductBoxLightbox(boxKey) {
     if (desc) desc.textContent = 'Large rectangular party box (Net Weight: 300g) with protective seals. Holds up to 12 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'almond_snack_2pcs') {
     img.src = '/almond-box-2pcs.png?v=2';
-    img.alt = 'Almond Cookies - Snack Pack (Up to 2 Cookies)';
-    if (title) title.textContent = 'Almond Cookies — Snack Pack (Up to 2 Cookies)';
+    img.alt = 'Almond Rich Cookies - Snack Pack (Up to 2 Cookies)';
+    if (title) title.textContent = 'Almond Rich Cookies — Snack Pack (Up to 2 Cookies)';
     if (desc) desc.textContent = 'Pocket snack pack with rich roasted almonds artwork, source of dietary fiber. Holds up to 2 freshly baked almond cookies.';
   } else if (boxKey === 'almond_classic_8pcs') {
     img.src = '/almond-box-8pcs.jpg';
-    img.alt = 'Almond Cookies - Classic Box (Up to 8 Cookies)';
-    if (title) title.textContent = 'Almond Cookies — Classic Box (Up to 8 Cookies)';
+    img.alt = 'Almond Rich Cookies - Classic Box (Up to 8 Cookies)';
+    if (title) title.textContent = 'Almond Rich Cookies — Classic Box (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with crunchy almond meets soft butter guarantee (no margarine). Holds up to 8 freshly baked almond cookies.';
   } else if (boxKey === 'almond_family_12pcs') {
     img.src = '/almond-box-12pcs.png?v=2';
-    img.alt = 'Almond Cookies - Family Pack (Up to 12 Cookies · 300g)';
-    if (title) title.textContent = 'Almond Cookies — Family Pack (Up to 12 Cookies · 300g)';
+    img.alt = 'Almond Rich Cookies - Family Pack (Up to 12 Cookies · 300g)';
+    if (title) title.textContent = 'Almond Rich Cookies — Family Pack (Up to 12 Cookies · 300g)';
     if (desc) desc.textContent = 'Large festive party box with genuine cow butter & roasted almond recipe. Holds up to 12 freshly baked almond cookies.';
   } else if (boxKey === 'orange_snack_2pcs') {
     img.src = '/orange-box-2pcs.jpg';
@@ -1125,7 +1130,7 @@ function initCartSystem() {
 }
 
 const PRODUCT_NAMES = {
-  almond: 'Almond Cookies',
+  almond: 'Almond Rich Cookies',
   rose: 'Rose Petal Cookies',
   oatsnuts: 'Oats Nuts Cookies',
   orange: 'Orange Peel Cookies',
@@ -1953,7 +1958,7 @@ function initLivePurchaseNotifications() {
   ];
 
   const products = [
-    { name: 'Almond Cookies', img: '/img-almond.png?v=2' },
+    { name: 'Almond Rich Cookies', img: '/img-almond.png?v=2' },
     { name: 'Rose Petal Cookies', img: '/img-rose.png?v=2' },
     { name: 'Oats & Nuts Cookies', img: '/img-oats.png?v=2' },
     { name: 'Orange Peel Cookies', img: '/img-orange.png?v=2' },

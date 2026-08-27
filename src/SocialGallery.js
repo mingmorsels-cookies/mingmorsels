@@ -51,7 +51,7 @@ const REVIEWS_DATA = [
     avatarBg: "linear-gradient(135deg, #E91E63, #FF4081)",
     text: "Delivered within 3 hours in Indiranagar! The vacuum seal keeps the cookies crisp like they were just pulled out of the stone oven.",
     img: "/almond_cookie.png?v=2",
-    tag: "🍪 Almond Cookies",
+    tag: "🍪 Almond Rich Cookies",
     stars: "★★★★★"
   },
   {
