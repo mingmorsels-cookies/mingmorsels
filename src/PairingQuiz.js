@@ -88,7 +88,7 @@ function injectQuizHTML() {
             <img id="quiz-result-img" src="/img-oats.png" alt="Recommendation" class="result-img" onerror="this.src='/almond/1.jpg'" />
             <h3 id="quiz-result-title" class="result-title">Almond Rich Cookies</h3>
             <p id="quiz-result-reason" class="result-reason" style="font-size: 13px; color: #A39282; margin: 10px 0 16px;"></p>
-            <button id="btn-quiz-add-cart" class="btn-add-box-cart">Add Perfect Pair to Order • ₹<span id="quiz-result-price">160</span></button>
+            <button id="btn-quiz-add-cart" class="btn-add-box-cart">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -123,19 +123,16 @@ function bindQuizEvents() {
       document.getElementById('quiz-result-img').src = matchResult.item.img;
       document.getElementById('quiz-result-title').innerText = matchResult.item.name;
       document.getElementById('quiz-result-reason').innerText = matchResult.reason;
-      document.getElementById('quiz-result-price').innerText = matchResult.item.price;
+      const priceEl = document.getElementById('quiz-result-price');
+      if (priceEl) priceEl.innerText = matchResult.item.price;
 
       addCartBtn.onclick = () => {
-        if (onAddToCartCallback) {
-          onAddToCartCallback({
-            id: matchResult.item.id,
-            name: matchResult.item.name,
-            price: matchResult.item.price,
-            qty: 1,
-            image: matchResult.item.img
-          });
-        }
         hidePairingQuiz();
+        if (onAddToCartCallback) {
+          onAddToCartCallback(matchResult.item);
+        } else if (typeof window.openQuickAddModal === 'function') {
+          window.openQuickAddModal(matchResult.item.id);
+        }
       };
 
       document.getElementById('quiz-step-2').classList.remove('active');
