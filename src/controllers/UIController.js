@@ -286,8 +286,8 @@ export class UIController {
       text: [
         "✨ Miora Delights Pvt Limited ",
         "🍪 When Moments Matter ",
-        "🧈 Pure Cow Butter & Raw Honey ",
-        "🌱 Guilt-Free Organic Indulgence "
+        "🧈 Pure Cow Butter ",
+        "🌱 Guilt-Free Indulgence "
       ],
       typingSpeed: 30,
       pauseDuration: 1800,
