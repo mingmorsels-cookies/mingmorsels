@@ -15,6 +15,7 @@ import { cartStore } from './services/CartStore.js';
 import { initGiftBoxBuilder, showBoxBuilder } from './GiftBoxBuilder.js';
 import { initPairingQuiz, showPairingQuiz } from './PairingQuiz.js';
 import { initSocialGallery } from './SocialGallery.js';
+import { initCookieCrew } from './CookieCrew.js';
 import { initNetworkMonitor, saveActiveSession, getSavedSession, showRecoveryBanner, SessionType } from './sessionState.js';
 
 import { openQuickAddModal, PRODUCT_BOX_CATALOG } from './controllers/QuickAddModal.js';
@@ -81,6 +82,7 @@ async function startApp() {
       openQuickAddModal(pairItem.id);
     });
     initSocialGallery();
+    initCookieCrew();
 
     document.getElementById('btn-open-gift-builder')?.addEventListener('click', () => {
       saveActiveSession(SessionType.GIFT_BOX_BUILDER);
