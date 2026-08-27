@@ -15,7 +15,7 @@ import { cartStore } from './services/CartStore.js';
 import { initGiftBoxBuilder, showBoxBuilder } from './GiftBoxBuilder.js';
 import { initPairingQuiz, showPairingQuiz } from './PairingQuiz.js';
 import { initSocialGallery } from './SocialGallery.js';
-import { initDomeGallery } from './DomeGallery.js';
+import { initDriftWall } from './DriftWall.js';
 import { initStrokeText } from './StrokeText.js';
 import { initNetworkMonitor, saveActiveSession, getSavedSession, showRecoveryBanner, SessionType } from './sessionState.js';
 
@@ -83,8 +83,8 @@ async function startApp() {
       openQuickAddModal(pairItem.id);
     });
     initSocialGallery();
-    const domeRoot = document.getElementById('dome-gallery-root');
-    if (domeRoot) initDomeGallery(domeRoot);
+    const driftWallRoot = document.getElementById('drift-wall-root');
+    if (driftWallRoot) initDriftWall(driftWallRoot);
 
     const strokeTextRoot = document.getElementById('stroke-text-root');
     if (strokeTextRoot) {
