@@ -274,13 +274,17 @@ export function initParticleText(container, options = {}) {
     const targets = [];
     const step = Math.max(2, Math.floor(density));
 
+    const textAlign = options.textAlign || 'center';
+    const offsetX = textAlign === 'left' ? 0 : Math.max(0, width / 2 - offscreen.width / 2);
+    const offsetY = Math.max(0, height / 2 - offscreen.height / 2);
+
     for (let y = 0; y < offscreen.height; y += step) {
       for (let x = 0; x < offscreen.width; x += step) {
         const alpha = imageData.data[(y * offscreen.width + x) * 4 + 3];
         if (alpha > 40) {
           targets.push({
-            x: width / 2 - offscreen.width / 2 + x,
-            y: height / 2 - offscreen.height / 2 + y,
+            x: offsetX + x,
+            y: offsetY + y,
             alpha: alpha / 255
           });
         }
