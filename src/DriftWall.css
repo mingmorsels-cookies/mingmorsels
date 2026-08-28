@@ -14,7 +14,7 @@
   --dw-gap: 18px;
   --dw-radius: 14px;
   --dw-lift: 64px;
-  --dw-dim: 0.55;
+  --dw-dim: 0.82;
   --dw-gray: 0;
   --dw-overlay: #060010;
   --dw-edge: 40%;
@@ -100,7 +100,7 @@
   position: absolute;
   inset: 0;
   background: var(--dw-overlay);
-  opacity: 0.22; /* Lower so comment card text shows through */
+  opacity: 0.08; /* Lower so comment card text shows through clearly */
   pointer-events: none;
   transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }

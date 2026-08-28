@@ -86,11 +86,14 @@ function escapeXml(unsafe) {
 
 // Creates a crisp inline-SVG data URL for each crew member comment card
 function makeCrewCardDataURL(member) {
-  const bg1 = member.accent ? '#1E1508' : '#13111E';
-  const bg2 = member.accent ? '#120E05' : '#0C0B15';
-  const borderCol = member.accent ? '#E5B84B' : 'rgba(212,175,55,0.35)';
-  const avatarBg1 = '#F5D061';
-  const avatarBg2 = '#C6960C';
+  const bg1 = member.accent ? '#24190C' : '#1A1626';
+  const bg2 = member.accent ? '#160E05' : '#100D1A';
+  const borderCol = member.accent ? '#F5C542' : 'rgba(229,184,75,0.45)';
+  const avatarBg1 = '#FFD868';
+  const avatarBg2 = '#DF9C12';
+  const quoteBg1 = member.accent ? '#3A2810' : '#2A2035';
+  const quoteBg2 = member.accent ? '#231708' : '#1B1424';
+  const quoteBorder = member.accent ? '#F5C542' : 'rgba(245,197,66,0.4)';
 
   const truncate = (str, max) => str.length > max ? str.slice(0, max - 1) + '…' : str;
   const q = escapeXml(truncate(member.quote, 54));
@@ -111,26 +114,27 @@ function makeCrewCardDataURL(member) {
   }
 
   const descSvg = line2
-    ? `<text x="28" y="196" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#C0BCCD">${escapeXml(line1)}</text><text x="28" y="215" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#C0BCCD">${escapeXml(line2)}</text>`
-    : `<text x="28" y="202" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#C0BCCD">${escapeXml(line1)}</text>`;
+    ? `<text x="28" y="198" font-family="system-ui,-apple-system,sans-serif" font-size="13.5" font-weight="500" fill="#F4EFE6">${escapeXml(line1)}</text><text x="28" y="218" font-family="system-ui,-apple-system,sans-serif" font-size="13.5" font-weight="500" fill="#F4EFE6">${escapeXml(line2)}</text>`
+    : `<text x="28" y="204" font-family="system-ui,-apple-system,sans-serif" font-size="13.5" font-weight="500" fill="#F4EFE6">${escapeXml(line1)}</text>`;
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 292" width="440" height="292">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${bg1}"/><stop offset="100%" stop-color="${bg2}"/></linearGradient>
     <linearGradient id="av" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${avatarBg1}"/><stop offset="100%" stop-color="${avatarBg2}"/></linearGradient>
+    <linearGradient id="qbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${quoteBg1}"/><stop offset="100%" stop-color="${quoteBg2}"/></linearGradient>
   </defs>
   <rect width="434" height="286" x="3" y="3" rx="22" fill="url(#bg)" stroke="${borderCol}" stroke-width="2"/>
   <circle cx="52" cy="54" r="28" fill="url(#av)"/>
-  <text x="52" y="63" font-family="system-ui,-apple-system,sans-serif" font-size="22" font-weight="900" fill="#1A0C00" text-anchor="middle">${escapeXml(member.initial)}</text>
+  <text x="52" y="63" font-family="system-ui,-apple-system,sans-serif" font-size="22" font-weight="900" fill="#201103" text-anchor="middle">${escapeXml(member.initial)}</text>
   <text x="93" y="47" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">${escapeXml(member.name)}</text>
-  <text x="93" y="68" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#E5B84B">${escapeXml(member.role)}</text>
-  <line x1="24" y1="94" x2="416" y2="94" stroke="rgba(212,175,55,0.18)" stroke-width="1.2"/>
-  <rect x="24" y="108" width="392" height="64" rx="12" fill="rgba(229,184,75,0.1)"/>
-  <rect x="24" y="108" width="4" height="64" rx="2" fill="#E5B84B"/>
-  <text x="36" y="146" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#FFF8E7">"${q}"</text>
+  <text x="93" y="68" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#F5C542">${escapeXml(member.role)}</text>
+  <line x1="24" y1="94" x2="416" y2="94" stroke="rgba(245,197,66,0.25)" stroke-width="1.2"/>
+  <rect x="24" y="106" width="392" height="66" rx="12" fill="url(#qbg)" stroke="${quoteBorder}" stroke-width="1.2"/>
+  <rect x="24" y="106" width="5" height="66" rx="2.5" fill="#F5C542"/>
+  <text x="38" y="145" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#FFF4D4">"${q}"</text>
   ${descSvg}
-  <line x1="24" y1="240" x2="416" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
-  <text x="28" y="264" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="800" fill="#E5B84B">🍪 MING MORSELS CREW</text>
+  <line x1="24" y1="240" x2="416" y2="240" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="28" y="264" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="800" fill="#F5C542">🍪 MING MORSELS CREW</text>
 </svg>`;
 
   return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
@@ -175,9 +179,9 @@ export function initDriftWall(containerEl, userProps = {}) {
     pauseOnHover: false,
     lift: 72,
     fade: 0.55,
-    dim: 0.62,
+    dim: 0.82,
     grayscale: false,
-    overlayColor: '#0d0c13',
+    overlayColor: 'rgba(13,12,19,0.1)',
     ...userProps
   };
 
