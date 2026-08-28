@@ -3,178 +3,605 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Order Confirmed - Ming Morsels</title>
+  <title>Order Confirmed — Ming Morsels Confectionery</title>
   
   <link rel="icon" type="image/png" href="/logo.png?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/src/style.css">
   
   <style>
+    :root {
+      --bg-dark: #120E0B;
+      --bg-card: #1C1510;
+      --color-gold: #C8960C;
+      --color-gold-light: #E5B21D;
+      --color-cream: #FAF6F0;
+      --color-text-muted: #A39282;
+      --color-border: rgba(200, 150, 12, 0.22);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: var(--bg-dark, #120E0B);
-      color: #FFF;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(200, 150, 12, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(140, 83, 62, 0.08) 0%, transparent 40%);
+      color: var(--color-cream);
       font-family: var(--font-sans);
-      display: flex;
-      flex-direction: column;
       min-height: 100vh;
       margin: 0;
-    }
-    
-    .confirmation-container {
-      max-width: 600px;
-      margin: 100px auto 60px;
-      padding: 36px 30px;
-      background: #1C1510;
-      border: 1px solid rgba(200, 150, 12, 0.35);
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-      position: relative;
-      z-index: 10;
-    }
-    
-    .success-icon {
-      width: 76px;
-      height: 76px;
-      background: linear-gradient(135deg, #E5B21D 0%, #C6960C 100%);
-      border-radius: 50%;
+      padding: 0;
       display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header Bar ── */
+    .confirmation-nav {
+      width: 100%;
+      background: rgba(18, 14, 11, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 24px;
+    }
+
+    .nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-brand-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(200, 150, 12, 0.35);
+      color: var(--color-cream);
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .nav-btn-home:hover {
+      background: rgba(200, 150, 12, 0.18);
+      border-color: var(--color-gold);
+      transform: translateY(-1px);
+    }
+
+    /* ── Main Container ── */
+    .confirmation-wrapper {
+      max-width: 1080px;
+      width: 100%;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+    /* ── Hero Status Banner ── */
+    .hero-banner {
+      background: linear-gradient(180deg, rgba(28, 21, 16, 0.95) 0%, rgba(20, 15, 11, 0.98) 100%);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      margin-bottom: 28px;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, #C8960C 50%, transparent 100%);
+    }
+
+    .success-crest {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #F5C344 0%, #C8960C 100%);
+      border-radius: 50%;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 32px rgba(200, 150, 12, 0.4);
+      animation: crestPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes crestPop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .success-crest svg {
+      width: 36px;
+      height: 36px;
       color: #120E0B;
-      box-shadow: 0 6px 20px rgba(198, 150, 12, 0.4);
+      stroke-width: 3;
     }
-    
-    .success-icon svg {
-      width: 38px;
-      height: 38px;
-    }
-    
-    .confirmation-title {
+
+    .hero-title {
       font-family: var(--font-serif);
-      font-size: 2.3rem;
-      color: #C6960C;
-      margin: 0 0 8px;
+      font-size: clamp(28px, 4.5vw, 42px);
+      font-weight: 700;
+      color: var(--color-gold);
+      margin: 0 0 8px 0;
+      letter-spacing: 0.5px;
     }
-    
-    .confirmation-subtitle {
-      font-size: 1rem;
-      color: #E0D5C1;
-      margin: 0 0 24px;
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: #D5C4B3;
+      max-width: 640px;
+      margin: 0 auto 18px;
       line-height: 1.5;
     }
-    
-    .order-details {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 18px 20px;
-      text-align: left;
-      margin-bottom: 24px;
-    }
-    
-    .detail-row {
+
+    .order-meta-pills {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
       align-items: center;
-      margin-bottom: 12px;
-      font-size: 0.95rem;
-    }
-    
-    .detail-row:last-child {
-      margin-bottom: 0;
-      padding-top: 12px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.12);
-      font-weight: 600;
-      color: #C6960C;
-    }
-    
-    .detail-label {
-      color: #A09A95;
-      font-size: 0.9rem;
+      justify-content: center;
+      gap: 12px;
     }
 
-    .detail-val {
-      font-weight: 700;
-      color: #FAF6F0;
-    }
-
-    .status-badge {
+    .meta-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--color-cream);
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 16px;
-      border-radius: 50px;
-      background: rgba(46, 204, 113, 0.12);
-      border: 1px solid rgba(46, 204, 113, 0.35);
+    }
+
+    .meta-pill strong {
+      color: var(--color-gold-light);
+    }
+
+    .meta-pill.status-live {
+      background: rgba(46, 204, 113, 0.15);
+      border-color: rgba(46, 204, 113, 0.4);
       color: #2ECC71;
+      font-weight: 700;
+    }
+
+    /* ── Progress Journey Tracker ── */
+    .journey-card {
+      background: var(--bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .journey-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-gold);
+      margin: 0 0 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .journey-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      position: relative;
+    }
+
+    .journey-step {
+      text-align: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 8px;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+
+    .journey-step.completed .step-icon-wrap {
+      background: #2ECC71;
+      border-color: #2ECC71;
+      color: #120E0B;
+      box-shadow: 0 0 16px rgba(46, 204, 113, 0.4);
+    }
+
+    .journey-step.active .step-icon-wrap {
+      background: var(--color-gold);
+      border-color: var(--color-gold-light);
+      color: #120E0B;
+      box-shadow: 0 0 20px rgba(200, 150, 12, 0.5);
+      animation: stepPulse 1.8s infinite;
+    }
+
+    @keyframes stepPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .step-name {
       font-size: 12.5px;
       font-weight: 700;
-      margin-bottom: 20px;
+      color: var(--color-cream);
+      margin-bottom: 2px;
     }
-    
-    .action-buttons-grid {
+
+    .step-sub {
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* ── Content Grid (Left Details, Right Receipt) ── */
+    .confirmation-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 24px;
+    }
+
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      margin-bottom: 24px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .card-head-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-gold);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Ordered Items List ── */
+    .order-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .order-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .item-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .item-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(200, 150, 12, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .item-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-cream);
+      margin: 0 0 2px 0;
+    }
+
+    .item-tag {
+      font-size: 11.5px;
+      color: var(--color-text-muted);
+    }
+
+    .item-price-col {
+      text-align: right;
+    }
+
+    .item-qty {
+      font-size: 12px;
+      color: var(--color-text-muted);
+    }
+
+    .item-total {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-gold-light);
+    }
+
+    /* ── Delivery / Pickup Specific Cards ── */
+    .pickup-highlight-box {
+      background: linear-gradient(135deg, rgba(200, 150, 12, 0.15) 0%, rgba(61, 32, 0, 0.25) 100%);
+      border: 1.5px solid var(--color-gold);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .pin-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-gold-light);
+      margin-bottom: 6px;
+    }
+
+    .pin-code-display {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: 8px;
+      color: #FFFFFF;
+      font-family: monospace;
+      text-shadow: 0 0 20px rgba(200, 150, 12, 0.6);
+      margin: 4px 0 10px 0;
+    }
+
+    .pickup-address-text {
+      font-size: 13px;
+      color: #E0D5C1;
+      line-height: 1.5;
+      margin: 0 0 12px 0;
+    }
+
+    .info-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    .btn-whatsapp-updates {
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13.5px;
+    }
+
+    .info-row .label {
+      color: var(--color-text-muted);
+    }
+
+    .info-row .val {
+      color: var(--color-cream);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* ── Receipt Summary Card ── */
+    .bill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 13.5px;
+      color: #D5C4B3;
+    }
+
+    .bill-row.total-row {
+      border-top: 1.5px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 14px;
+      margin-top: 14px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .bill-row.total-row .total-amount {
+      color: var(--color-gold-light);
+      font-size: 22px;
+    }
+
+    .payment-badge-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 16px 0 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .payment-badge-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-cod {
+      background: rgba(245, 166, 35, 0.2);
+      border: 1px solid rgba(245, 166, 35, 0.5);
+      color: #FFC107;
+    }
+
+    .badge-prepaid {
+      background: rgba(46, 204, 113, 0.2);
+      border: 1px solid rgba(46, 204, 113, 0.5);
+      color: #2ECC71;
+    }
+
+    /* ── Action Buttons ── */
+    .action-btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-action-primary {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       background: #25D366;
-      color: #FFF;
+      color: #FFFFFF;
       text-decoration: none;
-      padding: 14px 20px;
+      padding: 14px 18px;
       border-radius: 12px;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 14px;
       box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-whatsapp-updates:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+      transition: all 0.2s;
     }
 
-    .btn-row {
+    .btn-action-primary:hover {
+      background: #22bf5b;
+      transform: translateY(-1px);
+    }
+
+    .btn-action-gold {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #F5C344 0%, #C8960C 100%);
+      color: #120E0B;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13.5px;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-action-gold:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-action-outline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid rgba(200, 150, 12, 0.4);
+      color: var(--color-cream);
+      text-decoration: none;
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-action-outline:hover {
+      background: rgba(200, 150, 12, 0.15);
+      border-color: var(--color-gold);
+    }
+
+    .action-btn-row {
       display: flex;
       gap: 10px;
     }
 
-    .btn-secondary-action {
+    .action-btn-row > * {
       flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(198, 150, 12, 0.4);
-      color: #FAF6F0;
-      text-decoration: none;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: background 0.2s;
     }
-    .btn-secondary-action:hover {
-      background: rgba(198, 150, 12, 0.2);
+
+    /* ── Freshness Promise Card ── */
+    .freshness-card {
+      background: rgba(200, 150, 12, 0.05);
+      border: 1px dashed rgba(200, 150, 12, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+      font-size: 12.5px;
+      color: #D5C4B3;
+      line-height: 1.5;
     }
-    
+
+    .freshness-card strong {
+      color: var(--color-gold);
+    }
+
+    /* ── Confetti ── */
     .confetti {
-      position: absolute;
+      position: fixed;
       width: 8px;
       height: 14px;
       opacity: 0.8;
       pointer-events: none;
       animation: fall linear forwards;
+      z-index: 9999;
     }
     
     @keyframes fall {
@@ -183,134 +610,390 @@
         opacity: 0;
       }
     }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .confirmation-grid {
+        grid-template-columns: 1fr;
+      }
+      .journey-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+    }
   </style>
 </head>
 <body>
-  
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="/" class="nav-brand">
-        <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="nav-logo" height="80" loading="lazy" />
+
+  <!-- Top Navigation Header -->
+  <header class="confirmation-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand-link">
+        <img src="/logo.png?v=2" alt="Ming Morsels" class="nav-brand-logo" />
       </a>
-      <div class="nav-actions">
-        <a href="/" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Back to Home</a>
-      </div>
+      <a href="/" class="nav-btn-home">
+        <span>← Continue Shopping</span>
+      </a>
     </div>
-  </nav>
+  </header>
 
-  <div class="confirmation-container">
-    <div class="success-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
-    </div>
-    <h1 class="confirmation-title">Order Confirmed!</h1>
-    <p class="confirmation-subtitle">Thank you for your purchase. Your cookies & muffins are being freshly prepared in our baking studio.</p>
-    
-    <div class="status-badge" id="order-status-badge">
-      <span>✨</span>
-      <span>Order Accepted &amp; Queued for Baking</span>
-    </div>
-
-    <div class="order-details">
-      <div class="detail-row">
-        <span class="detail-label">Order Number:</span>
-        <span class="detail-val" id="display-order-id">#MM-Loading...</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Payment Method:</span>
-        <span class="detail-val" id="display-payment-id">Cash on Delivery</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label" id="label-delivery-time">Estimated Delivery:</span>
-        <span class="detail-val" id="display-delivery-time" style="color: #C6960C;">Usually within 2-4 hours</span>
-      </div>
-    </div>
-
-    <div class="action-buttons-grid">
-      <!-- Direct WhatsApp Order Tracking & Updates Link -->
-      <a id="btn-whatsapp-updates" href="https://wa.me/918884102020" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-updates">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.073-1.045-.062-.239-.079-.533-.187-.935-.362-1.637-.714-2.709-2.366-2.791-2.476-.082-.109-.667-.888-.667-1.694 0-.806.422-1.203.573-1.368.144-.158.337-.234.453-.234.116 0 .232.002.333.007.108.005.253-.041.396.302.147.351.503 1.229.547 1.319.044.09.073.195.015.311-.059.117-.088.19-.176.293-.088.104-.185.232-.264.312-.088.089-.18.187-.078.362.102.176.452.746.969 1.208.666.595 1.227.78 1.403.867.176.088.278.074.382-.045.103-.118.441-.513.559-.689.117-.176.234-.147.395-.088.161.059 1.026.484 1.202.572.176.088.293.132.337.205.044.074.044.428-.1 1.246z"/>
+  <main class="confirmation-wrapper">
+    <!-- Hero Status Banner -->
+    <section class="hero-banner">
+      <div class="success-crest">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-        <span>💬 Get Live Updates on WhatsApp</span>
-      </a>
+      </div>
+      <h1 class="hero-title">Order Confirmed &amp; Baking in Studio</h1>
+      <p class="hero-subtitle" id="hero-customer-greeting">
+        Thank you for your order! Our master confectioners have received your artisanal selection and are now handcrafted baking your fresh batch.
+      </p>
 
-      <div class="btn-row">
-        <a id="btn-track-order" href="/track-order.html" class="btn-secondary-action">
-          <span>🚚 Track Order</span>
-        </a>
-        <a id="btn-download-invoice" href="#" target="_blank" class="btn-secondary-action">
-          <span>📄 Tax Invoice</span>
-        </a>
+      <div class="order-meta-pills">
+        <div class="meta-pill">
+          <span>Order ID:</span>
+          <strong id="disp-order-id">#MM-Loading...</strong>
+        </div>
+        <div class="meta-pill">
+          <span>Placed On:</span>
+          <strong id="disp-order-date">Just Now</strong>
+        </div>
+        <div class="meta-pill status-live" id="disp-status-pill">
+          <span>● Baking in Studio</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Journey Timeline -->
+    <section class="journey-card">
+      <h3 class="journey-title">
+        <span>⏱️ Live Kitchen &amp; Fulfillment Timeline</span>
+      </h3>
+      <div class="journey-steps">
+        <div class="journey-step completed">
+          <div class="step-icon-wrap">✓</div>
+          <div class="step-name">Order Accepted</div>
+          <div class="step-sub" id="time-step-1">Confirmed</div>
+        </div>
+        <div class="journey-step active">
+          <div class="step-icon-wrap">🍪</div>
+          <div class="step-name">Baking Studio</div>
+          <div class="step-sub">In Kitchen</div>
+        </div>
+        <div class="journey-step">
+          <div class="step-icon-wrap">🎁</div>
+          <div class="step-name">Gold Packaging</div>
+          <div class="step-sub">Quality Seal</div>
+        </div>
+        <div class="journey-step">
+          <div class="step-icon-wrap" id="icon-step-4">🚚</div>
+          <div class="step-name" id="label-step-4">Express Dispatch</div>
+          <div class="step-sub" id="sub-step-4">Out for Delivery</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two-Column Layout -->
+    <div class="confirmation-grid">
+      <!-- Left Column: Items & Delivery Details -->
+      <div class="grid-left-col">
+        <!-- Itemized Treats Card -->
+        <section class="section-card">
+          <div class="card-head">
+            <h2 class="card-head-title">
+              <span>🍪 Your Artisanal Selection</span>
+            </h2>
+            <span style="font-size: 12px; color: var(--color-gold);" id="items-count-badge">Fresh Batch</span>
+          </div>
+
+          <div id="order-items-container">
+            <!-- Dynamically populated via JS -->
+            <div style="text-align:center; padding: 20px; color: var(--color-text-muted);">
+              Loading order treats...
+            </div>
+          </div>
+        </section>
+
+        <!-- Fulfillment & Destination Card -->
+        <section class="section-card" id="fulfillment-card">
+          <div class="card-head">
+            <h2 class="card-head-title">
+              <span id="fulfillment-card-title">📍 Delivery &amp; Contact Details</span>
+            </h2>
+          </div>
+
+          <div id="fulfillment-details-content">
+            <!-- Dynamic Pickup or Delivery content -->
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Receipt Bill & Actions -->
+      <div class="grid-right-col">
+        <!-- Order Bill Receipt -->
+        <section class="section-card">
+          <div class="card-head">
+            <h2 class="card-head-title">
+              <span>🧾 Bill Summary</span>
+            </h2>
+            <span style="font-size: 11px; background: rgba(46,204,113,0.15); color: #2ECC71; padding: 2px 8px; border-radius: 10px; font-weight: 700;">100% Tax Compliant</span>
+          </div>
+
+          <div class="bill-row">
+            <span>Cookies &amp; Muffins Subtotal</span>
+            <span id="bill-subtotal" style="color: #FFF; font-weight: 600;">₹0</span>
+          </div>
+          <div class="bill-row" id="bill-discount-row" style="display: none;">
+            <span style="color: #2ECC71;">Special Coupon Discount</span>
+            <span id="bill-discount" style="color: #2ECC71; font-weight: 700;">-₹0</span>
+          </div>
+          <div class="bill-row">
+            <span>Fulfillment &amp; Delivery Fee</span>
+            <span id="bill-delivery" style="color: #FFF; font-weight: 600;">FREE</span>
+          </div>
+          <div class="bill-row">
+            <span>Estimated GST Taxes</span>
+            <span id="bill-gst" style="color: #FFF; font-weight: 600;">Included</span>
+          </div>
+
+          <div class="bill-row total-row">
+            <span>Grand Total</span>
+            <span class="total-amount" id="bill-total">₹0</span>
+          </div>
+
+          <div class="payment-badge-box">
+            <div>
+              <div style="font-size: 11px; color: var(--color-text-muted); margin-bottom: 2px;">Payment Method</div>
+              <div style="font-size: 13.5px; font-weight: 700; color: #FFF;" id="disp-payment-method">Cash on Delivery</div>
+            </div>
+            <span class="payment-badge-tag badge-cod" id="disp-payment-badge">Pay at Counter / Handover</span>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="action-btn-stack">
+            <a id="btn-whatsapp-link" href="https://wa.me/918884102020" target="_blank" rel="noopener noreferrer" class="btn-action-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.073-1.045-.062-.239-.079-.533-.187-.935-.362-1.637-.714-2.709-2.366-2.791-2.476-.082-.109-.667-.888-.667-1.694 0-.806.422-1.203.573-1.368.144-.158.337-.234.453-.234.116 0 .232.002.333.007.108.005.253-.041.396.302.147.351.503 1.229.547 1.319.044.09.073.195.015.311-.059.117-.088.19-.176.293-.088.104-.185.232-.264.312-.088.089-.18.187-.078.362.102.176.452.746.969 1.208.666.595 1.227.78 1.403.867.176.088.278.074.382-.045.103-.118.441-.513.559-.689.117-.176.234-.147.395-.088.161.059 1.026.484 1.202.572.176.088.293.132.337.205.044.074.044.428-.1 1.246z"/>
+              </svg>
+              <span>💬 Live WhatsApp Updates</span>
+            </a>
+
+            <a id="btn-live-track" href="/track-order.html" class="btn-action-gold">
+              <span>🚚 Track Live Journey</span>
+            </a>
+
+            <div class="action-btn-row">
+              <a id="btn-invoice-pdf" href="#" target="_blank" class="btn-action-outline">
+                <span>📄 Tax Invoice</span>
+              </a>
+              <button onclick="window.print()" class="btn-action-outline">
+                <span>🖨️ Print Receipt</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Freshness Promise -->
+          <div class="freshness-card">
+            <strong>✨ The Ming Morsels Promise:</strong> Handcrafted in pure cow butter with zero margarine &amp; zero preservatives. Best enjoyed within 10 days of delivery.
+          </div>
+        </section>
       </div>
     </div>
-  </div>
+  </main>
 
   <script>
-    // Create celebration confetti effect
-    const colors = ['#C6960C', '#E5B21D', '#FFFFFF', '#D4A373', '#FF6B6B', '#4ECDC4'];
-    for (let i = 0; i < 70; i++) {
-      const confetti = document.createElement('div');
-      confetti.classList.add('confetti');
-      confetti.style.left = Math.random() * 100 + 'vw';
-      confetti.style.top = -10 + 'px';
-      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      confetti.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
-      confetti.style.animationDelay = Math.random() * 2 + 's';
-      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 6000);
+    // Confetti Effect
+    function launchConfetti() {
+      const colors = ['#C8960C', '#F5C344', '#FFFFFF', '#E0D5C1', '#2ECC71'];
+      for (let i = 0; i < 55; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = -10 + 'px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = (Math.random() * 2.5 + 2.5) + 's';
+        confetti.style.animationDelay = Math.random() * 1.5 + 's';
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }
     }
+    launchConfetti();
 
-    // Parse URL params for order details
+    // Parse URL & State
     const urlParams = new URLSearchParams(window.location.search);
-    const rawOrderId = urlParams.get('order_id') || ('MM-' + Math.floor(Math.random() * 1000000));
-    const formattedOrderId = rawOrderId.startsWith('#') ? rawOrderId : '#' + rawOrderId;
-    const cleanId = rawOrderId.replace('#', '');
-    const paymentId = urlParams.get('payment_id') || 'Cash On Delivery';
-    const isPickup = urlParams.get('mode') === 'pickup' || (localStorage.getItem('ming_morsels_delivery_mode') === 'pickup');
-    const pickupPin = urlParams.get('pin') || localStorage.getItem('ming_morsels_pickup_pin') || '';
+    const rawOrderId = urlParams.get('order_id') || ('MM-' + Math.floor(100000 + Math.random() * 900000));
+    const cleanId = rawOrderId.replace(/^#/, '');
+    const paymentId = urlParams.get('payment_id') || 'Cash on Delivery';
+    const isCODParam = paymentId.toLowerCase().includes('cash');
 
-    document.getElementById('display-order-id').innerText = formattedOrderId;
-    document.getElementById('display-payment-id').innerText = paymentId;
+    document.getElementById('disp-order-id').innerText = '#' + cleanId;
+    document.getElementById('disp-order-date').innerText = new Date().toLocaleDateString('en-IN', {
+      day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
 
-    if (isPickup) {
-      document.getElementById('label-delivery-time').innerText = 'Collection Mode:';
-      document.getElementById('display-delivery-time').innerText = '🏪 Store Self-Pickup (Indiranagar Studio)';
+    // Update Action Links
+    document.getElementById('btn-live-track').href = `/track-order.html?order_id=${encodeURIComponent(cleanId)}`;
+    document.getElementById('btn-invoice-pdf').href = `/api/orders/${encodeURIComponent(cleanId)}/invoice`;
 
-      // Inject Pickup Details & PIN Banner
-      const detailsContainer = document.querySelector('.order-details');
-      if (detailsContainer) {
-        const pickupBox = document.createElement('div');
-        pickupBox.style.cssText = 'margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255, 255, 255, 0.15);';
-        pickupBox.innerHTML = `
-          <div style="background: rgba(200, 150, 12, 0.12); border: 1.5px solid #C6960C; border-radius: 10px; padding: 14px; text-align: center;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #E5B21D; margin-bottom: 4px;">🔑 Your Store Collection PIN</div>
-            <div style="font-size: 28px; font-weight: 800; letter-spacing: 4px; color: #FAF6F0; font-family: monospace;">${pickupPin || '4892'}</div>
-            <p style="margin: 6px 0 0 0; font-size: 11.5px; color: #D5C4B3; line-height: 1.4;">
-              Show this PIN or Order ID at our Indiranagar Experience Center counter upon collection.<br/>
-              <strong>Location:</strong> 12th Main Road, HAL 2nd Stage, Indiranagar, Bengaluru
+    const waMsg = encodeURIComponent(`Hi Ming Morsels! 🍪 I just placed Order #${cleanId}. Please share live order tracking updates here.`);
+    document.getElementById('btn-whatsapp-link').href = `https://wa.me/918884102020?text=${waMsg}`;
+
+    // Load Live Order Details from Server (or fallback to local session)
+    async function loadOrderData() {
+      let order = null;
+      try {
+        const res = await fetch(`/api/shipping/track?order_id=${encodeURIComponent(cleanId)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success) {
+            order = data;
+          }
+        }
+      } catch (err) {
+        console.warn('Using local order context:', err);
+      }
+
+      // Fallback variables
+      const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
+      const userAddress = JSON.parse(localStorage.getItem('user_address') || '{}');
+      const deliveryMode = order?.delivery_mode || urlParams.get('mode') || localStorage.getItem('ming_morsels_delivery_mode') || 'courier';
+      const isPickup = deliveryMode === 'pickup' || (order?.shipping_address && order.shipping_address.includes('Store Pickup:'));
+      const pickupPin = order?.pickup_pin || urlParams.get('pin') || localStorage.getItem('ming_morsels_pickup_pin') || '4892';
+      const customerName = order?.user_name || userProfile.name || localStorage.getItem('ming_morsels_name') || 'Connoisseur';
+      const customerEmail = order?.user_email || userAddress.email || userProfile.email || localStorage.getItem('ming_morsels_email') || '';
+      const customerPhone = order?.user_phone || userAddress.phone || userProfile.phone || localStorage.getItem('ming_morsels_phone') || '';
+      const shippingAddress = order?.shipping_address || userAddress.address || localStorage.getItem('ming_morsels_address') || 'Express Bengaluru Delivery';
+      const totalAmount = order?.total_amount || urlParams.get('total') || 160;
+      const isCOD = (order?.payment_method?.toLowerCase().includes('cash') || isCODParam);
+
+      // Greet Customer
+      if (customerName) {
+        document.getElementById('hero-customer-greeting').innerHTML = `
+          Dear <strong>${customerName}</strong>, thank you for your order! Your freshly baked batch is now in the oven. ${customerEmail ? `An invoice and tracking confirmation has been sent to <strong>${customerEmail}</strong>.` : ''}
+        `;
+      }
+
+      // Step 4 Label for Pickup vs Delivery
+      if (isPickup) {
+        document.getElementById('icon-step-4').innerText = '🏪';
+        document.getElementById('label-step-4').innerText = 'Store Ready';
+        document.getElementById('sub-step-4').innerText = 'Ready in 2-3 hrs';
+      }
+
+      // Render Items
+      const itemsContainer = document.getElementById('order-items-container');
+      const items = order?.items && order.items.length > 0 
+        ? order.items 
+        : [
+            { name: 'Royal Roasted Almond Rich Cookies', packaging: 'Classic Box (8 Pcs)', quantity: 1, price: totalAmount }
+          ];
+
+      itemsContainer.innerHTML = items.map(it => `
+        <div class="order-item-row">
+          <div class="item-info">
+            <div class="item-icon-box">${it.type === 'muffin' ? '🧁' : '🍪'}</div>
+            <div>
+              <div class="item-title">${it.name || 'Artisanal Baked Item'}</div>
+              <div class="item-tag">${it.packaging || it.unit || 'Fresh Signature Pack'}</div>
+            </div>
+          </div>
+          <div class="item-price-col">
+            <div class="item-qty">Qty: ×${it.quantity || 1}</div>
+            <div class="item-total">₹${(it.price || it.unit_price || 0) * (it.quantity || 1)}</div>
+          </div>
+        </div>
+      `).join('');
+
+      // Render Fulfillment Details (Pickup vs Delivery)
+      const fulfillmentTitle = document.getElementById('fulfillment-card-title');
+      const fulfillmentContent = document.getElementById('fulfillment-details-content');
+
+      if (isPickup) {
+        fulfillmentTitle.innerHTML = '<span>🏪 Store Self-Pickup Information</span>';
+        fulfillmentContent.innerHTML = `
+          <div class="pickup-highlight-box">
+            <div class="pin-label">🔑 Your Store Collection PIN</div>
+            <div class="pin-code-display">${pickupPin}</div>
+            <p class="pickup-address-text">
+              Please present this <strong>PIN</strong> or <strong>Order ID (${cleanId})</strong> at our Indiranagar kitchen counter.
             </p>
+            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+              <a href="https://maps.google.com/?q=Indiranagar+HAL+2nd+Stage+Bengaluru" target="_blank" class="btn-action-outline" style="padding: 8px 14px; font-size: 12px;">
+                📍 Open in Google Maps
+              </a>
+            </div>
+          </div>
+
+          <div class="info-list" style="margin-top: 18px;">
+            <div class="info-row">
+              <span class="label">Pickup Studio Location:</span>
+              <span class="val">12th Main Road, HAL 2nd Stage, Indiranagar, Bengaluru - 560038</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Ready Time:</span>
+              <span class="val" style="color: #2ECC71;">Ready in 2–3 Hours</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Customer Contact:</span>
+              <span class="val">${customerPhone || '+91 98884 10202'}</span>
+            </div>
           </div>
         `;
-        detailsContainer.appendChild(pickupBox);
+      } else {
+        fulfillmentTitle.innerHTML = '<span>🚚 Doorstep Delivery Address</span>';
+        fulfillmentContent.innerHTML = `
+          <div class="info-list">
+            <div class="info-row">
+              <span class="label">Recipient Name:</span>
+              <span class="val">${customerName}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Contact Phone:</span>
+              <span class="val">${customerPhone || '+91 98884 10202'}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Email Address:</span>
+              <span class="val">${customerEmail || 'orders@mingmorsels.com'}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Delivery Address:</span>
+              <span class="val" style="max-width: 60%;">${shippingAddress}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Courier Service:</span>
+              <span class="val" style="color: var(--color-gold);">${order?.courier || 'BlueDart Air Priority (Shipway Verified)'}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Estimated Delivery:</span>
+              <span class="val" style="color: #2ECC71;">Usually within 2-4 Hours</span>
+            </div>
+          </div>
+        `;
+      }
+
+      // Render Bill Summary
+      document.getElementById('bill-subtotal').innerText = `₹${totalAmount}`;
+      document.getElementById('bill-total').innerText = `₹${totalAmount}`;
+      document.getElementById('bill-delivery').innerHTML = isPickup 
+        ? '<span style="color:#2ECC71;">₹0 (Free Store Pickup)</span>' 
+        : (totalAmount >= 1000 ? '<span style="color:#2ECC71;">FREE (Orders ₹1000+)</span>' : '₹49');
+
+      const payMethodText = isCOD ? 'Cash on Delivery (Pay at Handover)' : 'Prepaid via Razorpay';
+      document.getElementById('disp-payment-method').innerText = payMethodText;
+      
+      const badge = document.getElementById('disp-payment-badge');
+      if (isCOD) {
+        badge.className = 'payment-badge-tag badge-cod';
+        badge.innerText = isPickup ? '💵 Pay at Store Counter' : '💵 Pay on Delivery';
+      } else {
+        badge.className = 'payment-badge-tag badge-prepaid';
+        badge.innerText = '✅ Payment Verified';
       }
     }
 
-    // Set Live Tracking & Invoice Links
-    const trackBtn = document.getElementById('btn-track-order');
-    if (trackBtn) trackBtn.href = `/track-order.html?order_id=${encodeURIComponent(cleanId)}`;
-
-    const invoiceBtn = document.getElementById('btn-download-invoice');
-    if (invoiceBtn) invoiceBtn.href = `/api/orders/${encodeURIComponent(cleanId)}/invoice`;
-
-    // Configure Direct WhatsApp Link
-    const waBtn = document.getElementById('btn-whatsapp-updates');
-    if (waBtn) {
-      const waMsg = encodeURIComponent(`Hi Ming Morsels! 🍪 I just placed Order ${formattedOrderId} via ${paymentId}. Please send my live order tracking updates here!`);
-      waBtn.href = `https://wa.me/918884102020?text=${waMsg}`;
-    }
+    loadOrderData();
   </script>
 </body>
 </html>

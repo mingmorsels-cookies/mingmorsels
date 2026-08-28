@@ -460,6 +460,10 @@ router.get('/shipping/track', async (req, res) => {
     }
 
     const trackingData = logisticsService.getOrderTrackingInfo(order);
+    const parsedItems = Array.isArray(order.items) 
+      ? order.items 
+      : (typeof order.items_json === 'string' ? JSON.parse(order.items_json) : []);
+
     res.json({ 
       success: true, 
       order_id: order.id,
@@ -470,6 +474,15 @@ router.get('/shipping/track', async (req, res) => {
       shipping_address: order.shipping_address,
       delivery_mode: order.delivery_mode,
       pickup_pin: order.pickup_pin,
+      items: parsedItems,
+      total_amount: order.total_amount,
+      discount_amount: order.discount_amount || 0,
+      delivery_fee: order.delivery_fee || 0,
+      tax_gst: order.tax_gst || 0,
+      payment_method: order.payment_method || 'Prepaid',
+      user_name: order.user_name,
+      user_email: order.user_email,
+      created_at: order.created_at,
       timeline: trackingData.timeline,
       tracking: trackingData 
     });
