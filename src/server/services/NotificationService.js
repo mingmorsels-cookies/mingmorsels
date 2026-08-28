@@ -8,28 +8,30 @@ import nodemailer from 'nodemailer';
 
 export class NotificationService {
   constructor() {
-    // Resend API (preferred — works on Railway, 3,000 free emails/month)
+    // Resend API (HTTPS — no port restrictions)
     this.resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
-    // Nodemailer fallback (SMTP — may be blocked on Railway)
+    // Gmail SMTP via port 465 (SSL) — always initialised as primary/fallback
+    // Railway blocks port 587 (STARTTLS) but allows 465 (SSL)
     this.transporter = null;
-    if (!this.resend) {
-      if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-        this.transporter = nodemailer.createTransport({
-          host: process.env.SMTP_HOST,
-          port: Number(process.env.SMTP_PORT) || 587,
-          secure: process.env.SMTP_SECURE === 'true',
-          auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-        });
-      } else if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
-        this.transporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD }
-        });
-      }
+    if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+      this.transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,  // SSL — works on Railway
+        auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD }
+      });
+    } else if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+      this.transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT) || 465,
+        secure: true,
+        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+      });
     }
 
-    console.log(`📧 [Email] Provider: ${this.resend ? 'Resend (HTTPS API)' : this.transporter ? 'Nodemailer (SMTP)' : 'NONE — emails will not be sent'}`);
+    const provider = this.resend ? 'Resend (primary) + Gmail SSL (fallback)' : this.transporter ? 'Gmail SSL port 465' : 'NONE';
+    console.log(`📧 [Email] Provider: ${provider}`);
   }
 
   /**
