@@ -10,6 +10,7 @@ import { logisticsService } from '../services/LogisticsService.js';
 import { notificationService } from '../services/NotificationService.js';
 import { eventStreamService } from '../services/EventStreamService.js';
 import { InvoiceService } from '../services/InvoiceService.js';
+import { sendPushToCustomer } from './push.routes.js';
 import { validateCustomerSession, generateCustomerToken, verifyCustomerToken } from '../middleware/auth.js';
 import {
   createOrderRecord,
@@ -161,7 +162,17 @@ const handleCreateOrder = async (req, res) => {
 
         try {
           await notificationService.sendOrderConfirmationEmail(newOrder);
-          notificationService.sendOrderConfirmationSMS(newOrder);
+          await notificationService.sendOrderConfirmationSMS(newOrder);
+          await sendPushToCustomer({
+            phone: newOrder.user_phone,
+            email: newOrder.user_email,
+            title: `✅ Order #${newOrder.id} Confirmed — Ming Morsels`,
+            body: isPickupOrder
+              ? `Your order (₹${newOrder.total_amount}) is confirmed for Store Pickup at Indiranagar. Ready in 2-3 hrs!`
+              : `Your cookies are in the oven! Order ₹${newOrder.total_amount} confirmed. Delivery in 2-4 hrs 🍪`,
+            url: `/order-confirmation.html?order_id=${newOrder.id}&payment_id=Cash%20On%20Delivery`,
+            orderId: newOrder.id
+          });
         } catch (notifyErr) {
           console.error('Notification warning:', notifyErr);
         }

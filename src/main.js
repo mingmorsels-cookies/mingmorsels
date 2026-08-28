@@ -256,3 +256,61 @@ if (document.readyState === 'loading') {
 } else {
   startApp();
 }
+
+// ─── Push Notification Subscription ─────────────────────────────────────────
+// Registers the service worker and subscribes the user to push notifications.
+// Linked to their phone/email so order confirmations reach them directly.
+async function initPushSubscription() {
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+
+  try {
+    const reg = await navigator.serviceWorker.register('/sw.js');
+    await navigator.serviceWorker.ready;
+
+    // Check if already subscribed
+    let subscription = await reg.pushManager.getSubscription();
+
+    if (!subscription) {
+      // Ask for notification permission (only first time)
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') return;
+
+      // Get VAPID public key from server
+      const keyRes = await fetch('/api/push/public-key');
+      const { publicKey } = await keyRes.json();
+      if (!publicKey) return;
+
+      // Convert VAPID key to Uint8Array
+      const urlBase64ToUint8Array = (base64String) => {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+        const rawData = window.atob(base64);
+        return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+      };
+
+      subscription = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(publicKey)
+      });
+    }
+
+    // Read customer details from localStorage to link subscription
+    let customerProfile = {};
+    try { customerProfile = JSON.parse(localStorage.getItem('user_profile') || '{}'); } catch(e) {}
+    const phone = localStorage.getItem('ming_morsels_phone') || customerProfile.phone || '';
+    const email = localStorage.getItem('ming_morsels_email') || customerProfile.email || '';
+
+    // Save subscription with customer identifier to server
+    await fetch('/api/push/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subscription, customer_phone: phone, customer_email: email })
+    });
+  } catch (err) {
+    // Silent failure — push is optional enhancement
+    console.log('[Push] Setup skipped:', err.message);
+  }
+}
+
+// Init push after a short delay to not block app load
+setTimeout(initPushSubscription, 3000);
