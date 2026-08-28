@@ -33,7 +33,8 @@ export class AuthController {
 
     this.bindDOM();
     this.checkStoredUser();
-    setTimeout(() => this.showNotifPermissionModal(), 1500);
+    // Delay notification permission prompt by 50 seconds after entering the website as requested
+    setTimeout(() => this.showNotifPermissionModal(), 50000);
   }
 
   decodeJwt(token) {
