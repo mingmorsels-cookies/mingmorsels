@@ -241,11 +241,17 @@
 
     // Parse URL params for order details
     const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get('order_id') || ('#MM-' + Math.floor(Math.random()*1000000));
+    const orderId = urlParams.get('order_id') || ('MM-' + Math.floor(Math.random()*1000000));
     const paymentId = urlParams.get('payment_id') || 'Cash On Delivery';
+    const isPickup = urlParams.get('mode') === 'pickup' || (localStorage.getItem('ming_morsels_delivery_mode') === 'pickup');
     
     document.getElementById('display-order-id').innerText = orderId.startsWith('#') ? orderId : '#' + orderId;
     document.getElementById('display-payment-id').innerText = paymentId;
+    if (isPickup) {
+      const delLabel = document.querySelector('.detail-row:nth-child(3) .detail-label');
+      if (delLabel) delLabel.innerText = 'Collection Mode:';
+      document.getElementById('display-delivery-time').innerText = '🏪 Ready for Store Self-Pickup in 2-3 hours (Indiranagar Studio)';
+    }
   </script>
 </body>
 </html>

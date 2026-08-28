@@ -135,9 +135,18 @@ app.get('/api/health', (req, res) => {
 
 // 6. Static File Serving with Production Caching Headers
 app.use(express.static('dist', {
+  extensions: ['html'],
   maxAge: '1y',
-  immutable: true,
   etag: true,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+    }
+  }
+}));
+app.use(express.static('.', {
+  extensions: ['html'],
+  maxAge: '0',
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.html')) {
       res.setHeader('Cache-Control', 'no-cache, must-revalidate');
