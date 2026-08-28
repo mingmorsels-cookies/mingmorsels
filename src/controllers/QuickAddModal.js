@@ -15,7 +15,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'almond_snack_2pcs',
-        name: 'Snack Pack',
+        name: 'Twin Delight',
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Freshly baked whole-almond cookies.',
@@ -32,7 +32,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'almond_family_12pcs',
-        name: 'Family Pack',
+        name: 'Dozen Delight',
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Generous pieces in keepsake collection box.',
@@ -49,7 +49,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'rose_snack_2pcs',
-        name: 'Snack Pack',
+        name: 'Twin Delight',
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Fragrant floral cookies infused with organic petals.',
@@ -66,7 +66,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'rose_family_12pcs',
-        name: 'Family Pack',
+        name: 'Dozen Delight',
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Fragrant rose cookies in our luxury packaging.',
@@ -83,7 +83,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'oatsnuts_snack_2pcs',
-        name: 'Snack Pack',
+        name: 'Twin Delight',
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Crunchy high-fibre cookies packed with nuts.',
@@ -100,7 +100,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'oatsnuts_family_12pcs',
-        name: 'Family Pack',
+        name: 'Dozen Delight',
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Nutritious cookies in luxury presentation box.',
@@ -117,7 +117,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'orange_snack_2pcs',
-        name: 'Snack Pack',
+        name: 'Twin Delight',
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Zesty citrus cookies with refreshing orange zest.',
@@ -134,10 +134,10 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'orange_family_12pcs',
-        name: 'Family Pack',
+        name: 'Dozen Delight',
         countLabel: 'Up to 12 Cookies',
         price: 360,
-        desc: '12 Refreshing citrus cookies in family feast box.',
+        desc: '12 Refreshing citrus cookies in dozen feast box.',
         img: '/box-classic.jpg'
       }
     ]
@@ -151,7 +151,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'walnut_snack_2pcs',
-        name: 'Snack Pack',
+        name: 'Twin Delight',
         countLabel: 'Up to 2 Cookies',
         price: 50,
         desc: '2 Nutty Omega-3 rich whole walnut cookies.',
@@ -168,7 +168,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'walnut_family_12pcs',
-        name: 'Family Pack',
+        name: 'Dozen Delight',
         countLabel: 'Up to 12 Cookies',
         price: 420,
         desc: '12 Rich California walnut cookies for connoisseurs.',
@@ -185,7 +185,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'walnut_sf_snack_2pcs',
-        name: 'Snack Pack',
+        name: 'Twin Delight',
         countLabel: 'Up to 2 Cookies',
         price: 55,
         desc: '2 Zero-sugar guilt-free whole walnut cookies.',
@@ -202,7 +202,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'walnut_sf_family_12pcs',
-        name: 'Family Pack',
+        name: 'Dozen Delight',
         countLabel: 'Up to 12 Cookies',
         price: 440,
         desc: '12 Keto-friendly walnut cookies in luxury collection box.',

@@ -16,13 +16,13 @@ export const PRODUCT_CATALOG = {
   },
   'almond_snack_2pcs': {
     id: 'almond_snack_2pcs',
-    name: 'Almond Rich Cookies (Snack Pack - 2 Pcs)',
+    name: 'Almond Rich Cookies (Twin Delight - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
     stock: 150,
     rating: 5.0,
-    description: 'Pocket snack pack containing 2 artisanal roasted almond cookies.'
+    description: 'Pocket Twin Delight pack containing 2 artisanal roasted almond cookies.'
   },
   'almond_classic_8pcs': {
     id: 'almond_classic_8pcs',
@@ -36,13 +36,13 @@ export const PRODUCT_CATALOG = {
   },
   'almond_family_12pcs': {
     id: 'almond_family_12pcs',
-    name: 'Almond Rich Cookies (Family Pack - 12 Pcs)',
+    name: 'Almond Rich Cookies (Dozen Delight - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
     stock: 60,
     rating: 5.0,
-    description: 'Large family box containing 12 freshly baked roasted almond cookies (300g).'
+    description: 'Large Dozen Delight box containing 12 freshly baked roasted almond cookies (300g).'
   },
   'rose': {
     id: 'rose',
@@ -56,13 +56,13 @@ export const PRODUCT_CATALOG = {
   },
   'rose_snack_2pcs': {
     id: 'rose_snack_2pcs',
-    name: 'Rose Petal Cookies (Snack Pack - 2 Pcs)',
+    name: 'Rose Petal Cookies (Twin Delight - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
     stock: 150,
     rating: 4.8,
-    description: 'Pocket snack pack containing 2 artisanal Damascus rose petal cookies.'
+    description: 'Pocket Twin Delight pack containing 2 artisanal Damascus rose petal cookies.'
   },
   'rose_classic_8pcs': {
     id: 'rose_classic_8pcs',
@@ -76,13 +76,13 @@ export const PRODUCT_CATALOG = {
   },
   'rose_family_12pcs': {
     id: 'rose_family_12pcs',
-    name: 'Rose Petal Cookies (Family Pack - 12 Pcs)',
+    name: 'Rose Petal Cookies (Dozen Delight - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
     stock: 60,
     rating: 5.0,
-    description: 'Large family box containing 12 freshly baked Damascus rose petal cookies (300g).'
+    description: 'Large Dozen Delight box containing 12 freshly baked Damascus rose petal cookies (300g).'
   },
   'oatsnuts': {
     id: 'oatsnuts',
@@ -96,13 +96,13 @@ export const PRODUCT_CATALOG = {
   },
   'oatsnuts_snack_2pcs': {
     id: 'oatsnuts_snack_2pcs',
-    name: 'Oats & Nuts Cookies (Snack Pack - 2 Pcs)',
+    name: 'Oats & Nuts Cookies (Twin Delight - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
     stock: 150,
     rating: 5.0,
-    description: 'Pocket snack pack containing 2 nut-powered immunity booster oats cookies.'
+    description: 'Pocket Twin Delight pack containing 2 nut-powered immunity booster oats cookies.'
   },
   'oatsnuts_classic_8pcs': {
     id: 'oatsnuts_classic_8pcs',
@@ -116,13 +116,13 @@ export const PRODUCT_CATALOG = {
   },
   'oatsnuts_family_12pcs': {
     id: 'oatsnuts_family_12pcs',
-    name: 'Oats & Nuts Cookies (Family Pack - 12 Pcs)',
+    name: 'Oats & Nuts Cookies (Dozen Delight - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
     stock: 60,
     rating: 5.0,
-    description: 'Large family box containing 12 freshly baked oats & nuts cookies (300g).'
+    description: 'Large Dozen Delight box containing 12 freshly baked oats & nuts cookies (300g).'
   },
   'orange': {
     id: 'orange',
@@ -136,13 +136,13 @@ export const PRODUCT_CATALOG = {
   },
   'orange_snack_2pcs': {
     id: 'orange_snack_2pcs',
-    name: 'Orange Peel Cookies (Snack Pack - 2 Pcs)',
+    name: 'Orange Peel Cookies (Twin Delight - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
     stock: 150,
     rating: 5.0,
-    description: 'Pocket snack pack containing 2 soft & chewy orange peel cookies enriched with Vitamin C.'
+    description: 'Pocket Twin Delight pack containing 2 soft & chewy orange peel cookies enriched with Vitamin C.'
   },
   'orange_classic_8pcs': {
     id: 'orange_classic_8pcs',
