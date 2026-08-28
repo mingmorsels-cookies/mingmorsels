@@ -105,7 +105,7 @@ export class NotificationService {
             <div style="background: #F1F8E9; border-radius: 12px; border: 1px solid #A5D6A7; padding: 16px; margin: 24px 0;">
               <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #388E3C; text-transform: uppercase;">🏪 Store Pickup Location</p>
               <p style="margin: 0 0 8px 0; font-size: 14px; color: #3D2000; font-weight: 600;">Ming Morsels Production House</p>
-              <p style="margin: 0 0 10px 0; font-size: 13px; color: #5D4037; line-height: 1.5;">12th Main Road, HAL 2nd Stage, Indiranagar, Bengaluru - 560038</p>
+              <p style="margin: 0 0 10px 0; font-size: 13px; color: #5D4037; line-height: 1.5;">1st A, Main Road, mingmorsels, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026</p>
               ${order.pickup_pin ? `<p style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700; color: #C8960C; background: #FAF6F0; padding: 8px 12px; border-radius: 8px; display: inline-block;">🔑 Your Pickup PIN: ${order.pickup_pin}</p>` : ''}
               <p style="margin: 6px 0 0 0; font-size: 12px; color: #7B5E57;">⏱️ Your order will be freshly baked and ready in 2–3 hours.</p>
             </div>
@@ -192,7 +192,7 @@ export class NotificationService {
     const trackUrl = `https://web-production-b66e7.up.railway.app/track-order.html?order_id=${order.id}`;
 
     const smsMessage = isPickup
-      ? `Hi ${order.user_name || 'there'}! Your Ming Morsels order #${order.id} (Rs.${order.total_amount}) is confirmed for Store Pickup at Indiranagar. ${isCOD ? `Keep Rs.${order.total_amount} ready. ` : ''}Ready in 2-3 hrs. Track: ${trackUrl}`
+      ? `Hi ${order.user_name || 'there'}! Your Ming Morsels order #${order.id} (Rs.${order.total_amount}) is confirmed for Store Pickup at Nayanda Halli Studio. PIN: ${order.pickup_pin || '4892'}. ${isCOD ? `Keep Rs.${order.total_amount} ready. ` : ''}Ready in 2-3 hrs. Track: ${trackUrl}`
       : `Hi ${order.user_name || 'there'}! Your Ming Morsels order #${order.id} (Rs.${order.total_amount}) is confirmed! ${isCOD ? `Keep Rs.${order.total_amount} ready for COD. ` : ''}Delivery in 2-4 hrs. Track: ${trackUrl}`;
 
     if (!apiKey) {

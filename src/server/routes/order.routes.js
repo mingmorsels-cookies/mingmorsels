@@ -168,7 +168,7 @@ const handleCreateOrder = async (req, res) => {
             email: newOrder.user_email,
             title: `✅ Order #${newOrder.id} Confirmed — Ming Morsels`,
             body: isPickupOrder
-              ? `Your order (₹${newOrder.total_amount}) is confirmed for Store Pickup at Indiranagar. Ready in 2-3 hrs!`
+              ? `Your order (₹${newOrder.total_amount}) is confirmed for Store Pickup at Nayanda Halli Studio. PIN: ${newOrder.pickup_pin || '4892'}. Ready in 2-3 hrs!`
               : `Your cookies are in the oven! Order ₹${newOrder.total_amount} confirmed. Delivery in 2-4 hrs 🍪`,
             url: `/order-confirmation.html?order_id=${newOrder.id}&payment_id=Cash%20On%20Delivery`,
             orderId: newOrder.id

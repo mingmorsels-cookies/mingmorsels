@@ -110,8 +110,8 @@ export class CheckoutController {
                 <span style="font-size: 10.5px; background: #2E6B1A; color: #FFF; padding: 2px 7px; border-radius: 10px;">₹0 Delivery Fee</span>
               </div>
               <p style="margin: 6px 0 2px; color: #3D2000; font-size: 12.5px; line-height: 1.4;">
-                <strong>Ming Morsels Experience Center</strong><br/>
-                12th Main Road, HAL 2nd Stage, Indiranagar, Bengaluru - 560038
+                <strong>Ming Morsels Production House</strong><br/>
+                1st A, Main Road, mingmorsels, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026
               </p>
               <div style="font-size: 11px; color: #705840; margin-top: 4px;">
                 ⏱️ Fresh batch packaged & ready within 2–3 hours. You'll receive a pickup SMS with collection PIN.
@@ -296,8 +296,8 @@ export class CheckoutController {
       let pincode = '';
 
       if (activeDeliveryMode === 'pickup') {
-        address = 'Store Pickup: Ming Morsels Experience Center, 12th Main Road, Indiranagar, Bengaluru - 560038';
-        pincode = '560038';
+        address = 'Store Pickup: Ming Morsels Production House, 1st A, Main Road, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026';
+        pincode = '560026';
       } else {
         address = document.getElementById('ship-modal-address').value.trim();
         pincode = document.getElementById('ship-modal-pincode').value.trim();
@@ -422,7 +422,7 @@ export class CheckoutController {
 
       let shippingAddress = details.address || '';
       if (isPickup) {
-        shippingAddress = 'Store Pickup: Ming Morsels Experience Center, 12th Main Road, Indiranagar, Bengaluru - 560038';
+        shippingAddress = 'Store Pickup: Ming Morsels Production House, 1st A, Main Road, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026';
       } else if (!shippingAddress || shippingAddress.length < 5) {
         shippingAddress = 'Bengaluru Urban';
       }
