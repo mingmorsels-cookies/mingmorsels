@@ -1,32 +1,35 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Transactional Notification Service (Email & SMS with Live Tracking & Invoice)
+// Uses Resend (HTTPS API) instead of SMTP — works on Railway without port blocks
 // ─────────────────────────────────────────────────────────────────────────────
 
+import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 
 export class NotificationService {
   constructor() {
-    this.transporter = null;
+    // Resend API (preferred — works on Railway, 3,000 free emails/month)
+    this.resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
-    if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-      this.transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT) || 587,
-        secure: process.env.SMTP_SECURE === 'true',
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS
-        }
-      });
-    } else if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
-      this.transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.GMAIL_USER,
-          pass: process.env.GMAIL_APP_PASSWORD
-        }
-      });
+    // Nodemailer fallback (SMTP — may be blocked on Railway)
+    this.transporter = null;
+    if (!this.resend) {
+      if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+        this.transporter = nodemailer.createTransport({
+          host: process.env.SMTP_HOST,
+          port: Number(process.env.SMTP_PORT) || 587,
+          secure: process.env.SMTP_SECURE === 'true',
+          auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+        });
+      } else if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+        this.transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD }
+        });
+      }
     }
+
+    console.log(`📧 [Email] Provider: ${this.resend ? 'Resend (HTTPS API)' : this.transporter ? 'Nodemailer (SMTP)' : 'NONE — emails will not be sent'}`);
   }
 
   /**
@@ -126,22 +129,43 @@ export class NotificationService {
       </html>
     `;
 
+    if (this.resend) {
+      try {
+        console.log(`📧 [Resend] Sending order confirmation to: ${order.user_email}`);
+        const { data, error } = await this.resend.emails.send({
+          from: 'Ming Morsels <orders@mingmorsels.com>',
+          to: [order.user_email],
+          subject: `✅ Order #${order.id} Confirmed | Ming Morsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
+          html: htmlBody
+        });
+        if (error) {
+          console.error(`❌ [Resend] Failed for ${order.user_email}:`, error);
+          // Fall through to nodemailer if Resend fails
+        } else {
+          console.log(`✅ [Resend] Email sent to ${order.user_email}, id: ${data?.id}`);
+          return true;
+        }
+      } catch (err) {
+        console.error(`❌ [Resend] Exception:`, err.message);
+      }
+    }
+
     if (this.transporter) {
       try {
-        console.log(`📧 [Email] Attempting to send order confirmation to: ${order.user_email}`);
+        console.log(`📧 [SMTP] Attempting to send order confirmation to: ${order.user_email}`);
         await this.transporter.sendMail({
           from: `"Ming Morsels Confectionery 🍪" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'mingmorsels@gmail.com'}>`,
           to: order.user_email,
           subject: `✅ Order #${order.id} Confirmed | Ming Morsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
           html: htmlBody
         });
-        console.log(`✅ [Email] Confirmation sent successfully to ${order.user_email} for order #${order.id}`);
+        console.log(`✅ [SMTP] Email sent to ${order.user_email} for order #${order.id}`);
         return true;
       } catch (err) {
-        console.error(`❌ [Email] Failed to send to ${order.user_email}:`, err.message, '| Code:', err.code);
+        console.error(`❌ [SMTP] Failed to send to ${order.user_email}:`, err.message, '| Code:', err.code);
       }
-    } else {
-      console.warn(`⚠️ [Email] No transporter! GMAIL_USER=${process.env.GMAIL_USER ? 'SET' : 'MISSING'}, GMAIL_APP_PASSWORD=${process.env.GMAIL_APP_PASSWORD ? 'SET' : 'MISSING'}`);
+    } else if (!this.resend) {
+      console.warn(`⚠️ [Email] No provider configured! Set RESEND_API_KEY in Railway env vars.`);
     }
 
     return true;
