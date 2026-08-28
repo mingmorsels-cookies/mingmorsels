@@ -425,7 +425,17 @@ export class CheckoutController {
         shippingAddress = 'Bengaluru Urban';
       }
 
-      const email = details.email && details.email.includes('@') ? details.email.trim() : 'customer@mingmorsels.com';
+      // ALWAYS use the actual customer email — never fall back to generic
+      const email = details.email && details.email.includes('@') && !details.email.includes('customer@mingmorsels') 
+        ? details.email.trim() 
+        : null;
+
+      if (!email) {
+        // Email is missing — must prompt for it
+        if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
+        this.promptForShippingDetails(() => this.handleRazorpayCheckout(items));
+        return;
+      }
       const name = details.name ? details.name.trim() : 'Valued Customer';
       const phone = details.phone ? details.phone.replace(/\D/g, '') : '9876543210';
 
@@ -437,7 +447,7 @@ export class CheckoutController {
           items: normalizedCart,
           total_amount: subtotal,
           coupon_code: window.activeAppliedCoupon || undefined,
-          user_email: email,
+          user_email: email,   // Real customer email — required
           user_name: name,
           user_phone: phone,
           shipping_address: shippingAddress,

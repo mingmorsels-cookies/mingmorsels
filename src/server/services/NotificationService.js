@@ -128,19 +128,20 @@ export class NotificationService {
 
     if (this.transporter) {
       try {
+        console.log(`📧 [Email] Attempting to send order confirmation to: ${order.user_email}`);
         await this.transporter.sendMail({
           from: `"Ming Morsels Confectionery 🍪" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'mingmorsels@gmail.com'}>`,
           to: order.user_email,
           subject: `✅ Order #${order.id} Confirmed | Ming Morsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
           html: htmlBody
         });
-        console.log(`✉️ Order confirmation email sent to ${order.user_email}`);
+        console.log(`✅ [Email] Confirmation sent successfully to ${order.user_email} for order #${order.id}`);
         return true;
       } catch (err) {
-        console.warn('⚠️ Nodemailer delivery error:', err.message);
+        console.error(`❌ [Email] Failed to send to ${order.user_email}:`, err.message, '| Code:', err.code);
       }
     } else {
-      console.log(`ℹ️ [Email Simulation] Order #${order.id} confirmation -> ${order.user_email}`);
+      console.warn(`⚠️ [Email] No transporter! GMAIL_USER=${process.env.GMAIL_USER ? 'SET' : 'MISSING'}, GMAIL_APP_PASSWORD=${process.env.GMAIL_APP_PASSWORD ? 'SET' : 'MISSING'}`);
     }
 
     return true;
