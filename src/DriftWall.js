@@ -22,7 +22,7 @@ const CREW_MEMBERS = [
     name: 'Dharshini K',
     role: 'Operations Excellence Lead',
     quote: 'Runs the show so smoothly, even chaos listens to her.',
-    desc: 'If something's on track, it's probably because she double-checked it… twice.',
+    desc: 'If something\'s on track, it\'s probably because she double-checked it… twice.',
     accent: false,
   },
   {
@@ -46,7 +46,7 @@ const CREW_MEMBERS = [
     name: 'Daniel',
     role: 'Chef · Production',
     quote: 'Kitchen wizard with a whisk and wild ideas.',
-    desc: 'If your cookie tastes amazing… he's definitely the reason.',
+    desc: 'If your cookie tastes amazing… he\'s definitely the reason.',
     accent: true,
   },
   {
@@ -54,7 +54,7 @@ const CREW_MEMBERS = [
     name: 'Lokesh',
     role: 'Research & Development',
     quote: 'The flavour scientist on a secret mission.',
-    desc: 'Constantly experimenting—one day he'll crack the unbeatable flavour.',
+    desc: 'Constantly experimenting—one day he\'ll crack the unbeatable flavour.',
     accent: false,
   },
   {
@@ -62,7 +62,7 @@ const CREW_MEMBERS = [
     name: 'Sowmya',
     role: 'Packing Head',
     quote: 'Master of neatness, the queen of clean corners.',
-    desc: 'Every pack looks perfect—you'll swear precision is her superpower.',
+    desc: 'Every pack looks perfect—you\'ll swear precision is her superpower.',
     accent: false,
   },
   {
@@ -75,6 +75,15 @@ const CREW_MEMBERS = [
   },
 ];
 
+function escapeXml(unsafe) {
+  return String(unsafe || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 // Creates a crisp inline-SVG data URL for each crew member comment card
 function makeCrewCardDataURL(member) {
   const bg1 = member.accent ? '#1E1508' : '#13111E';
@@ -84,8 +93,26 @@ function makeCrewCardDataURL(member) {
   const avatarBg2 = '#C6960C';
 
   const truncate = (str, max) => str.length > max ? str.slice(0, max - 1) + '…' : str;
-  const q = truncate(member.quote, 52);
-  const d = truncate(member.desc, 60);
+  const q = escapeXml(truncate(member.quote, 54));
+  const descRaw = member.desc || '';
+
+  // Wrap description into 1 or 2 lines cleanly
+  const words = descRaw.split(' ');
+  let line1 = '';
+  let line2 = '';
+  for (const w of words) {
+    if ((line1 + ' ' + w).trim().length <= 46) {
+      line1 = (line1 + ' ' + w).trim();
+    } else if ((line2 + ' ' + w).trim().length <= 48) {
+      line2 = (line2 + ' ' + w).trim();
+    } else if (!line2.endsWith('…')) {
+      line2 += '…';
+    }
+  }
+
+  const descSvg = line2
+    ? `<text x="28" y="196" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#C0BCCD">${escapeXml(line1)}</text><text x="28" y="215" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#C0BCCD">${escapeXml(line2)}</text>`
+    : `<text x="28" y="202" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#C0BCCD">${escapeXml(line1)}</text>`;
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 292" width="440" height="292">
   <defs>
@@ -94,14 +121,14 @@ function makeCrewCardDataURL(member) {
   </defs>
   <rect width="434" height="286" x="3" y="3" rx="22" fill="url(#bg)" stroke="${borderCol}" stroke-width="2"/>
   <circle cx="52" cy="54" r="28" fill="url(#av)"/>
-  <text x="52" y="63" font-family="system-ui,-apple-system,sans-serif" font-size="22" font-weight="900" fill="#1A0C00" text-anchor="middle">${member.initial}</text>
-  <text x="93" y="47" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">${member.name}</text>
-  <text x="93" y="68" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#E5B84B">${member.role}</text>
+  <text x="52" y="63" font-family="system-ui,-apple-system,sans-serif" font-size="22" font-weight="900" fill="#1A0C00" text-anchor="middle">${escapeXml(member.initial)}</text>
+  <text x="93" y="47" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">${escapeXml(member.name)}</text>
+  <text x="93" y="68" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#E5B84B">${escapeXml(member.role)}</text>
   <line x1="24" y1="94" x2="416" y2="94" stroke="rgba(212,175,55,0.18)" stroke-width="1.2"/>
   <rect x="24" y="108" width="392" height="64" rx="12" fill="rgba(229,184,75,0.1)"/>
   <rect x="24" y="108" width="4" height="64" rx="2" fill="#E5B84B"/>
-  <text x="36" y="148" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#FFF8E7">"${q}"</text>
-  <text x="28" y="202" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#C0BCCD">${d}</text>
+  <text x="36" y="146" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#FFF8E7">"${q}"</text>
+  ${descSvg}
   <line x1="24" y1="240" x2="416" y2="240" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
   <text x="28" y="264" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="800" fill="#E5B84B">🍪 MING MORSELS CREW</text>
 </svg>`;
