@@ -40,14 +40,16 @@ export class CheckoutController {
 
   getCustomerDetails() {
     let user = {};
+    let addressObj = {};
     try {
       user = JSON.parse(localStorage.getItem('user_profile') || '{}');
+      addressObj = JSON.parse(localStorage.getItem('user_address') || '{}');
     } catch(e) {}
-    const phone = (localStorage.getItem('ming_morsels_phone') || user.phone || '').replace(/\D/g, '');
-    const address = localStorage.getItem('ming_morsels_address') || user.address || '';
-    const pincode = localStorage.getItem('ming_morsels_pincode') || user.pincode || '';
+    const phone = (localStorage.getItem('ming_morsels_phone') || addressObj.phone || user.phone || '').replace(/\D/g, '');
+    const address = localStorage.getItem('ming_morsels_address') || addressObj.address || user.address || '';
+    const pincode = localStorage.getItem('ming_morsels_pincode') || addressObj.pincode || user.pincode || '';
     const name = user.name || localStorage.getItem('ming_morsels_name') || '';
-    const email = user.email || localStorage.getItem('ming_morsels_email') || '';
+    const email = localStorage.getItem('ming_morsels_email') || addressObj.email || user.email || '';
 
     return { name, phone, email, address, pincode };
   }
