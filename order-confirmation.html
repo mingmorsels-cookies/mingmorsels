@@ -25,10 +25,10 @@
     
     .confirmation-container {
       max-width: 600px;
-      margin: 120px auto 80px;
-      padding: 40px;
+      margin: 100px auto 60px;
+      padding: 36px 30px;
       background: #1C1510;
-      border: 1px solid rgba(200, 150, 12, 0.3);
+      border: 1px solid rgba(200, 150, 12, 0.35);
       border-radius: 20px;
       text-align: center;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -37,146 +37,151 @@
     }
     
     .success-icon {
-      width: 80px;
-      height: 80px;
-      background: #C6960C;
+      width: 76px;
+      height: 76px;
+      background: linear-gradient(135deg, #E5B21D 0%, #C6960C 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 24px;
+      margin: 0 auto 20px;
       color: #120E0B;
+      box-shadow: 0 6px 20px rgba(198, 150, 12, 0.4);
     }
     
     .success-icon svg {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
     }
     
     .confirmation-title {
       font-family: var(--font-serif);
-      font-size: 2.5rem;
+      font-size: 2.3rem;
       color: #C6960C;
-      margin: 0 0 10px;
+      margin: 0 0 8px;
     }
     
     .confirmation-subtitle {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #E0D5C1;
-      margin: 0 0 30px;
+      margin: 0 0 24px;
+      line-height: 1.5;
     }
     
     .order-details {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      padding: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 18px 20px;
       text-align: left;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
     
     .detail-row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 12px;
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
     
     .detail-row:last-child {
       margin-bottom: 0;
       padding-top: 12px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
       font-weight: 600;
       color: #C6960C;
     }
     
     .detail-label {
       color: #A09A95;
-    }
-    
-    .btn-primary {
-      display: inline-block;
-      background: #C6960C;
-      color: #120E0B;
-      text-decoration: none;
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(198, 150, 12, 0.3);
-      background: #E5B21D;
-    }
-    
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background-color: #C6960C;
-      animation: fall linear forwards;
-      z-index: 1;
-    }
-    
-    @keyframes fall {
-      to { transform: translateY(100vh) rotate(360deg); }
+      font-size: 0.9rem;
     }
 
-    /* Premium Animations */
-    @keyframes slideUpFade {
-      0% { opacity: 0; transform: translateY(40px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+    .detail-val {
+      font-weight: 700;
+      color: #FAF6F0;
     }
 
-    @keyframes popIn {
-      0% { transform: scale(0); opacity: 0; }
-      70% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes drawCheck {
-      0% { stroke-dashoffset: 50; }
-      100% { stroke-dashoffset: 0; }
-    }
-
-    .confirmation-container {
-      max-width: 600px;
-      margin: 120px auto 80px;
-      padding: 40px;
-      background: #1C1510;
-      border: 1px solid rgba(200, 150, 12, 0.3);
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-      position: relative;
-      z-index: 10;
-      animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 50px;
+      background: rgba(46, 204, 113, 0.12);
+      border: 1px solid rgba(46, 204, 113, 0.35);
+      color: #2ECC71;
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
     
-    .success-icon {
-      width: 80px;
-      height: 80px;
-      background: #C6960C;
-      border-radius: 50%;
+    .action-buttons-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-whatsapp-updates {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 24px;
-      color: #120E0B;
-      animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s forwards;
-      opacity: 0;
-      transform: scale(0);
+      gap: 10px;
+      background: #25D366;
+      color: #FFF;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-whatsapp-updates:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-secondary-action {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(198, 150, 12, 0.4);
+      color: #FAF6F0;
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .btn-secondary-action:hover {
+      background: rgba(198, 150, 12, 0.2);
     }
     
-    .success-icon svg {
-      width: 40px;
-      height: 40px;
-      stroke-dasharray: 50;
-      stroke-dashoffset: 50;
-      animation: drawCheck 0.6s ease-out 0.8s forwards;
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+    
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -185,7 +190,7 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="/" class="nav-brand">
-        <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="nav-logo" height="80"  loading="lazy" />
+        <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="nav-logo" height="80" loading="lazy" />
       </a>
       <div class="nav-actions">
         <a href="/" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Back to Home</a>
@@ -200,57 +205,92 @@
       </svg>
     </div>
     <h1 class="confirmation-title">Order Confirmed!</h1>
-    <p class="confirmation-subtitle">Thank you for your purchase. Your cookies are being prepared with love.</p>
+    <p class="confirmation-subtitle">Thank you for your purchase. Your cookies & muffins are being freshly prepared in our baking studio.</p>
     
+    <div class="status-badge" id="order-status-badge">
+      <span>✨</span>
+      <span>Order Accepted &amp; Queued for Baking</span>
+    </div>
+
     <div class="order-details">
       <div class="detail-row">
-        <span class="detail-label">Order ID:</span>
-        <span id="display-order-id">#MM-Loading...</span>
+        <span class="detail-label">Order Number:</span>
+        <span class="detail-val" id="display-order-id">#MM-Loading...</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">Payment ID:</span>
-        <span id="display-payment-id">Loading...</span>
+        <span class="detail-label">Payment Method:</span>
+        <span class="detail-val" id="display-payment-id">Cash on Delivery</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">Estimated Delivery:</span>
-        <span id="display-delivery-time">Usually within 2-4 hours</span>
+        <span class="detail-label" id="label-delivery-time">Estimated Delivery:</span>
+        <span class="detail-val" id="display-delivery-time" style="color: #C6960C;">Usually within 2-4 hours</span>
       </div>
     </div>
-    
-    <a href="/track-order.html" class="btn-primary">Track Your Order</a>
+
+    <div class="action-buttons-grid">
+      <!-- Direct WhatsApp Order Tracking & Updates Link -->
+      <a id="btn-whatsapp-updates" href="https://wa.me/918884102020" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-updates">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.073-1.045-.062-.239-.079-.533-.187-.935-.362-1.637-.714-2.709-2.366-2.791-2.476-.082-.109-.667-.888-.667-1.694 0-.806.422-1.203.573-1.368.144-.158.337-.234.453-.234.116 0 .232.002.333.007.108.005.253-.041.396.302.147.351.503 1.229.547 1.319.044.09.073.195.015.311-.059.117-.088.19-.176.293-.088.104-.185.232-.264.312-.088.089-.18.187-.078.362.102.176.452.746.969 1.208.666.595 1.227.78 1.403.867.176.088.278.074.382-.045.103-.118.441-.513.559-.689.117-.176.234-.147.395-.088.161.059 1.026.484 1.202.572.176.088.293.132.337.205.044.074.044.428-.1 1.246z"/>
+        </svg>
+        <span>💬 Get Live Updates on WhatsApp</span>
+      </a>
+
+      <div class="btn-row">
+        <a id="btn-track-order" href="/track-order.html" class="btn-secondary-action">
+          <span>🚚 Track Order</span>
+        </a>
+        <a id="btn-download-invoice" href="#" target="_blank" class="btn-secondary-action">
+          <span>📄 Tax Invoice</span>
+        </a>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Create confetti effect
+    // Create celebration confetti effect
     const colors = ['#C6960C', '#E5B21D', '#FFFFFF', '#D4A373', '#FF6B6B', '#4ECDC4'];
-    for(let i=0; i<100; i++) {
+    for (let i = 0; i < 70; i++) {
       const confetti = document.createElement('div');
       confetti.classList.add('confetti');
       confetti.style.left = Math.random() * 100 + 'vw';
       confetti.style.top = -10 + 'px';
       confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      confetti.style.animationDelay = Math.random() * 3 + 's';
-      // Randomly rotate
+      confetti.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
+      confetti.style.animationDelay = Math.random() * 2 + 's';
       confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
       document.body.appendChild(confetti);
-      
-      // Remove confetti after it falls
       setTimeout(() => confetti.remove(), 6000);
     }
 
     // Parse URL params for order details
     const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get('order_id') || ('MM-' + Math.floor(Math.random()*1000000));
+    const rawOrderId = urlParams.get('order_id') || ('MM-' + Math.floor(Math.random() * 1000000));
+    const formattedOrderId = rawOrderId.startsWith('#') ? rawOrderId : '#' + rawOrderId;
+    const cleanId = rawOrderId.replace('#', '');
     const paymentId = urlParams.get('payment_id') || 'Cash On Delivery';
     const isPickup = urlParams.get('mode') === 'pickup' || (localStorage.getItem('ming_morsels_delivery_mode') === 'pickup');
-    
-    document.getElementById('display-order-id').innerText = orderId.startsWith('#') ? orderId : '#' + orderId;
+
+    document.getElementById('display-order-id').innerText = formattedOrderId;
     document.getElementById('display-payment-id').innerText = paymentId;
+
     if (isPickup) {
-      const delLabel = document.querySelector('.detail-row:nth-child(3) .detail-label');
-      if (delLabel) delLabel.innerText = 'Collection Mode:';
-      document.getElementById('display-delivery-time').innerText = '🏪 Ready for Store Self-Pickup in 2-3 hours (Indiranagar Studio)';
+      document.getElementById('label-delivery-time').innerText = 'Collection Mode:';
+      document.getElementById('display-delivery-time').innerText = '🏪 Store Self-Pickup (Indiranagar Studio, ready in 2h)';
+    }
+
+    // Set Live Tracking & Invoice Links
+    const trackBtn = document.getElementById('btn-track-order');
+    if (trackBtn) trackBtn.href = `/track-order.html?order_id=${encodeURIComponent(cleanId)}`;
+
+    const invoiceBtn = document.getElementById('btn-download-invoice');
+    if (invoiceBtn) invoiceBtn.href = `/api/orders/${encodeURIComponent(cleanId)}/invoice`;
+
+    // Configure Direct WhatsApp Link
+    const waBtn = document.getElementById('btn-whatsapp-updates');
+    if (waBtn) {
+      const waMsg = encodeURIComponent(`Hi Ming Morsels! 🍪 I just placed Order ${formattedOrderId} via ${paymentId}. Please send my live order tracking updates here!`);
+      waBtn.href = `https://wa.me/918884102020?text=${waMsg}`;
     }
   </script>
 </body>

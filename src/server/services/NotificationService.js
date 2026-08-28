@@ -50,8 +50,11 @@ export class NotificationService {
       </tr>
     `).join('');
 
-    const invoiceUrl = `/api/orders/${order.id}/invoice`;
-    const trackingUrl = `/track-order.html?order_id=${order.id}`;
+    const baseUrl = process.env.BASE_URL || 'https://web-production-b66e7.up.railway.app';
+    const invoiceUrl = `${baseUrl}/api/orders/${order.id}/invoice`;
+    const trackingUrl = `${baseUrl}/track-order.html?order_id=${order.id}`;
+    const isCOD = order.payment_method === 'Cash on Delivery' || order.payment_method === 'COD';
+    const isPickup = order.delivery_mode === 'pickup' || (order.shipping_address && order.shipping_address.includes('Store Pickup:'));
 
     const htmlBody = `
       <!DOCTYPE html>
@@ -64,9 +67,16 @@ export class NotificationService {
             <p style="margin: 4px 0 0 0; font-size: 12px; color: #D5C4B3; letter-spacing: 1.5px; text-transform: uppercase;">when moments matter</p>
           </div>
           <div style="padding: 32px 28px;">
-            <h2 style="color: #3D2000; font-size: 20px; margin-top: 0;">Order Confirmed: #${order.id}</h2>
-            <p style="color: #665241; line-height: 1.6;">Dear ${order.user_name || 'Connoisseur'}, your handcrafted artisanal selection has been accepted and is now entering our kitchen.</p>
-            
+            <h2 style="color: #3D2000; font-size: 20px; margin-top: 0;">Order Confirmed ✅ — #${order.id}</h2>
+            <p style="color: #665241; line-height: 1.6;">Dear ${order.user_name || 'Connoisseur'}, your handcrafted artisanal selection has been accepted and is now entering our baking studio. 🍪</p>
+
+            ${isCOD ? `
+            <div style="background: #FFF8E1; border: 1.5px solid #F9A825; border-radius: 10px; padding: 14px 16px; margin: 0 0 20px 0;">
+              <div style="font-weight: 700; color: #E65100; font-size: 14px; margin-bottom: 4px;">💵 Cash on Delivery / Pay at Store</div>
+              <p style="margin: 0; font-size: 13px; color: #5D4037; line-height: 1.5;">Please keep <strong>₹${order.total_amount}</strong> ready at the time of ${isPickup ? 'pickup' : 'delivery'}. Our team will collect it when your order is handed to you.</p>
+            </div>
+            ` : ''}
+
             <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
               <thead>
                 <tr style="border-bottom: 2px solid #EADCCB; color: #705840; font-size: 13px; text-transform: uppercase;">
@@ -80,37 +90,33 @@ export class NotificationService {
               </tbody>
               <tfoot>
                 <tr>
-                  <td colspan="2" style="padding: 16px 8px; font-weight: 700; color: #3D2000; font-size: 16px;">Total Paid</td>
+                  <td colspan="2" style="padding: 16px 8px; font-weight: 700; color: #3D2000; font-size: 16px;">${isCOD ? 'Amount to Pay' : 'Total Paid'}</td>
                   <td style="padding: 16px 8px; text-align: right; font-weight: 800; color: #C8960C; font-size: 18px;">₹${order.total_amount}</td>
                 </tr>
               </tfoot>
             </table>
 
-            <!-- Reward Points & 1,000 Points Special Gift Notice -->
-            <div style="background: linear-gradient(135deg, rgba(200, 150, 12, 0.12) 0%, rgba(91, 44, 111, 0.12) 100%); border: 1.5px solid #C8960C; border-radius: 12px; padding: 16px; margin: 20px 0; text-align: left;">
-              <div style="font-size: 15px; font-weight: 700; color: #3D2000; margin-bottom: 4px;">
-                🎉 You earned +100 Reward Points on this order!
-              </div>
-              <p style="margin: 0; font-size: 13px; color: #5B2C6F; line-height: 1.4;">
-                🎁 <strong>Milestone Perk:</strong> Complete <strong>1,000 Points</strong> (10 orders) to unlock an exclusive <strong>Special Artisanal Gift Box</strong> handcrafted by our Master Chefs with your next order!
-              </p>
-            </div>
-
-            ${(order.delivery_mode === 'pickup' || (order.shipping_address && order.shipping_address.includes('Store Pickup:')) || order.pickup_pin) ? `
-            <div style="background: #FDFBF8; border-radius: 12px; border: 1px solid #EADCCB; padding: 16px; margin: 24px 0;">
-              <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #705840; text-transform: uppercase;">🏪 Store Pickup Location</p>
-              <p style="margin: 0 0 10px 0; font-size: 14px; color: #3D2000;">1st Floor, Katha No.02, Behind the club, Mysore Road, Nayandahalli, Bengaluru, Karnataka 560039</p>
-              <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700; color: #C8960C;">Your Secret PIN: ${order.pickup_pin || 'Show ID at counter'}</p>
-              <a href="https://www.google.com/maps/search/?api=1&query=1st+Floor,+Katha+No.02,+Behind+the+club,+Mysore+Road,+Nayandahalli,+Bengaluru" style="color: #3498DB; text-decoration: none; font-size: 13px; font-weight: 600;">📍 Get Directions on Google Maps</a>
+            ${isPickup ? `
+            <div style="background: #F1F8E9; border-radius: 12px; border: 1px solid #A5D6A7; padding: 16px; margin: 24px 0;">
+              <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #388E3C; text-transform: uppercase;">🏪 Store Pickup Location</p>
+              <p style="margin: 0 0 8px 0; font-size: 14px; color: #3D2000; font-weight: 600;">Ming Morsels Production House</p>
+              <p style="margin: 0 0 10px 0; font-size: 13px; color: #5D4037; line-height: 1.5;">12th Main Road, HAL 2nd Stage, Indiranagar, Bengaluru - 560038</p>
+              ${order.pickup_pin ? `<p style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700; color: #C8960C; background: #FAF6F0; padding: 8px 12px; border-radius: 8px; display: inline-block;">🔑 Your Pickup PIN: ${order.pickup_pin}</p>` : ''}
+              <p style="margin: 6px 0 0 0; font-size: 12px; color: #7B5E57;">⏱️ Your order will be freshly baked and ready in 2–3 hours.</p>
             </div>
             ` : `
             <div style="background: #FDFBF8; border-radius: 12px; border: 1px solid #EADCCB; padding: 16px; margin: 24px 0;">
-              <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #705840; text-transform: uppercase;">Delivery Address</p>
+              <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #705840; text-transform: uppercase;">📦 Delivery Address</p>
               <p style="margin: 0; font-size: 14px; color: #3D2000;">${order.shipping_address || 'Express Bengaluru Delivery'}</p>
             </div>
             `}
 
-            <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <!-- WhatsApp Updates -->
+            <div style="text-align: center; margin: 20px 0;">
+              <a href="https://wa.me/918884102020?text=${encodeURIComponent(`Hi Ming Morsels! I just placed Order #${order.id}. Please share live updates here.`)}" style="display: inline-block; background: #25D366; color: #FFF; padding: 13px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 14px;">💬 Get Live Updates on WhatsApp</a>
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-top: 16px;">
               <a href="${trackingUrl}" style="display: inline-block; flex: 1; text-align: center; background: #C8960C; color: #120E0B; padding: 12px 16px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 13px; text-transform: uppercase;">🚚 Track Live Order</a>
               <a href="${invoiceUrl}" style="display: inline-block; flex: 1; text-align: center; background: #FAF6F0; color: #3D2000; border: 1px solid #C8960C; padding: 12px 16px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 13px; text-transform: uppercase;">📄 Download Tax Invoice</a>
             </div>
@@ -123,9 +129,9 @@ export class NotificationService {
     if (this.transporter) {
       try {
         await this.transporter.sendMail({
-          from: `"Ming Morsels Confectionery" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'orders@mingmorsels.com'}>`,
+          from: `"Ming Morsels Confectionery 🍪" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'mingmorsels@gmail.com'}>`,
           to: order.user_email,
-          subject: `✨ Order Confirmed: #${order.id} | Ming Morsels`,
+          subject: `✅ Order #${order.id} Confirmed | Ming Morsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
           html: htmlBody
         });
         console.log(`✉️ Order confirmation email sent to ${order.user_email}`);
@@ -134,19 +140,20 @@ export class NotificationService {
         console.warn('⚠️ Nodemailer delivery error:', err.message);
       }
     } else {
-      console.log(`ℹ️ [Email Simulation] Order #${order.id} confirmation dispatched to ${order.user_email}`);
+      console.log(`ℹ️ [Email Simulation] Order #${order.id} confirmation -> ${order.user_email}`);
     }
 
     return true;
   }
 
   /**
-   * Dispatches SMS notification.
+   * Dispatches SMS notification (logs only - no SMS gateway configured yet).
    */
   sendOrderConfirmationSMS(order) {
     if (!order) return;
-    const phone = order.phone || order.shipping_phone || '+91 98765 43210';
-    console.log(`📱 [SMS Gateway Triggered] Sent to ${phone}: "Your Ming Morsels order #${order.id} of ₹${order.total_amount} is baking! Track live at http://localhost:5173/track-order.html?order_id=${order.id}"`);
+    const phone = order.user_phone || order.phone || order.shipping_phone || 'unknown';
+    const trackUrl = `https://web-production-b66e7.up.railway.app/track-order.html?order_id=${order.id}`;
+    console.log(`📱 [SMS] To ${phone}: "Your Ming Morsels order #${order.id} of ₹${order.total_amount} is baking! Track: ${trackUrl}"`);
   }
 }
 
