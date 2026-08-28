@@ -98,6 +98,36 @@ async function startApp() {
       });
     }
 
+    // Stats Counter Animation
+    const statsSection = document.getElementById('story-in-numbers');
+    if (statsSection) {
+      const numbers = statsSection.querySelectorAll('.stats-number[data-target]');
+      let animated = false;
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !animated) {
+          animated = true;
+          numbers.forEach(el => {
+            const target = parseInt(el.dataset.target, 10);
+            const suffix = el.dataset.suffix || '';
+            const duration = 1600;
+            const startTime = performance.now();
+            const update = (now) => {
+              const elapsed = now - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+              const current = Math.floor(ease * target);
+              el.textContent = `${(current >= 1000 ? current.toLocaleString() : current)}${suffix}`;
+              if (progress < 1) requestAnimationFrame(update);
+              else el.textContent = `${(target >= 1000 ? target.toLocaleString() : target)}${suffix}`;
+            };
+            requestAnimationFrame(update);
+          });
+          observer.disconnect();
+        }
+      }, { threshold: 0.2 });
+      observer.observe(statsSection);
+    }
+
     document.getElementById('btn-open-gift-builder')?.addEventListener('click', () => {
       saveActiveSession(SessionType.GIFT_BOX_BUILDER);
       showBoxBuilder();
