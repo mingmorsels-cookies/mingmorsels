@@ -20,10 +20,20 @@ export class InvoiceService {
    * Builds GST Breakdown for line items
    */
   static computeGstBreakdown(order) {
-    const items = order.items || [];
-    const subtotal = Number(order.total_amount || 0);
+    const items = Array.isArray(order.items) 
+      ? order.items 
+      : (typeof order.items_json === 'string' ? JSON.parse(order.items_json) : []);
+
+    const computedItemsSubtotal = items.reduce((sum, it) => {
+      const qty = Number(it.quantity || it.qty || 1);
+      const price = Number(it.price ?? it.unit_price ?? it.customPrice ?? 0);
+      return sum + (qty * price);
+    }, 0);
+
+    const subtotal = computedItemsSubtotal > 0 ? computedItemsSubtotal : Number(order.total_amount || 42);
     const discount = Number(order.discount_amount || 0);
-    const taxGST = Number(order.tax_gst || Math.round((subtotal - discount) * 0.05));
+    const taxableAmount = Math.max(0, subtotal - discount);
+    const taxGST = Number(order.tax_gst || Math.round(taxableAmount * 0.05));
     const delivery = Number(order.delivery_fee || 0);
 
     const cgst = Math.round((taxGST / 2) * 100) / 100;
@@ -32,12 +42,12 @@ export class InvoiceService {
     return {
       subtotal,
       discount,
-      taxableAmount: Math.max(0, subtotal - discount),
+      taxableAmount,
       taxGST,
       cgst,
       sgst,
       delivery,
-      grandTotal: Math.max(0, subtotal - discount + taxGST + delivery)
+      grandTotal: Number(order.total_amount || (taxableAmount + taxGST + delivery))
     };
   }
 
@@ -53,10 +63,19 @@ export class InvoiceService {
       year: 'numeric'
     });
 
-    const itemsRows = (order.items || []).map((it, idx) => {
-      const qty = it.quantity || 1;
-      const rate = it.price || 140;
-      const total = qty * rate;
+    const items = Array.isArray(order.items) 
+      ? order.items 
+      : (typeof order.items_json === 'string' ? JSON.parse(order.items_json) : []);
+
+    const itemsRows = items.map((it, idx) => {
+      const qty = Number(it.quantity || it.qty || 1);
+      const rate = Number(
+        it.price ?? 
+        it.unit_price ?? 
+        it.customPrice ?? 
+        (order.total_amount ? (Number(order.total_amount) / qty) : 42)
+      );
+      const total = Number(it.total ?? (qty * rate));
       return `
         <tr>
           <td style="padding: 12px; border-bottom: 1px solid #f0e6d2; text-align: center; color: #666;">${idx + 1}</td>
@@ -253,11 +272,8 @@ export class InvoiceService {
     <div class="header">
       <table class="letterhead-table">
         <tr>
-          <td style="width: 115px; vertical-align: middle; padding-right: 18px;">
-            <div class="logo-badge">
-              <span class="tm">TM</span>
-              <span class="brand-text">mingmorsels</span>
-            </div>
+          <td style="width: 95px; vertical-align: middle; padding-right: 16px;">
+            <img src="/logo.png?v=2" alt="mingmorsels" style="height: 56px; width: auto; max-width: 90px; object-fit: contain; display: block;" onerror="this.src='https://web-production-b66e7.up.railway.app/logo.png?v=2'" />
           </td>
           <td style="vertical-align: middle;">
             <h1 class="brand-title">MIORA DELIGHTS PRIVATE LIMITED</h1>

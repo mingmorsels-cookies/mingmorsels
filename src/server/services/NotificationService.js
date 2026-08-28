@@ -72,13 +72,8 @@ export class NotificationService {
           <div style="border-bottom: 2.5px solid #EE6A43; padding-bottom: 20px; margin-bottom: 24px;">
             <table style="width: 100%; border-collapse: collapse; border: none;">
               <tr>
-                <td style="width: 110px; vertical-align: middle; padding-right: 16px;">
-                  <div style="position: relative; width: 100px; height: 55px; background: #EE6A43; border-radius: 26px 12px 26px 12px; display: table; text-align: center; box-shadow: 0 4px 10px rgba(238, 106, 67, 0.25);">
-                    <div style="display: table-cell; vertical-align: middle; position: relative;">
-                      <span style="position: absolute; top: 2px; right: 6px; font-size: 8px; color: #FFFFFF; font-weight: 700; font-family: sans-serif;">TM</span>
-                      <span style="color: #2C1810; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 800; font-size: 13.5px; letter-spacing: -0.3px;">mingmorsels</span>
-                    </div>
-                  </div>
+                <td style="width: 95px; vertical-align: middle; padding-right: 16px;">
+                  <img src="https://web-production-b66e7.up.railway.app/logo.png?v=2" alt="mingmorsels" width="85" height="52" style="height: 52px; width: auto; max-width: 85px; object-fit: contain; display: block;" />
                 </td>
                 <td style="vertical-align: middle;">
                   <h1 style="margin: 0 0 4px 0; font-family: 'Times New Roman', Times, Georgia, serif; font-size: 22px; font-weight: 800; color: #3D2000; letter-spacing: 0.8px; text-transform: uppercase;">MIORA DELIGHTS PRIVATE LIMITED</h1>
