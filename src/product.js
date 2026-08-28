@@ -1956,13 +1956,21 @@ function renderPairsWellWith() {
   const cardsContainer = document.getElementById('pairs-well-cards');
   if (!strip || !cardsContainer || !currentProduct) return;
 
-  // Show opposite type: if viewing a muffin, suggest cookies and vice versa
-  const oppositeType = currentProduct.type === 'muffin' ? 'cookie' : 'muffin';
+  // Do not show in cookie section as requested
+  if (currentProduct.type === 'cookie') {
+    strip.style.display = 'none';
+    return;
+  }
+
+  // For other products (muffins), show cookie pairings if available
   const suggestions = Object.values(PRODUCTS_DATA)
-    .filter(p => p.type === oppositeType)
+    .filter(p => p.type === 'cookie')
     .slice(0, 3);
 
-  if (suggestions.length === 0) return;
+  if (suggestions.length === 0) {
+    strip.style.display = 'none';
+    return;
+  }
 
   cardsContainer.innerHTML = suggestions.map(prod => `
     <a href="/product.html?id=${prod.id}" style="
@@ -1979,7 +1987,7 @@ function renderPairsWellWith() {
     onmouseover="this.style.boxShadow='0 4px 16px rgba(200,150,12,0.18)'; this.style.transform='translateY(-2px)'"
     onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'"
     >
-      <span style="font-size: 24px;">${prod.type === 'muffin' ? '🧁' : '🍪'}</span>
+      <span style="font-size: 24px;">🍪</span>
       <span style="font-size: 10.5px; font-weight: 700; color: #3D2000; text-align: center; line-height: 1.3;">${prod.name}</span>
       <span style="font-size: 10px; color: #C8960C; font-weight: 600;">₹${prod.price}</span>
     </a>
