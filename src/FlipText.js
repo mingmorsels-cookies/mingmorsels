@@ -3,7 +3,8 @@ import './FlipText.css';
 /**
  * FlipText.js
  * Vanilla JS implementation of Vengeance UI FlipText Component
- * Source spec: https://www.vengenceui.com/r/flip-text.json
+ * Matching exact props and structure from:
+ * https://www.vengenceui.com/r/flip-text.json
  */
 export function initFlipText(container, options = {}) {
   if (!container) return () => {};
@@ -24,7 +25,7 @@ export function initFlipText(container, options = {}) {
   const words = children.split(separator);
   const totalChars = children.length || 1;
 
-  // Calculate character index for each position matching Vengeance UI logic
+  // Calculate character index for each position matching Vengeance UI
   const getCharIndex = (wordIndex, charIndex) => {
     let index = 0;
     for (let i = 0; i < wordIndex; i++) {
@@ -33,18 +34,21 @@ export function initFlipText(container, options = {}) {
     return index + charIndex;
   };
 
+  const wrapperClassName = ['flip-text-wrapper', 'inline-block', 'leading-none', config.className].filter(Boolean).join(' ');
+
   container.innerHTML = `
     <div
-      class="flip-text-wrapper inline-block leading-none ${config.className}".trim()
+      class="${wrapperClassName}"
       style="perspective: 1000px;"
-      role="heading"
-      aria-level="3"
-      aria-label="${children}"
     >
       ${words.map((word, wordIndex) => {
-        const chars = Array.from(word);
+        const chars = word.split('');
+
         return `
-          <span class="word inline-block whitespace-nowrap" style="transform-style: preserve-3d;">
+          <span
+            class="word inline-block whitespace-nowrap"
+            style="transform-style: preserve-3d;"
+          >
             ${chars.map((char, charIndex) => {
               const currentGlobalIndex = getCharIndex(wordIndex, charIndex);
 
@@ -61,7 +65,7 @@ export function initFlipText(container, options = {}) {
                   class="flip-char inline-block relative"
                   data-char="${char === '"' ? '&quot;' : char}"
                   style="--flip-duration: ${config.duration}s; --flip-delay: ${calculatedDelay.toFixed(3)}s; --flip-iteration: ${config.loop ? 'infinite' : '1'}; transform-style: preserve-3d;"
-                >${char === ' ' ? '&nbsp;' : char}</span>
+                >${char}</span>
               `;
             }).join('')}
             ${separator === ' ' && wordIndex < words.length - 1 ? '<span class="whitespace inline-block">&nbsp;</span>' : ''}
