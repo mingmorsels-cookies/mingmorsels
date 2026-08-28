@@ -57,15 +57,15 @@ export class CheckoutController {
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'shipping-details-modal';
-      modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 9999999; font-family: "Outfit", sans-serif;';
+      modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 99999999; font-family: "Outfit", sans-serif;';
       modal.innerHTML = `
-        <div class="modal-card" style="max-width: 460px; width: 90%; background: #FAF6F0; color: #3D2000; border-radius: 16px; padding: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative;">
+        <div class="modal-card" style="max-width: 460px; width: 90%; max-height: 90vh; overflow-y: auto; background: #FAF6F0; color: #3D2000; border-radius: 16px; padding: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative;">
           <button id="close-shipping-modal" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 22px; cursor: pointer; color: #8C533E;">✕</button>
           <div style="display:flex; align-items:center; gap: 12px; margin-bottom: 12px;">
             <span style="font-size:28px;">📦</span>
             <div>
-              <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; margin: 0; color: #3D2000; font-weight: 700;">How would you like to receive your order?</h3>
-              <p style="font-size: 12.5px; color: #666; margin: 2px 0 0 0;">Choose between doorstep courier or self-pickup from store.</p>
+              <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; margin: 0; color: #3D2000; font-weight: 700;">Customer & Delivery Details</h3>
+              <p style="font-size: 12.5px; color: #666; margin: 2px 0 0 0;">Enter your contact information to finalize your order.</p>
             </div>
           </div>
 
@@ -81,11 +81,11 @@ export class CheckoutController {
               <input type="text" id="ship-modal-name" placeholder="e.g. Ananya Roy" required style="width: 100%; padding: 10px 12px; border: 1px solid #D5C4B3; border-radius: 8px; font-size: 14px; background: #FFF; color: #3D2000; box-sizing: border-box;" />
             </div>
             <div>
-              <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8C533E; display:block; margin-bottom:4px;">Mobile Phone (10 Digits for Updates &amp; Pickup OTP) *</label>
+              <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8C533E; display:block; margin-bottom:4px;">Mobile Phone (10 Digits) *</label>
               <input type="tel" id="ship-modal-phone" placeholder="e.g. 9876543210" maxlength="10" required style="width: 100%; padding: 10px 12px; border: 1px solid #D5C4B3; border-radius: 8px; font-size: 14px; background: #FFF; color: #3D2000; box-sizing: border-box;" />
             </div>
             <div>
-              <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8C533E; display:block; margin-bottom:4px;">Email Address (for Order Confirmation &amp; Invoice) *</label>
+              <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8C533E; display:block; margin-bottom:4px;">Email Address *</label>
               <input type="email" id="ship-modal-email" placeholder="e.g. yourname@gmail.com" required style="width: 100%; padding: 10px 12px; border: 1px solid #D5C4B3; border-radius: 8px; font-size: 14px; background: #FFF; color: #3D2000; box-sizing: border-box;" />
             </div>
 
@@ -148,18 +148,22 @@ export class CheckoutController {
               </div>
             </div>
 
-            <button type="submit" id="btn-submit-shipping-form" style="margin-top: 8px; padding: 13px; background: linear-gradient(135deg, #C6960C 0%, #A67C00 100%); color: #FFF; border: none; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 4px 14px rgba(198,150,12,0.3); display: flex; align-items: center; justify-content: center; gap: 8px;">
-              <span>Proceed to Secure Payment →</span>
+            <button type="submit" id="btn-submit-shipping-details" style="margin-top: 8px; padding: 13px; background: #1A120B; color: #FFF; border: none; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(26,18,11,0.3); transition: all 0.2s;">
+              <span>Continue to Place Order</span>
+              <span>→</span>
             </button>
           </form>
         </div>
       `;
       document.body.appendChild(modal);
-    } else {
-      modal.style.display = 'flex';
     }
 
-    let activeDeliveryMode = 'courier';
+    modal.style.display = 'flex';
+    modal.style.opacity = '1';
+
+    const drawerDeliveryMode = document.querySelector('input[name="delivery_method"]:checked')?.value || 'courier';
+    let activeDeliveryMode = drawerDeliveryMode === 'pickup' ? 'pickup' : 'courier';
+
     const tabCourier = document.getElementById('tab-delivery-courier');
     const tabPickup = document.getElementById('tab-delivery-pickup');
     const courierFields = document.getElementById('ship-courier-fields');
@@ -224,33 +228,39 @@ export class CheckoutController {
     function setDeliveryMode(mode) {
       activeDeliveryMode = mode;
       if (mode === 'pickup') {
-        tabPickup.style.background = '#C6960C';
-        tabPickup.style.color = '#FFF';
-        tabPickup.style.fontWeight = '700';
-
-        tabCourier.style.background = 'transparent';
-        tabCourier.style.color = '#705840';
-        tabCourier.style.fontWeight = '600';
-
+        if (tabPickup) {
+          tabPickup.style.background = '#C6960C';
+          tabPickup.style.color = '#FFF';
+          tabPickup.style.fontWeight = '700';
+        }
+        if (tabCourier) {
+          tabCourier.style.background = 'transparent';
+          tabCourier.style.color = '#705840';
+          tabCourier.style.fontWeight = '600';
+        }
         if (courierFields) courierFields.style.display = 'none';
         if (pickupInfo) pickupInfo.style.display = 'block';
       } else {
-        tabCourier.style.background = '#C6960C';
-        tabCourier.style.color = '#FFF';
-        tabCourier.style.fontWeight = '700';
-
-        tabPickup.style.background = 'transparent';
-        tabPickup.style.color = '#705840';
-        tabPickup.style.fontWeight = '600';
-
+        if (tabCourier) {
+          tabCourier.style.background = '#C6960C';
+          tabCourier.style.color = '#FFF';
+          tabCourier.style.fontWeight = '700';
+        }
+        if (tabPickup) {
+          tabPickup.style.background = 'transparent';
+          tabPickup.style.color = '#705840';
+          tabPickup.style.fontWeight = '600';
+        }
         if (courierFields) courierFields.style.display = 'flex';
         if (pickupInfo) pickupInfo.style.display = 'none';
       }
       updatePriceBreakdown();
     }
 
-    tabCourier.onclick = () => setDeliveryMode('courier');
-    tabPickup.onclick = () => setDeliveryMode('pickup');
+    if (tabCourier) tabCourier.onclick = () => setDeliveryMode('courier');
+    if (tabPickup) tabPickup.onclick = () => setDeliveryMode('pickup');
+
+    setDeliveryMode(activeDeliveryMode);
 
     const current = this.getCustomerDetails();
     if (current.name) document.getElementById('ship-modal-name').value = current.name;
@@ -300,15 +310,12 @@ export class CheckoutController {
         }
       }
 
-      const payMethod = document.querySelector('input[name="checkout_pay_method"]:checked')?.value || 'PREPAID';
-
       localStorage.setItem('ming_morsels_name', name);
       localStorage.setItem('ming_morsels_phone', phone);
       localStorage.setItem('ming_morsels_email', email);
       localStorage.setItem('ming_morsels_address', activeDeliveryMode === 'pickup' ? address : `${address}, Pincode: ${pincode}`);
       localStorage.setItem('ming_morsels_pincode', pincode);
       localStorage.setItem('ming_morsels_delivery_mode', activeDeliveryMode);
-      localStorage.setItem('ming_morsels_pay_method', payMethod);
 
       const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
       userProfile.name = name;
@@ -317,7 +324,6 @@ export class CheckoutController {
       userProfile.address = activeDeliveryMode === 'pickup' ? address : `${address}, Pincode: ${pincode}`;
       userProfile.pincode = pincode;
       userProfile.delivery_mode = activeDeliveryMode;
-      userProfile.payment_method = 'PREPAID';
       localStorage.setItem('user_profile', JSON.stringify(userProfile));
 
       modal.style.display = 'none';
@@ -333,6 +339,20 @@ export class CheckoutController {
       alert("Your basket is empty. Add some delicious cookies first!");
       return;
     }
+
+    const isPickup = document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup';
+    const details = this.getCustomerDetails();
+
+    const hasPhone = details.phone && details.phone.length >= 10;
+    const hasAddress = isPickup || (details.address && details.address.length >= 5);
+
+    if (!hasPhone || !hasAddress) {
+      this.promptForShippingDetails(() => {
+        this.handleRazorpayCheckout(items);
+      });
+      return;
+    }
+
     this.handleRazorpayCheckout(items);
   }
 
@@ -343,49 +363,17 @@ export class CheckoutController {
       return;
     }
 
+    const isPickup = document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup';
+    const isCOD = document.querySelector('input[name="payment_method"]:checked')?.value === 'cod';
     const details = this.getCustomerDetails();
 
-    // Check if details are missing
-    if (!details.address || details.address.length < 5 || !details.phone) {
-      const modal = document.getElementById('address-required-modal');
-      if (modal) {
-        document.getElementById('req-shipping-phone').value = details.phone || '';
-        document.getElementById('req-shipping-address').value = details.address || '';
-        modal.style.display = 'flex';
-        modal.style.opacity = '1';
-        modal.classList.add('active');
-        const saveBtn = document.getElementById('btn-save-address-continue');
-        saveBtn.onclick = () => {
-          const newPhone = document.getElementById('req-shipping-phone').value.trim();
-          const newAddr = document.getElementById('req-shipping-address').value.trim();
-          const newPin = document.getElementById('req-shipping-pincode').value.trim();
-          
-          if (newPhone.length < 10 || newAddr.length < 5 || newPin.length !== 6) {
-            alert('Please enter a valid phone number, address, and 6-digit pin code.');
-            return;
-          }
-          
-          const fullAddr = `${newAddr}, Bengaluru, ${newPin}`;
-          localStorage.setItem('ming_morsels_phone', newPhone);
-          localStorage.setItem('ming_morsels_address', fullAddr);
-          localStorage.setItem('ming_morsels_pincode', newPin);
-          
-          // Also update user profile if exists
-          try {
-            const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
-            userProfile.phone = newPhone;
-            userProfile.address = fullAddr;
-            userProfile.pincode = newPin;
-            localStorage.setItem('user_profile', JSON.stringify(userProfile));
-          } catch(e) {}
-          modal.style.display = 'none';
-          modal.style.opacity = '0';
-          modal.classList.remove('active');
-          this.handleRazorpayCheckout(cartItems); // Retry
-        };
-      } else {
-        alert("Please update your delivery address in the dashboard before checking out.");
-      }
+    const hasPhone = details.phone && details.phone.length >= 10;
+    const hasAddress = isPickup || (details.address && details.address.length >= 5);
+
+    if (!hasPhone || !hasAddress) {
+      this.promptForShippingDetails(() => {
+        this.handleRazorpayCheckout(items);
+      });
       return;
     }
 
@@ -395,22 +383,24 @@ export class CheckoutController {
     const origBtnText = payBtn ? payBtn.innerHTML : '';
     if (payBtn) {
       payBtn.disabled = true;
-      payBtn.innerHTML = '<span>⏳ Preparing Razorpay Gateway...</span>';
+      payBtn.innerHTML = isCOD 
+        ? '<span>⏳ Placing Order (Cash on Delivery)...</span>' 
+        : '<span>⏳ Preparing Razorpay Gateway...</span>';
     }
 
     try {
       const COOKIE_PRICES = {
         almond: 180, rose: 190, oatsnuts: 170, orange: 185,
         walnut: 210, walnut_sf: 220,
-        strawberry: 140, pinacolada: 145, butterscotch: 150, chocochip: 155
+        strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40
       };
 
       const normalizedCart = items.map(item => {
         if (!item || typeof item !== 'object') return null;
-        const key = String(item.id || item.key || '').trim();
-        if (!key) return null;
+        const key = String(item.id || item.productId || item.key || '').trim();
+        const baseKey = key.split('_')[0].toLowerCase();
         const qty = Math.max(1, parseInt(item.quantity ?? item.qty ?? 1, 10) || 1);
-        const price = Number(item.price || item.customPrice || COOKIE_PRICES[key] || 180);
+        const price = Number(item.price || item.customPrice || COOKIE_PRICES[baseKey] || COOKIE_PRICES[key] || 180);
         return {
           ...item,
           id: key,
@@ -428,6 +418,17 @@ export class CheckoutController {
         return;
       }
 
+      let shippingAddress = details.address || '';
+      if (isPickup) {
+        shippingAddress = 'Store Pickup: Ming Morsels Experience Center, 12th Main Road, Indiranagar, Bengaluru - 560038';
+      } else if (!shippingAddress || shippingAddress.length < 5) {
+        shippingAddress = 'Bengaluru Urban';
+      }
+
+      const email = details.email && details.email.includes('@') ? details.email.trim() : 'customer@mingmorsels.com';
+      const name = details.name ? details.name.trim() : 'Valued Customer';
+      const phone = details.phone ? details.phone.replace(/\D/g, '') : '9876543210';
+
       const apiUrl = '/api/payment/create-order';
       const res = await fetch(apiUrl, {
         method: 'POST',
@@ -436,11 +437,11 @@ export class CheckoutController {
           items: normalizedCart,
           total_amount: subtotal,
           coupon_code: window.activeAppliedCoupon || undefined,
-          user_email: details.email || 'customer@mingmorsels.com',
-          user_name: details.name || 'Guest Customer',
-          user_phone: details.phone || '',
-          shipping_address: document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup' ? 'Store Pickup: ' + details.address : details.address,
-          payment_method: document.querySelector('input[name="payment_method"]:checked')?.value === 'cod' ? 'COD' : 'PREPAID'
+          user_email: email,
+          user_name: name,
+          user_phone: phone,
+          shipping_address: shippingAddress,
+          payment_method: isCOD ? 'COD' : 'PREPAID'
         })
       });
 
@@ -451,7 +452,15 @@ export class CheckoutController {
         return;
       }
 
-      const orderData = JSON.parse(text);
+      let orderData;
+      try {
+        orderData = JSON.parse(text);
+      } catch (parseErr) {
+        alert("⚠️ Server error: " + text.slice(0, 100));
+        if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
+        return;
+      }
+
       if (!orderData.success) {
         alert("Failed to create order: " + (orderData.error || 'Server error'));
         if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
@@ -459,13 +468,12 @@ export class CheckoutController {
       }
 
       // Direct redirect for COD
-      if (orderData.is_cod) {
+      if (orderData.is_cod || isCOD) {
         cartStore.clear();
         clearActiveSession();
-        window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=COD`;
+        window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=Cash%20On%20Delivery`;
         return;
       }
-
 
       const hasScript = await this.ensureRazorpayScript();
       if (!hasScript || !window.Razorpay) {
@@ -484,9 +492,9 @@ export class CheckoutController {
         description: "Artisanal Confectionery - Fresh Daily Batch",
         image: "/logo.png",
         prefill: {
-          name: details.name || 'Valued Customer',
-          email: details.email || 'customer@mingmorsels.com',
-          contact: details.phone || ''
+          name: name,
+          email: email,
+          contact: phone
         },
         theme: {
           color: "#C8960C"
@@ -494,6 +502,7 @@ export class CheckoutController {
         modal: {
           ondismiss: () => {
             console.log("[Razorpay] Checkout modal dismissed by user");
+            if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
           }
         },
         handler: async (response) => {
@@ -517,66 +526,28 @@ export class CheckoutController {
             clearActiveSession();
             eventBus.emit(Events.CHECKOUT_SUCCESS, { orderId: orderData.order_id, awb });
 
-            // Redirect to new dedicated confirmation page
-            window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=${encodeURIComponent(response.razorpay_payment_id || 'Completed')}`;
+            // Redirect to dedicated confirmation page
+            window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=${encodeURIComponent(response.razorpay_payment_id || 'online')}&awb=${encodeURIComponent(awb)}`;
           } catch (err) {
-            console.error('[CheckoutController] Payment verification error:', err);
-            window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=${encodeURIComponent(response.razorpay_payment_id || 'Completed')}`;
+            console.error("Payment verification error:", err);
+            window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=verified`;
           }
         }
       };
 
-      if (orderData.razorpay_order_id) {
-        options.order_id = String(orderData.razorpay_order_id).trim();
-      }
-
-      eventBus.emit(Events.CART_CLOSE);
-
-      if (window.Razorpay) {
-        const rzp = new window.Razorpay(options);
-        rzp.on('payment.failed', function (resp) {
-          alert('❌ Payment Failed: ' + (resp.error?.description || 'Transaction declined by bank.'));
-          if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
-        });
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', (response) => {
+        alert(`Payment failed: ${response.error?.description || 'Transaction declined'}`);
         if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
-        rzp.open();
-      } else {
-        alert('⚠️ Razorpay checkout could not load. Please check your internet connection.');
-        if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
-      }
-    } catch (e) {
-      console.error('[CheckoutController] Checkout error:', e);
+      });
+      rzp.open();
+    } catch (err) {
+      console.error("[Checkout] Fatal error:", err);
+      alert("⚠️ An error occurred while processing checkout: " + (err.message || 'Please try again.'));
       if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
-      alert('Failed to process payment: ' + (e.message || 'Server error'));
     }
-  }
-
-  showOrderConfirmedModal(orderId, awb) {
-    const modal = document.getElementById('modal-order-confirmed');
-    if (!modal) return;
-    const orderEl = document.getElementById('conf-order-id');
-    const awbEl = document.getElementById('conf-shipway-awb');
-    const trackBtn = document.getElementById('btn-conf-track-shipway');
-    const closeBtn = document.getElementById('btn-close-confirmed');
-    const continueBtn = document.getElementById('btn-conf-continue-shopping');
-
-    if (orderEl) orderEl.textContent = orderId || 'MM-928102';
-    if (awbEl) awbEl.textContent = awb || 'SW-EXP-BENGALURU';
-    if (trackBtn) {
-      trackBtn.onclick = () => {
-        window.location.href = `/track-order.html?order_id=${encodeURIComponent(orderId)}`;
-      };
-    }
-    const closeModal = () => {
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-    };
-    if (closeBtn) closeBtn.onclick = closeModal;
-    if (continueBtn) continueBtn.onclick = closeModal;
-
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
   }
 }
 
 export const checkoutController = new CheckoutController();
+export default checkoutController;

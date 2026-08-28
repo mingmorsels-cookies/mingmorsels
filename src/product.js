@@ -1766,11 +1766,16 @@ async function handleRazorpayProductCheckout() {
     return;
   }
 
+  const isPickup = document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup';
+  const isCOD = document.querySelector('input[name="payment_method"]:checked')?.value === 'cod';
+
   const payBtn = document.getElementById('btn-cart-razorpay');
   const origBtnText = payBtn ? payBtn.innerHTML : '';
   if (payBtn) {
     payBtn.disabled = true;
-    payBtn.innerHTML = '<span>⏳ Preparing Razorpay Gateway...</span>';
+    payBtn.innerHTML = isCOD 
+      ? '<span>⏳ Placing Order (Cash on Delivery)...</span>' 
+      : '<span>⏳ Preparing Razorpay Gateway...</span>';
   }
 
   try {
@@ -1796,6 +1801,17 @@ async function handleRazorpayProductCheckout() {
 
     const subtotal = normalizedCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
+    let shippingAddress = details.address || '';
+    if (isPickup) {
+      shippingAddress = 'Store Pickup: Ming Morsels Experience Center, 12th Main Road, Indiranagar, Bengaluru - 560038';
+    } else if (!shippingAddress || shippingAddress.length < 5) {
+      shippingAddress = 'Bengaluru Urban';
+    }
+
+    const email = details.email && details.email.includes('@') ? details.email.trim() : 'customer@mingmorsels.com';
+    const name = details.name ? details.name.trim() : 'Valued Customer';
+    const phone = details.phone ? details.phone.replace(/\D/g, '') : '9876543210';
+
     const apiUrl = '/api/payment/create-order';
     let res = await fetch(apiUrl, {
       method: 'POST',
@@ -1803,15 +1819,16 @@ async function handleRazorpayProductCheckout() {
       body: JSON.stringify({
         items: normalizedCart,
         total_amount: subtotal,
-        user_email: details.email || 'customer@mingmorsels.com',
-        user_name: details.name || 'Guest Customer',
-        shipping_address: document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup' ? 'Store Pickup: ' + details.address : details.address,
-        payment_method: document.querySelector('input[name="payment_method"]:checked')?.value === 'cod' ? 'COD' : 'PREPAID'
+        user_email: email,
+        user_name: name,
+        user_phone: phone,
+        shipping_address: shippingAddress,
+        payment_method: isCOD ? 'COD' : 'PREPAID'
       })
     });
     const text = await res.text();
     if (!text) {
-      alert("⚠️ Empty response from server. Please ensure express server is running on port 5001.");
+      alert("⚠️ Empty response from server. Please try again.");
       if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
       return;
     }
@@ -1823,11 +1840,11 @@ async function handleRazorpayProductCheckout() {
     }
 
     // Direct redirect for COD
-    if (orderData.is_cod) {
+    if (orderData.is_cod || isCOD) {
       cartStore.clear();
       updateCartBadge();
       renderCartDrawerBody();
-      window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=COD`;
+      window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=Cash%20On%20Delivery`;
       return;
     }
 
