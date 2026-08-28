@@ -33,6 +33,7 @@ export class AuthController {
 
     this.bindDOM();
     this.checkStoredUser();
+    setTimeout(() => this.showNotifPermissionModal(), 1500);
   }
 
   decodeJwt(token) {
@@ -169,67 +170,94 @@ export class AuthController {
   }
 
   showNotifPermissionModal() {
-    const NOTIF_KEY_ALLOWED = 'mm_notif_allowed';
-    const NOTIF_KEY_DECIDED = 'mm_notif_decided';
-
-    if (localStorage.getItem(NOTIF_KEY_DECIDED) === 'true') return;
     if (!('Notification' in window)) return;
-    if (Notification.permission === 'granted') {
-      localStorage.setItem(NOTIF_KEY_ALLOWED, 'true');
-      localStorage.setItem(NOTIF_KEY_DECIDED, 'true');
-      return;
-    }
-    if (Notification.permission === 'denied') return;
+    if (Notification.permission === 'granted' || Notification.permission === 'denied') return;
 
-    const modal = document.getElementById('notif-permission-modal');
-    if (!modal) return;
+    let modal = document.getElementById('notif-permission-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'notif-permission-modal';
+      modal.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 14, 11, 0.8);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        animation: fadeIn 0.3s ease;
+      `;
+      modal.innerHTML = `
+        <div style="background: linear-gradient(145deg, #1e130c, #140b06); border: 1.5px solid #C8960C; border-radius: 20px; max-width: 440px; width: 100%; padding: 32px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px rgba(200,150,12,0.25); position: relative;">
+          <div style="width: 64px; height: 64px; background: rgba(200,150,12,0.15); border: 1.5px solid #C8960C; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 18px auto;">
+            🔔
+          </div>
+          <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: #FAF6F0; margin: 0 0 10px 0;">Enable Fresh Batch &amp; Order Alerts</h3>
+          <p style="font-size: 13.5px; color: #D4C5B9; line-height: 1.55; margin: 0 0 24px 0;">
+            Get instant updates when your artisanal cookies come fresh out of the oven, track live dispatch milestones, and receive VIP subscriber-only perks!
+          </p>
+          <div style="display: flex; gap: 12px; justify-content: center;">
+            <button id="notif-later-btn" style="flex: 1; padding: 13px 18px; background: rgba(250,246,240,0.06); border: 1px solid rgba(250,246,240,0.2); border-radius: 12px; color: #D4C5B9; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+              Maybe Later
+            </button>
+            <button id="notif-allow-btn" style="flex: 1.3; padding: 13px 18px; background: linear-gradient(135deg, #C8960C, #E0AB18); border: none; border-radius: 12px; color: #120E0B; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(200,150,12,0.4); transition: all 0.2s;">
+              Allow Alerts 🍪
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
     modal.style.display = 'flex';
 
     document.getElementById('notif-allow-btn').onclick = async () => {
       modal.style.display = 'none';
-      localStorage.setItem(NOTIF_KEY_DECIDED, 'true');
-      const permission = await Notification.requestPermission();
-      if (permission === 'granted') {
-        localStorage.setItem(NOTIF_KEY_ALLOWED, 'true');
-        try {
-          if (!('serviceWorker' in navigator)) return;
-          const swReg = await navigator.serviceWorker.ready;
-          const res = await fetch('/api/push/public-key');
-          if (!res.ok) return;
-          const { publicKey } = await res.json();
-          if (!publicKey) return;
-
-          const urlBase64ToUint8Array = (base64String) => {
-            const padding = '='.repeat((4 - base64String.length % 4) % 4);
-            const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
-            const rawData = window.atob(base64);
-            const outputArray = new Uint8Array(rawData.length);
-            for (let i = 0; i < rawData.length; ++i) {
-              outputArray[i] = rawData.charCodeAt(i);
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          localStorage.setItem('mm_notif_allowed', 'true');
+          if ('serviceWorker' in navigator && 'PushManager' in window) {
+            const swReg = await navigator.serviceWorker.register('/sw.js');
+            await navigator.serviceWorker.ready;
+            const res = await fetch('/api/push/public-key');
+            if (res.ok) {
+              const { publicKey } = await res.json();
+              if (publicKey) {
+                const urlBase64ToUint8Array = (base64String) => {
+                  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+                  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+                  const rawData = window.atob(base64);
+                  return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+                };
+                const subscription = await swReg.pushManager.subscribe({
+                  userVisibleOnly: true,
+                  applicationServerKey: urlBase64ToUint8Array(publicKey)
+                });
+                let user = {};
+                try { user = JSON.parse(localStorage.getItem('user_profile') || '{}'); } catch(e) {}
+                await fetch('/api/push/subscribe', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    subscription,
+                    customer_email: user.email || '',
+                    customer_phone: user.phone || localStorage.getItem('ming_morsels_phone') || ''
+                  })
+                });
+              }
             }
-            return outputArray;
-          };
-
-          const subscription = await swReg.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(publicKey)
-          });
-
-          await fetch('/api/push/subscribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(subscription)
-          });
-        } catch (err) {
-          console.error('Failed to subscribe to web push:', err);
+          }
         }
+      } catch (err) {
+        console.warn('Push subscription flow:', err);
       }
     };
 
     document.getElementById('notif-later-btn').onclick = () => {
       modal.style.display = 'none';
-      localStorage.setItem(NOTIF_KEY_DECIDED, 'true');
-      localStorage.setItem(NOTIF_KEY_ALLOWED, 'false');
     };
   }
 
