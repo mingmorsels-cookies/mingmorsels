@@ -3395,146 +3395,6 @@ body {
   .cart-drawer {
     width: 100%;
   }
-
-  .dashboard-modal {
-    padding: 0;
-    align-items: flex-end;
-    background: rgba(18, 14, 11, 0.6);
-  }
-
-  .dashboard-card {
-    width: 100%;
-    max-width: 100%;
-    height: 93dvh;
-    max-height: 93dvh;
-    border-radius: 24px 24px 0 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    animation: dashboardSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes dashboardSlideUp {
-    from { transform: translateY(100%); opacity: 0.6; }
-    to   { transform: translateY(0);   opacity: 1; }
-  }
-
-  /* Drag handle */
-  .dashboard-card::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 4px;
-    background: rgba(61, 32, 0, 0.18);
-    border-radius: 99px;
-    margin: 12px auto 0;
-    flex-shrink: 0;
-  }
-
-  .btn-dashboard-close {
-    top: 10px;
-    right: 16px;
-    font-size: 22px;
-  }
-
-  .dashboard-layout {
-    flex-direction: column;
-    flex: 1;
-    overflow: hidden;
-  }
-
-  /* ── Mobile: compact user header strip ── */
-  .dashboard-sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid rgba(61, 32, 0, 0.08);
-    padding: 10px 20px 0;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-
-  .dashboard-user-card {
-    gap: 10px;
-  }
-
-  .dashboard-avatar-large {
-    width: 42px;
-    height: 42px;
-    flex-shrink: 0;
-  }
-
-  .dashboard-user-name {
-    font-size: 14px;
-  }
-
-  .dashboard-user-email {
-    font-size: 10px;
-  }
-
-  /* ── Mobile: horizontal pill tab bar ── */
-  .dashboard-tabs {
-    flex-direction: row;
-    gap: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 0;
-    margin: 0 -20px;
-    padding: 8px 16px 0;
-  }
-
-  .dashboard-tabs::-webkit-scrollbar { display: none; }
-
-  .dashboard-tab-btn {
-    flex-direction: column;
-    gap: 3px;
-    padding: 8px 14px 10px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-    border-radius: 0;
-    border-bottom: 2.5px solid transparent;
-    flex-shrink: 0;
-    text-transform: uppercase;
-  }
-
-  .dashboard-tab-btn .tab-icon {
-    font-size: 18px;
-  }
-
-  .dashboard-tab-btn.active {
-    background: transparent;
-    color: var(--color-accent);
-    border-bottom-color: var(--color-accent);
-  }
-
-  .dashboard-tab-btn:hover {
-    background: transparent;
-  }
-
-  /* ── Mobile: full-height scrollable content ── */
-  .dashboard-main-content {
-    flex: 1;
-    padding: 20px 18px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .pane-title {
-    font-size: 18px;
-    margin-bottom: 12px;
-  }
-
-  .dashboard-orders-list {
-    max-height: none;
-    padding-right: 0;
-  }
-
-  .dashboard-address-form .form-group-row {
-    flex-direction: column;
-    gap: 0;
-  }
 }
 
 
@@ -4077,6 +3937,223 @@ body {
   font-size: 12.5px;
   color: var(--color-text);
   margin: 0;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────── */
+/* 📱 Mobile Responsive: My Account Dashboard (Bottom Sheet Layout)              */
+/* ───────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .dashboard-modal {
+    padding: 0 !important;
+    align-items: flex-end !important;
+    background: rgba(18, 14, 11, 0.65) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+
+  .dashboard-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 90dvh !important;
+    max-height: 90dvh !important;
+    border-radius: 24px 24px 0 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.35) !important;
+    animation: dashboardSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  }
+
+  @keyframes dashboardSlideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0.6;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .btn-dashboard-close {
+    top: 12px !important;
+    right: 14px !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(61, 32, 0, 0.06) !important;
+    border-radius: 50% !important;
+    color: var(--color-primary) !important;
+    z-index: 20 !important;
+  }
+
+  .dashboard-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Top Sidebar converted to clean header bar */
+  .dashboard-sidebar {
+    width: 100% !important;
+    background: #FFFFFF !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(61, 32, 0, 0.08) !important;
+    padding: 14px 16px 0 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .dashboard-user-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding-right: 36px !important;
+  }
+
+  .dashboard-avatar-large {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 2px solid var(--color-accent) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .dashboard-user-info {
+    min-width: 0 !important;
+    flex: 1 !important;
+  }
+
+  .dashboard-user-name {
+    font-size: 14.5px !important;
+    font-weight: 700 !important;
+    color: var(--color-primary) !important;
+    margin: 0 0 2px 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .dashboard-user-email {
+    font-size: 11px !important;
+    color: var(--color-text-light) !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Horizontal swipeable tabs strip */
+  .dashboard-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 4px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    margin: 0 -16px !important;
+    padding: 0 12px !important;
+    border-top: 1px solid rgba(61, 32, 0, 0.06) !important;
+  }
+
+  .dashboard-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .dashboard-tab-btn {
+    flex: 1 0 auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 10px 14px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 2.5px solid transparent !important;
+    background: transparent !important;
+    color: var(--color-text-light) !important;
+    outline: none !important;
+    width: auto !important;
+  }
+
+  .dashboard-tab-btn .tab-icon {
+    font-size: 14px !important;
+  }
+
+  .dashboard-tab-btn.active {
+    background: transparent !important;
+    color: var(--color-accent) !important;
+    border-bottom-color: var(--color-accent) !important;
+    font-weight: 700 !important;
+  }
+
+  .dashboard-tab-btn:hover {
+    background: transparent !important;
+  }
+
+  /* Scrollable Content Area */
+  .dashboard-main-content {
+    flex: 1 !important;
+    padding: 16px 14px 24px 14px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .pane-title {
+    font-size: 17px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .dashboard-orders-list {
+    max-height: none !important;
+    padding-right: 0 !important;
+    gap: 12px !important;
+  }
+
+  .order-card {
+    padding: 14px !important;
+    border-radius: 10px !important;
+  }
+
+  .dashboard-address-form {
+    padding: 16px !important;
+    border-radius: 10px !important;
+    gap: 12px !important;
+  }
+
+  .dashboard-address-form .form-group-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .rewards-card {
+    padding: 16px !important;
+    border-radius: 10px !important;
+    gap: 14px !important;
+  }
+
+  .rewards-points-count {
+    font-size: 26px !important;
+  }
+
+  .rewards-trophy {
+    font-size: 34px !important;
+  }
 }
 
 .collection-category-title {
