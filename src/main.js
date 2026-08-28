@@ -16,7 +16,7 @@ import { initGiftBoxBuilder, showBoxBuilder } from './GiftBoxBuilder.js';
 import { initPairingQuiz, showPairingQuiz } from './PairingQuiz.js';
 import { initSocialGallery } from './SocialGallery.js';
 import { initDriftWall } from './DriftWall.js';
-import { initStrokeText } from './StrokeText.js';
+import { initFlipText } from './FlipText.js';
 import { initNetworkMonitor, saveActiveSession, getSavedSession, showRecoveryBanner, SessionType } from './sessionState.js';
 
 import { openQuickAddModal, PRODUCT_BOX_CATALOG } from './controllers/QuickAddModal.js';
@@ -86,22 +86,15 @@ async function startApp() {
     const driftWallRoot = document.getElementById('drift-wall-root');
     if (driftWallRoot) initDriftWall(driftWallRoot);
 
-    const strokeTextRoot = document.getElementById('stroke-text-root');
-    if (strokeTextRoot) {
-      initStrokeText(strokeTextRoot, {
+    const flipTextRoot = document.getElementById('flip-text-root');
+    if (flipTextRoot) {
+      initFlipText(flipTextRoot, {
         text: 'Unit of Miora Delights Private Limited',
-        strokeColor: '#C6960C',
-        fillColor: '#3D2000',
-        strokeWidth: 1.6,
-        drawDuration: 1.6,
-        fillDelay: 0.15,
-        stagger: 0.035,
-        ease: 'power2.out',
-        trigger: 'scroll',
-        fillMode: 'wipe',
-        fontSize: 52,
-        fontWeight: 800,
-        letterSpacing: -0.5
+        duration: 2.2,
+        delay: 0,
+        loop: true,
+        separator: ' ',
+        together: false
       });
     }
 
