@@ -132,8 +132,10 @@ export class NotificationService {
     if (this.resend) {
       try {
         console.log(`📧 [Resend] Sending order confirmation to: ${order.user_email}`);
+        // Use verified domain if available, else Resend default sender
+        const fromAddress = process.env.RESEND_FROM_EMAIL || 'Ming Morsels 🍪 <onboarding@resend.dev>';
         const { data, error } = await this.resend.emails.send({
-          from: 'Ming Morsels <orders@mingmorsels.com>',
+          from: fromAddress,
           to: [order.user_email],
           subject: `✅ Order #${order.id} Confirmed | Ming Morsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
           html: htmlBody
