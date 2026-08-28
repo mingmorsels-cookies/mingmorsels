@@ -1333,6 +1333,76 @@
       } catch (e) {}
     });
 
+    // Broadcast Push Notification
+    document.getElementById('btn-send-push')?.addEventListener('click', async () => {
+      const btn = document.getElementById('btn-send-push');
+      const resultDiv = document.getElementById('push-result');
+      const title = document.getElementById('push-title')?.value.trim();
+      const body = document.getElementById('push-body')?.value.trim();
+      const url = document.getElementById('push-url')?.value.trim() || '/';
+
+      if (!title || !body) {
+        if (resultDiv) {
+          resultDiv.style.display = 'block';
+          resultDiv.style.background = 'rgba(231, 76, 60, 0.2)';
+          resultDiv.style.border = '1px solid #E74C3C';
+          resultDiv.style.color = '#E74C3C';
+          resultDiv.innerText = '⚠️ Please enter both a Notification Title and Body.';
+        }
+        return;
+      }
+
+      const origText = btn.innerText;
+      btn.disabled = true;
+      btn.innerText = '⏳ Broadcasting to Subscribers...';
+
+      if (resultDiv) {
+        resultDiv.style.display = 'block';
+        resultDiv.style.background = 'rgba(200, 150, 12, 0.15)';
+        resultDiv.style.border = '1px solid var(--color-gold)';
+        resultDiv.style.color = '#FFFFFF';
+        resultDiv.innerText = '📡 Connecting to Web Push gateway & dispatching notification payload...';
+      }
+
+      try {
+        const res = await fetch('/api/admin/push/broadcast', {
+          method: 'POST',
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ title, body, url })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          if (resultDiv) {
+            resultDiv.style.background = 'rgba(46, 204, 113, 0.2)';
+            resultDiv.style.border = '1px solid #2ECC71';
+            resultDiv.style.color = '#2ECC71';
+            resultDiv.innerHTML = `<strong>${data.message || '✅ Broadcast sent successfully!'}</strong>`;
+          }
+          document.getElementById('push-title').value = '';
+          document.getElementById('push-body').value = '';
+          document.getElementById('push-url').value = '';
+        } else {
+          if (resultDiv) {
+            resultDiv.style.background = 'rgba(231, 76, 60, 0.2)';
+            resultDiv.style.border = '1px solid #E74C3C';
+            resultDiv.style.color = '#E74C3C';
+            resultDiv.innerText = `⚠️ Broadcast Error: ${data.error || 'Server error'}`;
+          }
+        }
+      } catch (err) {
+        if (resultDiv) {
+          resultDiv.style.background = 'rgba(231, 76, 60, 0.2)';
+          resultDiv.style.border = '1px solid #E74C3C';
+          resultDiv.style.color = '#E74C3C';
+          resultDiv.innerText = `⚠️ Network Error: ${err.message}`;
+        }
+      } finally {
+        btn.disabled = false;
+        btn.innerText = origText;
+      }
+    });
+
     // Dashboard Data Loader
     async function loadAdminDashboard() {
       fetchOrders();

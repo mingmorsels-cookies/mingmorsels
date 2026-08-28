@@ -197,7 +197,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Delicate vanilla sponge infused with fresh Mahabaleshwar strawberries',
-    price:   40,
+    price: 40,
     rating: '4.95',
     reviewsCount: 130,
     badges: ['Real Fruit', 'Farm Fresh', 'Crumble Top'],
@@ -217,7 +217,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.',
-    price:   40,
+    price: 40,
     rating: '4.89',
     reviewsCount: 78,
     badges: ['Tropical Fruit', 'Golden Sponge', 'Toasted Coconut'],
@@ -236,7 +236,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Rich caramelized brown sugar sponge studded with crunchy butterscotch praline morsels.',
-    price:   40,
+    price: 40,
     rating: '4.96',
     reviewsCount: 156,
     badges: ['Caramel Praline', 'Rich Butter', 'Baker Special'],
@@ -255,7 +255,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips.',
-    price:   40,
+    price: 40,
     rating: '4.98',
     reviewsCount: 210,
     badges: ['70% Dark Cocoa', 'Belgian Choco', 'Molten Center'],
@@ -275,7 +275,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
-    price:   40,
+    price: 40,
     rating: '4.85',
     reviewsCount: 95,
     badges: ['Whole Wheat', 'Tangy Currants', 'No Margarine'],
@@ -458,19 +458,19 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPairsWellWith();
 
   // Initialize Live Social Proof Purchase Popup
-  try { initLivePurchaseNotifications(); } catch(e) { console.error('Live purchase pop-up error:', e); }
+  try { initLivePurchaseNotifications(); } catch (e) { console.error('Live purchase pop-up error:', e); }
 
   // Initialize Review Submission & Moderation Handlers
-  try { initReviewSubmission(); } catch(e) { console.error('Review form error:', e); }
+  try { initReviewSubmission(); } catch (e) { console.error('Review form error:', e); }
 
   // Initialize Network Resilience Monitor
-  try { initNetworkMonitor(); } catch(e) { console.error('Network monitor error:', e); }
+  try { initNetworkMonitor(); } catch (e) { console.error('Network monitor error:', e); }
 
   // Initialize Pincode Live Estimator
-  try { initPincodeChecker(); } catch(e) { console.error('Pincode checker error:', e); }
+  try { initPincodeChecker(); } catch (e) { console.error('Pincode checker error:', e); }
 
   // Initialize Auth & Account Dashboard
-  try { authController.init(); } catch(e) { console.error('Auth controller error:', e); }
+  try { authController.init(); } catch (e) { console.error('Auth controller error:', e); }
 });
 
 // ----------------------------------------------------
@@ -480,7 +480,7 @@ function renderProductDetails() {
   const p = currentProduct;
 
   // Track GA4 view_item event
-  try { Analytics.trackViewItem(p); } catch (e) {}
+  try { Analytics.trackViewItem(p); } catch (e) { }
 
   // Breadcrumbs
   document.getElementById('bc-product-name').textContent = p.name;
@@ -497,7 +497,7 @@ function renderProductDetails() {
   document.getElementById('p-stars').textContent = '★'.repeat(Math.round(parseFloat(p.rating)));
   document.getElementById('p-rating').textContent = `${p.rating} (${p.reviewsCount} Verified Reviews)`;
   document.getElementById('p-price').textContent = p.price;
-  
+
   const priceUnitEl = document.querySelector('.p-price-card .price-unit');
   if (priceUnitEl) {
     if (p.type === 'muffin') {
@@ -553,7 +553,7 @@ function renderProductDetails() {
         summaryBadge.innerHTML = `${p.rating} <span style="font-size:12px; background:rgba(200,150,12,0.15); border:1px solid rgba(200,150,12,0.3); color:#C8960C; padding:3px 10px; border-radius:50px; margin-left:8px;">${data.summary_badge}</span>`;
       }
     }
-  }).catch(() => {});
+  }).catch(() => { });
 
   // Reviews List
   renderProductReviewsList(p);
@@ -567,7 +567,7 @@ function renderProductDetails() {
         renderProductReviewsList({ ...p, reviews: combined });
       }
     })
-    .catch(() => {});
+    .catch(() => { });
 }
 
 function renderProductReviewsList(p) {
@@ -678,12 +678,12 @@ let isDragging = false;
 function initProductGallery() {
   const mainImage = document.getElementById('product-main-image');
   const thumbsContainer = document.querySelector('.product-thumbnails');
-  
+
   if (!mainImage || !thumbsContainer) return;
 
   thumbsContainer.innerHTML = ''; // clear existing
   let images = [];
-  
+
   if (currentProduct.id === 'orange') {
     images = [
       { src: '/orange-peel/1.jpg', alt: 'Orange Peel Image 1' },
@@ -753,7 +753,7 @@ function initProductGallery() {
   if (images.length > 0) {
     if (mainImageWrapper) mainImageWrapper.style.display = 'block';
     mainImage.src = images[0].src;
-    
+
     if (images.length > 1) {
       images.forEach((imgObj, idx) => {
         const img = document.createElement('img');
@@ -761,13 +761,13 @@ function initProductGallery() {
         img.alt = imgObj.alt;
         img.className = 'gallery-thumb';
         if (idx === 0) img.classList.add('active');
-        
-        img.addEventListener('click', function() {
+
+        img.addEventListener('click', function () {
           document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
           this.classList.add('active');
           mainImage.src = this.src;
         });
-        
+
         thumbsContainer.appendChild(img);
       });
     } else {
@@ -870,10 +870,10 @@ function updatePriceDisplay() {
 
   const boxOptions = COOKIE_BOX_OPTIONS[currentProduct.id];
   const basePrice = (boxOptions && selectedBoxOption) ? selectedBoxOption.price : (currentProduct.price || 160);
-  
+
   const itemCountPerUnit = (currentProduct.type === 'muffin') ? 1 : (selectedBoxOption ? (selectedBoxOption.cookieCount || 1) : 1);
   const totalItems = selectedQuantity * itemCountPerUnit;
-  
+
   let totalBoxPrice = 0;
   if (boxCapacity > 0) {
     totalBoxPrice = Math.ceil(totalItems / boxCapacity) * boxExtra;
@@ -1104,7 +1104,7 @@ function initCartSystem() {
   const btnAddCart = document.getElementById('btn-add-cart-main');
   if (btnAddCart) {
     btnAddCart.addEventListener('click', () => {
-      try { Analytics.trackAddToCart(currentProduct, selectedQuantity); } catch (e) {}
+      try { Analytics.trackAddToCart(currentProduct, selectedQuantity); } catch (e) { }
       addToCart(currentProduct, selectedQuantity);
       openCartDrawer();
     });
@@ -1310,18 +1310,18 @@ function renderCartDrawerBody() {
     const price = Number(item.price) || 180;
     const qty = Number(item.quantity) || 1;
     let lineTotal = price * qty;
-    
+
     const boxPrice = Number(item.boxPrice) || 0;
     const boxCapacity = Number(item.boxCapacity) || 0;
     const itemCountPerUnit = Number(item.itemCountPerUnit) || 1;
-    
+
     let boxesNeeded = 0;
     if (boxPrice > 0 && boxCapacity > 0) {
       const totalItems = qty * itemCountPerUnit;
       boxesNeeded = Math.ceil(totalItems / boxCapacity);
       lineTotal += boxesNeeded * boxPrice;
     }
-    
+
     subtotal += lineTotal;
     const baseKey = String(item.productId || item.id || '').split('_')[0].toLowerCase();
     const imgSrc = item.image || item.img || PRODUCT_IMAGE_MAP[baseKey] || '/almond/1.jpg';
@@ -1726,27 +1726,27 @@ async function handleRazorpayProductCheckout() {
     if (modal) {
       document.getElementById('req-shipping-phone').value = details.phone || '';
       document.getElementById('req-shipping-address').value = details.address || '';
-      
+
       modal.style.display = 'flex';
       modal.style.opacity = '1';
       modal.classList.add('active');
-      
+
       const saveBtn = document.getElementById('btn-save-address-continue');
       saveBtn.onclick = () => {
         const newPhone = document.getElementById('req-shipping-phone').value.trim();
         const newAddr = document.getElementById('req-shipping-address').value.trim();
         const newPin = document.getElementById('req-shipping-pincode').value.trim();
-        
+
         if (newPhone.length < 10 || newAddr.length < 5 || newPin.length !== 6) {
           alert('Please enter a valid phone number, address, and 6-digit pin code.');
           return;
         }
-        
+
         const fullAddr = `${newAddr}, Bengaluru, ${newPin}`;
         localStorage.setItem('ming_morsels_phone', newPhone);
         localStorage.setItem('ming_morsels_address', fullAddr);
         localStorage.setItem('ming_morsels_pincode', newPin);
-        
+
         // Also update user profile if exists
         try {
           const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
@@ -1754,8 +1754,8 @@ async function handleRazorpayProductCheckout() {
           userProfile.address = fullAddr;
           userProfile.pincode = newPin;
           localStorage.setItem('user_profile', JSON.stringify(userProfile));
-        } catch(e) {}
-        
+        } catch (e) { }
+
         modal.style.display = 'none';
         modal.style.opacity = '0';
         modal.classList.remove('active');
@@ -1774,8 +1774,8 @@ async function handleRazorpayProductCheckout() {
   const origBtnText = payBtn ? payBtn.innerHTML : '';
   if (payBtn) {
     payBtn.disabled = true;
-    payBtn.innerHTML = isCOD 
-      ? '<span>⏳ Placing Order (Cash on Delivery)...</span>' 
+    payBtn.innerHTML = isCOD
+      ? '<span>⏳ Placing Order (Cash on Delivery)...</span>'
       : '<span>⏳ Preparing Razorpay Gateway...</span>';
   }
 
@@ -2102,15 +2102,15 @@ function initLivePurchaseNotifications() {
     prodIdx++;
 
     const nameEl = document.getElementById('live-purchase-name');
-    const locEl  = document.getElementById('live-purchase-loc');
+    const locEl = document.getElementById('live-purchase-loc');
     const itemEl = document.getElementById('live-purchase-item');
-    const imgEl  = document.getElementById('live-purchase-img');
+    const imgEl = document.getElementById('live-purchase-img');
     const timeEl = document.getElementById('live-purchase-time-text');
 
     if (nameEl) nameEl.textContent = profile.name;
-    if (locEl)  locEl.textContent  = `from ${profile.location}`;
+    if (locEl) locEl.textContent = `from ${profile.location}`;
     if (itemEl) itemEl.textContent = prod.name;
-    if (imgEl)  imgEl.src          = prod.img;
+    if (imgEl) imgEl.src = prod.img;
     if (timeEl) timeEl.textContent = `Verified Purchase · ${timeAgo}`;
 
     popupEl.classList.add('show');
