@@ -13,37 +13,37 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
   });
 
   it('GET /api/pincode/check - should return tiered shipping rates for all zones', async () => {
-    // 1. Tier 1: Local Bengaluru (560xxx) -> ₹49, Free above ₹499
+    // 1. Tier 1: Local Bengaluru (560xxx) -> ₹49, Free above ₹1000
     const localRes = await request(app).get('/api/pincode/check?pincode=560038');
     expect(localRes.status).toBe(200);
     expect(localRes.body.serviceable).toBe(true);
     expect(localRes.body.tier).toBe(1);
     expect(localRes.body.deliveryFee).toBe(49);
-    expect(localRes.body.freeDeliveryAbove).toBe(499);
+    expect(localRes.body.freeDeliveryAbove).toBe(1000);
 
-    // 2. Tier 2: Karnataka Regional (570xxx) -> ₹69, Free above ₹599
+    // 2. Tier 2: Karnataka Regional (570xxx) -> ₹69, Free above ₹1000
     const regRes = await request(app).get('/api/pincode/check?pincode=570001');
     expect(regRes.status).toBe(200);
     expect(regRes.body.serviceable).toBe(true);
     expect(regRes.body.tier).toBe(2);
     expect(regRes.body.deliveryFee).toBe(69);
-    expect(regRes.body.freeDeliveryAbove).toBe(599);
+    expect(regRes.body.freeDeliveryAbove).toBe(1000);
 
-    // 3. Tier 3: South Zone (600xxx) -> ₹89, Free above ₹799
+    // 3. Tier 3: South Zone (600xxx) -> ₹89, Free above ₹1000
     const southRes = await request(app).get('/api/pincode/check?pincode=600001');
     expect(southRes.status).toBe(200);
     expect(southRes.body.serviceable).toBe(true);
     expect(southRes.body.tier).toBe(3);
     expect(southRes.body.deliveryFee).toBe(89);
-    expect(southRes.body.freeDeliveryAbove).toBe(799);
+    expect(southRes.body.freeDeliveryAbove).toBe(1000);
 
-    // 4. Tier 4: National Outstation (110xxx) -> ₹119, Free above ₹899
+    // 4. Tier 4: National Outstation (110xxx) -> ₹119, Free above ₹1000
     const nationalRes = await request(app).get('/api/pincode/check?pincode=110001');
     expect(nationalRes.status).toBe(200);
     expect(nationalRes.body.serviceable).toBe(true);
     expect(nationalRes.body.tier).toBe(4);
     expect(nationalRes.body.deliveryFee).toBe(119);
-    expect(nationalRes.body.freeDeliveryAbove).toBe(899);
+    expect(nationalRes.body.freeDeliveryAbove).toBe(1000);
   });
 
   it('POST /api/customer/auth - should issue a signed JWT customer session token', async () => {

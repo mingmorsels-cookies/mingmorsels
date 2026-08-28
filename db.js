@@ -516,7 +516,7 @@ export function getPincodeShippingTier(pincode) {
     return {
       tier: 1,
       deliveryFee: 49,
-      freeDeliveryAbove: 499,
+      freeDeliveryAbove: 1000,
       zone: 'Local Bengaluru Hyperlocal',
       area: 'Bengaluru Urban'
     };
@@ -530,7 +530,7 @@ export function getPincodeShippingTier(pincode) {
     return {
       tier: 1,
       deliveryFee: 49,
-      freeDeliveryAbove: 499,
+      freeDeliveryAbove: 1000,
       zone: 'Local Bengaluru Hyperlocal',
       area: 'Bengaluru Urban (Central Hub)'
     };
@@ -541,7 +541,7 @@ export function getPincodeShippingTier(pincode) {
     return {
       tier: 2,
       deliveryFee: 69,
-      freeDeliveryAbove: 599,
+      freeDeliveryAbove: 1000,
       zone: 'Karnataka Regional',
       area: 'Karnataka Regional'
     };
@@ -552,7 +552,7 @@ export function getPincodeShippingTier(pincode) {
     return {
       tier: 3,
       deliveryFee: 89,
-      freeDeliveryAbove: 799,
+      freeDeliveryAbove: 1000,
       zone: 'South Zone Express',
       area: 'South India'
     };
@@ -562,7 +562,7 @@ export function getPincodeShippingTier(pincode) {
   return {
     tier: 4,
     deliveryFee: 119,
-    freeDeliveryAbove: 899,
+    freeDeliveryAbove: 1000,
     zone: 'National Delivery (Air Express)',
     area: 'National Outstation'
   };

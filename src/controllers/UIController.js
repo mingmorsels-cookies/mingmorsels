@@ -568,7 +568,7 @@ export class UIController {
           btnCheckPincode.textContent = 'Check';
           if (pincodeResult) {
             if (data.serviceable) {
-              pincodeResult.textContent = `✅ ${data.area}: ${data.estTime} (₹${data.deliveryFee ?? 49} delivery · Free above ₹${data.freeDeliveryAbove ?? 499})`;
+              pincodeResult.textContent = `✅ ${data.area}: ${data.estTime} (₹${data.deliveryFee ?? 49} delivery · Free above ₹${data.freeDeliveryAbove ?? 1000})`;
               pincodeResult.style.color = '#27AE60';
             } else {
               pincodeResult.textContent = '❌ Delivery currently unavailable for this pincode.';
@@ -600,9 +600,9 @@ export class UIController {
             couponMsg.textContent = '✨ Flat ₹50 luxury discount applied!';
             couponMsg.style.color = '#27AE60';
           }
-        } else if (code) {
+        } else {
           if (couponMsg) {
-            couponMsg.textContent = 'Invalid promo code. Try FIRSTBITE or LUXURY50';
+            couponMsg.textContent = '❌ Invalid or expired promo code.';
             couponMsg.style.color = '#E74C3C';
           }
         }
@@ -679,6 +679,18 @@ export class UIController {
     if (cartGstPrice) cartGstPrice.textContent = `+₹${gst}`;
     const cartGrandTotal = document.getElementById('cart-grand-total');
     if (cartGrandTotal) cartGrandTotal.textContent = `₹${estimatedTotal}`;
+
+    const cartDeliveryNote = document.getElementById('cart-delivery-note');
+    if (cartDeliveryNote) {
+      if (subtotal >= 1000) {
+        cartDeliveryNote.innerHTML = '<span style="color: #2E6B1A; font-weight: 700;">FREE (Orders ₹1,000+) 🎉</span>';
+      } else if (subtotal > 0) {
+        const diff = 1000 - subtotal;
+        cartDeliveryNote.innerHTML = `<span style="color: #C6960C; font-weight: 600;">Add ₹${diff} for FREE Delivery</span>`;
+      } else {
+        cartDeliveryNote.textContent = 'Free on orders ₹1,000+';
+      }
+    }
 
     if (cartDrawerBody) {
       if (cartItems.length === 0) {

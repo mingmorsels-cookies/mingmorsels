@@ -179,21 +179,22 @@ export class CheckoutController {
         deliveryFee = 0;
         isFree = true;
       } else {
-        if (pin.startsWith('560')) {
-          deliveryFee = subtotal >= 499 ? 0 : 49;
-          isFree = subtotal >= 499;
-        } else if (['561', '562', '563', '57', '58', '59'].some(p => pin.startsWith(p))) {
-          deliveryFee = subtotal >= 599 ? 0 : 69;
-          isFree = subtotal >= 599;
-        } else if (['50', '51', '52', '53', '60', '61', '62', '63', '64', '67', '68', '69'].some(p => pin.startsWith(p))) {
-          deliveryFee = subtotal >= 799 ? 0 : 89;
-          isFree = subtotal >= 799;
-        } else if (pin.length === 6) {
-          deliveryFee = subtotal >= 899 ? 0 : 119;
-          isFree = subtotal >= 899;
+        if (subtotal >= 1000) {
+          deliveryFee = 0;
+          isFree = true;
         } else {
-          deliveryFee = subtotal >= 499 ? 0 : 49;
-          isFree = subtotal >= 499;
+          if (pin.startsWith('560')) {
+            deliveryFee = 49;
+          } else if (['561', '562', '563', '57', '58', '59'].some(p => pin.startsWith(p))) {
+            deliveryFee = 69;
+          } else if (['50', '51', '52', '53', '60', '61', '62', '63', '64', '67', '68', '69'].some(p => pin.startsWith(p))) {
+            deliveryFee = 89;
+          } else if (pin.length === 6) {
+            deliveryFee = 119;
+          } else {
+            deliveryFee = 49;
+          }
+          isFree = false;
         }
       }
 
@@ -210,7 +211,7 @@ export class CheckoutController {
         if (activeDeliveryMode === 'pickup') {
           elDelivery.innerHTML = '<span style="color:#2E6B1A;">₹0 (FREE Store Pickup)</span>';
         } else if (isFree) {
-          elDelivery.innerHTML = '<span style="color:#2E6B1A;">FREE (Threshold met)</span>';
+          elDelivery.innerHTML = '<span style="color:#2E6B1A;">FREE (Orders ₹1,000+)</span>';
         } else {
           elDelivery.textContent = `+₹${deliveryFee}`;
         }
