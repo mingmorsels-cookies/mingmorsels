@@ -143,28 +143,29 @@ const handleCreateOrder = async (req, res) => {
       reserveStockHold(newOrder.id, calculation.verifiedItems);
       eventStreamService.broadcastNewOrder(newOrder);
 
-      // Auto Push Order to Shipway Logistics if applicable
-      if (!isPickupOrder) {
-        try {
-          const shipment = await logisticsService.pushOrderToShipway(newOrder);
-          if (shipment) {
-            newOrder.shipway_awb = shipment.shipway_awb;
-            newOrder.courier_name = shipment.courier_name;
-            newOrder.tracking_url = shipment.tracking_url;
-            newOrder.delivery_status = shipment.status;
+      // Non-blocking async background tasks (Auto Push to Shipway & Email/SMS dispatch)
+      (async () => {
+        if (!isPickupOrder) {
+          try {
+            const shipment = await logisticsService.pushOrderToShipway(newOrder);
+            if (shipment) {
+              newOrder.shipway_awb = shipment.shipway_awb;
+              newOrder.courier_name = shipment.courier_name;
+              newOrder.tracking_url = shipment.tracking_url;
+              newOrder.delivery_status = shipment.status;
+            }
+          } catch (shipErr) {
+            console.error('Shipway push warning:', shipErr);
           }
-        } catch (shipErr) {
-          console.error('Shipway push warning:', shipErr);
         }
-      }
 
-      // Automated Confirmation Email & SMS
-      try {
-        await notificationService.sendOrderConfirmationEmail(newOrder);
-        notificationService.sendOrderConfirmationSMS(newOrder);
-      } catch (notifyErr) {
-        console.error('Notification warning:', notifyErr);
-      }
+        try {
+          await notificationService.sendOrderConfirmationEmail(newOrder);
+          notificationService.sendOrderConfirmationSMS(newOrder);
+        } catch (notifyErr) {
+          console.error('Notification warning:', notifyErr);
+        }
+      })().catch(err => console.error('Background COD dispatch error:', err));
 
       return res.json({
         success: true,
@@ -340,26 +341,27 @@ const handleVerifyPayment = async (req, res) => {
         console.warn('Reward points calculation warning:', ptsErr);
       }
 
-      // 2. Auto Push Order to Shipway Logistics
-      try {
-        const shipment = await logisticsService.pushOrderToShipway(updatedOrder);
-        if (shipment) {
-          updatedOrder.shipway_awb = shipment.shipway_awb;
-          updatedOrder.courier_name = shipment.courier_name;
-          updatedOrder.tracking_url = shipment.tracking_url;
-          updatedOrder.delivery_status = shipment.status;
+      // Non-blocking async background tasks (Shipway & Email/SMS dispatch)
+      (async () => {
+        try {
+          const shipment = await logisticsService.pushOrderToShipway(updatedOrder);
+          if (shipment) {
+            updatedOrder.shipway_awb = shipment.shipway_awb;
+            updatedOrder.courier_name = shipment.courier_name;
+            updatedOrder.tracking_url = shipment.tracking_url;
+            updatedOrder.delivery_status = shipment.status;
+          }
+        } catch (shipErr) {
+          console.error('Shipway push warning:', shipErr);
         }
-      } catch (shipErr) {
-        console.error('Shipway push warning:', shipErr);
-      }
 
-      // 3. Automated Confirmation Email & SMS
-      try {
-        await notificationService.sendOrderConfirmationEmail(updatedOrder);
-        notificationService.sendOrderConfirmationSMS(updatedOrder);
-      } catch (notifErr) {
-        console.error('Notification dispatch warning:', notifErr);
-      }
+        try {
+          await notificationService.sendOrderConfirmationEmail(updatedOrder);
+          notificationService.sendOrderConfirmationSMS(updatedOrder);
+        } catch (notifErr) {
+          console.error('Notification dispatch warning:', notifErr);
+        }
+      })().catch(err => console.error('Background payment verification dispatch error:', err));
 
       // 4. Real-time SSE Broadcast to customer & admin
       eventStreamService.broadcastOrderUpdate(updatedOrder);
