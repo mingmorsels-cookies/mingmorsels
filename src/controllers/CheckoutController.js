@@ -483,7 +483,9 @@ export class CheckoutController {
       if (orderData.is_cod || isCOD) {
         cartStore.clear();
         clearActiveSession();
-        window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=Cash%20On%20Delivery`;
+        const pinParam = orderData.pickup_pin ? `&pin=${encodeURIComponent(orderData.pickup_pin)}` : '';
+        const modeParam = isPickup ? '&mode=pickup' : '';
+        window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=Cash%20On%20Delivery${pinParam}${modeParam}`;
         return;
       }
 

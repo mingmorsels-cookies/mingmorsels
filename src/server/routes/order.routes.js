@@ -181,6 +181,7 @@ const handleCreateOrder = async (req, res) => {
       return res.json({
         success: true,
         order_id: orderId,
+        pickup_pin: pickupPin,
         is_cod: true
       });
     }

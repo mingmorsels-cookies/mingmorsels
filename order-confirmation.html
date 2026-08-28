@@ -270,13 +270,32 @@
     const cleanId = rawOrderId.replace('#', '');
     const paymentId = urlParams.get('payment_id') || 'Cash On Delivery';
     const isPickup = urlParams.get('mode') === 'pickup' || (localStorage.getItem('ming_morsels_delivery_mode') === 'pickup');
+    const pickupPin = urlParams.get('pin') || localStorage.getItem('ming_morsels_pickup_pin') || '';
 
     document.getElementById('display-order-id').innerText = formattedOrderId;
     document.getElementById('display-payment-id').innerText = paymentId;
 
     if (isPickup) {
       document.getElementById('label-delivery-time').innerText = 'Collection Mode:';
-      document.getElementById('display-delivery-time').innerText = '🏪 Store Self-Pickup (Indiranagar Studio, ready in 2h)';
+      document.getElementById('display-delivery-time').innerText = '🏪 Store Self-Pickup (Indiranagar Studio)';
+
+      // Inject Pickup Details & PIN Banner
+      const detailsContainer = document.querySelector('.order-details');
+      if (detailsContainer) {
+        const pickupBox = document.createElement('div');
+        pickupBox.style.cssText = 'margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255, 255, 255, 0.15);';
+        pickupBox.innerHTML = `
+          <div style="background: rgba(200, 150, 12, 0.12); border: 1.5px solid #C6960C; border-radius: 10px; padding: 14px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #E5B21D; margin-bottom: 4px;">🔑 Your Store Collection PIN</div>
+            <div style="font-size: 28px; font-weight: 800; letter-spacing: 4px; color: #FAF6F0; font-family: monospace;">${pickupPin || '4892'}</div>
+            <p style="margin: 6px 0 0 0; font-size: 11.5px; color: #D5C4B3; line-height: 1.4;">
+              Show this PIN or Order ID at our Indiranagar Experience Center counter upon collection.<br/>
+              <strong>Location:</strong> 12th Main Road, HAL 2nd Stage, Indiranagar, Bengaluru
+            </p>
+          </div>
+        `;
+        detailsContainer.appendChild(pickupBox);
+      }
     }
 
     // Set Live Tracking & Invoice Links

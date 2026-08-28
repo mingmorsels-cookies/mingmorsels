@@ -16,19 +16,23 @@ export class LogisticsService {
     if (!order) return null;
 
     try {
+      const isCOD = order.payment_method === 'Cash on Delivery' || order.payment_method === 'COD';
+      const extractedPin = order.shipping_pincode || (order.shipping_address?.match(/\b\d{6}\b/) ? order.shipping_address.match(/\b\d{6}\b/)[0] : '560038');
+
       const payload = {
         username: this.username,
         password: this.licenseKey,
         order_id: String(order.id),
-        order_type: 'Prepaid',
-        payment_method: 'Prepaid (Razorpay)',
+        order_type: isCOD ? 'COD' : 'Prepaid',
+        payment_method: order.payment_method || (isCOD ? 'Cash on Delivery' : 'Prepaid (Razorpay)'),
         amount: String(order.total_amount || 0),
-        collectable_amount: '0',
+        collectable_amount: isCOD ? String(order.total_amount || 0) : '0',
         firstname: order.user_name || 'Valued Connoisseur',
         email: order.user_email || 'mingmorsels@gmail.com',
+        phone: order.user_phone || '',
         address: order.shipping_address || 'Bengaluru, Karnataka',
         city: 'Bengaluru',
-        pincode: '560038',
+        pincode: extractedPin,
         country: 'India',
         carrier_id: '1',
         products: Array.isArray(order.items) 
