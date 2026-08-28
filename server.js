@@ -26,15 +26,19 @@ import { structuredLogger } from './src/server/middleware/logger.js';
 export const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Configure Web Push VAPID Keys
-if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+// Configure Web Push VAPID Keys with resilient production defaults
+export const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || 'BMy8z8jXV88NZmTA7UyB0ZHN0ACwl3VtPH90jkFLNYBUHeTtbNZouAsPKv56AAn2IqFKmtW20QJSj4eha_kHXgU';
+export const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || 'Jt5grZK5rSOs7LVzmC2nu0Nh0ncbjeJMRxbEDvcz7vM';
+
+try {
   webpush.setVapidDetails(
     'mailto:mingmorsels@gmail.com',
-    process.env.VAPID_PUBLIC_KEY,
-    process.env.VAPID_PRIVATE_KEY
+    VAPID_PUBLIC_KEY,
+    VAPID_PRIVATE_KEY
   );
-} else {
-  console.warn('⚠️ Web Push VAPID keys not found in .env');
+  console.log('🔔 [WebPush] VAPID gateway active and ready.');
+} catch (vapidErr) {
+  console.warn('⚠️ Web Push VAPID initialization warning:', vapidErr.message);
 }
 
 // 1. Structured JSON Request Logger & Tracing

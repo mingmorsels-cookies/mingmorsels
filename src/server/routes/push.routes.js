@@ -5,9 +5,11 @@ import { verifyAdminAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
+const DEFAULT_VAPID_PUBLIC_KEY = 'BMy8z8jXV88NZmTA7UyB0ZHN0ACwl3VtPH90jkFLNYBUHeTtbNZouAsPKv56AAn2IqFKmtW20QJSj4eha_kHXgU';
+
 // GET /api/push/public-key — Returns VAPID public key to frontend
 router.get(['/api/push/public-key', '/push/public-key'], (req, res) => {
-  res.json({ publicKey: process.env.VAPID_PUBLIC_KEY || '' });
+  res.json({ publicKey: process.env.VAPID_PUBLIC_KEY || DEFAULT_VAPID_PUBLIC_KEY });
 });
 
 // POST /api/push/subscribe — Saves push subscription with optional customer identifier

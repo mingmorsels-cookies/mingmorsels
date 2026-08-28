@@ -169,9 +169,60 @@ export class AuthController {
     if (gOnload) gOnload.style.display = 'none';
   }
 
+  async syncPushSubscription() {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+    if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+
+    try {
+      const swReg = await navigator.serviceWorker.register('/sw.js');
+      await navigator.serviceWorker.ready;
+
+      let subscription = await swReg.pushManager.getSubscription();
+      if (!subscription) {
+        const res = await fetch('/api/push/public-key');
+        if (res.ok) {
+          const { publicKey } = await res.json();
+          if (publicKey) {
+            const urlBase64ToUint8Array = (base64String) => {
+              const padding = '='.repeat((4 - base64String.length % 4) % 4);
+              const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+              const rawData = window.atob(base64);
+              return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+            };
+            subscription = await swReg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: urlBase64ToUint8Array(publicKey)
+            });
+          }
+        }
+      }
+
+      if (subscription) {
+        let user = {};
+        try { user = JSON.parse(localStorage.getItem('user_profile') || '{}'); } catch(e) {}
+        await fetch('/api/push/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            subscription,
+            customer_email: user.email || '',
+            customer_phone: user.phone || localStorage.getItem('ming_morsels_phone') || ''
+          })
+        });
+        console.log('🔔 [Push] Active subscriber registered with backend.');
+      }
+    } catch (err) {
+      console.warn('Push sync note:', err.message);
+    }
+  }
+
   showNotifPermissionModal() {
     if (!('Notification' in window)) return;
-    if (Notification.permission === 'granted' || Notification.permission === 'denied') return;
+    if (Notification.permission === 'granted') {
+      this.syncPushSubscription();
+      return;
+    }
+    if (Notification.permission === 'denied') return;
 
     let modal = document.getElementById('notif-permission-modal');
     if (!modal) {
@@ -219,40 +270,10 @@ export class AuthController {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
           localStorage.setItem('mm_notif_allowed', 'true');
-          if ('serviceWorker' in navigator && 'PushManager' in window) {
-            const swReg = await navigator.serviceWorker.register('/sw.js');
-            await navigator.serviceWorker.ready;
-            const res = await fetch('/api/push/public-key');
-            if (res.ok) {
-              const { publicKey } = await res.json();
-              if (publicKey) {
-                const urlBase64ToUint8Array = (base64String) => {
-                  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-                  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-                  const rawData = window.atob(base64);
-                  return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
-                };
-                const subscription = await swReg.pushManager.subscribe({
-                  userVisibleOnly: true,
-                  applicationServerKey: urlBase64ToUint8Array(publicKey)
-                });
-                let user = {};
-                try { user = JSON.parse(localStorage.getItem('user_profile') || '{}'); } catch(e) {}
-                await fetch('/api/push/subscribe', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    subscription,
-                    customer_email: user.email || '',
-                    customer_phone: user.phone || localStorage.getItem('ming_morsels_phone') || ''
-                  })
-                });
-              }
-            }
-          }
+          await this.syncPushSubscription();
         }
       } catch (err) {
-        console.warn('Push subscription flow:', err);
+        console.warn('Push subscription error:', err);
       }
     };
 
