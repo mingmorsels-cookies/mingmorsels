@@ -65,13 +65,33 @@ export class NotificationService {
       <!DOCTYPE html>
       <html>
       <head><meta charset="utf-8"><title>Order Confirmed - #${order.id}</title></head>
-      <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background-color: #FAF6F0;">
-        <div style="max-width: 600px; margin: 0 auto; background: #FFFFFF; border-radius: 16px; overflow: hidden; border: 1px solid #EADCCB; box-shadow: 0 8px 30px rgba(61,32,0,0.06);">
-          <div style="background: linear-gradient(135deg, #3D2000 0%, #251300 100%); padding: 28px 24px; text-align: center; color: #FFF;">
-            <h1 style="margin: 0; font-size: 24px; letter-spacing: 2px; color: #C8960C;">MING MORSELS</h1>
-            <p style="margin: 4px 0 0 0; font-size: 12px; color: #D5C4B3; letter-spacing: 1.5px; text-transform: uppercase;">when moments matter</p>
+      <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 24px; background-color: #FAF6F0;">
+        <div style="max-width: 640px; margin: 0 auto; background: #FFFFFF; border-radius: 12px; overflow: hidden; border: 1px solid #EADCCB; box-shadow: 0 8px 30px rgba(61,32,0,0.06); padding: 32px 30px;">
+          
+          <!-- Official Corporate Letterhead Header -->
+          <div style="border-bottom: 2.5px solid #EE6A43; padding-bottom: 20px; margin-bottom: 24px;">
+            <table style="width: 100%; border-collapse: collapse; border: none;">
+              <tr>
+                <td style="width: 110px; vertical-align: middle; padding-right: 16px;">
+                  <div style="position: relative; width: 100px; height: 55px; background: #EE6A43; border-radius: 26px 12px 26px 12px; display: table; text-align: center; box-shadow: 0 4px 10px rgba(238, 106, 67, 0.25);">
+                    <div style="display: table-cell; vertical-align: middle; position: relative;">
+                      <span style="position: absolute; top: 2px; right: 6px; font-size: 8px; color: #FFFFFF; font-weight: 700; font-family: sans-serif;">TM</span>
+                      <span style="color: #2C1810; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 800; font-size: 13.5px; letter-spacing: -0.3px;">mingmorsels</span>
+                    </div>
+                  </div>
+                </td>
+                <td style="vertical-align: middle;">
+                  <h1 style="margin: 0 0 4px 0; font-family: 'Times New Roman', Times, Georgia, serif; font-size: 22px; font-weight: 800; color: #3D2000; letter-spacing: 0.8px; text-transform: uppercase;">MIORA DELIGHTS PRIVATE LIMITED</h1>
+                  <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; color: #333333; line-height: 1.45;">
+                    Reg. office: Katha No.02, Mysore Road, Behind the Club, Nayandahalli, Bangalore, Karnataka-560039<br/>
+                    <strong>CIN:</strong> U10711KA2026PTC216288 &nbsp;|&nbsp; <strong>Email:</strong> mingmorsels@gmail.com
+                  </div>
+                </td>
+              </tr>
+            </table>
           </div>
-          <div style="padding: 32px 28px;">
+
+          <div>
             <h2 style="color: #3D2000; font-size: 20px; margin-top: 0;">Order Confirmed ✅ — #${order.id}</h2>
             <p style="color: #665241; line-height: 1.6;">Dear ${order.user_name || 'Connoisseur'}, your handcrafted artisanal selection has been accepted and is now entering our baking studio. 🍪</p>
 

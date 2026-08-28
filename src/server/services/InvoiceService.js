@@ -5,14 +5,14 @@
 export class InvoiceService {
   static COMPANY_DETAILS = {
     legalName: 'MIORA DELIGHTS PRIVATE LIMITED',
-    brandName: 'Ming Morsels (Miora Delights Pvt. Ltd.)',
-    tagline: 'Artisanal Confectionery & Handcrafted Luxury Cookies',
-    address: '1st Floor, Katha No.02, Behind the club, Mysore Road, Nayandahalli, Bengaluru Urban, Karnataka - 560039',
+    brandName: 'mingmorsels',
+    regOffice: 'Katha No.02, Mysore Road, Behind the Club, Nayandahalli, Bangalore, Karnataka-560039',
+    cin: 'U10711KA2026PTC216288',
+    email: 'mingmorsels@gmail.com',
     gstin: '29AAUCM5423C1Z9',
     pan: 'AAUCM5423C',
     fssai: '11223334000555',
     state: 'Karnataka (Code: 29)',
-    email: 'concierge@mingmorsels.com',
     phone: '+91 8884102020'
   };
 
@@ -96,26 +96,54 @@ export class InvoiceService {
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 2px solid #d4af37;
-      padding-bottom: 24px;
-      margin-bottom: 28px;
+      border-bottom: 2.5px solid #EE6A43;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+    .letterhead-table {
+      width: 100%;
+      border-collapse: collapse;
     }
     .brand-title {
+      font-family: 'Times New Roman', Times, Georgia, serif;
       font-size: 26px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #3c1518;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #3D2000;
       text-transform: uppercase;
       margin: 0 0 6px 0;
     }
     .brand-sub {
-      font-size: 12px;
-      color: #8c7355;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      font-size: 11.5px;
+      color: #333333;
+      line-height: 1.45;
+    }
+    .logo-badge {
+      position: relative;
+      width: 105px;
+      height: 56px;
+      background: #EE6A43;
+      border-radius: 26px 12px 26px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(238, 106, 67, 0.2);
+    }
+    .logo-badge .tm {
+      position: absolute;
+      top: 3px;
+      right: 7px;
+      font-size: 8px;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-family: sans-serif;
+    }
+    .logo-badge .brand-text {
+      color: #2C1810;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: -0.2px;
     }
     .invoice-badge {
       text-align: right;
@@ -123,7 +151,7 @@ export class InvoiceService {
     .invoice-badge h2 {
       margin: 0;
       font-size: 20px;
-      color: #3c1518;
+      color: #3D2000;
       letter-spacing: 1px;
     }
     .invoice-badge p {
@@ -223,21 +251,30 @@ export class InvoiceService {
   <button class="print-btn" onclick="window.print()">🖨️ Print / Download PDF Invoice</button>
   <div class="invoice-card">
     <div class="header">
-      <div>
-        <h1 class="brand-title">Ming Morsels</h1>
-        <div class="brand-sub">${company.legalName} • ${company.tagline}</div>
-        <div style="font-size: 12px; color: #555; margin-top: 6px; line-height: 1.4;">
-          ${company.address}<br>
-          GSTIN: <strong>${company.gstin}</strong> | PAN: <strong>${company.pan}</strong> | FSSAI: ${company.fssai}
-        </div>
-      </div>
-      <div class="invoice-badge">
-        <h2>TAX INVOICE</h2>
-        <p><strong>Invoice No:</strong> INV-${order.id}</p>
-        <p><strong>Order Ref:</strong> ${order.id}</p>
-        <p><strong>Date:</strong> ${invoiceDate}</p>
-        <p><strong>Status:</strong> <span style="color: green; font-weight: bold;">${order.payment_status || 'PAID'}</span></p>
-      </div>
+      <table class="letterhead-table">
+        <tr>
+          <td style="width: 115px; vertical-align: middle; padding-right: 18px;">
+            <div class="logo-badge">
+              <span class="tm">TM</span>
+              <span class="brand-text">mingmorsels</span>
+            </div>
+          </td>
+          <td style="vertical-align: middle;">
+            <h1 class="brand-title">MIORA DELIGHTS PRIVATE LIMITED</h1>
+            <div class="brand-sub">
+              Reg. office: ${company.regOffice}<br/>
+              <strong>CIN:</strong> ${company.cin} &nbsp;|&nbsp; <strong>Email:</strong> ${company.email}
+            </div>
+          </td>
+          <td style="vertical-align: middle; text-align: right; width: 170px;">
+            <div class="invoice-badge">
+              <h2>TAX INVOICE</h2>
+              <p><strong>Invoice:</strong> INV-${order.id}</p>
+              <p><strong>Date:</strong> ${invoiceDate}</p>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <div class="meta-grid">
