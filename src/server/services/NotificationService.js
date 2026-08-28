@@ -147,13 +147,61 @@ export class NotificationService {
   }
 
   /**
-   * Dispatches SMS notification (logs only - no SMS gateway configured yet).
+   * Dispatches SMS via Fast2SMS API to the customer's phone.
+   * Requires FAST2SMS_API_KEY env variable.
    */
-  sendOrderConfirmationSMS(order) {
+  async sendOrderConfirmationSMS(order) {
     if (!order) return;
-    const phone = order.user_phone || order.phone || order.shipping_phone || 'unknown';
+
+    const rawPhone = order.user_phone || order.phone || order.shipping_phone || '';
+    const phone = rawPhone.replace(/\D/g, '').slice(-10); // Extract last 10 digits
+    const apiKey = process.env.FAST2SMS_API_KEY;
+
+    const isPickup = order.delivery_mode === 'pickup' || (order.shipping_address && order.shipping_address.includes('Store Pickup:'));
+    const isCOD = order.payment_method === 'Cash on Delivery' || order.payment_method === 'COD';
+
     const trackUrl = `https://web-production-b66e7.up.railway.app/track-order.html?order_id=${order.id}`;
-    console.log(`📱 [SMS] To ${phone}: "Your Ming Morsels order #${order.id} of ₹${order.total_amount} is baking! Track: ${trackUrl}"`);
+
+    const smsMessage = isPickup
+      ? `Hi ${order.user_name || 'there'}! Your Ming Morsels order #${order.id} (Rs.${order.total_amount}) is confirmed for Store Pickup at Indiranagar. ${isCOD ? `Keep Rs.${order.total_amount} ready. ` : ''}Ready in 2-3 hrs. Track: ${trackUrl}`
+      : `Hi ${order.user_name || 'there'}! Your Ming Morsels order #${order.id} (Rs.${order.total_amount}) is confirmed! ${isCOD ? `Keep Rs.${order.total_amount} ready for COD. ` : ''}Delivery in 2-4 hrs. Track: ${trackUrl}`;
+
+    if (!apiKey) {
+      console.log(`📱 [SMS - No API Key] To ${phone}: ${smsMessage}`);
+      return;
+    }
+
+    if (phone.length !== 10) {
+      console.warn(`⚠️ [SMS] Skipping - invalid phone: "${rawPhone}"`);
+      return;
+    }
+
+    try {
+      const res = await fetch('https://www.fast2sms.com/dev/bulkV2', {
+        method: 'POST',
+        headers: {
+          'authorization': apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          route: 'q',            // Quick transactional route (no DLT needed)
+          message: smsMessage,
+          language: 'english',
+          flash: 0,
+          numbers: phone
+        }),
+        signal: AbortSignal.timeout(8000)
+      });
+
+      const data = await res.json();
+      if (data.return === true) {
+        console.log(`✅ [SMS Sent] Order #${order.id} → +91${phone}`);
+      } else {
+        console.warn(`⚠️ [SMS Failed] Fast2SMS response:`, data);
+      }
+    } catch (err) {
+      console.warn(`⚠️ [SMS Error] Could not send SMS to ${phone}:`, err.message);
+    }
   }
 }
 
