@@ -58,7 +58,7 @@ function initLocalStoreSync() {
 
 initLocalStoreSync();
 
-async function readLocalStoreAsync() {
+export async function readLocalStoreAsync() {
   try {
     const raw = await fs.promises.readFile(LOCAL_DB_PATH, 'utf-8');
     const store = JSON.parse(raw);
@@ -73,7 +73,7 @@ async function readLocalStoreAsync() {
   }
 }
 
-function readLocalStore() {
+export function readLocalStore() {
   try {
     const store = JSON.parse(fs.readFileSync(LOCAL_DB_PATH, 'utf-8'));
     if (!store.inventory) store.inventory = { ...DEFAULT_INVENTORY };
@@ -87,7 +87,7 @@ function readLocalStore() {
   }
 }
 
-async function writeLocalStoreAsync(data) {
+export async function writeLocalStoreAsync(data) {
   writeQueue = writeQueue.then(async () => {
     try {
       const tmp = `${LOCAL_DB_PATH}.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`;
