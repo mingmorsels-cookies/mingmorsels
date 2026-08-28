@@ -198,7 +198,11 @@ const handleCreateOrder = async (req, res) => {
     });
 
     // Detect Store Self-Pickup Mode & Generate 4-digit Verification PIN
-    const isPickupOrder = String(shipping_address || '').includes('Store Pickup:') || String(shipping_address || '').toLowerCase().includes('pickup');
+    const isPickupOrder = req.body.delivery_mode === 'pickup' 
+      || String(shipping_address || '').includes('Store Pickup:') 
+      || String(shipping_address || '').toLowerCase().includes('pickup')
+      || String(shipping_address || '').toLowerCase().includes('nayandahalli')
+      || String(shipping_address || '').toLowerCase().includes('indiranagar');
     const pickupPin = isPickupOrder ? String(Math.floor(1000 + Math.random() * 9000)) : null;
 
     // Store Order Record in Database
@@ -242,6 +246,8 @@ const handleCreateOrder = async (req, res) => {
       total_amount: calculation.totalAmount,
       currency: 'INR',
       key_id: paymentService.keyId,
+      pickup_pin: pickupPin,
+      delivery_mode: newOrder.delivery_mode,
       customer_token: customerToken,
       breakdown: {
         subtotal: calculation.subtotal,

@@ -230,26 +230,34 @@ router.post('/admin/pickup/verify', verifyAdminAuth, async (req, res) => {
   try {
     const { order_id, pin } = req.body;
     if (!order_id) {
-      return res.status(400).json({ success: false, error: 'Order ID is required' });
+      return res.status(400).json({ success: false, error: 'Order ID is required.' });
     }
 
-    const order = await getOrderRecord(order_id);
+    const cleanOrderId = String(order_id).trim().replace(/^#/, '');
+    const order = await getOrderRecord(cleanOrderId) || await getOrderRecord(order_id);
     if (!order) {
-      return res.status(404).json({ success: false, error: 'Order record not found.' });
+      return res.status(404).json({ success: false, error: `Order #${cleanOrderId} not found in database.` });
     }
 
-    // Verify PIN if order has a pickup_pin
-    if (order.pickup_pin && pin && String(order.pickup_pin).trim() !== String(pin).trim()) {
-      return res.status(400).json({ 
-        success: false, 
-        error: `Invalid Pickup PIN! The entered PIN does not match this customer's order.` 
-      });
+    const enteredPin = String(pin || '').trim();
+
+    // Verify PIN against stored order PIN if present
+    if (order.pickup_pin && enteredPin) {
+      const storedPin = String(order.pickup_pin).trim();
+      if (storedPin !== enteredPin) {
+        return res.status(400).json({ 
+          success: false, 
+          error: `Invalid PIN! Entered PIN (${enteredPin}) does not match Customer's Secret PIN (${storedPin}).` 
+        });
+      }
     }
 
     const updated = await updateOrderShipmentInfo(order.id, {
       delivery_status: 'DELIVERED',
       pickup_handed_over_at: new Date().toISOString(),
-      pickup_verified: true
+      pickup_verified: true,
+      pickup_pin: order.pickup_pin || (enteredPin.length === 4 ? enteredPin : '4892'),
+      payment_status: order.payment_method === 'Cash on Delivery' ? 'PAID' : order.payment_status
     });
 
     eventStreamService.broadcastStatusUpdate(order.id, 'DELIVERED');
@@ -261,7 +269,7 @@ router.post('/admin/pickup/verify', verifyAdminAuth, async (req, res) => {
     });
   } catch (error) {
     console.error('Pickup verification error:', error);
-    res.status(500).json({ success: false, error: 'Failed to verify pickup.' });
+    res.status(500).json({ success: false, error: 'Failed to verify pickup: ' + error.message });
   }
 });
 

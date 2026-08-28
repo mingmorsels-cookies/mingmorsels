@@ -1845,7 +1845,12 @@ async function handleRazorpayProductCheckout() {
       cartStore.clear();
       updateCartBadge();
       renderCartDrawerBody();
-      window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=Cash%20On%20Delivery`;
+      const pinParam = orderData.pickup_pin ? `&pin=${encodeURIComponent(orderData.pickup_pin)}` : '';
+      const modeParam = isPickup ? '&mode=pickup' : '';
+      if (orderData.pickup_pin) {
+        localStorage.setItem('ming_morsels_pickup_pin', orderData.pickup_pin);
+      }
+      window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=Cash%20On%20Delivery${pinParam}${modeParam}`;
       return;
     }
 
@@ -1895,10 +1900,20 @@ async function handleRazorpayProductCheckout() {
           updateCartBadge();
           renderCartDrawerBody();
 
-          window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=${encodeURIComponent(response.razorpay_payment_id || 'Completed')}`;
+          const activePin = shippedOrder.pickup_pin || orderData.pickup_pin || '';
+          if (activePin) {
+            localStorage.setItem('ming_morsels_pickup_pin', activePin);
+          }
+          const pinParam = activePin ? `&pin=${encodeURIComponent(activePin)}` : '';
+          const modeParam = isPickup ? '&mode=pickup' : '';
+
+          window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=${encodeURIComponent(response.razorpay_payment_id || 'Completed')}${pinParam}${modeParam}`;
         } catch (err) {
           console.error('Payment verification error:', err);
-          window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=${encodeURIComponent(response.razorpay_payment_id || 'Completed')}`;
+          const activePin = orderData.pickup_pin || '';
+          const pinParam = activePin ? `&pin=${encodeURIComponent(activePin)}` : '';
+          const modeParam = isPickup ? '&mode=pickup' : '';
+          window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=${encodeURIComponent(response.razorpay_payment_id || 'Completed')}${pinParam}${modeParam}`;
         }
       }
     };

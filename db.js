@@ -435,14 +435,31 @@ export async function markOrderPaid(orderId, paymentId) {
   return null;
 }
 
-export async function updateOrderShipmentInfo(orderId, { awb, courier, status, trackingUrl }) {
+export async function updateOrderShipmentInfo(orderId, updateFields = {}) {
   const store = await readLocalStoreAsync();
-  const order = store.orders.find(o => o.id === orderId || o.razorpay_order_id === orderId);
+  const cleanId = String(orderId || '').trim().replace(/^#/, '');
+  const order = store.orders.find(o => 
+    o.id === orderId || 
+    o.id === cleanId || 
+    o.id === `#${cleanId}` || 
+    o.razorpay_order_id === orderId ||
+    o.razorpay_order_id === cleanId
+  );
   if (order) {
-    order.shipway_awb = awb;
-    order.courier_name = courier;
-    order.delivery_status = status || 'DISPATCHED';
-    order.tracking_url = trackingUrl || '';
+    const { awb, courier, status, trackingUrl, delivery_status, pickup_handed_over_at, pickup_verified, pickup_pin, payment_status } = updateFields;
+    if (awb !== undefined) order.shipway_awb = awb;
+    if (courier !== undefined) order.courier_name = courier;
+    if (delivery_status !== undefined || status !== undefined) {
+      order.delivery_status = delivery_status || status || order.delivery_status;
+    }
+    if (trackingUrl !== undefined) order.tracking_url = trackingUrl;
+    if (pickup_handed_over_at !== undefined) order.pickup_handed_over_at = pickup_handed_over_at;
+    if (pickup_verified !== undefined) order.pickup_verified = pickup_verified;
+    if (pickup_pin !== undefined) order.pickup_pin = pickup_pin;
+    if (payment_status !== undefined) order.payment_status = payment_status;
+    if (order.delivery_status === 'DELIVERED' && order.payment_method === 'Cash on Delivery') {
+      order.payment_status = 'PAID';
+    }
     await writeLocalStoreAsync(store);
     return order;
   }
