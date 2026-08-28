@@ -19,7 +19,8 @@ function createMenuItem({
   link,
   text,
   image,
-  speed = 15,
+  highlights = [],
+  speed = 18,
   textColor = '#FAF6F0',
   marqueeBgColor = '#FAF6F0',
   marqueeTextColor = '#2C1810',
@@ -53,20 +54,43 @@ function createMenuItem({
       part.className = 'marquee__part';
       part.style.color = marqueeTextColor;
 
-      const span = document.createElement('span');
-      span.textContent = text;
+      // Product Title
+      const titleSpan = document.createElement('span');
+      titleSpan.className = 'marquee__title';
+      titleSpan.textContent = text;
+      part.appendChild(titleSpan);
 
+      // Product Image
       const img = document.createElement('div');
       img.className = 'marquee__img';
       img.style.backgroundImage = `url(${image})`;
-
-      part.appendChild(span);
       part.appendChild(img);
+
+      // Why You'll Love It Features/Highlights
+      if (highlights && highlights.length) {
+        const whyTag = document.createElement('span');
+        whyTag.className = 'marquee__why-badge';
+        whyTag.innerHTML = '❤️ WHY YOU’LL LOVE IT:';
+        part.appendChild(whyTag);
+
+        highlights.forEach(h => {
+          const pill = document.createElement('span');
+          pill.className = 'marquee__pill';
+          pill.textContent = `✦ ${h}`;
+          part.appendChild(pill);
+        });
+
+        const divider = document.createElement('span');
+        divider.className = 'marquee__divider';
+        divider.textContent = '•';
+        part.appendChild(divider);
+      }
+
       inner.appendChild(part);
     }
   }
 
-  buildMarqueeContent(4);
+  buildMarqueeContent(3);
   innerWrap.appendChild(inner);
   marquee.appendChild(innerWrap);
   item.appendChild(anchor);
@@ -81,7 +105,7 @@ function createMenuItem({
     const contentWidth = part.offsetWidth;
     if (contentWidth === 0) return;
 
-    const needed = Math.max(4, Math.ceil(window.innerWidth / contentWidth) + 2);
+    const needed = Math.max(3, Math.ceil(window.innerWidth / contentWidth) + 2);
     buildMarqueeContent(needed);
 
     const firstPart = inner.querySelector('.marquee__part');
@@ -89,14 +113,14 @@ function createMenuItem({
 
     marqueeTween = gsap.to(inner, {
       x: -firstPart.offsetWidth,
-      duration: speed,
+      duration: speed * (firstPart.offsetWidth / 800),
       ease: 'none',
       repeat: -1
     });
   }
 
-  setTimeout(setupMarquee, 50);
-  window.addEventListener('resize', () => setTimeout(setupMarquee, 50));
+  setTimeout(setupMarquee, 60);
+  window.addEventListener('resize', () => setTimeout(setupMarquee, 60));
 
   anchor.addEventListener('mouseenter', (ev) => {
     const rect = item.getBoundingClientRect();
@@ -126,7 +150,7 @@ function createMenuItem({
 
 export function initFlowingMenu(container, items = [], options = {}) {
   const {
-    speed = 15,
+    speed = 18,
     textColor = '#FAF6F0',
     bgColor = '#1A0E08',
     marqueeBgColor = '#FAF6F0',

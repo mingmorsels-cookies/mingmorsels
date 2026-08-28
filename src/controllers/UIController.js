@@ -261,11 +261,42 @@ export class UIController {
     if (!root) return;
 
     const items = [
-      { link: '/product.html?id=almond', text: 'Almond Rich Cookies', image: '/almond/1.jpg' },
-      { link: '/product.html?id=rose', text: 'Rose Petal Cookies', image: '/rose-petal/1.jpg' },
-      { link: '/product.html?id=oatsnuts', text: 'Oats & Nuts Cookies', image: '/oats-nuts/1.jpg' },
-      { link: '/product.html?id=chocochip', text: 'Chocochip Muffins', image: '/img-chocochip.jpg' },
-      { link: '/product.html?id=butterscotch', text: 'Butterscotch Muffins', image: '/img-butterscotch.jpg' }
+      {
+        link: '/product.html?id=almond',
+        text: 'Almond Rich Cookies',
+        image: '/almond/1.jpg',
+        highlights: ['Made with Real Almonds', 'Pure Butter Recipe', 'Rich Nutty Crunch', 'Perfect On-the-go Snack']
+      },
+      {
+        link: '/product.html?id=rose',
+        text: 'Rose Petal Cookies',
+        image: '/rose-petal/1.jpg',
+        highlights: ['Infused with Real Rose Petals', 'Mild & Unique Flavour', 'Premium Tea-time Cookie', 'Captivating Flower Aroma']
+      },
+      {
+        link: '/product.html?id=oatsnuts',
+        text: 'Oats & Nuts Cookies',
+        image: '/oats-nuts/1.jpg',
+        highlights: ['Made with Real Oats', 'Made with Coconut Powder', 'Rich in Dry Fruits', 'Rich in Fibre']
+      },
+      {
+        link: '/product.html?id=orange',
+        text: 'Orange Peel Cookies',
+        image: '/orange-peel/1.jpg',
+        highlights: ['Made with Real Orange Peels', 'Made with Tutti Frutti', 'Refreshing Citrus Flavour', 'Soft Baked for Better Texture']
+      },
+      {
+        link: '/product.html?id=chocochip',
+        text: 'Chocochip Muffins',
+        image: '/img-chocochip.jpg',
+        highlights: ['Pure Dark Chocolate', 'Melt-in-Mouth Soft Bake', '100% Cow Butter Recipe', 'Rich Chocolate Chips']
+      },
+      {
+        link: '/product.html?id=butterscotch',
+        text: 'Butterscotch Muffins',
+        image: '/img-butterscotch.jpg',
+        highlights: ['Caramelized Butterscotch Drops', 'Golden Soft-Baked Cake', 'Crunchy Toffee Bits', 'Handcrafted Recipe']
+      }
     ];
 
     initFlowingMenu(root, items, {
