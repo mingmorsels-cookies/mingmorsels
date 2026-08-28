@@ -228,7 +228,7 @@ const handleAdminStats = async (req, res) => {
 
 router.post('/admin/pickup/verify', verifyAdminAuth, async (req, res) => {
   try {
-    const { order_id, pin } = req.body;
+    const { order_id, pin, override } = req.body;
     if (!order_id) {
       return res.status(400).json({ success: false, error: 'Order ID is required.' });
     }
@@ -239,24 +239,34 @@ router.post('/admin/pickup/verify', verifyAdminAuth, async (req, res) => {
       return res.status(404).json({ success: false, error: `Order #${cleanOrderId} not found in database.` });
     }
 
-    const enteredPin = String(pin || '').trim();
+    // If order has already been collected, return friendly success
+    if (order.delivery_status === 'DELIVERED' || order.pickup_verified) {
+      return res.json({
+        success: true,
+        already_collected: true,
+        message: `✅ Order #${order.id} is already verified and marked as COLLECTED. Handover completed!`,
+        order
+      });
+    }
 
-    // Verify PIN against stored order PIN if present
-    if (order.pickup_pin && enteredPin) {
-      const storedPin = String(order.pickup_pin).trim();
-      if (storedPin !== enteredPin) {
-        return res.status(400).json({ 
-          success: false, 
-          error: `Invalid PIN! Entered PIN (${enteredPin}) does not match Customer's Secret PIN (${storedPin}).` 
-        });
-      }
+    const enteredPin = String(pin || '').trim();
+    const storedPin = String(order.pickup_pin || '').trim();
+
+    // Verify PIN against stored order PIN if present and not overridden
+    if (storedPin && enteredPin && storedPin !== enteredPin && !override) {
+      return res.status(400).json({ 
+        success: false, 
+        error: `Invalid PIN! Customer provided ${enteredPin}, but system PIN is ${storedPin}.`,
+        stored_pin: storedPin,
+        can_override: true
+      });
     }
 
     const updated = await updateOrderShipmentInfo(order.id, {
       delivery_status: 'DELIVERED',
       pickup_handed_over_at: new Date().toISOString(),
       pickup_verified: true,
-      pickup_pin: order.pickup_pin || (enteredPin.length === 4 ? enteredPin : '4892'),
+      pickup_pin: storedPin || enteredPin || '4892',
       payment_status: order.payment_method === 'Cash on Delivery' ? 'PAID' : order.payment_status
     });
 

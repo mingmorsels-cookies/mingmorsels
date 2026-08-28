@@ -1215,7 +1215,7 @@
       }
     }
 
-    async function verifyPickupHandover(orderId, pin) {
+    async function verifyPickupHandover(orderId, pin, override = false) {
       const resultBox = document.getElementById('pickup-verify-result');
       if (!orderId) {
         alert('Please enter an Order ID to verify.');
@@ -1226,6 +1226,7 @@
         resultBox.style.display = 'block';
         resultBox.style.background = 'rgba(200,150,12,0.15)';
         resultBox.style.color = '#FFFFFF';
+        resultBox.style.border = '1px solid var(--color-gold)';
         resultBox.innerHTML = `⏳ Verifying Order <strong>#${escapeHtml(orderId)}</strong>...`;
       }
 
@@ -1233,7 +1234,7 @@
         const res = await fetch('/api/admin/pickup/verify', {
           method: 'POST',
           headers: getAdminHeaders(),
-          body: JSON.stringify({ order_id: orderId, pin: pin })
+          body: JSON.stringify({ order_id: orderId, pin: pin, override: override })
         });
         const data = await res.json();
         if (data.success) {
@@ -1241,7 +1242,7 @@
             resultBox.style.background = 'rgba(46,204,113,0.2)';
             resultBox.style.border = '1px solid #2ECC71';
             resultBox.style.color = '#2ECC71';
-            resultBox.innerHTML = `<strong>${data.message}</strong><br/><span style="font-size:11.5px; color:#FFF;">Handover recorded at ${new Date().toLocaleTimeString()}. The customer has received confirmation.</span>`;
+            resultBox.innerHTML = `<strong>${data.message}</strong><br/><span style="font-size:11.5px; color:#FFF;">Handover updated successfully. Customer selection is complete.</span>`;
           }
           fetchOrders();
         } else {
@@ -1249,7 +1250,21 @@
             resultBox.style.background = 'rgba(231,76,60,0.2)';
             resultBox.style.border = '1px solid #E74C3C';
             resultBox.style.color = '#E74C3C';
-            resultBox.innerHTML = `<strong>⚠️ Verification Failed:</strong> ${data.error || 'Invalid PIN'}`;
+            resultBox.innerHTML = `
+              <strong>⚠️ Verification Warning:</strong> ${data.error || 'PIN mismatch'}<br/>
+              ${data.can_override ? `
+                <div style="margin-top:10px;">
+                  <button id="btn-force-handover" class="btn-action" style="background:#E67E22; color:#FFF; font-weight:700; font-size:12px; padding:7px 14px;">
+                    ⚡ Confirm Handover Anyway (Manager Override)
+                  </button>
+                </div>
+              ` : ''}
+            `;
+            if (data.can_override) {
+              document.getElementById('btn-force-handover')?.addEventListener('click', () => {
+                verifyPickupHandover(orderId, pin, true);
+              });
+            }
           }
         }
       } catch (err) {
