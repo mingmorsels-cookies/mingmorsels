@@ -5,44 +5,89 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/logo.png?v=2" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Artisanal Product Details — mingmorsels</title>
-  <meta name="description" content="Explore fresh artisanal cookies & muffins made with real butter, botanical infusions and zero preservatives. Same-day baking in Bengaluru." />
+  <title>Artisanal Cookies &amp; Gourmet Muffins Collection | mingmorsels Bengaluru</title>
+  <meta name="description" content="Explore handcrafted artisanal cookies &amp; gourmet muffins baked daily with 100% pure cow butter, organic raw apiary honey, and zero refined sugar. Twin Delight (2 Pcs), Classic Box (8 Pcs), &amp; Dozen Delight (12 Pcs) available for online delivery in Bengaluru." />
+  <meta name="keywords" content="fresh baked cookies bangalore, roasted almond cookies, rose petal cookies, walnut sugar free cookies, dark choco chip cookies, artisanal muffins, gourmet gift box" />
+  <meta name="author" content="Miora Delights Private Limited" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+  <link rel="canonical" href="https://mingmorsels.com/product.html" />
   
   <!-- OpenGraph Social Card -->
+  <meta property="og:site_name" content="mingmorsels" />
   <meta property="og:type" content="product" />
-  <meta property="og:title" id="og-title" content="Artisanal Handcrafted Cookies — mingmorsels" />
-  <meta property="og:description" id="og-desc" content="Fresh baked cookies with natural ingredients. Order online now." />
-  <meta property="og:image" content="/logo.png?v=2" />
+  <meta property="og:title" id="og-title" content="Artisanal Handcrafted Cookies &amp; Muffins — mingmorsels" />
+  <meta property="og:description" id="og-desc" content="Fresh baked luxury cookies made with 100% pure cow butter and organic raw honey. Order online with same-day Bengaluru dispatch." />
+  <meta property="og:image" content="https://mingmorsels.com/logo.png?v=2" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://mingmorsels.com/product.html" />
+  <meta property="og:locale" content="en_IN" />
 
-  <!-- Schema.org JSON-LD Structured Data -->
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Artisanal Cookies &amp; Muffins Collection | mingmorsels" />
+  <meta name="twitter:description" content="Handcrafted with 100% pure cow butter and organic raw honey. Zero refined sugar." />
+  <meta name="twitter:image" content="https://mingmorsels.com/logo.png?v=2" />
+
+  <!-- Schema.org JSON-LD Structured Data (Product + Breadcrumbs) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": "Ming Morsels Artisanal Gourmet Cookies",
-    "image": [
-      "https://mingmorsels.com/logo.png?v=2"
-    ],
-    "description": "Handcrafted luxury cookies made with 100% real dairy butter, organic botanicals, and zero chemical preservatives.",
-    "sku": "MM-COOKIE-ARTISANAL",
-    "brand": {
-      "@type": "Brand",
-      "name": "mingmorsels"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://mingmorsels.com/product",
-      "priceCurrency": "INR",
-      "price": "190.00",
-      "priceValidUntil": "2027-12-31",
-      "availability": "https://schema.org/InStock",
-      "itemCondition": "https://schema.org/NewCondition"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "128"
-    }
+    "@graph": [
+      {
+        "@type": "Product",
+        "@id": "https://mingmorsels.com/product.html#product",
+        "name": "Ming Morsels Artisanal Gourmet Cookies &amp; Muffins",
+        "image": [
+          "https://mingmorsels.com/logo.png?v=2",
+          "https://mingmorsels.com/box-classic.jpg",
+          "https://mingmorsels.com/box-lush.jpg"
+        ],
+        "description": "Handcrafted luxury cookies made with 100% real dairy butter, organic botanicals, and zero chemical preservatives. Fresh daily batch.",
+        "sku": "MM-ARTISANAL-COLLECTION",
+        "brand": {
+          "@type": "Brand",
+          "name": "mingmorsels"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "url": "https://mingmorsels.com/product.html",
+          "priceCurrency": "INR",
+          "lowPrice": "42.00",
+          "highPrice": "350.00",
+          "offerCount": "6",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "128",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://mingmorsels.com/product.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://mingmorsels.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Product Collection",
+            "item": "https://mingmorsels.com/product.html"
+          }
+        ]
+      }
+    ]
   }
   </script>
 

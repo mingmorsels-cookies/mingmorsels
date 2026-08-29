@@ -1,33 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://mingmorsels.com/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://mingmorsels.com/logo.png?v=2</image:loc>
+      <image:title>Ming Morsels Artisanal Confectionery</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://mingmorsels.com/product.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mingmorsels.com/bulk-order.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mingmorsels.com/experience-center.html</loc>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mingmorsels.com/experience-center.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://mingmorsels.com/about.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mingmorsels.com/contact.html</loc>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mingmorsels.com/track-order.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>always</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mingmorsels.com/shipping.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mingmorsels.com/refund.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mingmorsels.com/privacy.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://mingmorsels.com/terms.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>

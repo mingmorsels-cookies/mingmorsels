@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /api/admin
+Disallow: /api/admin/*
 Disallow: /admin.html
+Disallow: /order-confirmation.html
 
 Sitemap: https://mingmorsels.com/sitemap.xml
