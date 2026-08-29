@@ -30,7 +30,7 @@ export class InvoiceService {
       return sum + (qty * price);
     }, 0);
 
-    const subtotal = computedItemsSubtotal > 0 ? computedItemsSubtotal : Number(order.total_amount || 42);
+    const subtotal = computedItemsSubtotal > 0 ? computedItemsSubtotal : Number(order.total_amount || 40);
     const discount = Number(order.discount_amount || 0);
     const taxableAmount = Math.max(0, subtotal - discount);
     const taxGST = Number(order.tax_gst || Math.round(taxableAmount * 0.05));
@@ -73,7 +73,7 @@ export class InvoiceService {
         it.price ?? 
         it.unit_price ?? 
         it.customPrice ?? 
-        (order.total_amount ? (Number(order.total_amount) / qty) : 42)
+        (order.total_amount ? (Number(order.total_amount) / qty) : 40)
       );
       const total = Number(it.total ?? (qty * rate));
       return `
