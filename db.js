@@ -489,30 +489,83 @@ export async function cancelOrderRecord(orderId, reason = 'Customer requested ca
 
 export async function getOrderRecord(orderOrAwbId) {
   if (!orderOrAwbId) return null;
-  const cleanId = String(orderOrAwbId).trim();
-  const cleanHyphen = cleanId.startsWith('MM-') ? cleanId : `MM-${cleanId.replace(/^MM_?/, '')}`;
-  const cleanUnderscore = cleanId.startsWith('MM_') ? cleanId : `MM_${cleanId.replace(/^MM-?/, '')}`;
-  const rawDigits = cleanId.replace(/\D/g, '');
+  const cleanInput = String(orderOrAwbId).trim();
+  const lower = cleanInput.toLowerCase();
+  
+  // Format variations for Order ID
+  const cleanHyphen = cleanInput.startsWith('MM-') ? cleanInput : `MM-${cleanInput.replace(/^MM_?/, '')}`;
+  const cleanUnderscore = cleanInput.startsWith('MM_') ? cleanInput : `MM_${cleanInput.replace(/^MM-?/, '')}`;
+  
+  // Extract digits for phone and docket search
+  const rawDigits = cleanInput.replace(/\D/g, '');
+  const last10Digits = rawDigits.length >= 10 ? rawDigits.slice(-10) : '';
 
   const store = await readLocalStoreAsync();
-  const lower = cleanId.toLowerCase();
-  return store.orders.find(o => 
-    (o.id && (
-      o.id.toLowerCase() === lower || 
-      o.id.toLowerCase() === cleanHyphen.toLowerCase() ||
-      o.id.toLowerCase() === cleanUnderscore.toLowerCase() ||
-      (rawDigits && rawDigits.length >= 4 && o.id.includes(rawDigits))
-    )) ||
-    (o.shipway_awb && (
-      o.shipway_awb.toLowerCase() === lower || 
-      (rawDigits && rawDigits.length >= 4 && o.shipway_awb.includes(rawDigits))
-    )) ||
-    (o.user_phone && rawDigits && o.user_phone.replace(/\D/g, '').includes(rawDigits)) ||
-    (o.shipping_phone && rawDigits && o.shipping_phone.replace(/\D/g, '').includes(rawDigits)) ||
-    (o.razorpay_order_id && o.razorpay_order_id.toLowerCase() === lower) ||
-    (o.payment_id && o.payment_id.toLowerCase() === lower) ||
-    (o.shipping_address && o.shipping_address.toLowerCase().includes(lower))
-  ) || null;
+  // Sort orders in reverse chronological order so latest order is returned first
+  const orders = [...(store.orders || [])].sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+
+  // 1. Direct Exact ID or AWB or Razorpay Payment ID Match (Priority 1)
+  const exactMatch = orders.find(o => {
+    if (!o) return false;
+    const orderIdLower = (o.id || '').toLowerCase();
+    const awbLower = (o.shipway_awb || '').toLowerCase();
+    const rzpIdLower = (o.razorpay_order_id || '').toLowerCase();
+    const payIdLower = (o.payment_id || '').toLowerCase();
+
+    return orderIdLower === lower ||
+           orderIdLower === cleanHyphen.toLowerCase() ||
+           orderIdLower === cleanUnderscore.toLowerCase() ||
+           awbLower === lower ||
+           rzpIdLower === lower ||
+           payIdLower === lower;
+  });
+
+  if (exactMatch) return exactMatch;
+
+  // 2. Mobile Number Lookup (Intelligent 10-Digit Normalization)
+  if (last10Digits.length === 10 || (rawDigits.length >= 7 && rawDigits.length <= 13)) {
+    const phoneTarget = last10Digits || rawDigits;
+    
+    const phoneMatch = orders.find(o => {
+      if (!o) return false;
+      const uPhone10 = (o.user_phone || o.phone || '').replace(/\D/g, '').slice(-10);
+      const sPhone10 = (o.shipping_phone || '').replace(/\D/g, '').slice(-10);
+      const addrDigits = (o.shipping_address || '').replace(/\D/g, '');
+      
+      return (uPhone10 && uPhone10 === phoneTarget) ||
+             (sPhone10 && sPhone10 === phoneTarget) ||
+             (uPhone10 && uPhone10.includes(phoneTarget)) ||
+             (sPhone10 && sPhone10.includes(phoneTarget)) ||
+             (addrDigits && addrDigits.includes(phoneTarget));
+    });
+
+    if (phoneMatch) return phoneMatch;
+  }
+
+  // 3. Partial Order ID / AWB Digits Match
+  if (rawDigits.length >= 4 && rawDigits.length <= 8) {
+    const digitMatch = orders.find(o => {
+      if (!o) return false;
+      const orderDigits = (o.id || '').replace(/\D/g, '');
+      const awbDigits = (o.shipway_awb || '').replace(/\D/g, '');
+      return orderDigits.includes(rawDigits) || awbDigits.includes(rawDigits);
+    });
+    if (digitMatch) return digitMatch;
+  }
+
+  // 4. Email or Address Fallback
+  const fallbackMatch = orders.find(o => {
+    if (!o) return false;
+    const emailLower = (o.user_email || '').toLowerCase();
+    const addrLower = (o.shipping_address || '').toLowerCase();
+    const nameLower = (o.user_name || '').toLowerCase();
+
+    return (lower.includes('@') && emailLower === lower) ||
+           (lower.length >= 4 && addrLower.includes(lower)) ||
+           (lower.length >= 4 && nameLower.includes(lower));
+  });
+
+  return fallbackMatch || null;
 }
 
 export async function getUserOrders(userEmail) {

@@ -202,4 +202,38 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
     expect(res.body.success).toBe(false);
     expect(res.body.error).toContain('Invalid cryptographic signature');
   });
+
+  it('GET /api/shipping/track - should successfully find order by various mobile phone number formats', async () => {
+    // 1. Create test order with phone number
+    const testPhone = '9884102020';
+    const orderRes = await request(app)
+      .post('/api/payment/create-order')
+      .send({
+        items: [{ id: 'almond', quantity: 1 }],
+        user_email: 'phone.tracking@example.com',
+        user_name: 'Mobile Tracker',
+        user_phone: '+91 98841 02020',
+        shipping_address: '1st Cross Rd, Nayanda Halli, Bengaluru'
+      });
+    expect(orderRes.status).toBe(200);
+    const orderId = orderRes.body.order_id;
+
+    // 2. Track with 10 digits
+    const res1 = await request(app).get(`/api/shipping/track?q=${testPhone}`);
+    expect(res1.status).toBe(200);
+    expect(res1.body.success).toBe(true);
+    expect(res1.body.order_id).toBe(orderId);
+
+    // 3. Track with country code +91
+    const res2 = await request(app).get(`/api/shipping/track?q=%2B919884102020`);
+    expect(res2.status).toBe(200);
+    expect(res2.body.success).toBe(true);
+    expect(res2.body.order_id).toBe(orderId);
+
+    // 4. Track with spaces / dashes
+    const res3 = await request(app).get(`/api/shipping/track?q=98841-02020`);
+    expect(res3.status).toBe(200);
+    expect(res3.body.success).toBe(true);
+    expect(res3.body.order_id).toBe(orderId);
+  });
 });
