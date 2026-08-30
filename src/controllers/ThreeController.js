@@ -391,36 +391,62 @@ export class ThreeController {
     });
   }
 
-  buildAlmondCookieModel(group) {
-    const textureLoader = new THREE.TextureLoader();
-    const topTex = textureLoader.load('/almond_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
-
-    // 1. High-Detail Cookie Geometry with Perfect Circular Sides & Planar UV Alignment
-    const radius = 1.02;
-    const geometry = new THREE.CylinderGeometry(radius, radius, 0.22, 128, 8, false);
+  createArtisanalCookieGeometry({
+    radius = 1.04,
+    height = 0.32,
+    domeHeight = 0.065,
+    ovalBulge = 0.09,
+    radialSegments = 128,
+    heightSegments = 24
+  } = {}) {
+    const geometry = new THREE.CylinderGeometry(radius, radius, height, radialSegments, heightSegments, false);
     const pos = geometry.attributes.position;
     const uvs = geometry.attributes.uv;
+    const halfH = height / 2;
 
     for (let i = 0; i < pos.count; i++) {
       let x = pos.getX(i);
       let y = pos.getY(i);
       let z = pos.getZ(i);
       const r = Math.sqrt(x * x + z * z);
+      const angle = Math.atan2(z, x);
 
-      if (y > 0.04) {
+      // Normalized vertical parameter t in [-1, 1]
+      const t = Math.max(-1, Math.min(1, y / halfH));
+
+      // 1. Oval Profile Bulge: Parabolic outward expansion at the waist (t=0)
+      const sideProfileBulge = 1.0 + ovalBulge * Math.max(0, 1.0 - Math.pow(t, 2));
+
+      // Apply smooth oval curvature to side rim vertices
+      if (Math.abs(y) < halfH - 0.005 && r > 0.001) {
+        x = Math.cos(angle) * (radius * sideProfileBulge);
+        z = Math.sin(angle) * (radius * sideProfileBulge);
+      }
+
+      // 2. Continuous Smooth Bevel & Dome on Top Face
+      if (y >= halfH - 0.005) {
         // Natural doming curve across the top surface
-        const dome = Math.max(0, 0.055 * (1 - (r * r) / (radius * radius)));
-        const microNoise = (Math.sin(x * 16 + z * 14) + Math.cos(x * 24 - z * 18)) * 0.006;
-        y += dome + microNoise;
+        const domeNorm = Math.max(0, 1.0 - Math.pow(r / radius, 2.2));
+        const dome = domeHeight * domeNorm;
 
-        // Planar UV projection for the top face (eliminates all pinwheel pinching)
+        // Smooth rounding fillet at the outer edge to eliminate sharp 90-degree corners
+        const outerEdgeFactor = Math.max(0, (r - radius * 0.80) / (radius * 0.20));
+        const edgeFillet = -0.032 * Math.pow(outerEdgeFactor, 1.8);
+
+        const microNoise = (Math.sin(x * 16 + z * 14) + Math.cos(x * 24 - z * 18)) * 0.005;
+        y = halfH + dome + edgeFillet + microNoise;
+
+        // Planar UV projection for the top face
         const u = (x / (radius * 2.0)) + 0.5;
         const v = (-z / (radius * 2.0)) + 0.5;
         uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      } else if (y < -0.04) {
-        // Planar UV projection for the flat oven-baked base
-        y = -0.11;
+      } else if (y <= -halfH + 0.005) {
+        // 3. Smooth Oven-Rested Base with Soft Rim Transition
+        const outerEdgeFactor = Math.max(0, (r - radius * 0.85) / (radius * 0.15));
+        const bottomFillet = 0.024 * Math.pow(outerEdgeFactor, 1.8);
+        y = -halfH + bottomFillet;
+
+        // Planar UV projection for the bottom face
         const u = (x / (radius * 2.0)) + 0.5;
         const v = (z / (radius * 2.0)) + 0.5;
         uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
@@ -428,10 +454,28 @@ export class ThreeController {
 
       pos.setXYZ(i, x, y, z);
     }
+
     geometry.computeVertexNormals();
     uvs.needsUpdate = true;
+    pos.needsUpdate = true;
 
-    // 2. Materials for Side Rim, Top Face, and Bottom Face
+    return geometry;
+  }
+
+  buildAlmondCookieModel(group) {
+    const textureLoader = new THREE.TextureLoader();
+    const topTex = textureLoader.load('/almond_cookie_top_clean.png');
+    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
+
+    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const geometry = this.createArtisanalCookieGeometry({
+      radius: 1.04,
+      height: 0.32,
+      domeHeight: 0.065,
+      ovalBulge: 0.09
+    });
+
+    // Materials for Side Rim, Top Face, and Bottom Face
     const sideMat = new THREE.MeshStandardMaterial({
       color: 0xcaa268,
       bumpScale: 0.025,
@@ -482,42 +526,14 @@ export class ThreeController {
     const topTex = textureLoader.load('/rose_cookie_top_clean.png');
     const bottomTex = textureLoader.load('/rose_cookie_bottom_clean.png');
 
-    // 1. High-Detail Cookie Geometry with Perfect Circular Sides & Planar UV Alignment
-    const radius = 1.02;
-    const geometry = new THREE.CylinderGeometry(radius, radius, 0.22, 128, 8, false);
-    const pos = geometry.attributes.position;
-    const uvs = geometry.attributes.uv;
+    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const geometry = this.createArtisanalCookieGeometry({
+      radius: 1.04,
+      height: 0.32,
+      domeHeight: 0.065,
+      ovalBulge: 0.09
+    });
 
-    for (let i = 0; i < pos.count; i++) {
-      let x = pos.getX(i);
-      let y = pos.getY(i);
-      let z = pos.getZ(i);
-      const r = Math.sqrt(x * x + z * z);
-
-      if (y > 0.04) {
-        // Natural doming curve across the top surface
-        const dome = Math.max(0, 0.055 * (1 - (r * r) / (radius * radius)));
-        const microNoise = (Math.sin(x * 16 + z * 14) + Math.cos(x * 24 - z * 18)) * 0.006;
-        y += dome + microNoise;
-
-        // Planar UV projection for the top face
-        const u = (x / (radius * 2.0)) + 0.5;
-        const v = (-z / (radius * 2.0)) + 0.5;
-        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      } else if (y < -0.04) {
-        // Planar UV projection for the flat oven-baked base
-        y = -0.11;
-        const u = (x / (radius * 2.0)) + 0.5;
-        const v = (z / (radius * 2.0)) + 0.5;
-        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      }
-
-      pos.setXYZ(i, x, y, z);
-    }
-    geometry.computeVertexNormals();
-    uvs.needsUpdate = true;
-
-    // 2. Materials for Side Rim, Top Face, and Bottom Face
     const sideMat = new THREE.MeshStandardMaterial({
       color: 0xdeb887,
       bumpMap: topTex,
@@ -547,7 +563,7 @@ export class ThreeController {
     cookieMesh.receiveShadow = true;
     group.add(cookieMesh);
 
-    // 3. Highlighted 3D Rose Petal Relief Folds
+    // Highlighted 3D Rose Petal Relief Folds (elevated to rest on taller cookie top)
     const makePetalGeom = (w, h, curl) => {
       const geom = new THREE.PlaneGeometry(w, h, 6, 6);
       const pos = geom.attributes.position;
@@ -580,12 +596,12 @@ export class ThreeController {
     });
 
     const petalConfigs = [
-      { x: -0.22, y: 0.16, z: 0.20,  w: 0.22, h: 0.26, rx: 0.15, ry: 0.6, rz: 0.2,  curl: 1.2, mat: petalMat1 },
-      { x: 0.02,  y: 0.165, z: 0.28, w: 0.26, h: 0.28, rx: 0.20, ry: 1.4, rz: -0.1, curl: 1.0, mat: petalMatLight },
-      { x: 0.28,  y: 0.155, z: 0.12, w: 0.24, h: 0.30, rx: 0.10, ry: 2.2, rz: 0.25, curl: 1.3, mat: petalMat2 },
-      { x: 0.18,  y: 0.15, z: -0.14, w: 0.22, h: 0.24, rx: -0.1, ry: 0.9, rz: -0.2, curl: 1.1, mat: petalMat1 },
-      { x: -0.18, y: 0.155, z: -0.18,w: 0.20, h: 0.22, rx: 0.25, ry: 1.9, rz: 0.15, curl: 1.4, mat: petalMatLight },
-      { x: -0.02, y: 0.16, z: -0.02, w: 0.24, h: 0.28, rx: 0.05, ry: 0.3, rz: -0.15, curl: 0.9, mat: petalMat2 }
+      { x: -0.22, y: 0.21,  z: 0.20,  w: 0.22, h: 0.26, rx: 0.15, ry: 0.6, rz: 0.2,  curl: 1.2, mat: petalMat1 },
+      { x: 0.02,  y: 0.215, z: 0.28,  w: 0.26, h: 0.28, rx: 0.20, ry: 1.4, rz: -0.1, curl: 1.0, mat: petalMatLight },
+      { x: 0.28,  y: 0.205, z: 0.12,  w: 0.24, h: 0.30, rx: 0.10, ry: 2.2, rz: 0.25, curl: 1.3, mat: petalMat2 },
+      { x: 0.18,  y: 0.20,  z: -0.14, w: 0.22, h: 0.24, rx: -0.1, ry: 0.9, rz: -0.2, curl: 1.1, mat: petalMat1 },
+      { x: -0.18, y: 0.205, z: -0.18, w: 0.20, h: 0.22, rx: 0.25, ry: 1.9, rz: 0.15, curl: 1.4, mat: petalMatLight },
+      { x: -0.02, y: 0.21,  z: -0.02, w: 0.24, h: 0.28, rx: 0.05, ry: 0.3, rz: -0.15, curl: 0.9, mat: petalMat2 }
     ];
 
     petalConfigs.forEach(cfg => {
@@ -604,42 +620,14 @@ export class ThreeController {
     const topTex = textureLoader.load('/oatsnuts_cookie_top_clean.png');
     const bottomTex = textureLoader.load('/oatsnuts_cookie_bottom_clean.png');
 
-    // 1. High-Detail Cookie Geometry with Perfect Circular Sides & Planar UV Alignment
-    const radius = 1.02;
-    const geometry = new THREE.CylinderGeometry(radius, radius, 0.24, 128, 8, false);
-    const pos = geometry.attributes.position;
-    const uvs = geometry.attributes.uv;
+    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const geometry = this.createArtisanalCookieGeometry({
+      radius: 1.04,
+      height: 0.33,
+      domeHeight: 0.070,
+      ovalBulge: 0.095
+    });
 
-    for (let i = 0; i < pos.count; i++) {
-      let x = pos.getX(i);
-      let y = pos.getY(i);
-      let z = pos.getZ(i);
-      const r = Math.sqrt(x * x + z * z);
-
-      if (y > 0.04) {
-        // Natural doming curve across the top surface
-        const dome = Math.max(0, 0.065 * (1 - (r * r) / (radius * radius)));
-        const microNoise = (Math.sin(x * 16 + z * 14) + Math.cos(x * 24 - z * 18)) * 0.008;
-        y += dome + microNoise;
-
-        // Planar UV projection for the top face
-        const u = (x / (radius * 2.0)) + 0.5;
-        const v = (-z / (radius * 2.0)) + 0.5;
-        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      } else if (y < -0.04) {
-        // Planar UV projection for the flat oven-baked base
-        y = -0.12;
-        const u = (x / (radius * 2.0)) + 0.5;
-        const v = (z / (radius * 2.0)) + 0.5;
-        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      }
-
-      pos.setXYZ(i, x, y, z);
-    }
-    geometry.computeVertexNormals();
-    uvs.needsUpdate = true;
-
-    // 2. Materials for Side Rim, Top Face, and Bottom Face
     const sideMat = new THREE.MeshStandardMaterial({
       color: 0xc69250,
       bumpMap: topTex,
@@ -669,7 +657,7 @@ export class ThreeController {
     cookieMesh.receiveShadow = true;
     group.add(cookieMesh);
 
-    // 3. Hearty 3D Rolled Oat Groats & Roasted Nut Nibs
+    // Hearty 3D Rolled Oat Groats & Roasted Nut Nibs (elevated to rest on taller cookie top)
     const oatGeom = new THREE.BoxGeometry(0.13, 0.02, 0.22);
     const oatPos = oatGeom.attributes.position;
     for (let i = 0; i < oatPos.count; i++) {
@@ -697,12 +685,12 @@ export class ThreeController {
     });
 
     const oatPositions = [
-      { x: -0.28, y: 0.165, z: 0.15, rx: 0.1, ry: 0.8, rz: 0.2, s: 1.0 },
-      { x: -0.15, y: 0.17,  z: 0.32, rx: 0.2, ry: 2.1, rz: -0.15, s: 1.1 },
-      { x: 0.25,  y: 0.165, z: 0.22, rx: -0.1, ry: 1.2, rz: 0.1, s: 0.95 },
-      { x: 0.32,  y: 0.16,  z: -0.18, rx: 0.15, ry: 2.8, rz: 0.25, s: 1.05 },
-      { x: 0.08,  y: 0.17,  z: -0.30, rx: -0.2, ry: 0.5, rz: -0.1, s: 1.15 },
-      { x: -0.30, y: 0.16,  z: -0.20, rx: 0.25, ry: 1.7, rz: 0.3, s: 0.9 }
+      { x: -0.28, y: 0.215, z: 0.15, rx: 0.1, ry: 0.8, rz: 0.2, s: 1.0 },
+      { x: -0.15, y: 0.22,  z: 0.32, rx: 0.2, ry: 2.1, rz: -0.15, s: 1.1 },
+      { x: 0.25,  y: 0.215, z: 0.22, rx: -0.1, ry: 1.2, rz: 0.1, s: 0.95 },
+      { x: 0.32,  y: 0.21,  z: -0.18, rx: 0.15, ry: 2.8, rz: 0.25, s: 1.05 },
+      { x: 0.08,  y: 0.22,  z: -0.30, rx: -0.2, ry: 0.5, rz: -0.1, s: 1.15 },
+      { x: -0.30, y: 0.21,  z: -0.20, rx: 0.25, ry: 1.7, rz: 0.3, s: 0.9 }
     ];
 
     oatPositions.forEach(p => {
@@ -715,10 +703,10 @@ export class ThreeController {
     });
 
     const nutPositions = [
-      { x: -0.12, y: 0.17, z: -0.18, mat: roastedNutMat, s: 0.9 },
-      { x: 0.20,  y: 0.165, z: -0.05, mat: goldenCashewMat, s: 1.05 },
-      { x: -0.22, y: 0.165, z: 0.02,  mat: roastedNutMat, s: 0.85 },
-      { x: 0.15,  y: 0.17, z: 0.30,  mat: goldenCashewMat, s: 1.1 }
+      { x: -0.12, y: 0.22, z: -0.18, mat: roastedNutMat, s: 0.9 },
+      { x: 0.20,  y: 0.215, z: -0.05, mat: goldenCashewMat, s: 1.05 },
+      { x: -0.22, y: 0.215, z: 0.02,  mat: roastedNutMat, s: 0.85 },
+      { x: 0.15,  y: 0.22, z: 0.30,  mat: goldenCashewMat, s: 1.1 }
     ];
 
     nutPositions.forEach(p => {
@@ -736,42 +724,14 @@ export class ThreeController {
     const topTex = textureLoader.load('/orange_cookie_top_clean.png');
     const bottomTex = textureLoader.load('/orange_cookie_bottom_clean.png');
 
-    // 1. High-Detail Cookie Geometry with Perfect Circular Sides & Planar UV Alignment
-    const radius = 1.02;
-    const geometry = new THREE.CylinderGeometry(radius, radius, 0.23, 128, 8, false);
-    const pos = geometry.attributes.position;
-    const uvs = geometry.attributes.uv;
+    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const geometry = this.createArtisanalCookieGeometry({
+      radius: 1.04,
+      height: 0.32,
+      domeHeight: 0.065,
+      ovalBulge: 0.09
+    });
 
-    for (let i = 0; i < pos.count; i++) {
-      let x = pos.getX(i);
-      let y = pos.getY(i);
-      let z = pos.getZ(i);
-      const r = Math.sqrt(x * x + z * z);
-
-      if (y > 0.04) {
-        // Natural doming curve across the top surface
-        const dome = Math.max(0, 0.060 * (1 - (r * r) / (radius * radius)));
-        const microNoise = (Math.sin(x * 16 + z * 14) + Math.cos(x * 24 - z * 18)) * 0.007;
-        y += dome + microNoise;
-
-        // Planar UV projection for the top face
-        const u = (x / (radius * 2.0)) + 0.5;
-        const v = (-z / (radius * 2.0)) + 0.5;
-        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      } else if (y < -0.04) {
-        // Planar UV projection for the flat oven-baked base
-        y = -0.115;
-        const u = (x / (radius * 2.0)) + 0.5;
-        const v = (z / (radius * 2.0)) + 0.5;
-        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      }
-
-      pos.setXYZ(i, x, y, z);
-    }
-    geometry.computeVertexNormals();
-    uvs.needsUpdate = true;
-
-    // 2. Materials for Side Rim, Top Face, and Bottom Face
     const sideMat = new THREE.MeshStandardMaterial({
       color: 0xdcb072,
       bumpMap: topTex,
@@ -808,42 +768,14 @@ export class ThreeController {
     const topTex = textureLoader.load(topPath);
     const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
 
-    // 1. High-Detail Cookie Geometry with Perfect Circular Sides & Planar UV Alignment
-    const radius = 1.02;
-    const geometry = new THREE.CylinderGeometry(radius, radius, 0.23, 128, 8, false);
-    const pos = geometry.attributes.position;
-    const uvs = geometry.attributes.uv;
+    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const geometry = this.createArtisanalCookieGeometry({
+      radius: 1.04,
+      height: 0.32,
+      domeHeight: 0.068,
+      ovalBulge: 0.09
+    });
 
-    for (let i = 0; i < pos.count; i++) {
-      let x = pos.getX(i);
-      let y = pos.getY(i);
-      let z = pos.getZ(i);
-      const r = Math.sqrt(x * x + z * z);
-
-      if (y > 0.04) {
-        // Natural doming curve across the top surface
-        const dome = Math.max(0, 0.065 * (1 - (r * r) / (radius * radius)));
-        const microNoise = (Math.sin(x * 16 + z * 14) + Math.cos(x * 24 - z * 18)) * 0.007;
-        y += dome + microNoise;
-
-        // Planar UV projection for the top face
-        const u = (x / (radius * 2.0)) + 0.5;
-        const v = (-z / (radius * 2.0)) + 0.5;
-        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      } else if (y < -0.04) {
-        // Planar UV projection for the flat oven-baked base
-        y = -0.115;
-        const u = (x / (radius * 2.0)) + 0.5;
-        const v = (z / (radius * 2.0)) + 0.5;
-        uvs.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
-      }
-
-      pos.setXYZ(i, x, y, z);
-    }
-    geometry.computeVertexNormals();
-    uvs.needsUpdate = true;
-
-    // 2. Materials for Side Rim, Top Face, and Bottom Face
     const isSF = (id === 'walnut_sf');
     const sideColor = isSF ? 0xad7036 : 0xdeb578;
     const sideMat = new THREE.MeshStandardMaterial({
@@ -875,7 +807,7 @@ export class ThreeController {
     cookieMesh.receiveShadow = true;
     group.add(cookieMesh);
 
-    // 3. For Sugar-Free: Add Extra Roasted Walnut Nibs for rustic keto texture
+    // For Sugar-Free: Add Extra Roasted Walnut Nibs (elevated to rest on taller cookie top)
     if (isSF) {
       const nibGeom = new THREE.DodecahedronGeometry(0.065, 0);
       const darkNutMat = new THREE.MeshStandardMaterial({
@@ -884,10 +816,10 @@ export class ThreeController {
         metalness: 0.03
       });
       const nibPositions = [
-        { x: -0.28, y: 0.165, z: 0.18, s: 1.05 },
-        { x: 0.26,  y: 0.16,  z: 0.22, s: 0.95 },
-        { x: -0.22, y: 0.165, z: -0.20, s: 1.1 },
-        { x: 0.28,  y: 0.16,  z: -0.15, s: 0.9 }
+        { x: -0.28, y: 0.215, z: 0.18, s: 1.05 },
+        { x: 0.26,  y: 0.21,  z: 0.22, s: 0.95 },
+        { x: -0.22, y: 0.215, z: -0.20, s: 1.1 },
+        { x: 0.28,  y: 0.21,  z: -0.15, s: 0.9 }
       ];
       nibPositions.forEach(np => {
         const nib = new THREE.Mesh(nibGeom, darkNutMat);
