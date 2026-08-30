@@ -279,7 +279,7 @@ export class InvoiceService {
             <h1 class="brand-title">MIORA DELIGHTS PRIVATE LIMITED</h1>
             <div class="brand-sub">
               Reg. office: ${company.regOffice}<br/>
-              <strong>CIN:</strong> ${company.cin} &nbsp;|&nbsp; <strong>Email:</strong> ${company.email}
+              <strong>CIN:</strong> ${company.cin} &nbsp;|&nbsp; <strong>GSTIN:</strong> ${company.gstin} &nbsp;|&nbsp; <strong>Email:</strong> ${company.email}
             </div>
           </td>
           <td style="vertical-align: middle; text-align: right; width: 170px;">

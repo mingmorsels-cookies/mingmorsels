@@ -181,7 +181,7 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
   });
 
   it('GET /api/admin/orders - should allow access with valid x-admin-key header', async () => {
-    const adminKey = 'Arun_Narayan_K';
+    const adminKey = process.env.ADMIN_SECRET_KEY || 'Arun_Narayan_K';
     const res = await request(app)
       .get('/api/admin/orders')
       .set('x-admin-key', adminKey);
