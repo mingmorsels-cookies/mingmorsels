@@ -22,6 +22,7 @@ import pushRoutes from './src/server/routes/push.routes.js';
 import webpush from 'web-push';
 import { createRateLimiter } from './src/server/middleware/rateLimiter.js';
 import { structuredLogger } from './src/server/middleware/logger.js';
+import { securitySanitizer } from './src/server/middleware/sanitizer.js';
 
 export const app = express();
 const PORT = process.env.PORT || 5001;
@@ -44,7 +45,7 @@ try {
 // 1. Structured JSON Request Logger & Tracing
 app.use(structuredLogger());
 
-// 2. Security Headers via Helmet with Custom CSP (Clickjacking & Injection Protection)
+// 2. Enterprise Security Headers via Helmet with Hardened CSP (Clickjacking, Injection & MIME Sniffing Defense)
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -63,12 +64,23 @@ app.use(helmet({
     }
   },
   crossOriginEmbedderPolicy: false,
-  crossOriginOpenerPolicy: false,
+  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
   crossOriginResourcePolicy: false,
-  frameguard: { action: 'deny' }
+  frameguard: { action: 'deny' },
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  noSniff: true,
+  xssFilter: true
 }));
 
-// 2. CORS Whitelist Configuration
+// Additional Custom Security Headers Middleware
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy', 'geolocation=(), camera=(), microphone=(), payment=(self "https://checkout.razorpay.com")');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  next();
+});
+
+// 3. CORS Whitelist Configuration
 const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
@@ -91,7 +103,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-key', 'x-razorpay-signature']
 }));
 
-// 3. Body Parsing Middleware with Raw Body Buffer Capture for Webhooks
+// 4. Body Parsing Middleware with Raw Body Buffer Capture for Webhooks
 app.use(express.json({
   limit: '2mb',
   verify: (req, res, buf) => {
@@ -99,6 +111,9 @@ app.use(express.json({
   }
 }));
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
+
+// 5. Deep Input Sanitization & Prototype Pollution Defense
+app.use(securitySanitizer());
 
 // 4. Rate Limiting Protection (Sliding Window)
 const generalLimiter = createRateLimiter({

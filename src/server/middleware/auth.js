@@ -91,11 +91,11 @@ export function verifyAdminAuth(req, res, next) {
     });
   }
 
-  // Timing safe comparison to prevent timing attacks
-  const expectedBuffer = Buffer.from(DEFAULT_ADMIN_KEY);
-  const providedBuffer = Buffer.from(adminKey);
+  // Double-hash timing safe comparison to neutralize length-differential side-channel leaks
+  const expectedHash = crypto.createHash('sha256').update(String(DEFAULT_ADMIN_KEY)).digest();
+  const providedHash = crypto.createHash('sha256').update(String(adminKey)).digest();
 
-  if (expectedBuffer.length !== providedBuffer.length || !crypto.timingSafeEqual(expectedBuffer, providedBuffer)) {
+  if (!crypto.timingSafeEqual(expectedHash, providedHash)) {
     return res.status(403).json({
       success: false,
       error: 'Forbidden: Invalid admin credentials.'
