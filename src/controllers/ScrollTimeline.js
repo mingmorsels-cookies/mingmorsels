@@ -48,30 +48,27 @@ export class ScrollTimelineController {
       });
 
 
-      // Stage 1: Dynamic Theme & Background Transition
+      // Stage 1: Dynamic Theme & Background Transition (Consistent Warm Luxury Cream & Gold Ambience)
       ScrollTrigger.create({
         trigger: '#products',
         start: 'top 60%',
         end: 'bottom 40%',
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const isDark = self.isActive;
-          const activeBg = isDark ? '#120E0B' : '#FAF6F0';
-          document.body.style.backgroundColor = activeBg;
-          document.documentElement.style.backgroundColor = activeBg;
-          document.documentElement.style.setProperty('--scrollbar-track-bg', activeBg);
+        onUpdate: () => {
+          document.body.style.backgroundColor = '#FAF6F0';
+          document.documentElement.style.backgroundColor = '#FAF6F0';
+          document.documentElement.style.setProperty('--scrollbar-track-bg', '#FAF6F0');
 
           const headerEl = document.querySelector('.header');
           if (headerEl) {
-            headerEl.style.background = isDark ? 'rgba(18, 14, 11, 0.90)' : 'rgba(250, 246, 240, 0.88)';
-            headerEl.style.color = isDark ? '#FFFFFF' : '#3D2000';
+            headerEl.style.background = 'rgba(250, 246, 240, 0.92)';
+            headerEl.style.color = '#3D2000';
           }
           const logoText = document.querySelector('.logo-text');
           if (logoText) {
-            logoText.style.color = isDark ? '#FFFFFF' : '#3D2000';
+            logoText.style.color = '#3D2000';
           }
           document.querySelectorAll('.nav-link').forEach(link => {
-            link.style.color = isDark ? 'rgba(255, 255, 255, 0.85)' : '#705840';
+            link.style.color = '#705840';
           });
         },
         onLeaveBack: () => {
@@ -79,7 +76,7 @@ export class ScrollTimelineController {
           document.documentElement.style.backgroundColor = '#FAF6F0';
           const headerEl = document.querySelector('.header');
           if (headerEl) {
-            headerEl.style.background = 'rgba(250, 246, 240, 0.88)';
+            headerEl.style.background = 'rgba(250, 246, 240, 0.92)';
             headerEl.style.color = '#3D2000';
           }
           const logoText = document.querySelector('.logo-text');
