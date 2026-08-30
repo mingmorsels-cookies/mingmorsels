@@ -33,34 +33,60 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
     :root {
-      --color-bg: #120E0B;
-      --color-surface: #1E1813;
-      --color-surface-card: #272019;
-      --color-primary: #C8960C;
-      --color-primary-light: #E0AB1E;
-      --color-text: #F5EFE6;
-      --color-muted: #A39282;
-      --color-border: rgba(200, 150, 12, 0.2);
-      --color-success: #2ECC71;
-      --color-info: #3498DB;
-      --radius: 16px;
+      --bg-cream: #FDFAF6;
+      --bg-cream-soft: #F6EFE5;
+      --bg-white: #FFFFFF;
+      --color-brown: #3D2000;
+      --color-brown-light: #5A350D;
+      --color-gold: #C8960C;
+      --color-gold-light: #E0AB1E;
+      --color-gold-bg: rgba(200, 150, 12, 0.08);
+      --color-gold-border: rgba(200, 150, 12, 0.28);
+      --color-text-main: #2A1705;
+      --color-text-muted: #7A624D;
+      --color-success: #1E824C;
+      --color-success-bg: rgba(30, 130, 76, 0.08);
+      --color-info: #1A5276;
+      --shadow-sm: 0 4px 12px rgba(61, 32, 0, 0.04);
+      --shadow-md: 0 12px 36px rgba(61, 32, 0, 0.08);
+      --shadow-lg: 0 20px 60px rgba(61, 32, 0, 0.12);
+      --radius-lg: 20px;
+      --radius-md: 14px;
     }
 
     body {
-      font-family: 'Outfit', sans-serif;
-      background-color: var(--color-bg);
-      color: var(--color-text);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-cream);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(200, 150, 12, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(200, 150, 12, 0.04) 0%, transparent 40%);
+      color: var(--color-text-main);
       line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
-    /* Navigation Header */
+    /* Plaster ambient texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('/plaster_texture.png');
+      background-size: cover;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation Bar */
     .nav {
       position: sticky;
       top: 0;
@@ -68,236 +94,503 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 40px;
-      background: rgba(18, 14, 11, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-border);
+      padding: 16px 44px;
+      background: rgba(253, 250, 246, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(61, 32, 0, 0.08);
+      box-shadow: var(--shadow-sm);
     }
+
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
       font-weight: 700;
-      color: #FFFFFF;
+      color: var(--color-brown);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 10px;
+      letter-spacing: -0.2px;
     }
-    .nav-logo img { height: 42px; width: auto; object-fit: contain; }
-    .nav-logo span { color: var(--color-primary); }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(61, 32, 0, 0.1));
+    }
+
+    .nav-logo span {
+      color: var(--color-gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
     .nav-links a {
       font-size: 14px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--color-text-muted);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.2s ease;
+      position: relative;
     }
-    .nav-links a:hover, .nav-links a.active { color: var(--color-primary); }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--color-brown);
+      font-weight: 600;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--color-gold);
+      border-radius: 2px;
+    }
 
     .nav-home-btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(200, 150, 12, 0.15);
-      border: 1px solid rgba(200, 150, 12, 0.4);
-      color: var(--color-primary);
-      font-size: 13px;
+      gap: 8px;
+      background: linear-gradient(135deg, #3D2000, #281400);
+      color: #FAF6F0;
+      font-size: 13.5px;
       font-weight: 600;
-      padding: 7px 14px;
+      padding: 9px 18px;
       border-radius: 50px;
       text-decoration: none;
-      transition: all 0.2s ease;
-      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(61, 32, 0, 0.2);
+      transition: all 0.25s ease;
     }
+
     .nav-home-btn:hover {
-      background: var(--color-primary);
-      color: #120E0B;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(61, 32, 0, 0.28);
+      color: #FFFFFF;
     }
 
     /* Main Container */
-    .tracking-container {
-      max-width: 900px;
-      margin: 40px auto 60px;
-      padding: 0 20px;
+    .tracking-wrapper {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
       width: 100%;
       flex: 1;
+      position: relative;
+      z-index: 1;
     }
 
-    .tracking-header {
+    /* Header Section */
+    .hero-header {
       text-align: center;
-      margin-bottom: 36px;
+      margin-bottom: 40px;
     }
-    .tracking-badge {
+
+    .live-status-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(200, 150, 12, 0.15);
+      background: rgba(200, 150, 12, 0.12);
       border: 1px solid rgba(200, 150, 12, 0.35);
-      color: var(--color-primary);
-      font-size: 12px;
+      color: #8C5803;
+      font-size: 11.5px;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      padding: 6px 16px;
+      padding: 7px 18px;
       border-radius: 50px;
-      margin-bottom: 16px;
-    }
-    .tracking-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(32px, 5vw, 44px);
-      font-weight: 700;
-      color: #FFFFFF;
-      margin-bottom: 10px;
-    }
-    .tracking-sub {
-      font-size: 15px;
-      color: var(--color-muted);
-      max-width: 540px;
-      margin: 0 auto;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(200, 150, 12, 0.08);
     }
 
-    /* Search Box Card */
-    .search-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      margin-bottom: 32px;
+    .live-pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #27AE60;
+      border-radius: 50%;
+      box-shadow: 0 0 0 rgba(39, 174, 96, 0.4);
+      animation: pulseGreen 2s infinite;
     }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(39, 174, 96, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(34px, 5.5vw, 48px);
+      font-weight: 700;
+      color: var(--color-brown);
+      margin-bottom: 12px;
+      line-height: 1.18;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-gold);
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--color-text-muted);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* Luxury Search Card */
+    .search-card {
+      background: var(--bg-white);
+      border: 1.5px solid rgba(200, 150, 12, 0.28);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .search-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #C8960C, #F5C344, #C8960C);
+    }
+
+    .search-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--color-brown);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .search-form {
       display: flex;
       gap: 12px;
     }
-    .search-input {
+
+    .search-input-wrapper {
       flex: 1;
-      background: #14100D;
-      border: 1.5px solid var(--color-border);
-      border-radius: 12px;
-      padding: 14px 18px;
-      font-size: 15px;
-      font-family: 'Outfit', sans-serif;
-      color: #FFFFFF;
-      outline: none;
-      transition: border-color 0.2s;
+      position: relative;
+      display: flex;
+      align-items: center;
     }
-    .search-input:focus { border-color: var(--color-primary); }
+
+    .search-input-icon {
+      position: absolute;
+      left: 18px;
+      color: var(--color-gold);
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-cream-soft);
+      border: 1.5px solid rgba(61, 32, 0, 0.12);
+      border-radius: 12px;
+      padding: 16px 18px 16px 48px;
+      font-size: 15.5px;
+      font-family: 'Outfit', sans-serif;
+      color: var(--color-text-main);
+      font-weight: 500;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .search-input:focus {
+      background: #FFFFFF;
+      border-color: var(--color-gold);
+      box-shadow: 0 0 0 4px rgba(200, 150, 12, 0.15);
+    }
+
+    .search-input::placeholder {
+      color: #9C8673;
+      font-size: 14.5px;
+    }
+
     .search-btn {
-      background: var(--color-primary);
-      color: #120E0B;
+      background: linear-gradient(135deg, #C8960C 0%, #E0AB1E 100%);
+      color: #1A0D00;
       border: none;
       border-radius: 12px;
-      padding: 14px 28px;
-      font-size: 15px;
+      padding: 16px 36px;
+      font-size: 15.5px;
       font-weight: 700;
       font-family: 'Outfit', sans-serif;
       cursor: pointer;
-      transition: background-color 0.2s, transform 0.15s;
+      box-shadow: 0 6px 20px rgba(200, 150, 12, 0.35);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
     }
-    .search-btn:hover { background-color: var(--color-primary-light); transform: translateY(-1px); }
 
-    /* Results Section */
-    .result-card {
-      display: none;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      padding: 32px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-      margin-bottom: 32px;
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200, 150, 12, 0.45);
+      filter: brightness(1.05);
     }
-    .result-card.active { display: block; }
 
-    .result-header {
+    .search-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Quick Lookup & Help Tools */
+    .search-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--color-text-muted);
+    }
+
+    .recent-lookup-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-cream-soft);
+      border: 1px solid rgba(61, 32, 0, 0.08);
+      padding: 4px 12px;
+      border-radius: 20px;
+      color: var(--color-brown);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .recent-lookup-pill:hover {
+      border-color: var(--color-gold);
+      background: #FFFFFF;
+      color: var(--color-gold);
+    }
+
+    /* Pre-Search Brand Value Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .feature-card {
+      background: var(--bg-white);
+      border: 1px solid rgba(61, 32, 0, 0.08);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-gold-border);
+    }
+
+    .feature-icon-bubble {
+      width: 52px;
+      height: 52px;
+      background: var(--color-gold-bg);
+      border: 1px solid var(--color-gold-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin: 0 auto 14px;
+    }
+
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-brown);
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 12.5px;
+      color: var(--color-text-muted);
+      line-height: 1.45;
+    }
+
+    /* Result Card (Live Order Status) */
+    .result-card {
+      display: none;
+      background: var(--bg-white);
+      border: 1.5px solid var(--color-gold-border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 40px;
+      animation: fadeInUp 0.4s ease;
+    }
+
+    .result-card.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(61, 32, 0, 0.08);
+      margin-bottom: 28px;
       flex-wrap: wrap;
       gap: 16px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--color-border);
-      margin-bottom: 28px;
     }
-    .order-info h3 {
-      font-size: 20px;
+
+    .order-title-group h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
       font-weight: 700;
-      color: #FFFFFF;
+      color: var(--color-brown);
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .order-info p {
-      font-size: 13px;
-      color: var(--color-muted);
+
+    .order-title-group p {
+      font-size: 13.5px;
+      color: var(--color-text-muted);
       margin-top: 4px;
     }
-    .shipway-status-badge {
+
+    .status-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 50px;
       font-size: 13px;
       font-weight: 700;
-      background: rgba(46, 204, 113, 0.15);
-      border: 1px solid rgba(46, 204, 113, 0.4);
+      background: var(--color-success-bg);
+      border: 1.5px solid rgba(30, 130, 76, 0.3);
       color: var(--color-success);
     }
-    .shipway-status-badge.in-transit {
-      background: rgba(52, 152, 219, 0.15);
-      border-color: rgba(52, 152, 219, 0.4);
-      color: var(--color-info);
+
+    .status-badge.in-transit {
+      background: rgba(200, 150, 12, 0.12);
+      border-color: rgba(200, 150, 12, 0.4);
+      color: #946000;
     }
 
     /* Estimated Delivery Banner */
-    .est-delivery-banner {
-      background: linear-gradient(135deg, rgba(200, 150, 12, 0.12) 0%, rgba(30, 24, 19, 0.9) 100%);
-      border: 1px solid var(--color-border);
-      border-radius: 12px;
+    .delivery-eta-card {
+      background: linear-gradient(135deg, rgba(253, 248, 239, 0.95), rgba(247, 238, 222, 0.98));
+      border: 1.5px solid rgba(200, 150, 12, 0.3);
+      border-radius: var(--radius-md);
       padding: 20px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 18px;
       margin-bottom: 32px;
-    }
-    .est-delivery-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .est-icon { font-size: 28px; }
-    .est-text h4 { font-size: 16px; font-weight: 700; color: #FFFFFF; }
-    .est-text p { font-size: 13px; color: var(--color-muted); }
-    .courier-tag {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--color-text);
+      box-shadow: 0 4px 16px rgba(200, 150, 12, 0.08);
+      flex-wrap: wrap;
     }
 
-    /* Visual Stepper */
+    .eta-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .eta-icon {
+      font-size: 32px;
+      width: 54px;
+      height: 54px;
+      background: #FFFFFF;
+      border: 1px solid rgba(200, 150, 12, 0.25);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .eta-text h4 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--color-brown);
+    }
+
+    .eta-text p {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    .courier-pill {
+      background: #FFFFFF;
+      border: 1px solid rgba(200, 150, 12, 0.35);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-brown);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Visual Milestone Stepper */
+    .stepper-container {
+      margin-bottom: 40px;
+    }
+
     .stepper {
       display: flex;
       justify-content: space-between;
       position: relative;
-      margin-bottom: 40px;
+      margin-bottom: 24px;
     }
+
     .stepper::before {
       content: '';
       position: absolute;
-      top: 20px;
-      left: 30px;
-      right: 30px;
+      top: 22px;
+      left: 40px;
+      right: 40px;
       height: 3px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(61, 32, 0, 0.1);
       z-index: 1;
     }
-    .step-item {
+
+    .step-node {
       position: relative;
       z-index: 2;
       display: flex;
@@ -306,112 +599,280 @@
       text-align: center;
       flex: 1;
     }
+
     .step-circle {
-      width: 40px;
-      height: 40px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      background: #14100D;
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: #FFFFFF;
+      border: 2px solid rgba(61, 32, 0, 0.18);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      color: var(--color-muted);
+      font-size: 17px;
+      color: var(--color-text-muted);
       margin-bottom: 10px;
-      transition: all 0.3s;
-    }
-    .step-item.active .step-circle {
-      background: var(--color-primary);
-      border-color: var(--color-primary);
-      color: #120E0B;
-      box-shadow: 0 0 16px rgba(200, 150, 12, 0.4);
-    }
-    .step-item.completed .step-circle {
-      background: var(--color-success);
-      border-color: var(--color-success);
-      color: #FFFFFF;
-    }
-    .step-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--color-muted);
-    }
-    .step-item.active .step-label, .step-item.completed .step-label {
-      color: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
     }
 
-    /* Detailed Timeline */
-    .timeline-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #FFFFFF;
-      margin-bottom: 20px;
+    .step-node.active .step-circle {
+      background: linear-gradient(135deg, #C8960C, #E0AB1E);
+      border-color: #C8960C;
+      color: #1A0D00;
+      font-weight: 800;
+      box-shadow: 0 0 20px rgba(200, 150, 12, 0.45);
+      transform: scale(1.08);
     }
+
+    .step-node.completed .step-circle {
+      background: #1E824C;
+      border-color: #1E824C;
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+
+    .step-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      max-width: 110px;
+      line-height: 1.35;
+    }
+
+    .step-node.active .step-label {
+      color: #946000;
+      font-weight: 700;
+    }
+
+    .step-node.completed .step-label {
+      color: var(--color-brown);
+      font-weight: 600;
+    }
+
+    /* Store Pickup PIN Spotlight */
+    .pickup-pin-card {
+      background: linear-gradient(135deg, #FFF9ED 0%, #FFF3DC 100%);
+      border: 2px dashed #C8960C;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pickup-pin-display {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #8C5803;
+      letter-spacing: 6px;
+      background: #FFFFFF;
+      padding: 8px 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(200, 150, 12, 0.4);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Chronological Timeline Audit */
+    .timeline-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--color-brown);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .timeline-list {
       list-style: none;
       position: relative;
       padding-left: 20px;
+      margin-bottom: 32px;
     }
+
     .timeline-list::before {
       content: '';
       position: absolute;
-      top: 6px;
-      bottom: 6px;
-      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      left: 7px;
       width: 2px;
-      background: rgba(200, 150, 12, 0.2);
+      background: rgba(200, 150, 12, 0.25);
     }
+
     .timeline-item {
       position: relative;
-      padding-left: 24px;
+      padding-left: 28px;
       padding-bottom: 24px;
     }
-    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
     .timeline-dot {
       position: absolute;
       left: 0;
       top: 4px;
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      background: var(--color-surface);
-      border: 3px solid var(--color-primary);
+      background: #FFFFFF;
+      border: 3.5px solid #C8960C;
+      box-shadow: 0 0 0 3px rgba(200, 150, 12, 0.15);
     }
+
     .timeline-item.completed .timeline-dot {
-      background: var(--color-success);
-      border-color: var(--color-success);
+      background: #1E824C;
+      border-color: #1E824C;
+      box-shadow: 0 0 0 3px rgba(30, 130, 76, 0.15);
     }
+
     .timeline-content h5 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-brown);
     }
+
     .timeline-content p {
-      font-size: 12px;
-      color: var(--color-muted);
-      margin-top: 2px;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-top: 3px;
+    }
+
+    /* Actions & Support Footer */
+    .order-actions-bar {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(61, 32, 0, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn-action-invoice {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-cream-soft);
+      border: 1.5px solid rgba(200, 150, 12, 0.4);
+      color: #7D4F00;
+      padding: 11px 20px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-invoice:hover {
+      background: #FFFFFF;
+      border-color: var(--color-gold);
+      color: #5C3800;
+      transform: translateY(-1px);
+    }
+
+    .btn-action-cancel {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(231, 76, 60, 0.08);
+      border: 1.5px solid rgba(231, 76, 60, 0.3);
+      color: #C0392B;
+      padding: 11px 20px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-cancel:hover {
+      background: rgba(231, 76, 60, 0.15);
+      border-color: #C0392B;
+    }
+
+    .btn-action-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #FFFFFF;
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-whatsapp:hover {
+      background: #20BA5A;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+    }
+
+    /* Not Found Card */
+    .not-found-card {
+      background: var(--bg-white);
+      border: 2px dashed rgba(200, 150, 12, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-md);
+      display: none;
     }
 
     /* Footer */
     .footer {
-      background: var(--color-surface);
-      border-top: 1px solid var(--color-border);
-      padding: 24px;
+      background: rgba(253, 250, 246, 0.95);
+      border-top: 1px solid rgba(61, 32, 0, 0.08);
+      padding: 28px 24px;
       text-align: center;
       font-size: 13px;
-      color: var(--color-muted);
+      color: var(--color-text-muted);
+      margin-top: auto;
     }
-    .footer a { color: var(--color-primary); text-decoration: none; }
 
-    @media (max-width: 768px) {
+    .footer a {
+      color: var(--color-brown);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: var(--color-gold);
+    }
+
+    @media (max-width: 900px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
       .nav { padding: 12px 18px; }
-      .nav-logo { font-size: 20px; gap: 8px; }
-      .nav-logo img { height: 34px; }
       .nav-links { display: none; }
-      .nav-home-btn { font-size: 12px; padding: 6px 12px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .search-card { padding: 22px 18px; }
       .search-form { flex-direction: column; }
-      .est-delivery-banner { flex-direction: column; align-items: flex-start; }
-      .step-label { font-size: 10px; }
+      .search-btn { width: 100%; justify-content: center; }
+      .stepper { flex-wrap: wrap; gap: 14px; }
+      .stepper::before { display: none; }
+      .step-node { flex: 1 1 45%; margin-bottom: 12px; }
+      .pickup-pin-card { flex-direction: column; align-items: flex-start; }
+      .order-actions-bar { flex-direction: column; align-items: stretch; }
+      .order-actions-bar > div { display: flex; flex-direction: column; width: 100%; }
     }
   </style>
 </head>
@@ -420,8 +881,8 @@
   <!-- Navigation -->
   <nav class="nav">
     <a href="/" class="nav-logo" title="Back to mingmorsels Home">
-      <img src="/logo.png?v=2" alt="mingmorsels Logo"  loading="lazy" />
-      mingmorsels
+      <img src="/logo.png?v=2" alt="mingmorsels Logo" loading="lazy" />
+      <span>ming</span>morsels
     </a>
     <div class="nav-links">
       <a href="/">Home</a>
@@ -431,7 +892,7 @@
       <a href="/experience-center.html">Experience Center</a>
       <a href="/track-order.html" class="active">Track Order</a>
     </div>
-    <a href="/" class="nav-home-btn" title="Return to Home Store">
+    <a href="/" class="nav-home-btn" title="Return to Store">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
         <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -441,133 +902,220 @@
   </nav>
 
   <!-- Main Tracking Portal -->
-  <main class="tracking-container">
-    <div class="tracking-header">
-      <div class="tracking-badge">📦 Shipway Logistics Portal</div>
-      <h1 class="tracking-title">Track Your Order</h1>
-      <p class="tracking-sub">Enter your mingmorsels Order ID or Shipway AWB Tracking Number to check live fulfillment status.</p>
-    </div>
+  <main class="tracking-wrapper">
+    
+    <!-- Hero Header -->
+    <header class="hero-header">
+      <div class="live-status-pill">
+        <span class="live-pulse-dot"></span>
+        <span>Shipway Live Logistics Gateway</span>
+      </div>
+      <h1 class="hero-title">Track Your <em>Artisanal</em> Order</h1>
+      <p class="hero-sub">
+        Follow your freshly baked cookies and muffins from our ovens to your doorstep, or track store pickup readiness at our Nayanda Halli studio.
+      </p>
+    </header>
 
-    <!-- Search Card -->
-    <div class="search-card">
+    <!-- Luxury Search Card -->
+    <section class="search-card">
+      <div class="search-label">
+        <span>🔍 Enter Order Identifier</span>
+      </div>
       <form class="search-form" id="trackForm">
-        <input type="text" id="orderInput" class="search-input" placeholder="Enter Order ID (e.g. MM_1785929100), Shipway AWB (e.g. SW_IN_929100), or Phone Number" required />
-        <button type="submit" class="search-btn" id="btnTrack">Track Order</button>
+        <div class="search-input-wrapper">
+          <span class="search-input-icon">📦</span>
+          <input 
+            type="text" 
+            id="orderInput" 
+            class="search-input" 
+            placeholder="Order ID (#MM-17859291), Shipway AWB (SW_IN_...), or Phone Number" 
+            autocomplete="off"
+            required 
+          />
+        </div>
+        <button type="submit" class="search-btn" id="btnTrack">
+          <span>Track Order</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </form>
-    </div>
+      
+      <div class="search-footer">
+        <div id="recentLookupContainer" style="display: none;">
+          <span>Recent on this device: </span>
+          <button type="button" class="recent-lookup-pill" id="recentOrderBtn">
+            <span>🍪</span>
+            <span id="recentOrderIdText">#MM-000000</span>
+          </button>
+        </div>
+        <div>
+          <span>Need help? Check your order confirmation SMS or email invoice for your <strong>Order ID</strong>.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pre-Search Brand Value Features -->
+    <section class="features-grid" id="featuresGrid">
+      <div class="feature-card">
+        <div class="feature-icon-bubble">🧑‍🍳</div>
+        <h3>Small-Batch Baking</h3>
+        <p>Crafted fresh with 100% pure cow butter and raw honey upon order verification.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon-bubble">🚚</div>
+        <h3>Shipway Air Priority</h3>
+        <p>Express courier dispatch via BlueDart & Delhivery across Bengaluru & pan-India.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon-bubble">🏪</div>
+        <h3>Studio Store Pickup</h3>
+        <p>Collect in 2-3 hours at Nayanda Halli with your confidential 4-digit PIN.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon-bubble">🛡️</div>
+        <h3>Airtight Gifting Tins</h3>
+        <p>Sealed with food-grade foil shields to lock in crunchiness and oven aroma.</p>
+      </div>
+    </section>
 
     <!-- Not Found Card -->
-    <div class="not-found-card" id="notFoundCard" style="display: none; background: var(--color-surface); border: 1.5px dashed rgba(200, 150, 12, 0.4); border-radius: var(--radius); padding: 40px 24px; text-align: center; margin-bottom: 32px; box-shadow: 0 12px 40px rgba(0,0,0,0.4);">
-      <div style="font-size: 52px; margin-bottom: 12px;">🔍</div>
-      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 26px; color: #FFF; margin-bottom: 8px;">
-        No Active Order Found for "<span id="nfQueryText" style="color: var(--color-primary);"></span>"
-      </h3>
-      <p style="font-size: 14px; color: var(--color-muted); max-width: 500px; margin: 0 auto 24px; line-height: 1.5;">
-        We couldn't find any active orders matching this number in our system or Shipway. If you haven't placed an order yet, treat yourself to our freshly baked artisanal cookies!
+    <section class="not-found-card" id="notFoundCard">
+      <div style="font-size: 56px; margin-bottom: 14px;">🔍</div>
+      <h2 style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--color-brown); margin-bottom: 8px;">
+        No Active Order Found for "<span id="nfQueryText" style="color: var(--color-gold);"></span>"
+      </h2>
+      <p style="font-size: 14.5px; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 28px; line-height: 1.55;">
+        Please double-check your Order ID or phone number. If you haven't placed your order yet, explore our freshly baked artisanal batch today!
       </p>
-      <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-        <a href="/#products" style="background: linear-gradient(135deg, #C8960C 0%, #A07208 100%); color: #120E0B; padding: 12px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 14px;">
-          🍪 Browse Cookies & Order Now →
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <a href="/#products" class="search-btn" style="text-decoration: none;">
+          <span>🍪 Browse Fresh Cookies →</span>
         </a>
-        <a href="https://wa.me/918884102020?text=Hi%20mingmorsels,%20I%20have%20a%20question%20about%20an%20order" target="_blank" style="background: #25D366; color: #FFF; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 14px;">
-          💬 WhatsApp Support
+        <a href="https://wa.me/918884102020?text=Hi%20mingmorsels,%20I%20have%20a%20question%20about%20my%20order" target="_blank" class="btn-action-whatsapp">
+          <span>💬 WhatsApp Concierge</span>
         </a>
       </div>
-    </div>
+    </section>
 
-    <!-- Result Card -->
-    <div class="result-card" id="resultCard">
-      <div class="result-header">
-        <div class="order-info">
-          <h3>
+    <!-- Live Order Result Card -->
+    <section class="result-card" id="resultCard">
+      <div class="result-header-row">
+        <div class="order-title-group">
+          <h2>
             <span>Order #<span id="resOrderId">MM_1785929100</span></span>
-          </h3>
-          <p>Courier AWB: <strong id="resAwb" style="color: var(--color-primary);">SW_IN_929100</strong></p>
+          </h2>
+          <p>Consignment AWB: <strong id="resAwb" style="color: var(--color-gold);">SW_IN_929100</strong></p>
         </div>
-        <div class="shipway-status-badge in-transit" id="resStatusBadge">
+        <div class="status-badge in-transit" id="resStatusBadge">
           🚚 In Transit via Shipway Air
         </div>
       </div>
 
-      <!-- 100 Reward Points & 1,000 Points Special Gift Milestone Notice -->
-      <div style="background: linear-gradient(135deg, rgba(200, 150, 12, 0.14) 0%, rgba(91, 44, 111, 0.16) 100%); border: 1.5px solid var(--color-primary); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px; text-align: left;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 20px;">🎉</span>
-            <strong style="font-size: 14px; color: var(--color-primary);">+100 Reward Points Earned on this Order!</strong>
+      <!-- 100 Reward Points Milestone Alert -->
+      <div style="background: linear-gradient(135deg, rgba(200, 150, 12, 0.12) 0%, rgba(91, 44, 111, 0.08) 100%); border: 1.5px solid var(--color-gold); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 22px;">🎉</span>
+            <strong style="font-size: 14.5px; color: #7D4F00;">+100 Connoisseur Reward Points Earned!</strong>
           </div>
-          <span style="background: var(--color-primary); color: #120E0B; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 10px;">★ +100 PTS</span>
+          <span style="background: var(--color-gold); color: #1A0D00; font-size: 11.5px; font-weight: 800; padding: 3px 10px; border-radius: 12px;">★ +100 PTS</span>
         </div>
-        <p style="font-size: 12.5px; color: #E8E0D7; margin: 0; line-height: 1.45;">
-          🎁 <strong>VIP Milestone Perk:</strong> When you complete <strong>1,000 Points</strong> (10 orders), you will receive an exclusive <strong>Special Artisanal Gift Box</strong> handcrafted by our Master Chefs with your next order!
+        <p style="font-size: 13px; color: var(--color-text-muted); margin: 0; line-height: 1.45;">
+          🎁 <strong>VIP Milestone:</strong> Collect <strong>1,000 Points</strong> (10 orders) to receive an exclusive <strong>Surprise Artisanal Gift Box</strong> handcrafted by our Master Chefs with your next delivery!
         </p>
       </div>
 
-      <!-- Estimated Delivery Banner -->
-      <div class="est-delivery-banner">
-        <div class="est-delivery-left">
-          <span class="est-icon">📅</span>
-          <div class="est-text">
-            <h4>Estimated Delivery: <span id="resEstDate" style="color: var(--color-primary);">Tomorrow by 6:00 PM</span></h4>
-            <p>Destined for <span id="resAddress">Bengaluru, KA</span></p>
+      <!-- Store Pickup PIN Banner (If Applicable) -->
+      <div class="pickup-pin-card" id="pickupPinBanner" style="display: none;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span style="font-size: 20px;">🏪</span>
+            <strong style="font-size: 16px; color: var(--color-brown);">Store Pickup Verification PIN</strong>
+          </div>
+          <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">
+            Present this 4-digit PIN at our Nayanda Halli Studio handover counter to collect your box.
+          </p>
+        </div>
+        <div class="pickup-pin-display" id="trackPickupPin">----</div>
+      </div>
+
+      <!-- Estimated Delivery ETA Banner -->
+      <div class="delivery-eta-card">
+        <div class="eta-left">
+          <div class="eta-icon">📅</div>
+          <div class="eta-text">
+            <h4 id="resEstDate">Estimated Delivery: Tomorrow by 6:00 PM</h4>
+            <p>Shipping to: <strong id="resAddress" style="color: var(--color-brown);">Bengaluru, Karnataka</strong></p>
           </div>
         </div>
-        <span class="courier-tag" id="resCourier">BlueDart Express (Shipway)</span>
-      </div>
-
-      <!-- Stepper -->
-      <div class="stepper">
-        <div class="step-item" id="step1">
-          <div class="step-circle">✓</div>
-          <div class="step-label">Order Placed</div>
-        </div>
-        <div class="step-item" id="step2">
-          <div class="step-circle">🍪</div>
-          <div class="step-label">Freshly Baked</div>
-        </div>
-        <div class="step-item" id="step3">
-          <div class="step-circle">📦</div>
-          <div class="step-label">Dispatched</div>
-        </div>
-        <div class="step-item" id="step4">
-          <div class="step-circle">🛵</div>
-          <div class="step-label">Out for Delivery</div>
-        </div>
-        <div class="step-item" id="step5">
-          <div class="step-circle">🎁</div>
-          <div class="step-label">Delivered</div>
+        <div class="courier-pill" id="resCourier">
+          <span>🚀</span>
+          <span>BlueDart Express (Shipway)</span>
         </div>
       </div>
 
-      <!-- Detailed Timeline -->
-      <h4 class="timeline-title">Shipway Live Fulfillment Journey</h4>
+      <!-- 5-Step Visual Stepper -->
+      <div class="stepper-container">
+        <div class="stepper">
+          <div class="step-node" id="step1">
+            <div class="step-circle">✓</div>
+            <div class="step-label">Order Confirmed</div>
+          </div>
+          <div class="step-node" id="step2">
+            <div class="step-circle">🍪</div>
+            <div class="step-label">Freshly Baked</div>
+          </div>
+          <div class="step-node" id="step3">
+            <div class="step-circle">📦</div>
+            <div class="step-label">Dispatched</div>
+          </div>
+          <div class="step-node" id="step4">
+            <div class="step-circle">🛵</div>
+            <div class="step-label">Out for Delivery</div>
+          </div>
+          <div class="step-node" id="step5">
+            <div class="step-circle">🎁</div>
+            <div class="step-label">Delivered</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Timeline List -->
+      <h3 class="timeline-title">
+        <span>📜</span>
+        <span>Shipway Live Fulfillment Journey</span>
+      </h3>
       <ul class="timeline-list" id="timelineList">
         <!-- Rendered dynamically -->
       </ul>
 
-      <!-- Help, Support & Order Actions -->
-      <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <!-- Actions & Support Bar -->
+      <div class="order-actions-bar">
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <a id="btnDownloadInvoice" href="#" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(200, 150, 12, 0.15); border: 1px solid rgba(200, 150, 12, 0.4); color: var(--color-primary); padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.2s;">
-            📄 Download Tax Invoice
+          <a id="btnDownloadInvoice" href="#" target="_blank" class="btn-action-invoice">
+            <span>📄</span>
+            <span>Download Tax Invoice (PDF)</span>
           </a>
-          <button type="button" id="btnCancelOrder" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(231, 76, 60, 0.12); border: 1px solid rgba(231, 76, 60, 0.4); color: #E74C3C; padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
-            ❌ Cancel Order
+          <button type="button" id="btnCancelOrder" class="btn-action-cancel">
+            <span>❌</span>
+            <span>Cancel Order</span>
           </button>
         </div>
         <div style="display: flex; align-items: center; gap: 12px;">
-          <span style="font-size: 13px; color: var(--color-muted);">Need assistance?</span>
-          <a href="https://wa.me/918884102020?text=Hi%20mingmorsels,%20need%20help%20tracking%20my%20order" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #25D366; color: #FFF; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none;">
-            💬 WhatsApp Live Support
+          <a href="https://wa.me/918884102020?text=Hi%20mingmorsels,%20need%20help%20tracking%20my%20order" target="_blank" class="btn-action-whatsapp">
+            <span>💬</span>
+            <span>WhatsApp Live Support</span>
           </a>
         </div>
       </div>
-    </div>
+    </section>
+
   </main>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2022 Miora Delights Pvt Limited. All rights reserved. Powered by <a href="https://shipway.in" target="_blank" rel="noopener">Shipway Logistics API</a>.</p>
+    <p>&copy; 2026 Miora Delights Pvt Limited. All rights reserved. Powered by <a href="https://shipway.in" target="_blank" rel="noopener">Shipway Logistics API</a>.</p>
   </footer>
 
   <script>
@@ -576,6 +1124,24 @@
       const orderInput = document.getElementById('orderInput');
       const btnTrack = document.getElementById('btnTrack');
       const resultCard = document.getElementById('resultCard');
+      const notFoundCard = document.getElementById('notFoundCard');
+
+      // Check for recent order in localStorage
+      try {
+        const recentOrderId = localStorage.getItem('last_order_id') || localStorage.getItem('current_order_id');
+        if (recentOrderId) {
+          const recentContainer = document.getElementById('recentLookupContainer');
+          const recentText = document.getElementById('recentOrderIdText');
+          if (recentContainer && recentText) {
+            recentText.textContent = recentOrderId.startsWith('#') ? recentOrderId : `#${recentOrderId}`;
+            recentContainer.style.display = 'inline-flex';
+            document.getElementById('recentOrderBtn').onclick = () => {
+              orderInput.value = recentOrderId;
+              fetchTrackingInfo(recentOrderId);
+            };
+          }
+        }
+      } catch (e) {}
 
       // Auto check query params e.g. ?order_id=MM_123 or ?awb=SW_123
       const urlParams = new URLSearchParams(window.location.search);
@@ -596,9 +1162,7 @@
 
       window.fetchTrackingInfo = async function(idQuery) {
         btnTrack.disabled = true;
-        btnTrack.textContent = 'Searching Shipway...';
-        const notFoundCard = document.getElementById('notFoundCard');
-        const resultCard = document.getElementById('resultCard');
+        btnTrack.innerHTML = `<span>Searching Shipway...</span>`;
 
         if (notFoundCard) notFoundCard.style.display = 'none';
         if (resultCard) resultCard.classList.remove('active');
@@ -615,13 +1179,13 @@
           const data = await res.json();
 
           if (res.ok && data.success) {
-            renderTrackingResult(data);
+            renderTrackingResult(data, idQuery);
           } else {
             // Render Not Found UI Card
             if (notFoundCard) {
               document.getElementById('nfQueryText').textContent = idQuery;
               notFoundCard.style.display = 'block';
-              notFoundCard.scrollIntoView({ behavior: 'smooth' });
+              notFoundCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
           }
         } catch (err) {
@@ -632,7 +1196,12 @@
           }
         } finally {
           btnTrack.disabled = false;
-          btnTrack.textContent = 'Track Order';
+          btnTrack.innerHTML = `
+            <span>Track Order</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          `;
         }
       };
 
@@ -658,20 +1227,20 @@
         }
       }
 
-      function renderTrackingResult(data) {
+      function renderTrackingResult(data, contactQuery) {
         subscribeToLiveOrderSSE(data.order_id);
         document.getElementById('resOrderId').textContent = data.order_id;
-        document.getElementById('resAwb').textContent = data.awb;
-        document.getElementById('resCourier').textContent = data.courier;
-        document.getElementById('resEstDate').textContent = `Estimated by ${data.estimated_delivery}`;
-        document.getElementById('resAddress').textContent = data.shipping_address ? data.shipping_address.slice(0, 35) + '...' : 'Destination Hub';
+        document.getElementById('resAwb').textContent = data.awb || 'SW_PENDING';
+        document.getElementById('resCourier').textContent = data.courier || 'BlueDart Express (Shipway)';
+        document.getElementById('resEstDate').textContent = `Estimated Delivery: ${data.estimated_delivery || 'Within 2-4 Hours'}`;
+        document.getElementById('resAddress').textContent = data.shipping_address ? data.shipping_address.slice(0, 40) + '...' : 'Bengaluru Hub';
 
         const isPickup = data.delivery_mode === 'pickup' || (data.shipping_address && data.shipping_address.includes('Store Pickup:')) || data.pickup_pin;
         const pickupBanner = document.getElementById('pickupPinBanner');
         const pickupPinEl = document.getElementById('trackPickupPin');
 
         if (isPickup && pickupBanner && pickupPinEl) {
-          pickupBanner.style.display = 'block';
+          pickupBanner.style.display = 'flex';
           pickupPinEl.textContent = data.pickup_pin || '----';
         } else if (pickupBanner) {
           pickupBanner.style.display = 'none';
@@ -679,36 +1248,35 @@
 
         const btnInvoice = document.getElementById('btnDownloadInvoice');
         if (btnInvoice) {
-          btnInvoice.href = `/api/orders/${encodeURIComponent(data.order_id)}/invoice?contact=${encodeURIComponent(idQuery)}`;
+          btnInvoice.href = `/api/orders/${encodeURIComponent(data.order_id)}/invoice?contact=${encodeURIComponent(contactQuery || data.order_id)}`;
         }
 
         const badge = document.getElementById('resStatusBadge');
         const btnCancel = document.getElementById('btnCancelOrder');
-
         const st = String(data.delivery_status || '').toUpperCase();
 
         if (st === 'CANCELLED') {
           badge.textContent = `❌ Order Cancelled (Shipway Voided)`;
-          badge.className = 'shipway-status-badge';
-          badge.style.background = 'rgba(231, 76, 60, 0.15)';
+          badge.className = 'status-badge';
+          badge.style.background = 'rgba(231, 76, 60, 0.12)';
           badge.style.borderColor = 'rgba(231, 76, 60, 0.4)';
-          badge.style.color = '#E74C3C';
+          badge.style.color = '#C0392B';
           if (btnCancel) btnCancel.style.display = 'none';
         } else {
           badge.textContent = `🚚 Status: ${data.delivery_status}`;
-          badge.className = 'shipway-status-badge in-transit';
+          badge.className = 'status-badge in-transit';
           badge.style.background = '';
           badge.style.borderColor = '';
           badge.style.color = '';
 
-          const isDispatched = ['DISPATCHED', 'IN_TRANSIT', 'SHIPPED', 'DELIVERED'].includes(st);
+          const isDispatched = ['DISPATCHED', 'IN_TRANSIT', 'SHIPPED', 'DELIVERED', 'COLLECTED'].includes(st);
 
           if (btnCancel) {
             if (isDispatched) {
               btnCancel.style.display = 'none';
             } else {
               btnCancel.style.display = 'inline-flex';
-              btnCancel.textContent = '❌ Cancel Order (Before Dispatch)';
+              btnCancel.innerHTML = `<span>❌ Cancel Order (Before Dispatch)</span>`;
               btnCancel.onclick = async () => {
                 const confirmCancel = confirm(`Cancellation Policy: You can cancel this order now because it has not been dispatched yet.\n\nCancel Order #${data.order_id}?`);
                 if (!confirmCancel) return;
@@ -722,7 +1290,7 @@
                   let res = await fetch(cancelUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ order_id: data.order_id, reason: 'Customer self-service cancellation before dispatch', contact: idQuery })
+                    body: JSON.stringify({ order_id: data.order_id, reason: 'Customer self-service cancellation before dispatch', contact: contactQuery })
                   });
 
                   const cancelData = await res.json();
@@ -750,32 +1318,28 @@
         const s4 = document.getElementById('step4');
         const s5 = document.getElementById('step5');
 
-        [s1, s2, s3, s4, s5].forEach(s => { if (s) s.className = 'step-item'; });
+        [s1, s2, s3, s4, s5].forEach(s => { if (s) s.className = 'step-node'; });
 
         if (st === 'CANCELLED') {
-          s1.className = 'step-item';
-          s2.className = 'step-item';
-          s3.className = 'step-item';
-          s4.className = 'step-item';
-          s5.className = 'step-item';
-        } else if (st === 'DELIVERED') {
-          s1.className = 'step-item completed';
-          s2.className = 'step-item completed';
-          s3.className = 'step-item completed';
-          s4.className = 'step-item completed';
-          s5.className = 'step-item completed';
+          // Keep neutral
+        } else if (st === 'DELIVERED' || st === 'COLLECTED') {
+          s1.className = 'step-node completed';
+          s2.className = 'step-node completed';
+          s3.className = 'step-node completed';
+          s4.className = 'step-node completed';
+          s5.className = 'step-node completed';
         } else if (st === 'OUT_FOR_DELIVERY') {
-          s1.className = 'step-item completed';
-          s2.className = 'step-item completed';
-          s3.className = 'step-item completed';
-          s4.className = 'step-item active';
+          s1.className = 'step-node completed';
+          s2.className = 'step-node completed';
+          s3.className = 'step-node completed';
+          s4.className = 'step-node active';
         } else if (st === 'DISPATCHED' || st === 'IN_TRANSIT') {
-          s1.className = 'step-item completed';
-          s2.className = 'step-item completed';
-          s3.className = 'step-item active';
+          s1.className = 'step-node completed';
+          s2.className = 'step-node completed';
+          s3.className = 'step-node active';
         } else {
-          s1.className = 'step-item completed';
-          s2.className = 'step-item active';
+          s1.className = 'step-node completed';
+          s2.className = 'step-node active';
         }
 
         // Render Timeline List
@@ -786,9 +1350,9 @@
           const li = document.createElement('li');
           li.className = 'timeline-item completed';
           li.innerHTML = `
-            <div class="timeline-dot" style="background: #E74C3C; border-color: #E74C3C;"></div>
+            <div class="timeline-dot" style="background: #C0392B; border-color: #C0392B;"></div>
             <div class="timeline-content">
-              <h5 style="color: #E74C3C;">Order Cancelled & Consignment Voided</h5>
+              <h5 style="color: #C0392B;">Order Cancelled & Consignment Voided</h5>
               <p>Shipway Logistics AWB (${data.awb}) voided • 100% Refund Initiated</p>
             </div>
           `;
@@ -801,7 +1365,7 @@
               <div class="timeline-dot"></div>
               <div class="timeline-content">
                 <h5>${item.status}</h5>
-                <p>${item.location} • <span style="color: var(--color-primary);">${item.timestamp}</span></p>
+                <p>${item.location} • <span style="color: #8C5803; font-weight: 600;">${item.timestamp}</span></p>
               </div>
             `;
             timelineList.appendChild(li);
@@ -809,7 +1373,7 @@
         }
 
         resultCard.classList.add('active');
-        resultCard.scrollIntoView({ behavior: 'smooth' });
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   </script>
