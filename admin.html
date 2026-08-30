@@ -16,16 +16,24 @@
 
   <style>
     :root {
-      --bg-dark: #120E0B;
-      --bg-card: #1C1612;
-      --bg-light: #FAF6F0;
-      --color-gold: #C8960C;
-      --color-gold-hover: #E0AB18;
-      --color-text-main: #FAF6F0;
-      --color-text-muted: rgba(250, 246, 240, 0.65);
-      --border-accent: rgba(200, 150, 12, 0.25);
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans: 'Outfit', sans-serif;
+      --bg-dark: #0D0B0A;
+      --bg-card: rgba(24, 19, 15, 0.85);
+      --bg-card-hover: rgba(34, 27, 21, 0.95);
+      --bg-surface: #17120E;
+      --color-gold: #D4A373;
+      --color-gold-bright: #E5B869;
+      --color-gold-glow: rgba(212, 163, 115, 0.18);
+      --color-gold-border: rgba(212, 163, 115, 0.25);
+      --color-text-main: #FBF7F2;
+      --color-text-muted: rgba(251, 247, 242, 0.62);
+      --color-accent-green: #27AE60;
+      --color-accent-blue: #3498DB;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --shadow-card: 0 12px 36px rgba(0, 0, 0, 0.45);
+      --radius-lg: 18px;
+      --radius-md: 12px;
     }
 
     * {
@@ -36,6 +44,9 @@
 
     html, body {
       background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(212, 163, 115, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(212, 163, 115, 0.04) 0%, transparent 45%);
       color: var(--color-text-main);
       font-family: var(--font-sans);
       min-height: 100vh;
@@ -44,39 +55,52 @@
 
     /* Admin Navigation Header */
     .admin-header {
-      background: rgba(18, 14, 11, 0.95);
-      border-bottom: 1px solid var(--border-accent);
-      padding: 16px 30px;
+      background: rgba(13, 11, 10, 0.92);
+      border-bottom: 1px solid var(--color-gold-border);
+      padding: 14px 36px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
     }
 
     .admin-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       text-decoration: none;
     }
 
     .admin-brand img {
-      height: 38px;
+      height: 52px;
       width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(212, 163, 115, 0.2));
+      transition: transform 0.2s ease;
+    }
+
+    .admin-brand:hover img {
+      transform: scale(1.03);
     }
 
     .admin-title-group h1 {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 700;
       color: #FFFFFF;
-      letter-spacing: 0.5px;
+      letter-spacing: -0.2px;
     }
 
-    .admin-title-group span {
+    .admin-title-group h1 span {
+      color: var(--color-gold-bright);
+    }
+
+    .admin-title-group p {
       font-size: 11px;
       color: var(--color-gold);
       font-weight: 600;
@@ -91,103 +115,155 @@
     }
 
     .status-badge {
-      font-size: 11px;
-      background: rgba(46, 204, 113, 0.12);
-      border: 1px solid rgba(46, 204, 113, 0.3);
+      font-size: 12px;
+      background: rgba(39, 174, 96, 0.1);
+      border: 1px solid rgba(39, 174, 96, 0.3);
       color: #2ECC71;
-      padding: 5px 12px;
+      padding: 7px 16px;
       border-radius: 50px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+    }
+
+    .status-pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #2ECC71;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(46, 204, 113, 0.8);
+      animation: pulseLive 2s infinite;
+    }
+
+    @keyframes pulseLive {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     .btn-back-store {
-      background: rgba(200, 150, 12, 0.15);
-      border: 1px solid var(--border-accent);
-      color: var(--color-gold);
-      padding: 7px 16px;
-      border-radius: 8px;
-      font-size: 12px;
+      background: linear-gradient(135deg, rgba(212, 163, 115, 0.15), rgba(212, 163, 115, 0.08));
+      border: 1px solid var(--color-gold-border);
+      color: var(--color-gold-bright);
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 13px;
       font-weight: 600;
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-back-store:hover {
       background: var(--color-gold);
-      color: #120E0B;
+      color: #0D0B0A;
+      box-shadow: 0 4px 16px rgba(212, 163, 115, 0.3);
+      transform: translateY(-1px);
     }
 
     /* Container Layout */
     .admin-layout {
-      max-width: 1380px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 30px 24px;
+      padding: 32px 28px 80px;
     }
 
     /* Executive Metrics Grid */
     .metrics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 20px;
-      margin-bottom: 30px;
+      margin-bottom: 32px;
     }
 
     .metric-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-accent);
-      border-radius: 16px;
-      padding: 20px 24px;
+      border: 1px solid var(--color-gold-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--color-gold-bright), transparent);
+      opacity: 0.6;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 163, 115, 0.45);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6);
     }
 
     .metric-info h3 {
       font-size: 12px;
       color: var(--color-text-muted);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.1px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .metric-info .val {
-      font-family: var(--font-serif);
-      font-size: 32px;
-      font-weight: 700;
+      font-family: var(--font-sans);
+      font-size: 34px;
+      font-weight: 800;
       color: #FFFFFF;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
     }
 
     .metric-info .sub {
-      font-size: 11px;
+      font-size: 12px;
       color: #2ECC71;
-      margin-top: 4px;
+      margin-top: 6px;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .metric-icon {
-      font-size: 34px;
-      background: rgba(200, 150, 12, 0.1);
+    .metric-icon-box {
       width: 58px;
       height: 58px;
+      background: var(--color-gold-glow);
+      border: 1px solid var(--color-gold-border);
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(200, 150, 12, 0.2);
+      font-size: 26px;
+      box-shadow: inset 0 2px 6px rgba(255,255,255,0.05);
     }
 
-    /* Tabs Navigation */
+    /* Tabs Navigation (Pill-Segmented Control) */
     .admin-tabs {
       display: flex;
-      gap: 10px;
-      border-bottom: 1px solid var(--border-accent);
-      margin-bottom: 24px;
-      flex-wrap: wrap;
+      gap: 8px;
+      background: rgba(20, 16, 13, 0.85);
+      border: 1px solid var(--color-gold-border);
+      padding: 6px;
+      border-radius: 16px;
+      margin-bottom: 28px;
+      overflow-x: auto;
+      box-shadow: var(--shadow-card);
     }
 
     .tab-btn {
@@ -195,22 +271,28 @@
       border: none;
       color: var(--color-text-muted);
       font-family: var(--font-sans);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
-      padding: 12px 20px;
+      padding: 10px 20px;
+      border-radius: 10px;
       cursor: pointer;
-      border-bottom: 2px solid transparent;
       transition: all 0.2s ease;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .tab-btn.active {
-      color: var(--color-gold);
-      border-bottom-color: var(--color-gold);
+      background: linear-gradient(135deg, var(--color-gold), #B57F32);
+      color: #0D0B0A;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(212, 163, 115, 0.35);
     }
 
-    .tab-btn:hover {
+    .tab-btn:hover:not(.active) {
       color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.05);
     }
 
     /* Tab Panes */
@@ -224,17 +306,19 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     /* Orders Management Table */
     .panel-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-accent);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border: 1px solid var(--color-gold-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       margin-bottom: 30px;
     }
 
@@ -242,72 +326,82 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 16px;
     }
 
     .panel-title h2 {
       font-family: var(--font-serif);
-      font-size: 22px;
+      font-size: 23px;
+      font-weight: 700;
       color: #FFFFFF;
+      letter-spacing: -0.2px;
     }
 
     .panel-title p {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--color-text-muted);
+      margin-top: 3px;
     }
 
     .table-container {
       overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
     }
 
     .admin-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 13px;
+      font-size: 13.5px;
     }
 
     .admin-table th {
-      background: rgba(200, 150, 12, 0.08);
-      color: var(--color-gold);
-      padding: 14px 16px;
+      background: rgba(212, 163, 115, 0.1);
+      color: var(--color-gold-bright);
+      padding: 14px 18px;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--border-accent);
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid var(--color-gold-border);
     }
 
     .admin-table td {
-      padding: 16px;
-      border-bottom: 1px solid rgba(250, 246, 240, 0.08);
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border-subtle);
       color: var(--color-text-main);
       vertical-align: middle;
     }
 
     .admin-table tr:hover td {
-      background: rgba(200, 150, 12, 0.04);
+      background: rgba(212, 163, 115, 0.05);
     }
 
     .order-id {
       font-weight: 700;
       color: #FFFFFF;
+      font-family: monospace;
+      font-size: 13.5px;
     }
 
     .cust-email {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--color-text-muted);
     }
 
     .badge-status {
-      display: inline-block;
-      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 50px;
       text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
 
     .badge-paid { background: rgba(46, 204, 113, 0.15); color: #2ECC71; border: 1px solid rgba(46, 204, 113, 0.3); }
@@ -315,80 +409,47 @@
     .badge-pending { background: rgba(241, 196, 15, 0.15); color: #F1C40F; border: 1px solid rgba(241, 196, 15, 0.3); }
 
     .btn-action {
-      background: var(--color-gold);
-      color: #120E0B;
+      background: linear-gradient(135deg, var(--color-gold), #B57F32);
+      color: #0D0B0A;
       border: none;
-      border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 11px;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .btn-action:hover {
-      background: var(--color-gold-hover);
+      filter: brightness(1.1);
       transform: translateY(-1px);
-    }
-
-    /* AI Forecast Grid */
-    .forecast-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .forecast-card {
-      background: rgba(250, 246, 240, 0.03);
-      border: 1px solid rgba(250, 246, 240, 0.08);
-      border-radius: 12px;
-      padding: 16px;
-    }
-
-    .forecast-card h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #FFFFFF;
-      margin-bottom: 6px;
-    }
-
-    .raw-mat-card {
-      background: rgba(200, 150, 12, 0.08);
-      border: 1px dashed var(--border-accent);
-      border-radius: 12px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .raw-mat-card .mat-icon {
-      font-size: 32px;
+      box-shadow: 0 4px 12px rgba(212, 163, 115, 0.3);
     }
 
     /* Passcode Modal */
     .auth-modal-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(18, 14, 11, 0.95);
+      background: rgba(13, 11, 10, 0.95);
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(20px);
     }
 
     .auth-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-accent);
-      padding: 36px 30px;
-      border-radius: 20px;
-      max-width: 400px;
+      background: #17120E;
+      border: 1.5px solid var(--color-gold-border);
+      padding: 40px 34px;
+      border-radius: 22px;
+      max-width: 420px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.8);
     }
 
     .auth-card h2 {
@@ -400,27 +461,39 @@
 
     .auth-input {
       width: 100%;
-      padding: 12px;
-      background: rgba(250, 246, 240, 0.06);
-      border: 1px solid var(--border-accent);
-      border-radius: 8px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--color-gold-border);
+      border-radius: 10px;
       color: #FFFFFF;
-      font-size: 14px;
-      margin: 16px 0;
+      font-size: 15px;
+      margin: 18px 0;
       text-align: center;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      outline: none;
+    }
+
+    .auth-input:focus {
+      border-color: var(--color-gold-bright);
+      box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
     }
 
     .auth-btn {
       width: 100%;
-      padding: 12px;
-      background: var(--color-gold);
-      color: #120E0B;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--color-gold), #B57F32);
+      color: #0D0B0A;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-weight: 700;
       cursor: pointer;
       font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .auth-btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
     }
   </style>
 </head>
@@ -430,41 +503,47 @@
   <!-- Passcode Auth Modal -->
   <div id="admin-auth-modal" class="auth-modal-overlay">
     <div class="auth-card">
-      <div style="font-size: 42px; margin-bottom: 10px;">🔐</div>
+      <div style="font-size: 44px; margin-bottom: 12px;">🔐</div>
       <h2>Store Admin Access</h2>
-      <p style="font-size: 12px; color: var(--color-text-muted);">Enter the master passcode to open the mingmorsels Operations Dashboard.</p>
+      <p style="font-size: 13px; color: var(--color-text-muted);">Enter the master passcode to open the mingmorsels Operations Dashboard.</p>
       <input type="password" id="admin-passcode-input" class="auth-input" placeholder="••••••••" value="mingmorsels" autofocus />
       <button id="btn-unlock-admin" class="auth-btn">Unlock Operations Portal</button>
-      <p id="auth-error-msg" style="color: #E74C3C; font-size: 11px; margin-top: 10px; display: none;">Invalid Passcode. Please try again.</p>
+      <p id="auth-error-msg" style="color: #E74C3C; font-size: 12px; margin-top: 10px; display: none;">Invalid Passcode. Please try again.</p>
     </div>
   </div>
 
   <!-- Admin Navigation Header -->
   <header class="admin-header">
-    <a href="/" class="admin-brand">
-      <img src="/logo.png?v=2" alt="mingmorsels Logo"  loading="lazy" />
+    <a href="/" class="admin-brand" title="Back to mingmorsels Store">
+      <img src="/logo.png?v=2" alt="mingmorsels Logo" loading="lazy" />
       <div class="admin-title-group">
-        <h1>mingmorsels Operations</h1>
-        <span>Store Control & Shipway Dispatch</span>
+        <h1><span>ming</span>morsels Operations</h1>
+        <p>Store Control &amp; Shipway Dispatch</p>
       </div>
     </a>
 
     <div class="admin-nav-right">
-      <div class="status-badge" style="background: rgba(200, 150, 12, 0.12); color: var(--color-gold); border-color: var(--border-accent);">
+      <div class="status-badge" style="background: rgba(212, 163, 115, 0.12); color: var(--color-gold-bright); border-color: var(--color-gold-border);">
         <span>👑 Admin: <strong>mingmorsels@gmail.com</strong></span>
       </div>
       <div class="status-badge">
-        <span style="width: 8px; height: 8px; background: #2ECC71; border-radius: 50%;"></span>
-        <span>Shipway & API Online</span>
+        <span class="status-pulse-dot"></span>
+        <span>Shipway &amp; API Online</span>
       </div>
-      <a href="/" class="btn-back-store">🛍️ Return to Store</a>
+      <a href="/" class="btn-back-store">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Return to Store</span>
+      </a>
     </div>
   </header>
 
   <!-- Admin Dashboard Layout -->
   <main class="admin-layout">
 
-    <!-- Executive Metrics Grid (100% Real Live Database Metrics) -->
+    <!-- Executive Metrics Grid -->
     <div class="metrics-grid">
       <div class="metric-card">
         <div class="metric-info">
@@ -472,7 +551,7 @@
           <div class="val" id="metric-revenue">₹0</div>
           <div class="sub" id="metric-rev-sub">Real customer sales</div>
         </div>
-        <div class="metric-icon">💰</div>
+        <div class="metric-icon-box">💰</div>
       </div>
 
       <div class="metric-card">
@@ -481,7 +560,7 @@
           <div class="val" id="metric-orders-count">0</div>
           <div class="sub" id="metric-orders-sub">Verified payments</div>
         </div>
-        <div class="metric-icon">📦</div>
+        <div class="metric-icon-box">📦</div>
       </div>
 
       <div class="metric-card">
@@ -490,16 +569,16 @@
           <div class="val" id="metric-shipway-count">0</div>
           <div class="sub">Active AWB Shipments</div>
         </div>
-        <div class="metric-icon">🚚</div>
+        <div class="metric-icon-box">🚚</div>
       </div>
 
       <div class="metric-card">
         <div class="metric-info">
-          <h3>Customer Love Score</h3>
-          <div class="val" id="metric-sentiment">😍 100%</div>
+          <h3>Customer Quality Score</h3>
+          <div class="val" id="metric-sentiment">100%</div>
           <div class="sub">AI Lexicon Classified</div>
         </div>
-        <div class="metric-icon">⭐</div>
+        <div class="metric-icon-box">⭐</div>
       </div>
     </div>
 
