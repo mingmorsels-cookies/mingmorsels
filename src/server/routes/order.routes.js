@@ -476,6 +476,7 @@ router.get('/shipping/track', async (req, res) => {
       awb: order.shipway_awb || trackingData.awb || 'SW-PENDING',
       courier: order.courier_name || trackingData.courier || 'BlueDart Express (Shipway Partner)',
       delivery_status: order.delivery_status || trackingData.status || 'BAKING',
+      payment_status: order.payment_status || 'PAID',
       estimated_delivery: new Date(Date.now() + 2 * 86400000).toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' }),
       shipping_address: order.shipping_address,
       delivery_mode: order.delivery_mode,

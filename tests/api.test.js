@@ -236,4 +236,73 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
     expect(res3.body.success).toBe(true);
     expect(res3.body.order_id).toBe(orderId);
   });
+
+  it('POST /api/order/cancel - should cancel pending order, release stock, and initiate refund', async () => {
+    // 1. Create a paid order
+    const orderRes = await request(app)
+      .post('/api/payment/create-order')
+      .send({
+        items: [{ id: 'rose', quantity: 2 }],
+        user_email: 'cancel.test@example.com',
+        user_name: 'Cancellation Tester',
+        shipping_address: '4th Cross, Koramangala, Bengaluru'
+      });
+    expect(orderRes.status).toBe(200);
+    const orderId = orderRes.body.order_id;
+
+    // 2. Cancel order before shipping with ownership proof
+    const cancelRes = await request(app)
+      .post('/api/order/cancel')
+      .send({
+        order_id: orderId,
+        contact: 'cancel.test@example.com',
+        reason: 'Customer changed mind before dispatch'
+      });
+    expect(cancelRes.status).toBe(200);
+    expect(cancelRes.body.success).toBe(true);
+    expect(cancelRes.body.order.delivery_status).toBe('CANCELLED');
+    expect(cancelRes.body.order.payment_status).toBe('REFUND_INITIATED');
+
+    // 3. Verify order status reflects cancellation on track API
+    const trackRes = await request(app).get(`/api/shipping/track?q=${orderId}`);
+    expect(trackRes.status).toBe(200);
+    expect(trackRes.body.delivery_status).toBe('CANCELLED');
+    expect(trackRes.body.payment_status).toBe('REFUND_INITIATED');
+  });
+
+  it('POST /api/order/cancel - should reject cancellation if order is already dispatched', async () => {
+    const adminKey = process.env.ADMIN_SECRET_KEY || 'Arun_Narayan_K';
+
+    // 1. Create order
+    const orderRes = await request(app)
+      .post('/api/payment/create-order')
+      .send({
+        items: [{ id: 'almond', quantity: 1 }],
+        user_email: 'dispatched.cancel@example.com',
+        shipping_address: 'Indiranagar, Bengaluru'
+      });
+    const orderId = orderRes.body.order_id;
+
+    // 2. Dispatch order via Admin
+    const dispatchRes = await request(app)
+      .post('/api/admin/dispatch')
+      .set('x-admin-key', adminKey)
+      .send({
+        order_id: orderId,
+        courier: 'BlueDart Express'
+      });
+    expect(dispatchRes.status).toBe(200);
+
+    // 3. Attempt customer cancellation on dispatched order
+    const cancelRes = await request(app)
+      .post('/api/order/cancel')
+      .send({
+        order_id: orderId,
+        contact: 'dispatched.cancel@example.com',
+        reason: 'Attempt cancel after dispatch'
+      });
+    expect(cancelRes.status).toBe(400);
+    expect(cancelRes.body.success).toBe(false);
+    expect(cancelRes.body.error).toContain('dispatched');
+  });
 });
