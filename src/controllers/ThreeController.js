@@ -391,6 +391,80 @@ export class ThreeController {
     });
   }
 
+  createBakedCrustTexture(type = 'golden') {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+
+    // 1. Authentic Vertical Baking Gradient: lighter golden dough at top, warm caramelized toast at bottom
+    const grad = ctx.createLinearGradient(0, 0, 0, 256);
+    if (type === 'walnut_sf') {
+      grad.addColorStop(0.0, '#d1ab7a');
+      grad.addColorStop(0.45, '#a3713d');
+      grad.addColorStop(1.0, '#75471d');
+    } else if (type === 'oatsnuts') {
+      grad.addColorStop(0.0, '#e8caa2');
+      grad.addColorStop(0.45, '#c59556');
+      grad.addColorStop(1.0, '#8e5b22');
+    } else if (type === 'rose') {
+      grad.addColorStop(0.0, '#f5ded4');
+      grad.addColorStop(0.45, '#e0b5a0');
+      grad.addColorStop(1.0, '#af7660');
+    } else if (type === 'orange') {
+      grad.addColorStop(0.0, '#f2dbae');
+      grad.addColorStop(0.45, '#d6a35a');
+      grad.addColorStop(1.0, '#9e6423');
+    } else if (type === 'walnut') {
+      grad.addColorStop(0.0, '#ebd0a4');
+      grad.addColorStop(0.45, '#c28e50');
+      grad.addColorStop(1.0, '#875320');
+    } else {
+      // Golden Almond Dough
+      grad.addColorStop(0.0, '#f4dcba');
+      grad.addColorStop(0.45, '#d3a365');
+      grad.addColorStop(1.0, '#9a6325');
+    }
+
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 512, 256);
+
+    // 2. High-Frequency Micro Crumb Pores & Bakery Grain
+    const imgData = ctx.getImageData(0, 0, 512, 256);
+    const data = imgData.data;
+
+    for (let y = 0; y < 256; y++) {
+      for (let x = 0; x < 512; x++) {
+        const idx = (y * 512 + x) * 4;
+
+        // Multi-frequency organic noise for porous baked biscuit surface
+        const n1 = Math.sin(x * 0.18) * Math.cos(y * 0.22);
+        const n2 = Math.sin(x * 0.45 + y * 0.35) * Math.cos(x * 0.28 - y * 0.40);
+        const n3 = (Math.random() - 0.5) * 14;
+
+        const noise = (n1 * 10 + n2 * 6 + n3);
+
+        data[idx]     = Math.max(0, Math.min(255, data[idx]     + noise));
+        data[idx + 1] = Math.max(0, Math.min(255, data[idx + 1] + noise * 0.88));
+        data[idx + 2] = Math.max(0, Math.min(255, data[idx + 2] + noise * 0.72));
+      }
+    }
+    ctx.putImageData(imgData, 0, 0);
+
+    // 3. Subtle horizontal oven-bake micro-creases
+    ctx.fillStyle = 'rgba(90, 50, 15, 0.035)';
+    for (let i = 0; i < 24; i++) {
+      const y = Math.random() * 256;
+      ctx.fillRect(0, y, 512, 1.5);
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.repeat.set(4, 1);
+    return tex;
+  }
+
   createArtisanalCookieGeometry({
     radius = 1.04,
     height = 0.32,
@@ -422,9 +496,9 @@ export class ThreeController {
         x = Math.cos(angle) * (radius * sideProfileBulge);
         z = Math.sin(angle) * (radius * sideProfileBulge);
 
-        // Seamless cylindrical UV wrap around cookie circumference
-        const u = (angle / (Math.PI * 2) + 0.5) * 2.0;
-        const v = (t + 1.0) * 0.5;
+        // Seamless cylindrical UV wrap around cookie circumference: top (t=1) -> v=0, bottom (t=-1) -> v=1
+        const u = (angle / (Math.PI * 2) + 0.5);
+        const v = (1.0 - (t + 1.0) * 0.5);
         uvs.setXY(i, u, v);
       }
 
@@ -470,12 +544,8 @@ export class ThreeController {
   buildAlmondCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
     const topTex = textureLoader.load('/almond_cookie_top_clean.png');
-    topTex.wrapS = THREE.RepeatWrapping;
-    topTex.wrapT = THREE.RepeatWrapping;
-
     const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
-    bottomTex.wrapS = THREE.RepeatWrapping;
-    bottomTex.wrapT = THREE.RepeatWrapping;
+    const crustTex = this.createBakedCrustTexture('almond');
 
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
@@ -485,10 +555,10 @@ export class ThreeController {
     });
 
     const sideMat = new THREE.MeshStandardMaterial({
-      map: topTex,
-      bumpMap: topTex,
-      bumpScale: 0.035,
-      roughness: 0.82,
+      map: crustTex,
+      bumpMap: crustTex,
+      bumpScale: 0.025,
+      roughness: 0.84,
       metalness: 0.01,
       color: 0xffffff
     });
@@ -520,12 +590,8 @@ export class ThreeController {
   buildRoseCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
     const topTex = textureLoader.load('/rose_cookie_top_clean.png');
-    topTex.wrapS = THREE.RepeatWrapping;
-    topTex.wrapT = THREE.RepeatWrapping;
-
     const bottomTex = textureLoader.load('/rose_cookie_bottom_clean.png');
-    bottomTex.wrapS = THREE.RepeatWrapping;
-    bottomTex.wrapT = THREE.RepeatWrapping;
+    const crustTex = this.createBakedCrustTexture('rose');
 
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
@@ -535,10 +601,10 @@ export class ThreeController {
     });
 
     const sideMat = new THREE.MeshStandardMaterial({
-      map: topTex,
-      bumpMap: topTex,
-      bumpScale: 0.035,
-      roughness: 0.82,
+      map: crustTex,
+      bumpMap: crustTex,
+      bumpScale: 0.025,
+      roughness: 0.84,
       metalness: 0.01,
       color: 0xffffff
     });
@@ -621,12 +687,8 @@ export class ThreeController {
   buildOatsNutsCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
     const topTex = textureLoader.load('/oatsnuts_cookie_top_clean.png');
-    topTex.wrapS = THREE.RepeatWrapping;
-    topTex.wrapT = THREE.RepeatWrapping;
-
     const bottomTex = textureLoader.load('/oatsnuts_cookie_bottom_clean.png');
-    bottomTex.wrapS = THREE.RepeatWrapping;
-    bottomTex.wrapT = THREE.RepeatWrapping;
+    const crustTex = this.createBakedCrustTexture('oatsnuts');
 
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
@@ -636,9 +698,9 @@ export class ThreeController {
     });
 
     const sideMat = new THREE.MeshStandardMaterial({
-      map: topTex,
-      bumpMap: topTex,
-      bumpScale: 0.035,
+      map: crustTex,
+      bumpMap: crustTex,
+      bumpScale: 0.028,
       roughness: 0.85,
       metalness: 0.01,
       color: 0xffffff
@@ -732,12 +794,8 @@ export class ThreeController {
   buildOrangeCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
     const topTex = textureLoader.load('/orange_cookie_top_clean.png');
-    topTex.wrapS = THREE.RepeatWrapping;
-    topTex.wrapT = THREE.RepeatWrapping;
-
     const bottomTex = textureLoader.load('/orange_cookie_bottom_clean.png');
-    bottomTex.wrapS = THREE.RepeatWrapping;
-    bottomTex.wrapT = THREE.RepeatWrapping;
+    const crustTex = this.createBakedCrustTexture('orange');
 
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
@@ -747,10 +805,10 @@ export class ThreeController {
     });
 
     const sideMat = new THREE.MeshStandardMaterial({
-      map: topTex,
-      bumpMap: topTex,
-      bumpScale: 0.035,
-      roughness: 0.82,
+      map: crustTex,
+      bumpMap: crustTex,
+      bumpScale: 0.025,
+      roughness: 0.84,
       metalness: 0.01,
       color: 0xffffff
     });
@@ -781,14 +839,11 @@ export class ThreeController {
 
   buildWalnutCookieModel(id, group) {
     const textureLoader = new THREE.TextureLoader();
-    const topPath = id === 'walnut_sf' ? '/walnut_sf_cookie_top_clean.png' : '/walnut_cookie_top_clean.png';
+    const isSF = (id === 'walnut_sf');
+    const topPath = isSF ? '/walnut_sf_cookie_top_clean.png' : '/walnut_cookie_top_clean.png';
     const topTex = textureLoader.load(topPath);
-    topTex.wrapS = THREE.RepeatWrapping;
-    topTex.wrapT = THREE.RepeatWrapping;
-
     const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
-    bottomTex.wrapS = THREE.RepeatWrapping;
-    bottomTex.wrapT = THREE.RepeatWrapping;
+    const crustTex = this.createBakedCrustTexture(isSF ? 'walnut_sf' : 'walnut');
 
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
@@ -797,11 +852,10 @@ export class ThreeController {
       ovalBulge: 0.09
     });
 
-    const isSF = (id === 'walnut_sf');
     const sideMat = new THREE.MeshStandardMaterial({
-      map: topTex,
-      bumpMap: topTex,
-      bumpScale: 0.035,
+      map: crustTex,
+      bumpMap: crustTex,
+      bumpScale: isSF ? 0.030 : 0.025,
       roughness: 0.84,
       metalness: 0.01,
       color: 0xffffff
