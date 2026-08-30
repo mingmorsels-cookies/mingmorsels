@@ -417,10 +417,15 @@ export class ThreeController {
       // 1. Oval Profile Bulge: Parabolic outward expansion at the waist (t=0)
       const sideProfileBulge = 1.0 + ovalBulge * Math.max(0, 1.0 - Math.pow(t, 2));
 
-      // Apply smooth oval curvature to side rim vertices
+      // Apply smooth oval curvature and seamless texture mapping to side rim
       if (Math.abs(y) < halfH - 0.005 && r > 0.001) {
         x = Math.cos(angle) * (radius * sideProfileBulge);
         z = Math.sin(angle) * (radius * sideProfileBulge);
+
+        // Seamless cylindrical UV wrap around cookie circumference
+        const u = (angle / (Math.PI * 2) + 0.5) * 2.0;
+        const v = (t + 1.0) * 0.5;
+        uvs.setXY(i, u, v);
       }
 
       // 2. Continuous Smooth Bevel & Dome on Top Face
@@ -429,7 +434,7 @@ export class ThreeController {
         const domeNorm = Math.max(0, 1.0 - Math.pow(r / radius, 2.2));
         const dome = domeHeight * domeNorm;
 
-        // Smooth rounding fillet at the outer edge to eliminate sharp 90-degree corners
+        // Smooth rounding fillet at the outer edge to eliminate sharp corners
         const outerEdgeFactor = Math.max(0, (r - radius * 0.80) / (radius * 0.20));
         const edgeFillet = -0.032 * Math.pow(outerEdgeFactor, 1.8);
 
@@ -465,9 +470,13 @@ export class ThreeController {
   buildAlmondCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
     const topTex = textureLoader.load('/almond_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
+    topTex.wrapS = THREE.RepeatWrapping;
+    topTex.wrapT = THREE.RepeatWrapping;
 
-    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
+    bottomTex.wrapS = THREE.RepeatWrapping;
+    bottomTex.wrapT = THREE.RepeatWrapping;
+
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
       height: 0.32,
@@ -475,44 +484,31 @@ export class ThreeController {
       ovalBulge: 0.09
     });
 
-    // Materials for Side Rim, Top Face, and Bottom Face
     const sideMat = new THREE.MeshStandardMaterial({
-      color: 0xcaa268,
-      bumpScale: 0.025,
-      roughness: 0.86,
-      metalness: 0.01
+      map: topTex,
+      bumpMap: topTex,
+      bumpScale: 0.035,
+      roughness: 0.82,
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const topMat = new THREE.MeshStandardMaterial({
-      color: 0xdeb887,
+      map: topTex,
+      bumpMap: topTex,
       bumpScale: 0.045,
       roughness: 0.80,
-      metalness: 0.02
+      metalness: 0.02,
+      color: 0xffffff
     });
 
     const bottomMat = new THREE.MeshStandardMaterial({
-      color: 0xdeb887,
+      map: bottomTex,
+      bumpMap: bottomTex,
       bumpScale: 0.035,
       roughness: 0.88,
-      metalness: 0.01
-    });
-
-    // Load textures and apply them asynchronously
-    textureLoader.load('/almond_cookie_top_clean.png', (tex) => {
-      sideMat.bumpMap = tex;
-      sideMat.needsUpdate = true;
-      
-      topMat.map = tex;
-      topMat.bumpMap = tex;
-      topMat.color.setHex(0xffffff);
-      topMat.needsUpdate = true;
-    });
-
-    textureLoader.load('/almond_cookie_bottom_clean.png', (tex) => {
-      bottomMat.map = tex;
-      bottomMat.bumpMap = tex;
-      bottomMat.color.setHex(0xffffff);
-      bottomMat.needsUpdate = true;
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const cookieMesh = new THREE.Mesh(geometry, [sideMat, topMat, bottomMat]);
@@ -524,9 +520,13 @@ export class ThreeController {
   buildRoseCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
     const topTex = textureLoader.load('/rose_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/rose_cookie_bottom_clean.png');
+    topTex.wrapS = THREE.RepeatWrapping;
+    topTex.wrapT = THREE.RepeatWrapping;
 
-    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const bottomTex = textureLoader.load('/rose_cookie_bottom_clean.png');
+    bottomTex.wrapS = THREE.RepeatWrapping;
+    bottomTex.wrapT = THREE.RepeatWrapping;
+
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
       height: 0.32,
@@ -535,11 +535,12 @@ export class ThreeController {
     });
 
     const sideMat = new THREE.MeshStandardMaterial({
-      color: 0xdeb887,
+      map: topTex,
       bumpMap: topTex,
-      bumpScale: 0.025,
-      roughness: 0.86,
-      metalness: 0.01
+      bumpScale: 0.035,
+      roughness: 0.82,
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const topMat = new THREE.MeshStandardMaterial({
@@ -547,7 +548,8 @@ export class ThreeController {
       bumpMap: topTex,
       bumpScale: 0.065,
       roughness: 0.72,
-      metalness: 0.02
+      metalness: 0.02,
+      color: 0xffffff
     });
 
     const bottomMat = new THREE.MeshStandardMaterial({
@@ -555,7 +557,8 @@ export class ThreeController {
       bumpMap: bottomTex,
       bumpScale: 0.035,
       roughness: 0.88,
-      metalness: 0.01
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const cookieMesh = new THREE.Mesh(geometry, [sideMat, topMat, bottomMat]);
@@ -563,7 +566,7 @@ export class ThreeController {
     cookieMesh.receiveShadow = true;
     group.add(cookieMesh);
 
-    // Highlighted 3D Rose Petal Relief Folds (elevated to rest on taller cookie top)
+    // Highlighted 3D Rose Petal Relief Folds
     const makePetalGeom = (w, h, curl) => {
       const geom = new THREE.PlaneGeometry(w, h, 6, 6);
       const pos = geom.attributes.position;
@@ -618,9 +621,13 @@ export class ThreeController {
   buildOatsNutsCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
     const topTex = textureLoader.load('/oatsnuts_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/oatsnuts_cookie_bottom_clean.png');
+    topTex.wrapS = THREE.RepeatWrapping;
+    topTex.wrapT = THREE.RepeatWrapping;
 
-    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const bottomTex = textureLoader.load('/oatsnuts_cookie_bottom_clean.png');
+    bottomTex.wrapS = THREE.RepeatWrapping;
+    bottomTex.wrapT = THREE.RepeatWrapping;
+
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
       height: 0.33,
@@ -629,11 +636,12 @@ export class ThreeController {
     });
 
     const sideMat = new THREE.MeshStandardMaterial({
-      color: 0xc69250,
+      map: topTex,
       bumpMap: topTex,
       bumpScale: 0.035,
-      roughness: 0.90,
-      metalness: 0.01
+      roughness: 0.85,
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const topMat = new THREE.MeshStandardMaterial({
@@ -641,7 +649,8 @@ export class ThreeController {
       bumpMap: topTex,
       bumpScale: 0.075,
       roughness: 0.82,
-      metalness: 0.02
+      metalness: 0.02,
+      color: 0xffffff
     });
 
     const bottomMat = new THREE.MeshStandardMaterial({
@@ -649,7 +658,8 @@ export class ThreeController {
       bumpMap: bottomTex,
       bumpScale: 0.04,
       roughness: 0.90,
-      metalness: 0.01
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const cookieMesh = new THREE.Mesh(geometry, [sideMat, topMat, bottomMat]);
@@ -657,7 +667,7 @@ export class ThreeController {
     cookieMesh.receiveShadow = true;
     group.add(cookieMesh);
 
-    // Hearty 3D Rolled Oat Groats & Roasted Nut Nibs (elevated to rest on taller cookie top)
+    // Hearty 3D Rolled Oat Groats & Roasted Nut Nibs
     const oatGeom = new THREE.BoxGeometry(0.13, 0.02, 0.22);
     const oatPos = oatGeom.attributes.position;
     for (let i = 0; i < oatPos.count; i++) {
@@ -722,9 +732,13 @@ export class ThreeController {
   buildOrangeCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
     const topTex = textureLoader.load('/orange_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/orange_cookie_bottom_clean.png');
+    topTex.wrapS = THREE.RepeatWrapping;
+    topTex.wrapT = THREE.RepeatWrapping;
 
-    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const bottomTex = textureLoader.load('/orange_cookie_bottom_clean.png');
+    bottomTex.wrapS = THREE.RepeatWrapping;
+    bottomTex.wrapT = THREE.RepeatWrapping;
+
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
       height: 0.32,
@@ -733,11 +747,12 @@ export class ThreeController {
     });
 
     const sideMat = new THREE.MeshStandardMaterial({
-      color: 0xdcb072,
+      map: topTex,
       bumpMap: topTex,
-      bumpScale: 0.028,
-      roughness: 0.86,
-      metalness: 0.01
+      bumpScale: 0.035,
+      roughness: 0.82,
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const topMat = new THREE.MeshStandardMaterial({
@@ -745,7 +760,8 @@ export class ThreeController {
       bumpMap: topTex,
       bumpScale: 0.060,
       roughness: 0.74,
-      metalness: 0.02
+      metalness: 0.02,
+      color: 0xffffff
     });
 
     const bottomMat = new THREE.MeshStandardMaterial({
@@ -753,7 +769,8 @@ export class ThreeController {
       bumpMap: bottomTex,
       bumpScale: 0.035,
       roughness: 0.88,
-      metalness: 0.01
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const cookieMesh = new THREE.Mesh(geometry, [sideMat, topMat, bottomMat]);
@@ -766,9 +783,13 @@ export class ThreeController {
     const textureLoader = new THREE.TextureLoader();
     const topPath = id === 'walnut_sf' ? '/walnut_sf_cookie_top_clean.png' : '/walnut_cookie_top_clean.png';
     const topTex = textureLoader.load(topPath);
-    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
+    topTex.wrapS = THREE.RepeatWrapping;
+    topTex.wrapT = THREE.RepeatWrapping;
 
-    // High-Detail Organic Cookie Geometry with Smooth Oval Sides & Taller Height
+    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
+    bottomTex.wrapS = THREE.RepeatWrapping;
+    bottomTex.wrapT = THREE.RepeatWrapping;
+
     const geometry = this.createArtisanalCookieGeometry({
       radius: 1.04,
       height: 0.32,
@@ -777,13 +798,13 @@ export class ThreeController {
     });
 
     const isSF = (id === 'walnut_sf');
-    const sideColor = isSF ? 0xad7036 : 0xdeb578;
     const sideMat = new THREE.MeshStandardMaterial({
-      color: sideColor,
+      map: topTex,
       bumpMap: topTex,
-      bumpScale: isSF ? 0.035 : 0.028,
-      roughness: isSF ? 0.90 : 0.84,
-      metalness: 0.01
+      bumpScale: 0.035,
+      roughness: 0.84,
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const topMat = new THREE.MeshStandardMaterial({
@@ -791,7 +812,8 @@ export class ThreeController {
       bumpMap: topTex,
       bumpScale: isSF ? 0.075 : 0.058,
       roughness: isSF ? 0.82 : 0.74,
-      metalness: isSF ? 0.01 : 0.02
+      metalness: isSF ? 0.01 : 0.02,
+      color: 0xffffff
     });
 
     const bottomMat = new THREE.MeshStandardMaterial({
@@ -799,7 +821,8 @@ export class ThreeController {
       bumpMap: bottomTex,
       bumpScale: 0.035,
       roughness: 0.88,
-      metalness: 0.01
+      metalness: 0.01,
+      color: 0xffffff
     });
 
     const cookieMesh = new THREE.Mesh(geometry, [sideMat, topMat, bottomMat]);
@@ -807,7 +830,7 @@ export class ThreeController {
     cookieMesh.receiveShadow = true;
     group.add(cookieMesh);
 
-    // For Sugar-Free: Add Extra Roasted Walnut Nibs (elevated to rest on taller cookie top)
+    // For Sugar-Free: Add Extra Roasted Walnut Nibs
     if (isSF) {
       const nibGeom = new THREE.DodecahedronGeometry(0.065, 0);
       const darkNutMat = new THREE.MeshStandardMaterial({
