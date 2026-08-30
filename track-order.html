@@ -103,22 +103,27 @@
     }
 
     .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
       font-weight: 700;
       color: var(--color-brown);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 10px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.3px;
     }
 
     .nav-logo img {
-      height: 44px;
+      height: 64px;
       width: auto;
       object-fit: contain;
-      filter: drop-shadow(0 2px 4px rgba(61, 32, 0, 0.1));
+      filter: drop-shadow(0 2px 5px rgba(61, 32, 0, 0.12));
+      transition: transform 0.2s ease;
+    }
+
+    .nav-logo:hover img {
+      transform: scale(1.04);
     }
 
     .nav-logo span {
@@ -881,9 +886,7 @@
   <!-- Navigation -->
   <nav class="nav">
     <a href="/" class="nav-logo" title="Back to mingmorsels Home">
-      <img src="/logo.png?v=2" alt="mingmorsels Logo" loading="lazy" />
-      <span>ming</span>morsels
-    </a>
+      <img src="/logo.png?v=2" alt="mingmorsels Logo" loading="lazy" /><span>ming</span>morsels</a>
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/#products">Cookies</a>
