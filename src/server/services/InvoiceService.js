@@ -2,6 +2,16 @@
 // Ming Morsels - GST Tax Invoice Generation Service (HSN 1905 Compliant)
 // ─────────────────────────────────────────────────────────────────────────────
 
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 export class InvoiceService {
   static COMPANY_DETAILS = {
     legalName: 'MIORA DELIGHTS PRIVATE LIMITED',
@@ -76,12 +86,18 @@ export class InvoiceService {
         (order.total_amount ? (Number(order.total_amount) / qty) : 40)
       );
       const total = Number(it.total ?? (qty * rate));
+      const safeItemName = escapeHtml(it.name || it.id || 'Artisanal Cookie');
+      const safePackaging = it.packaging ? `<div style="font-size: 11px; color: #8c7355; margin-top: 2px;">📦 Packaging: ${escapeHtml(it.packaging)}</div>` : '';
+      const safeDetails = it.details ? `<div style="font-size: 11px; color: #5b2c6f; margin-top: 2px;">🍬 Flavors: ${escapeHtml(it.details)}</div>` : '';
+      const safeNote = it.note ? `<div style="font-size: 11px; color: #8c5803; background: #fff8eb; padding: 2px 6px; border-radius: 4px; margin-top: 3px;">💌 Note: "${escapeHtml(it.note)}"</div>` : '';
       return `
         <tr>
           <td style="padding: 12px; border-bottom: 1px solid #f0e6d2; text-align: center; color: #666;">${idx + 1}</td>
           <td style="padding: 12px; border-bottom: 1px solid #f0e6d2;">
-            <strong style="color: #2b1810; font-size: 14px;">${it.name || it.id || 'Artisanal Cookie'}</strong>
-            ${it.packaging ? `<div style="font-size: 11px; color: #8c7355; margin-top: 2px;">Packaging: ${it.packaging}</div>` : ''}
+            <strong style="color: #2b1810; font-size: 14px;">${safeItemName}</strong>
+            ${safePackaging}
+            ${safeDetails}
+            ${safeNote}
           </td>
           <td style="padding: 12px; border-bottom: 1px solid #f0e6d2; text-align: center; color: #555;">1905.90</td>
           <td style="padding: 12px; border-bottom: 1px solid #f0e6d2; text-align: center; color: #555;">${qty}</td>
@@ -96,7 +112,7 @@ export class InvoiceService {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tax Invoice - ${order.id} | Ming Morsels</title>
+  <title>Tax Invoice - ${escapeHtml(order.id)} | Ming Morsels</title>
   <style>
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -285,8 +301,8 @@ export class InvoiceService {
           <td style="vertical-align: middle; text-align: right; width: 170px;">
             <div class="invoice-badge">
               <h2>TAX INVOICE</h2>
-              <p><strong>Invoice:</strong> INV-${order.id}</p>
-              <p><strong>Date:</strong> ${invoiceDate}</p>
+              <p><strong>Invoice:</strong> INV-${escapeHtml(order.id)}</p>
+              <p><strong>Date:</strong> ${escapeHtml(invoiceDate)}</p>
             </div>
           </td>
         </tr>
@@ -296,17 +312,17 @@ export class InvoiceService {
     <div class="meta-grid">
       <div class="meta-box">
         <h4>Billed & Shipped To:</h4>
-        <strong>${order.user_name || 'Connoisseur'}</strong><br>
-        Email: ${order.user_email}<br>
-        Address: ${order.shipping_address || 'Express Bengaluru Delivery'}<br>
+        <strong>${escapeHtml(order.user_name || 'Connoisseur')}</strong><br>
+        Email: ${escapeHtml(order.user_email || '—')}<br>
+        Address: ${escapeHtml(order.shipping_address || 'Express Bengaluru Delivery')}<br>
         Place of Supply: Karnataka (29)
       </div>
       <div class="meta-box">
         <h4>Payment & Fulfillment:</h4>
         Payment Method: Razorpay Secure<br>
-        Payment ID: ${order.payment_id || 'RZP_' + order.id}<br>
-        AWB / Courier: ${order.shipway_awb || 'SW-LOCAL'} (${order.courier_name || 'BlueDart Express'})<br>
-        Delivery Status: ${order.delivery_status || 'BAKING'}
+        Payment ID: ${escapeHtml(order.payment_id || 'RZP_' + order.id)}<br>
+        AWB / Courier: ${escapeHtml(order.shipway_awb || 'SW-LOCAL')} (${escapeHtml(order.courier_name || 'BlueDart Express')})<br>
+        Delivery Status: ${escapeHtml(order.delivery_status || 'BAKING')}
       </div>
     </div>
 

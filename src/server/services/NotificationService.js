@@ -48,7 +48,9 @@ export class NotificationService {
       <tr style="border-bottom: 1px solid #F0E6D8;">
         <td style="padding: 12px 8px; font-weight: 600; color: #3D2000;">
           ${it.name || it.id || 'Artisanal Baked Item'}
-          ${it.packaging ? `<div style="font-size: 11px; color: #8C7355;">Packaging: ${it.packaging}</div>` : ''}
+          ${it.packaging ? `<div style="font-size: 11px; color: #8C7355; margin-top: 2px;">📦 Packaging: ${it.packaging}</div>` : ''}
+          ${it.details ? `<div style="font-size: 11px; color: #5B2C6F; margin-top: 2px;">🍬 Flavors: ${it.details}</div>` : ''}
+          ${it.note ? `<div style="font-size: 11px; color: #8C5803; background: #FFF8EB; padding: 2px 6px; border-radius: 4px; margin-top: 3px;">💌 Note: "${it.note}"</div>` : ''}
         </td>
         <td style="padding: 12px 8px; text-align: center; color: #705840;">×${it.quantity || 1}</td>
         <td style="padding: 12px 8px; text-align: right; font-weight: 700; color: #C8960C;">₹${(it.price || it.unit_price || 0) * (it.quantity || 1)}</td>

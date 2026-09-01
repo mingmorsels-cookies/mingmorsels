@@ -45,8 +45,8 @@ export class PriceCalculator {
       }
 
       // Handle custom gift box products or fallback
-      let unitPrice = catalogEntry ? catalogEntry.price : (Number(item.price) > 0 ? Number(item.price) : 180);
-      let productName = catalogEntry ? catalogEntry.name : (item.name || 'Artisanal Baked Delight');
+      let unitPrice = catalogEntry ? catalogEntry.price : (Number(item.price) > 0 ? Number(item.price) : 140);
+      let productName = item.name || (catalogEntry ? catalogEntry.name : 'Artisanal Baked Delight');
 
       const packagingRate = PACKAGING_RATES[packagingKey] || 0;
       const itemSubtotal = unitPrice * qty;
@@ -60,10 +60,13 @@ export class PriceCalculator {
         name: productName,
         unit_price: unitPrice,
         quantity: qty,
-        packaging: packagingKey,
+        packaging: item.packaging || packagingKey,
         packaging_fee: itemPackagingTotal,
         total_price: itemSubtotal + itemPackagingTotal,
-        image: item.image || '/logo.png'
+        image: item.image || '/logo.png',
+        details: item.details || null,
+        note: item.note || item.customMessage || item.giftNote || null,
+        flavors: item.flavors || item.customFlavors || null
       });
     }
 
