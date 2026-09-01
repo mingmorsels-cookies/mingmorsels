@@ -15,6 +15,9 @@ export default defineConfig({
       }
     }
   },
+  test: {
+    exclude: ['**/node_modules/**', '**/dist/**', 'tests/e2e.test.js']
+  },
   build: {
     cssMinify: false,
     rollupOptions: {
