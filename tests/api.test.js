@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import { app } from '../server.js';
-import { generateCustomerToken } from '../src/server/middleware/auth.js';
+import { generateCustomerToken, ADMIN_SECRET_KEY, ADMIN_PASSWORD } from '../src/server/middleware/auth.js';
 
 describe('Ming Morsels API Endpoints (Supertest)', () => {
   it('GET /api/health - should return healthy status, correlation id and CSP headers', async () => {
@@ -181,10 +181,9 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
   });
 
   it('GET /api/admin/orders - should allow access with valid x-admin-key header', async () => {
-    const adminKey = process.env.ADMIN_SECRET_KEY || 'Arun_Narayan_K';
     const res = await request(app)
       .get('/api/admin/orders')
-      .set('x-admin-key', adminKey);
+      .set('x-admin-key', ADMIN_SECRET_KEY);
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(Array.isArray(res.body.orders)).toBe(true);
@@ -271,8 +270,6 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
   });
 
   it('POST /api/order/cancel - should reject cancellation if order is already dispatched', async () => {
-    const adminKey = process.env.ADMIN_SECRET_KEY || 'Arun_Narayan_K';
-
     // 1. Create order
     const orderRes = await request(app)
       .post('/api/payment/create-order')
@@ -286,7 +283,7 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
     // 2. Dispatch order via Admin
     const dispatchRes = await request(app)
       .post('/api/admin/dispatch')
-      .set('x-admin-key', adminKey)
+      .set('x-admin-key', ADMIN_SECRET_KEY)
       .send({
         order_id: orderId,
         courier: 'BlueDart Express'
@@ -305,4 +302,156 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
     expect(cancelRes.body.success).toBe(false);
     expect(cancelRes.body.error).toContain('dispatched');
   });
+
+  it('SECURITY: Static route protection - should block data_store.json, .env, and server files', async () => {
+    const resDb = await request(app).get('/data_store.json');
+    expect(resDb.status).toBe(404);
+
+    const resEnv = await request(app).get('/.env');
+    expect(resEnv.status).toBe(404);
+
+    const resServer = await request(app).get('/server.js');
+    expect(resServer.status).toBe(404);
+  });
+
+  it('SECURITY: IDOR Protection - should reject unauthenticated /api/user/orders queries', async () => {
+    const res = await request(app).get('/api/user/orders?email=victim@example.com');
+    expect(res.status).toBe(401);
+    expect(res.body.success).toBe(false);
+  });
+
+  it('SECURITY: PII Masking - public tracking should return masked name, email, and address', async () => {
+    const orderRes = await request(app)
+      .post('/api/payment/create-order')
+      .send({
+        items: [{ id: 'rose', quantity: 1 }],
+        user_email: 'priya.sharma@example.com',
+        user_name: 'Priya Sharma',
+        shipping_address: 'Flat 402, Lotus Apartments, Indiranagar, Bengaluru'
+      });
+    const orderId = orderRes.body.order_id;
+
+    const trackRes = await request(app).get(`/api/shipping/track?q=${orderId}`);
+    expect(trackRes.status).toBe(200);
+    expect(trackRes.body.user_email).toContain('***');
+    expect(trackRes.body.user_email).not.toBe('priya.sharma@example.com');
+    expect(trackRes.body.user_name).toContain('*');
+    expect(trackRes.body.user_name).not.toBe('Priya Sharma');
+  });
+
+  it('SECURITY: CSP Nonce Hardening - should deliver per-request nonces and eliminate unsafe-inline/unsafe-eval from script-src', async () => {
+    const res = await request(app).get('/index.html');
+    expect(res.status).toBe(200);
+    const csp = res.headers['content-security-policy'];
+    expect(csp).toBeDefined();
+    expect(csp).toContain('script-src');
+    expect(csp).toMatch(/nonce-[A-Za-z0-9+/=]+/);
+    expect(csp).not.toContain("'unsafe-eval'");
+
+    // Verify HTML script tag nonce injection
+    expect(res.text).toMatch(/<script\s+nonce="[A-Za-z0-9+/=]+"/i);
+  });
+
+  it('SECURITY: AES-256-GCM PII Encryption at Rest - should encrypt sensitive phone and address data in persistence store', async () => {
+    const rawPhone = '+91 9988776655';
+    const rawAddress = 'Villa 42, Palm Meadows, Whitefield, Bengaluru - 560066';
+
+    const orderRes = await request(app)
+      .post('/api/payment/create-order')
+      .send({
+        items: [{ id: 'almond', quantity: 2 }],
+        user_email: 'encryption.test@example.com',
+        user_name: 'Dr. Vikram Rao',
+        user_phone: rawPhone,
+        shipping_address: rawAddress
+      });
+
+    expect(orderRes.status).toBe(200);
+    const orderId = orderRes.body.order_id;
+
+    // Verify API return transparency
+    const getRes = await request(app)
+      .get(`/api/shipping/track?q=${orderId}&contact=encryption.test@example.com`);
+    expect(getRes.status).toBe(200);
+    expect(getRes.body.shipping_address).toBe(rawAddress);
+  });
+
+  it('SECURITY: Admin MFA & Audit Logging - should authenticate via TOTP and record chronological audit entries', async () => {
+    // 1. Invalid login attempt
+    const failRes = await request(app)
+      .post('/api/admin/auth/login')
+      .send({
+        username: 'admin',
+        password: 'wrong_password',
+        totp_code: '123456'
+      });
+    expect(failRes.status).toBe(401);
+    expect(failRes.body.success).toBe(false);
+
+    // 2. Successful MFA login (using test TOTP code)
+    const loginRes = await request(app)
+      .post('/api/admin/auth/login')
+      .send({
+        username: 'admin',
+        password: ADMIN_PASSWORD,
+        totp_code: '123456'
+      });
+    expect(loginRes.status).toBe(200);
+    expect(loginRes.body.success).toBe(true);
+    expect(loginRes.body).toHaveProperty('token');
+    const adminToken = loginRes.body.token;
+
+    // 3. Verify audit log retrieval
+    const auditRes = await request(app)
+      .get('/api/admin/audit-logs')
+      .set('x-admin-token', adminToken);
+    expect(auditRes.status).toBe(200);
+    expect(auditRes.body.success).toBe(true);
+    expect(Array.isArray(auditRes.body.logs)).toBe(true);
+    expect(auditRes.body.logs.length).toBeGreaterThan(0);
+
+    const loginLog = auditRes.body.logs.find(l => l.action === 'ADMIN_LOGIN_SUCCESS');
+    expect(loginLog).toBeDefined();
+    expect(loginLog.admin_user).toBe('admin');
+  });
+
+  it('SECURITY: Webhook Protection - should reject unauthenticated webhook requests missing x-razorpay-signature with 401', async () => {
+    const res = await request(app)
+      .post('/api/payment/webhook')
+      .send({
+        event: 'order.paid',
+        payload: {
+          order: {
+            entity: { id: 'order_forged_test_123' }
+          }
+        }
+      });
+    expect(res.status).toBe(401);
+    expect(res.body.status).toBe('invalid_signature');
+  });
+
+  it('SECURITY: Server Source Protection - should block access to /src/server/* files with 404', async () => {
+    const resAuth = await request(app).get('/src/server/middleware/auth.js');
+    expect(resAuth.status).toBe(404);
+
+    const resAdmin = await request(app).get('/src/server/routes/admin.routes.js');
+    expect(resAdmin.status).toBe(404);
+
+    const resService = await request(app).get('/src/server/services/PaymentService.js');
+    expect(resService.status).toBe(404);
+  });
+
+  it('POST /api/auth/google-verify - should process authentication and return customer token', async () => {
+    const res = await request(app)
+      .post('/api/auth/google-verify')
+      .send({
+        email: 'google.user@example.com',
+        name: 'Google Connoisseur'
+      });
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body).toHaveProperty('token');
+    expect(res.body.customer.email).toBe('google.user@example.com');
+  });
 });
+
