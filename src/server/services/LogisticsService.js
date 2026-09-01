@@ -45,7 +45,10 @@ export class LogisticsService {
 
       const response = await fetch(this.apiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'licence_key': this.licenseKey
+        },
         body: JSON.stringify(payload),
         signal: controller.signal
       });
