@@ -366,7 +366,6 @@ export class CheckoutController {
     }
 
     const isPickup = document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup';
-    const isCOD = document.querySelector('input[name="payment_method"]:checked')?.value === 'cod';
     const details = this.getCustomerDetails();
 
     const hasPhone = details.phone && details.phone.length >= 10;
@@ -385,9 +384,7 @@ export class CheckoutController {
     const origBtnText = payBtn ? payBtn.innerHTML : '';
     if (payBtn) {
       payBtn.disabled = true;
-      payBtn.innerHTML = isCOD 
-        ? '<span>⏳ Placing Order (Cash on Delivery)...</span>' 
-        : '<span>⏳ Preparing Razorpay Gateway...</span>';
+      payBtn.innerHTML = '<span>⏳ Preparing Razorpay Gateway...</span>';
     }
 
     try {
@@ -453,7 +450,7 @@ export class CheckoutController {
           user_name: name,
           user_phone: phone,
           shipping_address: shippingAddress,
-          payment_method: isCOD ? 'COD' : 'PREPAID'
+          payment_method: 'PREPAID'
         })
       });
 
@@ -476,16 +473,6 @@ export class CheckoutController {
       if (!orderData.success) {
         alert("Failed to create order: " + (orderData.error || 'Server error'));
         if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
-        return;
-      }
-
-      // Direct redirect for COD
-      if (orderData.is_cod || isCOD) {
-        cartStore.clear();
-        clearActiveSession();
-        const pinParam = orderData.pickup_pin ? `&pin=${encodeURIComponent(orderData.pickup_pin)}` : '';
-        const modeParam = isPickup ? '&mode=pickup' : '';
-        window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=Cash%20On%20Delivery${pinParam}${modeParam}`;
         return;
       }
 

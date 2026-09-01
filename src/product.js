@@ -1369,27 +1369,18 @@ function renderCartDrawerBody() {
     btnRazorpay.addEventListener('click', startProductCheckout);
   }
 
-  // Radio button logic for Checkout options
   const deliveryRadios = document.querySelectorAll('input[name="delivery_method"]');
-  const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
   const pickupHint = document.getElementById('pickup-address-hint');
 
   const updateCheckoutUI = () => {
     const isPickup = document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup';
-    const isCOD = document.querySelector('input[name="payment_method"]:checked')?.value === 'cod';
-
     if (pickupHint) pickupHint.style.display = isPickup ? 'block' : 'none';
     if (btnRazorpay) {
-      if (isCOD) {
-        btnRazorpay.innerHTML = '<span>Place Order (Cash on Delivery)</span>';
-      } else {
-        btnRazorpay.innerHTML = '<span>Pay & Checkout (Razorpay / UPI / Cards)</span>';
-      }
+      btnRazorpay.innerHTML = '<span>Pay & Checkout (UPI / Cards / NetBanking)</span>';
     }
   };
 
   deliveryRadios.forEach(radio => radio.addEventListener('change', updateCheckoutUI));
-  paymentRadios.forEach(radio => radio.addEventListener('change', updateCheckoutUI));
   updateCheckoutUI(); // Initialize
 
 
@@ -1769,15 +1760,12 @@ async function handleRazorpayProductCheckout() {
   }
 
   const isPickup = document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup';
-  const isCOD = document.querySelector('input[name="payment_method"]:checked')?.value === 'cod';
 
   const payBtn = document.getElementById('btn-cart-razorpay');
   const origBtnText = payBtn ? payBtn.innerHTML : '';
   if (payBtn) {
     payBtn.disabled = true;
-    payBtn.innerHTML = isCOD
-      ? '<span>⏳ Placing Order (Cash on Delivery)...</span>'
-      : '<span>⏳ Preparing Razorpay Gateway...</span>';
+    payBtn.innerHTML = '<span>⏳ Preparing Razorpay Gateway...</span>';
   }
 
   try {
@@ -1825,7 +1813,7 @@ async function handleRazorpayProductCheckout() {
         user_name: name,
         user_phone: phone,
         shipping_address: shippingAddress,
-        payment_method: isCOD ? 'COD' : 'PREPAID'
+        payment_method: 'PREPAID'
       })
     });
     const text = await res.text();
@@ -1840,21 +1828,6 @@ async function handleRazorpayProductCheckout() {
       if (payBtn) { payBtn.disabled = false; payBtn.innerHTML = origBtnText; }
       return;
     }
-
-    // Direct redirect for COD
-    if (orderData.is_cod || isCOD) {
-      cartStore.clear();
-      updateCartBadge();
-      renderCartDrawerBody();
-      const pinParam = orderData.pickup_pin ? `&pin=${encodeURIComponent(orderData.pickup_pin)}` : '';
-      const modeParam = isPickup ? '&mode=pickup' : '';
-      if (orderData.pickup_pin) {
-        localStorage.setItem('ming_morsels_pickup_pin', orderData.pickup_pin);
-      }
-      window.location.href = `/order-confirmation.html?order_id=${encodeURIComponent(orderData.order_id)}&payment_id=Cash%20On%20Delivery${pinParam}${modeParam}`;
-      return;
-    }
-
 
     const hasScript = await ensureRazorpayScript();
     if (!hasScript || !window.Razorpay) {
