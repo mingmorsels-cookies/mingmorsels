@@ -220,6 +220,36 @@
       justify-content: center;
     }
 
+    .btn-qty-chip {
+      background: #FFF;
+      border: 1px solid rgba(200,150,12,0.35);
+      color: var(--brown);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .btn-qty-chip:hover {
+      background: var(--gold);
+      color: #FFF;
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+    .btn-qty-chip.active {
+      background: var(--gold);
+      color: #FFF;
+      border-color: var(--gold);
+      box-shadow: 0 2px 8px rgba(200,150,12,0.3);
+    }
+    #qty-input:focus {
+      border-color: var(--gold) !important;
+      box-shadow: 0 0 0 4px rgba(200,150,12,0.18) !important;
+      background: #FFF !important;
+    }
+
     @media (max-width: 768px) {
       .nav {
         padding: 10px 14px;
@@ -1669,34 +1699,53 @@
       <div style="text-align:center; margin-bottom: 36px;">
         <div class="section-label">Instant Estimate</div>
         <h2 class="section-title">Live Quote Calculator</h2>
-        <p class="section-sub" style="margin: 0 auto;">Drag the slider to see your bulk price update in real time.</p>
+        <p class="section-sub" style="margin: 0 auto;">Enter any quantity or drag the slider to see your bulk estimate update in real time.</p>
       </div>
 
       <!-- Card -->
       <div class="calc-calculator-card">
 
-        <!-- LEFT: Slider Panel -->
+        <!-- LEFT: Slider & Number Input Panel -->
         <div class="calc-left-panel">
           <div
             style="font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); margin-bottom:8px;">
-            Number of Boxes
+            Number of Boxes (Custom Quantity)
           </div>
 
-          <!-- Big qty number -->
-          <div style="display:flex; align-items:baseline; gap:6px; margin-bottom:24px;">
-            <span id="qty-display"
-              style="font-family:'Playfair Display',serif; font-size:56px; font-weight:800; color:var(--brown); line-height:1;">50</span>
-            <span style="font-size:16px; color:var(--muted); font-weight:500;">boxes</span>
+          <!-- Interactive Number Input Box & Quick Preset Chips -->
+          <div style="margin-bottom: 16px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <input type="number" id="qty-input" min="10" max="100000" value="50" step="1" oninput="onQtyInput(this.value)"
+                  aria-label="Enter number of boxes"
+                  style="font-family:'Playfair Display',serif; font-size:36px; font-weight:800; color:var(--brown); background:#FFFDF8; border:2px solid var(--gold); border-radius:12px; padding:4px 12px; width:150px; outline:none; text-align:center; box-shadow:0 3px 10px rgba(200,150,12,0.12); transition:all 0.2s;" />
+                <span style="font-size:15px; color:var(--brown); font-weight:700;">Boxes</span>
+              </div>
+
+              <!-- Quick Selection Presets -->
+              <div style="display:flex; gap:5px; flex-wrap:wrap;">
+                <button type="button" class="btn-qty-chip active" id="chip-50" onclick="setCalcQty(50)">50</button>
+                <button type="button" class="btn-qty-chip" id="chip-100" onclick="setCalcQty(100)">100</button>
+                <button type="button" class="btn-qty-chip" id="chip-250" onclick="setCalcQty(250)">250</button>
+                <button type="button" class="btn-qty-chip" id="chip-500" onclick="setCalcQty(500)">500</button>
+                <button type="button" class="btn-qty-chip" id="chip-1000" onclick="setCalcQty(1000)">1,000</button>
+                <button type="button" class="btn-qty-chip" id="chip-2500" onclick="setCalcQty(2500)">2,500+</button>
+              </div>
+            </div>
+
+            <div style="font-size:11px; color:var(--muted); margin-bottom:8px;">
+              ✨ Type any number above (e.g. 750, 1,200, 5,000+) or drag below:
+            </div>
           </div>
 
           <!-- Slider -->
-          <input type="range" id="qty-slider" min="10" max="500" value="50" step="1" oninput="updateCalc()"
+          <input type="range" id="qty-slider" min="10" max="500" value="50" step="1" oninput="onSliderInput(this.value)"
             style="width:100%;" />
 
           <!-- Min / Max labels -->
           <div style="display:flex; justify-content:space-between; margin-top:8px;">
             <span style="font-size:11px; color:var(--muted);">10 boxes</span>
-            <span style="font-size:11px; color:var(--muted);">500+ boxes</span>
+            <span style="font-size:11px; color:var(--muted);">500+ boxes (No limit)</span>
           </div>
 
           <!-- Discount slab indicator -->
@@ -1801,7 +1850,7 @@
           </div>
 
           <!-- CTA -->
-          <a href="#enquiry-form" class="btn-primary"
+          <a href="#enquiry-form" onclick="copyCalcToForm()" class="btn-primary"
             style="display:block; text-align:center; text-decoration:none; border-radius:12px;">
             📝 Request This Quote →
           </a>
@@ -2186,9 +2235,11 @@
       }
     }
 
-    // ── Quote Calculator ──
+    // ── Quote Calculator State & Handlers ──
+    let currentCalcQty = 50;
+
     const VALUE_SLABS = [
-      { minVal: 100000, pct: 35, badge: '👑 VIP Diamond Tier (35% OFF)', notice: '₹1L+ Order Value · 35% Corporate Discount' },
+      { minVal: 100000, pct: 35, badge: '👑 VIP Diamond Tier (35% OFF)', notice: '₹1L+ Order Value · 35% Corporate Discount + Priority Fleet Delivery' },
       { minVal: 50000,  pct: 30, badge: '💎 Platinum Corporate Tier (30% OFF)', notice: '₹50k+ Order Value · 30% Corporate Discount' },
       { minVal: 25000,  pct: 25, badge: '🥇 Gold Partner Tier (25% OFF)', notice: '₹25k+ Order Value · 25% Corporate Discount' },
       { minVal: 10000,  pct: 20, badge: '🥈 Silver Business Tier (20% OFF)', notice: '₹10k - ₹25k Order Value · 20% Discount' },
@@ -2205,8 +2256,66 @@
 
     function fmt(n) { return Math.round(n).toLocaleString('en-IN'); }
 
+    function updateChipHighlight(val) {
+      const presetChips = [50, 100, 250, 500, 1000, 2500];
+      presetChips.forEach(p => {
+        const chip = document.getElementById(`chip-${p}`);
+        if (chip) {
+          if (val === p) {
+            chip.classList.add('active');
+          } else {
+            chip.classList.remove('active');
+          }
+        }
+      });
+    }
+
+    function setCalcQty(val) {
+      const num = parseInt(val, 10) || 50;
+      currentCalcQty = Math.max(1, num);
+      const input = document.getElementById('qty-input');
+      if (input) input.value = currentCalcQty;
+      const slider = document.getElementById('qty-slider');
+      if (slider) slider.value = Math.min(500, currentCalcQty);
+      updateChipHighlight(currentCalcQty);
+      updateCalc();
+    }
+
+    function onQtyInput(val) {
+      const num = parseInt(val, 10);
+      if (isNaN(num) || num < 1) {
+        currentCalcQty = 1;
+      } else {
+        currentCalcQty = num;
+      }
+      const slider = document.getElementById('qty-slider');
+      if (slider) slider.value = Math.min(500, currentCalcQty);
+      updateChipHighlight(currentCalcQty);
+      updateCalc();
+    }
+
+    function onSliderInput(val) {
+      const num = parseInt(val, 10) || 50;
+      currentCalcQty = num;
+      const input = document.getElementById('qty-input');
+      if (input) input.value = currentCalcQty;
+      updateChipHighlight(currentCalcQty);
+      updateCalc();
+    }
+
+    function copyCalcToForm() {
+      const formQty = document.getElementById('form-qty');
+      if (formQty) {
+        formQty.value = currentCalcQty;
+      }
+      const formPkgInput = document.getElementById('form-packaging-input');
+      if (formPkgInput && selectedCalcPkgType) {
+        selectFormPkg(selectedCalcPkgType);
+      }
+    }
+
     async function updateCalc() {
-      const qty = parseInt(document.getElementById('qty-slider').value, 10) || 50;
+      const qty = currentCalcQty || parseInt(document.getElementById('qty-input')?.value || document.getElementById('qty-slider')?.value, 10) || 50;
       const baseUnitPrice = 499;
       const selectedPkg = selectedCalcPkgType || 'classic';
 
@@ -2254,19 +2363,29 @@
       const gst = afterDisc * 0.05;
       const total = afterDisc + gst;
 
-      document.getElementById('qty-display').textContent = qty;
-      document.getElementById('r-qty').textContent = qty;
-      document.getElementById('r-unitprice').textContent = baseUnitPrice;
-      document.getElementById('r-base').textContent = fmt(baseCookiePrice);
-      document.getElementById('r-pkg-name').textContent = pkgName;
-      document.getElementById('r-pkg-total').textContent = fmt(pkgTotal);
-      document.getElementById('r-disc-pct').textContent = discPct + '% off';
-      document.getElementById('r-disc-amt').textContent = fmt(discAmt);
-      document.getElementById('r-gst').textContent = fmt(gst);
-      document.getElementById('r-total').textContent = fmt(total);
+      const rQty = document.getElementById('r-qty');
+      if (rQty) rQty.textContent = fmt(qty);
+      const rUnitPrice = document.getElementById('r-unitprice');
+      if (rUnitPrice) rUnitPrice.textContent = baseUnitPrice;
+      const rBase = document.getElementById('r-base');
+      if (rBase) rBase.textContent = fmt(baseCookiePrice);
+      const rPkgName = document.getElementById('r-pkg-name');
+      if (rPkgName) rPkgName.textContent = pkgName;
+      const rPkgTotal = document.getElementById('r-pkg-total');
+      if (rPkgTotal) rPkgTotal.textContent = fmt(pkgTotal);
+      const rDiscPct = document.getElementById('r-disc-pct');
+      if (rDiscPct) rDiscPct.textContent = discPct + '% off';
+      const rDiscAmt = document.getElementById('r-disc-amt');
+      if (rDiscAmt) rDiscAmt.textContent = fmt(discAmt);
+      const rGst = document.getElementById('r-gst');
+      if (rGst) rGst.textContent = fmt(gst);
+      const rTotal = document.getElementById('r-total');
+      if (rTotal) rTotal.textContent = fmt(total);
 
-      document.getElementById('slab-title').textContent = tierBadge;
-      document.getElementById('slab-sub').textContent = seasonalNotice;
+      const slabTitle = document.getElementById('slab-title');
+      if (slabTitle) slabTitle.textContent = tierBadge;
+      const slabSub = document.getElementById('slab-sub');
+      if (slabSub) slabSub.textContent = seasonalNotice;
     }
     updateCalc();
 
