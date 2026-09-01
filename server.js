@@ -8,6 +8,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import crypto from 'crypto';
 
 // Database initialization
 import { initPostgresTables } from './db.js';
@@ -22,22 +23,36 @@ import pushRoutes from './src/server/routes/push.routes.js';
 import webpush from 'web-push';
 import { createRateLimiter } from './src/server/middleware/rateLimiter.js';
 import { structuredLogger } from './src/server/middleware/logger.js';
+import path from 'path';
+import fs from 'fs';
 import { securitySanitizer } from './src/server/middleware/sanitizer.js';
+import { ADMIN_SECRET_KEY } from './src/server/middleware/auth.js';
+import { getRedisHealthStatus } from './redis.js';
 
 export const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Configure Web Push VAPID Keys with resilient production defaults
-export const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || 'BMy8z8jXV88NZmTA7UyB0ZHN0ACwl3VtPH90jkFLNYBUHeTtbNZouAsPKv56AAn2IqFKmtW20QJSj4eha_kHXgU';
-export const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || 'Jt5grZK5rSOs7LVzmC2nu0Nh0ncbjeJMRxbEDvcz7vM';
+// Trust reverse proxy / Cloudflare / WAF hops (enables correct IP extraction and secure cookie headers)
+app.set('trust proxy', 1);
+
+// Configure Web Push VAPID Keys
+const dynamicVapid = (!process.env.VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) ? webpush.generateVAPIDKeys() : null;
+export const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || dynamicVapid?.publicKey;
+export const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || dynamicVapid?.privateKey;
+
+if (!process.env.VAPID_PUBLIC_KEY && process.env.NODE_ENV !== 'test') {
+  console.log('🔔 [WebPush] Using dynamically generated VAPID keypair for session.');
+}
 
 try {
-  webpush.setVapidDetails(
-    'mailto:mingmorsels@gmail.com',
-    VAPID_PUBLIC_KEY,
-    VAPID_PRIVATE_KEY
-  );
-  console.log('🔔 [WebPush] VAPID gateway active and ready.');
+  if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
+    webpush.setVapidDetails(
+      'mailto:mingmorsels@gmail.com',
+      VAPID_PUBLIC_KEY,
+      VAPID_PRIVATE_KEY
+    );
+    console.log('🔔 [WebPush] VAPID gateway active and ready.');
+  }
 } catch (vapidErr) {
   console.warn('⚠️ Web Push VAPID initialization warning:', vapidErr.message);
 }
@@ -45,12 +60,28 @@ try {
 // 1. Structured JSON Request Logger & Tracing
 app.use(structuredLogger());
 
-// 2. Enterprise Security Headers via Helmet with Hardened CSP (Clickjacking, Injection & MIME Sniffing Defense)
+// Dynamic Request-Scoped Cryptographic Nonce for CSP Hardening
+app.use((req, res, next) => {
+  res.locals.cspNonce = crypto.randomBytes(16).toString('base64');
+  next();
+});
+
+// 2. Enterprise Security Headers via Helmet with Hardened Nonce-based CSP & HSTS
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://checkout.razorpay.com", "https://cdn.razorpay.com", "https://accounts.google.com", "https://apis.google.com", "https://www.gstatic.com", "https://cdnjs.cloudflare.com", "blob:"],
+      scriptSrc: [
+        "'self'",
+        (req, res) => `'nonce-${res.locals.cspNonce}'`,
+        "https://checkout.razorpay.com",
+        "https://cdn.razorpay.com",
+        "https://accounts.google.com",
+        "https://apis.google.com",
+        "https://www.gstatic.com",
+        "https://cdnjs.cloudflare.com",
+        "blob:"
+      ],
       scriptSrcAttr: ["'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://accounts.google.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
@@ -62,6 +93,11 @@ app.use(helmet({
       objectSrc: ["'none'"],
       upgradeInsecureRequests: []
     }
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
   },
   crossOriginEmbedderPolicy: false,
   crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
@@ -80,20 +116,52 @@ app.use((req, res, next) => {
   next();
 });
 
-// 3. CORS Whitelist Configuration
+// Strict Block for Sensitive Server, Database, and Config Assets
+const SENSITIVE_PATTERNS = [
+  /data_store\.json/i,
+  /\.env/i,
+  /\.git/i,
+  /package(-lock)?\.json/i,
+  /docker/i,
+  /railway\.json/i,
+  /db\.js/i,
+  /server\.js/i,
+  /redis\.js/i,
+  /\.sql/i,
+  /\/src\/server/i,
+  /\/server\//i,
+  /tests?\//i,
+  /\.test\.js/i
+];
+
+app.use((req, res, next) => {
+  const reqPath = req.path.toLowerCase();
+  if (SENSITIVE_PATTERNS.some(pattern => pattern.test(reqPath))) {
+    return res.status(404).json({ success: false, error: 'Resource not found' });
+  }
+  next();
+});
+
+// 3. Hardened CORS Whitelist Configuration
+const envOrigins = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
+
 const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'http://localhost:5001',
   'http://127.0.0.1:5001',
   'https://mingmorsels.com',
-  'https://www.mingmorsels.com'
+  'https://www.mingmorsels.com',
+  ...envOrigins
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow non-browser requests or matching origins
-    if (!origin || ALLOWED_ORIGINS.includes(origin) || origin.endsWith('.railway.app')) {
+    // Allow non-browser requests (e.g. server-to-server / curl) or strictly whitelisted origins
+    if (!origin || ALLOWED_ORIGINS.includes(origin) || /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
       return callback(null, true);
     }
     return callback(new Error('CORS Policy: Request from unauthorized origin blocked.'));
@@ -115,7 +183,7 @@ app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 // 5. Deep Input Sanitization & Prototype Pollution Defense
 app.use(securitySanitizer());
 
-// 4. Rate Limiting Protection (Sliding Window)
+// 6. Rate Limiting Protection (Sliding Window)
 const generalLimiter = createRateLimiter({
   windowMs: 60 * 1000,
   maxRequests: 300,
@@ -142,39 +210,19 @@ app.use('/api/payment', paymentLimiter);
 app.use('/api/admin', adminLimiter);
 app.use('/api/customer/auth', authLimiter);
 
-// 5. Health Check Endpoint
-app.get('/api/health', (req, res) => {
+// 7. Health Check Endpoint
+app.get('/api/health', async (req, res) => {
+  const redisHealth = await getRedisHealthStatus();
   res.json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'Ming Morsels Artisanal Confectionery API',
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    redis: redisHealth
   });
 });
 
-// 6. Static File Serving with Production Caching Headers
-app.use(express.static('dist', {
-  extensions: ['html'],
-  maxAge: '1y',
-  etag: true,
-  setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.html')) {
-      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
-    }
-  }
-}));
-app.use(express.static('.', {
-  extensions: ['html'],
-  maxAge: '0',
-  setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.html')) {
-      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
-    }
-  }
-}));
-app.use('/public', express.static('public', { maxAge: '30d', etag: true }));
-
-// 7. Mount Modular API Routers
+// 8. Mount Modular API Routers
 app.use('/api', orderRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', pincodeRoutes);
@@ -182,7 +230,66 @@ app.use('/api', analyticsRoutes);
 app.use('/api', reviewRoutes);
 app.use('/', pushRoutes); // Handles both /api/push/* and /api/admin/push/*
 
-// 8. Global 404 Route Handler for undefined endpoints
+// 9. Safe Dynamic Nonce-Injected HTML Serving (Takes precedence over raw static files)
+const PUBLIC_HTML_PAGES = new Set([
+  'index.html',
+  'about.html',
+  'admin.html',
+  'bulk-order.html',
+  'chatbot.html',
+  'contact.html',
+  'experience-center.html',
+  'order-confirmation.html',
+  'privacy.html',
+  'product.html',
+  'refund.html',
+  'shipping.html',
+  'terms.html',
+  'track-order.html'
+]);
+
+app.get(['/', '/:page.html', '/:page'], async (req, res, next) => {
+  const param = req.params.page ? (req.params.page.endsWith('.html') ? req.params.page : `${req.params.page}.html`) : 'index.html';
+  if (PUBLIC_HTML_PAGES.has(param)) {
+    try {
+      const distPath = path.resolve('dist', param);
+      const rootPath = path.resolve(param);
+      const filePath = fs.existsSync(distPath) ? distPath : rootPath;
+      let html = await fs.promises.readFile(filePath, 'utf-8');
+      const nonce = res.locals.cspNonce;
+      if (nonce) {
+        // Inject nonce into script tags that do not already have one
+        html = html.replace(/<script(?![^>]*\bnonce=)([^>]*)>/gi, `<script nonce="${nonce}"$1>`);
+      }
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+      return res.send(html);
+    } catch (err) {
+      return next(err);
+    }
+  }
+  next();
+});
+
+// Serve compiled dist bundle assets if available (excluding index.html so dynamic nonce injection applies)
+if (fs.existsSync(path.resolve('dist'))) {
+  app.use(express.static('dist', {
+    index: false,
+    maxAge: '1y',
+    etag: true
+  }));
+}
+
+// Serve public directory assets
+app.use(express.static('public', { maxAge: '30d', etag: true }));
+app.use('/src', (req, res, next) => {
+  if (req.path.startsWith('/server') || req.path.includes('/server/')) {
+    return res.status(404).json({ success: false, error: 'Resource not found' });
+  }
+  next();
+}, express.static('src', { maxAge: '0' }));
+
+// 10. Global 404 Route Handler for undefined endpoints
 app.use((req, res, next) => {
   if (req.path.startsWith('/api')) {
     return res.status(404).json({
@@ -190,11 +297,14 @@ app.use((req, res, next) => {
       error: `API route not found: ${req.method} ${req.originalUrl}`
     });
   }
-  next();
+  res.status(404).sendFile(path.resolve('index.html'));
 });
 
-// 8. Global Error Handler Middleware
+// 11. Global Error Handler Middleware
 app.use((err, req, res, next) => {
+  if (err.message && err.message.includes('CORS Policy')) {
+    return res.status(403).json({ success: false, error: err.message });
+  }
   console.error('Unhandled Server Error:', err);
   res.status(err.status || 500).json({
     success: false,
@@ -204,12 +314,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 9. Startup Sequence & Server Listen
+// 12. Startup Sequence & Server Listen
 if (process.env.NODE_ENV !== 'test') {
   initPostgresTables().then(() => {
     app.listen(PORT, () => {
       console.log(`✨ Ming Morsels Artisanal API running securely at http://localhost:${PORT}`);
-      console.log(`🔒 Security: Admin Auth Active, Strict HMAC Verification Enabled, Rate Limiting Active.`);
+      console.log(`🔒 Security: Hardened Authentication Active, Strict HMAC Verification, Static Protection Enabled.`);
     });
   }).catch((err) => {
     console.error('Database connection error during boot:', err);

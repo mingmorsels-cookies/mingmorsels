@@ -44,7 +44,12 @@ export function recordSecurityStrike(ip, strikeReason = 'Repeated security viola
  */
 export function createRateLimiter({ windowMs = 60 * 1000, maxRequests = 30, message = 'Too many requests. Please slow down.' } = {}) {
   return async (req, res, next) => {
-    const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown-ip';
+    const ip = req.headers['cf-connecting-ip'] || 
+               req.headers['true-client-ip'] || 
+               (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',')[0].trim() : null) || 
+               req.ip || 
+               req.socket?.remoteAddress || 
+               'unknown-ip';
 
     // 0. Check IP Jailing
     if (isIpJailed(ip)) {

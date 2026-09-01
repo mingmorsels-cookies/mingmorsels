@@ -20,6 +20,12 @@ export function structuredLogger() {
       if (isQuiet && res.statusCode < 400) return;
 
       const durationMs = Date.now() - startTime;
+      const clientIp = req.headers['cf-connecting-ip'] || 
+                       req.headers['true-client-ip'] || 
+                       (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',')[0].trim() : null) || 
+                       req.ip || 
+                       'internal';
+
       const logEntry = {
         level: res.statusCode >= 500 ? 'ERROR' : (res.statusCode >= 400 ? 'WARN' : 'INFO'),
         timestamp: new Date().toISOString(),
@@ -28,7 +34,7 @@ export function structuredLogger() {
         path: req.originalUrl || req.url,
         status: res.statusCode,
         durationMs,
-        ip: req.ip || req.headers['x-forwarded-for'] || 'internal'
+        ip: clientIp
       };
 
       if (res.statusCode >= 400) {

@@ -5,32 +5,102 @@
 import Redis from 'ioredis';
 
 const REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
+const REDIS_CLUSTER_NODES = process.env.REDIS_CLUSTER_NODES ? process.env.REDIS_CLUSTER_NODES.split(',').map(n => n.trim()) : null;
+
 let redisClient = null;
 let isConnected = false;
+let redisMode = 'in-memory fallback';
+let lastPingLatency = null;
 
 try {
-  redisClient = new Redis(REDIS_URL, {
-    maxRetriesPerRequest: 1,
-    connectTimeout: 2000,
-    retryStrategy(times) {
-      if (times > 3) return null; // Graceful fallback to in-memory if offline
-      return Math.min(times * 100, 1000);
-    }
-  });
+  if (REDIS_CLUSTER_NODES && REDIS_CLUSTER_NODES.length > 0) {
+    const formattedNodes = REDIS_CLUSTER_NODES.map(node => {
+      const [host, port] = node.split(':');
+      return { host: host || '127.0.0.1', port: parseInt(port, 10) || 6379 };
+    });
 
-  redisClient.on('connect', () => {
-    isConnected = true;
-    console.log('⚡ Connected to Redis In-Memory Cache & Distributed Store');
-  });
+    redisClient = new Redis.Cluster(formattedNodes, {
+      redisOptions: {
+        maxRetriesPerRequest: 1,
+        connectTimeout: 3000,
+        tls: process.env.REDIS_TLS === 'true' ? {} : undefined
+      },
+      clusterRetryStrategy(times) {
+        if (times > 3) return null;
+        return Math.min(times * 150, 1500);
+      }
+    });
+    redisMode = 'cluster';
+  } else if (process.env.REDIS_URL) {
+    redisClient = new Redis(REDIS_URL, {
+      maxRetriesPerRequest: 1,
+      connectTimeout: 2000,
+      tls: REDIS_URL.startsWith('rediss://') ? {} : undefined,
+      retryStrategy(times) {
+        if (times > 3) return null; // Graceful fallback to in-memory if offline
+        return Math.min(times * 100, 1000);
+      }
+    });
+    redisMode = 'standalone';
+  }
 
-  redisClient.on('error', (err) => {
-    if (isConnected) {
-      console.log('ℹ️ Redis Standby Mode:', err.message);
-    }
-    isConnected = false;
-  });
+  if (redisClient) {
+    redisClient.on('connect', () => {
+      isConnected = true;
+      console.log(`⚡ Connected to Redis (${redisMode}) In-Memory Cache & Distributed Store`);
+    });
+
+    redisClient.on('ready', () => {
+      isConnected = true;
+    });
+
+    redisClient.on('error', (err) => {
+      if (isConnected) {
+        console.log('ℹ️ Redis Standby Mode:', err.message);
+      }
+      isConnected = false;
+    });
+  }
 } catch (e) {
-  console.log('ℹ️ Redis client fallback enabled.');
+  console.log('ℹ️ Redis client fallback enabled:', e.message);
+}
+
+/**
+ * Returns comprehensive Redis operational status and ping latency
+ */
+export async function getRedisHealthStatus() {
+  if (!isConnected || !redisClient) {
+    return {
+      status: 'standby',
+      mode: 'in-memory fallback',
+      connected: false,
+      distributedRateLimiting: 'local_fallback',
+      latencyMs: null
+    };
+  }
+
+  try {
+    const start = Date.now();
+    await redisClient.ping();
+    const latency = Date.now() - start;
+    lastPingLatency = latency;
+
+    return {
+      status: 'operational',
+      mode: redisMode,
+      connected: true,
+      distributedRateLimiting: 'active_redis',
+      latencyMs: latency
+    };
+  } catch (e) {
+    return {
+      status: 'degraded',
+      mode: redisMode,
+      connected: false,
+      distributedRateLimiting: 'local_fallback',
+      latencyMs: null
+    };
+  }
 }
 
 /**

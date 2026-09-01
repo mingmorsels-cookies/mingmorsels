@@ -7,6 +7,7 @@ const { Pool } = pkg;
 import fs from 'fs';
 import path from 'path';
 import { reserveStockHoldRedis, releaseStockHoldRedis, isRedisReady } from './redis.js';
+import { encryptPII, decryptPII } from './src/server/utils/cryptoUtils.js';
 
 const LOCAL_DB_PATH = path.resolve(process.cwd(), 'data_store.json');
 
@@ -58,7 +59,10 @@ function initLocalStoreSync() {
 
 initLocalStoreSync();
 
+let cachedStore = null;
+
 export async function readLocalStoreAsync() {
+  if (cachedStore) return cachedStore;
   try {
     const raw = await fs.promises.readFile(LOCAL_DB_PATH, 'utf-8');
     const store = JSON.parse(raw);
@@ -67,13 +71,16 @@ export async function readLocalStoreAsync() {
     if (!store.reviews) store.reviews = [];
     if (!store.adminNotifications) store.adminNotifications = [];
     if (!store.userRewards) store.userRewards = {};
+    cachedStore = store;
     return store;
   } catch (e) {
-    return { users: [], orders: [], abandonedCarts: [], reviews: [], adminNotifications: [], userRewards: {}, inventory: { ...DEFAULT_INVENTORY }, pincodes: [] };
+    cachedStore = { users: [], orders: [], abandonedCarts: [], reviews: [], adminNotifications: [], userRewards: {}, inventory: { ...DEFAULT_INVENTORY }, pincodes: [] };
+    return cachedStore;
   }
 }
 
 export function readLocalStore() {
+  if (cachedStore) return cachedStore;
   try {
     const store = JSON.parse(fs.readFileSync(LOCAL_DB_PATH, 'utf-8'));
     if (!store.inventory) store.inventory = { ...DEFAULT_INVENTORY };
@@ -81,13 +88,16 @@ export function readLocalStore() {
     if (!store.reviews) store.reviews = [];
     if (!store.adminNotifications) store.adminNotifications = [];
     if (!store.userRewards) store.userRewards = {};
+    cachedStore = store;
     return store;
   } catch (e) {
-    return { users: [], orders: [], abandonedCarts: [], reviews: [], adminNotifications: [], userRewards: {}, inventory: { ...DEFAULT_INVENTORY }, pincodes: [] };
+    cachedStore = { users: [], orders: [], abandonedCarts: [], reviews: [], adminNotifications: [], userRewards: {}, inventory: { ...DEFAULT_INVENTORY }, pincodes: [] };
+    return cachedStore;
   }
 }
 
 export async function writeLocalStoreAsync(data) {
+  cachedStore = data;
   writeQueue = writeQueue.then(async () => {
     try {
       const tmp = `${LOCAL_DB_PATH}.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`;
@@ -112,13 +122,23 @@ function writeLocalStore(data) {
 
 let pgPool = null;
 const connectionString = process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/mingmorsels';
-try {
-  pgPool = new Pool({
-    connectionString,
-    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
-  });
-} catch (e) {
-  console.log('⚠️ PostgreSQL Pool initialization deferred to local store mode.');
+if (process.env.DATABASE_URL) {
+  try {
+    pgPool = new Pool({
+      connectionString,
+      ssl: { rejectUnauthorized: false },
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000
+    });
+    pgPool.on('error', (err) => {
+      console.error('🚨 [PostgreSQL Pool Error]:', err.message);
+    });
+  } catch (e) {
+    console.warn('⚠️ PostgreSQL Pool initialization error:', e.message);
+  }
+} else if (process.env.NODE_ENV === 'production') {
+  console.warn('⚠️ [PRODUCTION CONFIG NOTICE] DATABASE_URL is not set. Operating in local store fallback.');
 }
 
 /**
@@ -196,6 +216,21 @@ export async function initPostgresTables() {
       CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at DESC);
       CREATE INDEX IF NOT EXISTS idx_orders_payment_id ON orders(payment_id);
       CREATE INDEX IF NOT EXISTS idx_orders_razorpay_id ON orders(razorpay_order_id);
+    `);
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS audit_logs (
+        id SERIAL PRIMARY KEY,
+        id_str VARCHAR(100) UNIQUE NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        admin_user VARCHAR(100) NOT NULL,
+        action VARCHAR(100) NOT NULL,
+        target_id VARCHAR(100),
+        ip VARCHAR(50),
+        details JSONB,
+        status VARCHAR(20) DEFAULT 'SUCCESS'
+      );
+      CREATE INDEX IF NOT EXISTS idx_audit_logs_timestamp ON audit_logs(timestamp DESC);
+      CREATE INDEX IF NOT EXISTS idx_audit_logs_admin_user ON audit_logs(admin_user);
     `);
     client.release();
     console.log('✅ PostgreSQL Schema, Tables & Indexes verified successfully.');
@@ -344,8 +379,20 @@ export async function upsertUser({ google_id, name, email, picture }) {
   return user;
 }
 
+export function formatOrderForOutput(order) {
+  if (!order) return null;
+  return {
+    ...order,
+    user_phone: decryptPII(order.user_phone),
+    shipping_address: decryptPII(order.shipping_address)
+  };
+}
+
 export async function createOrderRecord(orderData) {
-  const { id, user_id, user_name, user_email, user_phone, items, total_amount, discount_amount, applied_coupon, tax_gst, delivery_fee, payment_status, razorpay_order_id, shipping_address } = orderData;
+  const { id, user_id, user_name, user_email, user_phone, items, total_amount, discount_amount, applied_coupon, tax_gst, delivery_fee, payment_status, payment_method, razorpay_order_id, shipping_address, delivery_mode, pickup_pin } = orderData;
+
+  const encryptedPhone = user_phone ? encryptPII(user_phone) : null;
+  const encryptedAddress = shipping_address ? encryptPII(shipping_address) : '';
 
   if (pgPool) {
     try {
@@ -353,9 +400,9 @@ export async function createOrderRecord(orderData) {
         `INSERT INTO orders (id, user_id, user_name, user_email, user_phone, items_json, total_amount, payment_status, razorpay_order_id, shipping_address)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
          RETURNING *`,
-        [id, user_id || null, user_name, user_email, user_phone || null, JSON.stringify(items), total_amount, payment_status || 'PENDING', razorpay_order_id || null, shipping_address || '']
+        [id, user_id || null, user_name, user_email, encryptedPhone, JSON.stringify(items), total_amount, payment_status || 'PENDING', razorpay_order_id || null, encryptedAddress]
       );
-      return res.rows[0];
+      return formatOrderForOutput(res.rows[0]);
     } catch (e) {}
   }
   const store = await readLocalStoreAsync();
@@ -364,7 +411,7 @@ export async function createOrderRecord(orderData) {
     user_id: user_id || null,
     user_name,
     user_email,
-    user_phone: user_phone || null,
+    user_phone: encryptedPhone,
     items,
     total_amount,
     discount_amount: discount_amount || 0,
@@ -372,15 +419,18 @@ export async function createOrderRecord(orderData) {
     tax_gst: tax_gst || 0,
     delivery_fee: delivery_fee || 0,
     payment_status: payment_status || 'PENDING',
+    payment_method: payment_method || 'Prepaid',
     payment_id: null,
     razorpay_order_id: razorpay_order_id || null,
-    shipping_address: shipping_address || '',
+    shipping_address: encryptedAddress,
+    delivery_mode: delivery_mode || 'courier',
+    pickup_pin: pickup_pin || null,
     delivery_status: 'BAKING',
     created_at: new Date().toISOString()
   };
   store.orders.unshift(newOrder);
   await writeLocalStoreAsync(store);
-  return newOrder;
+  return formatOrderForOutput(newOrder);
 }
 
 export async function getUserRewards() {
@@ -420,7 +470,7 @@ export async function markOrderPaid(orderId, paymentId) {
   const order = store.orders.find(o => o.id === orderId || o.razorpay_order_id === orderId);
   if (order) {
     if (order.payment_status === 'PAID' && order.payment_id === paymentId) {
-      return order; // Idempotent return
+      return formatOrderForOutput(order); // Idempotent return
     }
     order.payment_status = 'PAID';
     order.payment_id = paymentId;
@@ -430,7 +480,7 @@ export async function markOrderPaid(orderId, paymentId) {
     const items = Array.isArray(order.items) ? order.items : [];
     await decrementProductStock(items);
 
-    return order;
+    return formatOrderForOutput(order);
   }
   return null;
 }
@@ -461,7 +511,7 @@ export async function updateOrderShipmentInfo(orderId, updateFields = {}) {
       order.payment_status = 'PAID';
     }
     await writeLocalStoreAsync(store);
-    return order;
+    return formatOrderForOutput(order);
   }
   return null;
 }
@@ -482,7 +532,7 @@ export async function cancelOrderRecord(orderId, reason = 'Customer requested ca
     localOrder.cancellation_reason = reason;
     localOrder.cancelled_at = new Date().toISOString();
     await writeLocalStoreAsync(store);
-    return localOrder;
+    return formatOrderForOutput(localOrder);
   }
   return null;
 }
@@ -520,7 +570,7 @@ export async function getOrderRecord(orderOrAwbId) {
            payIdLower === lower;
   });
 
-  if (exactMatch) return exactMatch;
+  if (exactMatch) return formatOrderForOutput(exactMatch);
 
   // 2. Mobile Number Lookup (Intelligent 10-Digit Normalization)
   if (last10Digits.length === 10 || (rawDigits.length >= 7 && rawDigits.length <= 13)) {
@@ -528,9 +578,12 @@ export async function getOrderRecord(orderOrAwbId) {
     
     const phoneMatch = orders.find(o => {
       if (!o) return false;
-      const uPhone10 = (o.user_phone || o.phone || '').replace(/\D/g, '').slice(-10);
-      const sPhone10 = (o.shipping_phone || '').replace(/\D/g, '').slice(-10);
-      const addrDigits = (o.shipping_address || '').replace(/\D/g, '');
+      const decryptedUPhone = decryptPII(o.user_phone || o.phone || '');
+      const decryptedSPhone = decryptPII(o.shipping_phone || '');
+      const decryptedAddr = decryptPII(o.shipping_address || '');
+      const uPhone10 = decryptedUPhone.replace(/\D/g, '').slice(-10);
+      const sPhone10 = decryptedSPhone.replace(/\D/g, '').slice(-10);
+      const addrDigits = decryptedAddr.replace(/\D/g, '');
       
       return (uPhone10 && uPhone10 === phoneTarget) ||
              (sPhone10 && sPhone10 === phoneTarget) ||
@@ -539,7 +592,7 @@ export async function getOrderRecord(orderOrAwbId) {
              (addrDigits && addrDigits.includes(phoneTarget));
     });
 
-    if (phoneMatch) return phoneMatch;
+    if (phoneMatch) return formatOrderForOutput(phoneMatch);
   }
 
   // 3. Partial Order ID / AWB Digits Match
@@ -550,14 +603,14 @@ export async function getOrderRecord(orderOrAwbId) {
       const awbDigits = (o.shipway_awb || '').replace(/\D/g, '');
       return orderDigits.includes(rawDigits) || awbDigits.includes(rawDigits);
     });
-    if (digitMatch) return digitMatch;
+    if (digitMatch) return formatOrderForOutput(digitMatch);
   }
 
   // 4. Email or Address Fallback
   const fallbackMatch = orders.find(o => {
     if (!o) return false;
     const emailLower = (o.user_email || '').toLowerCase();
-    const addrLower = (o.shipping_address || '').toLowerCase();
+    const addrLower = decryptPII(o.shipping_address || '').toLowerCase();
     const nameLower = (o.user_name || '').toLowerCase();
 
     return (lower.includes('@') && emailLower === lower) ||
@@ -565,19 +618,23 @@ export async function getOrderRecord(orderOrAwbId) {
            (lower.length >= 4 && nameLower.includes(lower));
   });
 
-  return fallbackMatch || null;
+  return fallbackMatch ? formatOrderForOutput(fallbackMatch) : null;
 }
 
 export async function getUserOrders(userEmail) {
   if (!userEmail) return [];
   const cleanEmail = String(userEmail).trim().toLowerCase();
   const store = await readLocalStoreAsync();
-  return store.orders.filter(o => (o.user_email || '').toLowerCase() === cleanEmail);
+  return store.orders
+    .filter(o => (o.user_email || '').toLowerCase() === cleanEmail)
+    .map(formatOrderForOutput);
 }
 
 export async function getAllOrders() {
   const store = await readLocalStoreAsync();
-  return (store.orders || []).sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+  return (store.orders || [])
+    .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
+    .map(formatOrderForOutput);
 }
 
 export function getPincodeShippingTier(pincode) {
