@@ -26,7 +26,7 @@ export const PRODUCT_CATALOG = {
   },
   'almond_classic_8pcs': {
     id: 'almond_classic_8pcs',
-    name: 'Almond Rich Cookies (Classic Box - 8 Pcs)',
+    name: 'Almond Rich Cookies (Classic Delights - 8 Pcs)',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -36,13 +36,13 @@ export const PRODUCT_CATALOG = {
   },
   'almond_family_12pcs': {
     id: 'almond_family_12pcs',
-    name: 'Almond Rich Cookies (Dozen Delight - 12 Pcs)',
+    name: 'Almond Rich Cookies (Dozen Delights - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
     stock: 60,
     rating: 5.0,
-    description: 'Large Dozen Delight box containing 12 freshly baked roasted almond cookies (300g).'
+    description: 'Large Dozen Delights box containing 12 freshly baked roasted almond cookies (300g).'
   },
   'rose': {
     id: 'rose',
@@ -66,7 +66,7 @@ export const PRODUCT_CATALOG = {
   },
   'rose_classic_8pcs': {
     id: 'rose_classic_8pcs',
-    name: 'Rose Petal Cookies (Classic Box - 8 Pcs)',
+    name: 'Rose Petal Cookies (Classic Delights - 8 Pcs)',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -76,13 +76,13 @@ export const PRODUCT_CATALOG = {
   },
   'rose_family_12pcs': {
     id: 'rose_family_12pcs',
-    name: 'Rose Petal Cookies (Dozen Delight - 12 Pcs)',
+    name: 'Rose Petal Cookies (Dozen Delights - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
     stock: 60,
     rating: 5.0,
-    description: 'Large Dozen Delight box containing 12 freshly baked Damascus rose petal cookies (300g).'
+    description: 'Large Dozen Delights box containing 12 freshly baked Damascus rose petal cookies (300g).'
   },
   'oatsnuts': {
     id: 'oatsnuts',
@@ -106,7 +106,7 @@ export const PRODUCT_CATALOG = {
   },
   'oatsnuts_classic_8pcs': {
     id: 'oatsnuts_classic_8pcs',
-    name: 'Oats & Nuts Cookies (Classic Box - 8 Pcs)',
+    name: 'Oats & Nuts Cookies (Classic Delights - 8 Pcs)',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -116,13 +116,13 @@ export const PRODUCT_CATALOG = {
   },
   'oatsnuts_family_12pcs': {
     id: 'oatsnuts_family_12pcs',
-    name: 'Oats & Nuts Cookies (Dozen Delight - 12 Pcs)',
+    name: 'Oats & Nuts Cookies (Dozen Delights - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
     stock: 60,
     rating: 5.0,
-    description: 'Large Dozen Delight box containing 12 freshly baked oats & nuts cookies (300g).'
+    description: 'Large Dozen Delights box containing 12 freshly baked oats & nuts cookies (300g).'
   },
   'orange': {
     id: 'orange',
@@ -146,7 +146,7 @@ export const PRODUCT_CATALOG = {
   },
   'orange_classic_8pcs': {
     id: 'orange_classic_8pcs',
-    name: 'Orange Peel Cookies (Classic Box - 8 Pcs)',
+    name: 'Orange Peel Cookies (Classic Delights - 8 Pcs)',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',

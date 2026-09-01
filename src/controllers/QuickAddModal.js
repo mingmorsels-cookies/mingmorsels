@@ -23,7 +23,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'almond_classic_8pcs',
-        name: 'Classic Box',
+        name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
         price: 140,
         desc: '8 Artisanal cookies in signature gold box.',
@@ -32,7 +32,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'almond_family_12pcs',
-        name: 'Dozen Delight',
+        name: 'Dozen Delights',
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Generous pieces in keepsake collection box.',
@@ -57,7 +57,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'rose_classic_8pcs',
-        name: 'Classic Box',
+        name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
         price: 140,
         desc: '8 Handcrafted floral treats in signature bakery box.',
@@ -66,7 +66,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'rose_family_12pcs',
-        name: 'Dozen Delight',
+        name: 'Dozen Delights',
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Fragrant rose cookies in our luxury packaging.',
@@ -91,7 +91,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'oatsnuts_classic_8pcs',
-        name: 'Classic Box',
+        name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
         price: 140,
         desc: '8 Wholesome energy-dense cookies in classic box.',
@@ -100,7 +100,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'oatsnuts_family_12pcs',
-        name: 'Dozen Delight',
+        name: 'Dozen Delights',
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Nutritious cookies in luxury presentation box.',
@@ -125,7 +125,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'orange_classic_8pcs',
-        name: 'Classic Box',
+        name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
         price: 140,
         desc: '8 Orange peel treats in signature gift box.',
@@ -134,7 +134,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'orange_family_12pcs',
-        name: 'Dozen Delight',
+        name: 'Dozen Delights',
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Refreshing citrus cookies in dozen feast box.',
@@ -159,7 +159,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'walnut_classic_8pcs',
-        name: 'Classic Box',
+        name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
         price: 210,
         desc: '8 Premium roasted walnut cookies in signature gold box.',
@@ -168,7 +168,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'walnut_family_12pcs',
-        name: 'Dozen Delight',
+        name: 'Dozen Delights',
         countLabel: 'Up to 12 Cookies',
         price: 420,
         desc: '12 Rich California walnut cookies for connoisseurs.',
@@ -193,7 +193,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'walnut_sf_classic_8pcs',
-        name: 'Classic Box',
+        name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
         price: 220,
         desc: '8 Guilt-free diabetic-friendly treats in fresh box.',
@@ -202,7 +202,7 @@ export const PRODUCT_BOX_CATALOG = {
       },
       {
         id: 'walnut_sf_family_12pcs',
-        name: 'Dozen Delight',
+        name: 'Dozen Delights',
         countLabel: 'Up to 12 Cookies',
         price: 440,
         desc: '12 Keto-friendly walnut cookies in luxury collection box.',
@@ -304,7 +304,7 @@ export const PRODUCT_BOX_CATALOG = {
 
 let modalElement = null;
 let currentSelectedProduct = null;
-let currentSelectedBoxIndex = 1; // Default to Classic Box (index 1)
+let currentSelectedBoxIndex = 1; // Default to Classic Delights (index 1)
 let currentQuantity = 1;
 
 export function initQuickAddModal() {

@@ -306,7 +306,7 @@ const COOKIE_BOX_OPTIONS = {
     },
     {
       id: 'rose_classic_8pcs',
-      name: 'Classic Box',
+      name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
       price: 140,
@@ -317,7 +317,7 @@ const COOKIE_BOX_OPTIONS = {
     },
     {
       id: 'rose_family_12pcs',
-      name: 'Dozen Delight',
+      name: 'Dozen Delights',
       cookieCount: 12,
       countLabel: 'Up to 12 Cookies',
       price: 360,
@@ -339,7 +339,7 @@ const COOKIE_BOX_OPTIONS = {
     },
     {
       id: 'almond_classic_8pcs',
-      name: 'Classic Box',
+      name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
       price: 140,
@@ -350,7 +350,7 @@ const COOKIE_BOX_OPTIONS = {
     },
     {
       id: 'almond_family_12pcs',
-      name: 'Dozen Delight',
+      name: 'Dozen Delights',
       cookieCount: 12,
       countLabel: 'Up to 12 Cookies',
       price: 360,
@@ -372,7 +372,7 @@ const COOKIE_BOX_OPTIONS = {
     },
     {
       id: 'orange_classic_8pcs',
-      name: 'Classic Box',
+      name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
       price: 140,
@@ -395,7 +395,7 @@ const COOKIE_BOX_OPTIONS = {
     },
     {
       id: 'oatsnuts_classic_8pcs',
-      name: 'Classic Box',
+      name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
       price: 140,
@@ -406,7 +406,7 @@ const COOKIE_BOX_OPTIONS = {
     },
     {
       id: 'oatsnuts_family_12pcs',
-      name: 'Dozen Delight',
+      name: 'Dozen Delights',
       cookieCount: 12,
       countLabel: 'Up to 12 Cookies',
       price: 360,
@@ -906,13 +906,13 @@ function openProductBoxLightbox(boxKey) {
     if (desc) desc.textContent = 'Compact pocket-sized pink packaging designed for fresh tea-time indulgence. Holds up to 2 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'classic_8pcs' || boxKey === 'rose_classic_8pcs') {
     img.src = '/rose-box-8pcs.jpg';
-    img.alt = 'Rose Petal Cookies - Classic Box (Up to 8 Cookies)';
-    if (title) title.textContent = 'Rose Petal Cookies — Classic Box (Up to 8 Cookies)';
+    img.alt = 'Rose Petal Cookies - Classic Delights (Up to 8 Cookies)';
+    if (title) title.textContent = 'Rose Petal Cookies — Classic Delights (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with signature rose artwork and nutritional facts. Holds up to 8 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'family_12pcs' || boxKey === 'rose_family_12pcs') {
     img.src = '/rose-box-12pcs.png?v=2';
-    img.alt = 'Rose Petal Cookies - Dozen Delight (Up to 12 Cookies · 300g)';
-    if (title) title.textContent = 'Rose Petal Cookies — Dozen Delight (Up to 12 Cookies · 300g)';
+    img.alt = 'Rose Petal Cookies - Dozen Delights (Up to 12 Cookies · 300g)';
+    if (title) title.textContent = 'Rose Petal Cookies — Dozen Delights (Up to 12 Cookies · 300g)';
     if (desc) desc.textContent = 'Large rectangular party box (Net Weight: 300g) with protective seals. Holds up to 12 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'almond_snack_2pcs') {
     img.src = '/almond-box-2pcs.png?v=2';
@@ -921,13 +921,13 @@ function openProductBoxLightbox(boxKey) {
     if (desc) desc.textContent = 'Pocket Twin Delight pack with rich roasted almonds artwork, source of dietary fiber. Holds up to 2 freshly baked almond cookies.';
   } else if (boxKey === 'almond_classic_8pcs') {
     img.src = '/almond-box-8pcs.jpg';
-    img.alt = 'Almond Rich Cookies - Classic Box (Up to 8 Cookies)';
-    if (title) title.textContent = 'Almond Rich Cookies — Classic Box (Up to 8 Cookies)';
+    img.alt = 'Almond Rich Cookies - Classic Delights (Up to 8 Cookies)';
+    if (title) title.textContent = 'Almond Rich Cookies — Classic Delights (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with crunchy almond meets soft butter guarantee (no margarine). Holds up to 8 freshly baked almond cookies.';
   } else if (boxKey === 'almond_family_12pcs') {
     img.src = '/almond-box-12pcs.png?v=2';
-    img.alt = 'Almond Rich Cookies - Dozen Delight (Up to 12 Cookies · 300g)';
-    if (title) title.textContent = 'Almond Rich Cookies — Dozen Delight (Up to 12 Cookies · 300g)';
+    img.alt = 'Almond Rich Cookies - Dozen Delights (Up to 12 Cookies · 300g)';
+    if (title) title.textContent = 'Almond Rich Cookies — Dozen Delights (Up to 12 Cookies · 300g)';
     if (desc) desc.textContent = 'Large festive party box with genuine cow butter & roasted almond recipe. Holds up to 12 freshly baked almond cookies.';
   } else if (boxKey === 'orange_snack_2pcs') {
     img.src = '/orange-box-2pcs.jpg';
@@ -936,8 +936,8 @@ function openProductBoxLightbox(boxKey) {
     if (desc) desc.textContent = 'Pocket Twin Delight pack with soft & chewy cookies made with sun-ripened orange peel and Vitamin C. Holds up to 2 freshly baked cookies.';
   } else if (boxKey === 'orange_classic_8pcs') {
     img.src = '/orange-box-8pcs.jpg';
-    img.alt = 'Orange Peel Cookies - Classic Box (Up to 8 Cookies)';
-    if (title) title.textContent = 'Orange Peel Cookies — Classic Box (Up to 8 Cookies)';
+    img.alt = 'Orange Peel Cookies - Classic Delights (Up to 8 Cookies)';
+    if (title) title.textContent = 'Orange Peel Cookies — Classic Delights (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box crafted with the zest of real orange peel (No Margarine) and Vitamin C. Holds up to 8 freshly baked cookies.';
   } else if (boxKey === 'oatsnuts_snack_2pcs') {
     img.src = '/oats-box-2pcs.jpg';
@@ -946,14 +946,14 @@ function openProductBoxLightbox(boxKey) {
     if (desc) desc.textContent = 'Pocket Twin Delight pack featuring superhero cookie mascot — naturally nut powered immunity booster with rolled oats and pista-elaichi.';
   } else if (boxKey === 'oatsnuts_classic_8pcs') {
     img.src = '/oats-box-8pcs.jpg';
-    img.alt = 'Oats & Nuts Cookies - Classic Box (Up to 8 Cookies)';
-    if (title) title.textContent = 'Oats & Nuts Cookies — Classic Box (Up to 8 Cookies)';
+    img.alt = 'Oats & Nuts Cookies - Classic Delights (Up to 8 Cookies)';
+    if (title) title.textContent = 'Oats & Nuts Cookies — Classic Delights (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with delightfully flavourful pista-elaichi combo, immunity booster goodness, and zero margarine.';
   } else if (boxKey === 'oatsnuts_family_12pcs') {
     img.src = '/oats-box-12pcs.jpg';
-    img.alt = 'Oats & Nuts Cookies - Dozen Delight (Up to 12 Cookies · 300g)';
-    if (title) title.textContent = 'Oats & Nuts Cookies — Dozen Delight (Up to 12 Cookies · 300g)';
-    if (desc) desc.textContent = 'Large luxury Dozen Delight pack (Net Weight: 300g) baked with nutrient-rich rolled oats, California walnuts, and apiary raw honey.';
+    img.alt = 'Oats & Nuts Cookies - Dozen Delights (Up to 12 Cookies · 300g)';
+    if (title) title.textContent = 'Oats & Nuts Cookies — Dozen Delights (Up to 12 Cookies · 300g)';
+    if (desc) desc.textContent = 'Large luxury Dozen Delights pack (Net Weight: 300g) baked with nutrient-rich rolled oats, California walnuts, and apiary raw honey.';
   } else if (boxKey === 'lush') {
     img.src = '/box-lush.jpg';
     img.alt = 'Lush Luxury Box';
