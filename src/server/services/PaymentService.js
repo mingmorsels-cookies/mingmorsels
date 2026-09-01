@@ -49,6 +49,7 @@ export class PaymentService {
           amount: amountInPaise,
           currency,
           receipt: receipt || `MM-${Date.now().toString().slice(-6)}`,
+          payment_capture: 1,
           notes
         });
         if (order && order.id) {
@@ -61,6 +62,20 @@ export class PaymentService {
     }
 
     throw new Error('Razorpay API Keys are not configured on server. Please check RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in .env');
+  }
+
+  /**
+   * Captures an authorized payment.
+   */
+  async capturePayment(paymentId, amountInPaise) {
+    const client = this.getRazorpayClient();
+    if (!client || !paymentId) return null;
+    try {
+      return await client.payments.capture(paymentId, amountInPaise, 'INR');
+    } catch (err) {
+      console.warn('Razorpay auto-capture notice (may already be captured):', err.message);
+      return null;
+    }
   }
 
   /**

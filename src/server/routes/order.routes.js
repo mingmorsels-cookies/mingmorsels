@@ -3,6 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { Router } from 'express';
+import crypto from 'crypto';
 import { z } from 'zod';
 import { PriceCalculator } from '../services/PriceCalculator.js';
 import { paymentService } from '../services/PaymentService.js';
@@ -12,6 +13,7 @@ import { eventStreamService } from '../services/EventStreamService.js';
 import { InvoiceService } from '../services/InvoiceService.js';
 import { sendPushToCustomer } from './push.routes.js';
 import { validateCustomerSession, generateCustomerToken, verifyCustomerToken } from '../middleware/auth.js';
+import { verifyGoogleIdToken } from '../utils/cryptoUtils.js';
 import {
   createOrderRecord,
   markOrderPaid,
@@ -27,6 +29,38 @@ import {
 } from '../../../db.js';
 
 const router = Router();
+
+function maskEmail(email) {
+  if (!email || !email.includes('@')) return '***@***.com';
+  const [user, domain] = email.split('@');
+  if (user.length <= 2) return `${user[0]}***@${domain}`;
+  return `${user.slice(0, 2)}***${user.slice(-1)}@${domain}`;
+}
+
+function maskName(name) {
+  if (!name) return 'Customer';
+  const parts = name.trim().split(/\s+/);
+  return parts.map(p => p.length > 2 ? `${p[0]}${'*'.repeat(Math.max(1, p.length - 2))}${p[p.length - 1]}` : `${p[0]}*`).join(' ');
+}
+
+function maskAddress(addr) {
+  if (!addr) return 'Bengaluru Hub';
+  const parts = addr.split(',');
+  if (parts.length > 1) {
+    return parts.slice(-2).join(',').trim();
+  }
+  return addr.length > 10 ? `***, ${addr.slice(-10)}` : 'Bengaluru Hub';
+}
+
+function generateSecureOrderId() {
+  const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+  let rand = '';
+  const bytes = crypto.randomBytes(6);
+  for (let i = 0; i < 6; i++) {
+    rand += chars[bytes[i] % chars.length];
+  }
+  return `MM-${rand}`;
+}
 
 // Zod Order Creation Schema
 const CreateOrderSchema = z.object({
@@ -60,20 +94,44 @@ const AbandonedCartSchema = z.object({
 });
 
 /**
- * Customer Authentication & Token Generation
+ * Customer Authentication & Google OAuth Token Generation (Cryptographically Verified)
  */
-router.post('/customer/auth', (req, res) => {
+router.post(['/customer/auth', '/auth/google-verify'], async (req, res) => {
   try {
-    const { email, name, picture } = req.body;
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return res.status(400).json({ success: false, error: 'Valid email required.' });
+    const { email, name, picture, credential, profile } = req.body;
+    let cleanEmail = null;
+    let customerName = name || profile?.name || 'Connoisseur';
+    let avatarUrl = picture || profile?.avatar || '';
+
+    // If Google OAuth credential is provided, cryptographically verify it with Google
+    if (credential && credential !== 'direct_auth' && typeof credential === 'string') {
+      const verifiedPayload = await verifyGoogleIdToken(credential);
+      if (verifiedPayload && verifiedPayload.email) {
+        cleanEmail = verifiedPayload.email;
+        customerName = verifiedPayload.name || customerName;
+        avatarUrl = verifiedPayload.picture || avatarUrl;
+      } else {
+        return res.status(401).json({ success: false, error: 'Invalid or unverified Google authentication credential.' });
+      }
+    } else if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
+      // In development / test environment, allow direct email authentication for automated testing
+      const inputEmail = email || profile?.email;
+      if (inputEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputEmail)) {
+        cleanEmail = inputEmail.trim().toLowerCase();
+      }
     }
 
-    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail) {
+      return res.status(401).json({
+        success: false,
+        error: 'Authentication required. Please authenticate via verified Google Sign-In.'
+      });
+    }
+
     const token = generateCustomerToken({
       email: cleanEmail,
-      name: name || 'Connoisseur',
-      picture: picture || ''
+      name: customerName,
+      picture: avatarUrl
     });
 
     res.json({
@@ -81,7 +139,8 @@ router.post('/customer/auth', (req, res) => {
       token,
       customer: {
         email: cleanEmail,
-        name: name || 'Connoisseur'
+        name: customerName,
+        picture: avatarUrl
       }
     });
   } catch (err) {
@@ -115,7 +174,7 @@ const handleCreateOrder = async (req, res) => {
     // Server-Side Recalculation (Authoritative with Tiered Destination Shipping)
     const calculation = PriceCalculator.calculateOrderSummary(items, coupon_code, shipping_address);
 
-    const orderId = receipt || `MM-${Date.now().toString().slice(-6)}`;
+    const orderId = receipt || generateSecureOrderId();
 
     // Handle COD (Cash on Delivery)
     if (req.body.payment_method === 'COD') {
@@ -321,6 +380,10 @@ const handleVerifyPayment = async (req, res) => {
     let updatedOrder = await markOrderPaid(targetOrderId, paymentId);
 
     if (updatedOrder) {
+      // Auto-capture payment if not already captured by gateway
+      paymentService.capturePayment(paymentId, Math.round(Number(updatedOrder.total_amount) * 100)).catch(err => {
+        console.warn('Auto-capture background notice:', err.message);
+      });
       // 1. Calculate Reward Points & Check VIP 1,000+ Points Milestone
       try {
         const customerOrders = await getUserOrders(updatedOrder.user_email);
@@ -407,10 +470,9 @@ router.post('/payment/webhook', async (req, res) => {
     const signature = req.headers['x-razorpay-signature'];
     const rawBody = req.rawBody || Buffer.from(JSON.stringify(req.body));
 
-    const isValid = paymentService.verifyWebhookSignature(rawBody, signature);
-    if (!isValid && signature) {
-      console.warn('🚨 Invalid webhook signature received.');
-      return res.status(400).json({ status: 'invalid_signature' });
+    if (!signature || !paymentService.verifyWebhookSignature(rawBody, signature)) {
+      console.warn('🚨 Invalid or missing webhook signature received.');
+      return res.status(401).json({ status: 'invalid_signature', error: 'Cryptographic signature required.' });
     }
 
     const event = req.body;
@@ -451,7 +513,7 @@ router.get('/user/orders', validateCustomerSession, async (req, res) => {
 });
 
 /**
- * Public Live Tracking Endpoint
+ * Public Live Tracking Endpoint (PII-Masked by default against harvesting attacks)
  */
 router.get('/shipping/track', async (req, res) => {
   try {
@@ -463,6 +525,25 @@ router.get('/shipping/track', async (req, res) => {
     const order = await getOrderRecord(query);
     if (!order) {
       return res.status(404).json({ success: false, error: 'Order not found.' });
+    }
+
+    // Optional Owner Authentication Check (JWT or Contact verification)
+    const contact = (req.query.contact || '').trim().toLowerCase();
+    const contactPhone = contact.replace(/\D/g, '');
+    const orderEmail = (order.user_email || '').toLowerCase().trim();
+    const orderPhone = (order.user_phone || '').replace(/\D/g, '');
+    
+    let isVerifiedOwner = false;
+    const authHeader = req.headers['authorization'];
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      const decoded = verifyCustomerToken(token);
+      if (decoded && decoded.email && decoded.email.toLowerCase() === orderEmail) {
+        isVerifiedOwner = true;
+      }
+    }
+    if (contact && (contact === orderEmail || (contactPhone && contactPhone.length >= 7 && orderPhone.includes(contactPhone)))) {
+      isVerifiedOwner = true;
     }
 
     const trackingData = logisticsService.getOrderTrackingInfo(order);
@@ -478,20 +559,21 @@ router.get('/shipping/track', async (req, res) => {
       delivery_status: order.delivery_status || trackingData.status || 'BAKING',
       payment_status: order.payment_status || 'PAID',
       estimated_delivery: new Date(Date.now() + 2 * 86400000).toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' }),
-      shipping_address: order.shipping_address,
+      shipping_address: isVerifiedOwner ? order.shipping_address : maskAddress(order.shipping_address),
       delivery_mode: order.delivery_mode,
-      pickup_pin: order.pickup_pin,
+      pickup_pin: isVerifiedOwner ? order.pickup_pin : (order.pickup_pin ? '••••' : null),
       items: parsedItems,
       total_amount: order.total_amount,
       discount_amount: order.discount_amount || 0,
       delivery_fee: order.delivery_fee || 0,
       tax_gst: order.tax_gst || 0,
       payment_method: order.payment_method || 'Prepaid',
-      user_name: order.user_name,
-      user_email: order.user_email,
+      user_name: isVerifiedOwner ? order.user_name : maskName(order.user_name),
+      user_email: isVerifiedOwner ? order.user_email : maskEmail(order.user_email),
       created_at: order.created_at,
       timeline: trackingData.timeline,
-      tracking: trackingData 
+      tracking: trackingData,
+      is_owner_authenticated: isVerifiedOwner
     });
   } catch (error) {
     console.error('Tracking Error:', error);
@@ -549,7 +631,13 @@ const handleCancelOrder = async (req, res) => {
     }
 
     // IDOR Protection: Verify ownership or admin privilege
-    const requesterEmail = req.customerEmail; // Might be undefined if no token
+    let requesterEmail = req.customerEmail;
+    const authHeader = req.headers['authorization'];
+    if (!requesterEmail && authHeader && authHeader.startsWith('Bearer ')) {
+      const decoded = verifyCustomerToken(authHeader.split(' ')[1]);
+      if (decoded?.email) requesterEmail = decoded.email.toLowerCase();
+    }
+
     const orderEmail = (order.user_email || '').toLowerCase().trim();
     const orderPhone = (order.user_phone || '').replace(/\D/g, '');
     const cleanContact = (contact || '').trim().toLowerCase();
@@ -558,9 +646,7 @@ const handleCancelOrder = async (req, res) => {
     const isOwner = req.isAdmin || 
                     (requesterEmail && requesterEmail === orderEmail) ||
                     (cleanContact && cleanContact === orderEmail) ||
-                    (contactPhone && contactPhone.length >= 7 && orderPhone.includes(contactPhone)) ||
-                    (cleanContact === order.id.toLowerCase()) || 
-                    (cleanContact === (order.shipway_awb || '').toLowerCase());
+                    (contactPhone && orderPhone && contactPhone === orderPhone);
 
     if (!isOwner) {
       return res.status(403).json({ success: false, error: 'Forbidden: You do not own this order.' });
@@ -609,15 +695,22 @@ router.get('/orders/:id/invoice', async (req, res) => {
     const contactPhone = cleanContact.replace(/\D/g, '');
     const orderEmail = (order.user_email || '').toLowerCase().trim();
     const orderPhone = (order.user_phone || '').replace(/\D/g, '');
+
+    let requesterEmail = null;
+    const authHeader = req.headers['authorization'];
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const decoded = verifyCustomerToken(authHeader.split(' ')[1]);
+      if (decoded?.email) requesterEmail = decoded.email.toLowerCase();
+    }
     
-    // Check if the provided contact (from tracking) matches the order
-    const isOwner = (cleanContact && cleanContact === orderEmail) ||
-                    (contactPhone && contactPhone.length >= 7 && orderPhone.includes(contactPhone)) ||
-                    (cleanContact === order.id.toLowerCase()) || 
-                    (cleanContact === (order.shipway_awb || '').toLowerCase());
+    // Check if the provided contact matches the order email/phone or requester session
+    const isOwner = req.isAdmin ||
+                    (requesterEmail && requesterEmail === orderEmail) ||
+                    (cleanContact && cleanContact === orderEmail) ||
+                    (contactPhone && orderPhone && contactPhone === orderPhone);
 
     if (!isOwner) {
-      return res.status(403).send('<h2 style="font-family: sans-serif; text-align: center; margin-top: 50px;">Access Denied: Invoice restricted to order owner.</h2>');
+      return res.status(403).send('<h2 style="font-family: sans-serif; text-align: center; margin-top: 50px;">Access Denied: Invoice restricted to verified order owner.</h2>');
     }
 
     const invoiceHtml = InvoiceService.generateInvoiceHtml(order);
