@@ -79,6 +79,22 @@ export class PaymentService {
   }
 
   /**
+   * Issues a refund via Razorpay.
+   */
+  async refundPayment({ paymentId, amountInPaise, notes = {} }) {
+    const client = this.getRazorpayClient();
+    if (!client || !paymentId) return null;
+    try {
+      const options = { notes };
+      if (amountInPaise) options.amount = amountInPaise;
+      return await client.payments.refund(paymentId, options);
+    } catch (err) {
+      console.warn('Razorpay refund notice:', err.error?.description || err.message || err);
+      return null;
+    }
+  }
+
+  /**
    * Verifies Razorpay HMAC SHA-256 payment signature.
    * STRICT: Returns true only if cryptographic verification passes or is simulated in test.
    */

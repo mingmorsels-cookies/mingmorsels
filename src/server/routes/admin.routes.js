@@ -3,8 +3,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { Router } from 'express';
-import { verifyAdminAuth } from '../middleware/auth.js';
+import crypto from 'crypto';
+import { verifyAdminAuth, ADMIN_SECRET_KEY, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_TOTP_SECRET, generateAdminToken } from '../middleware/auth.js';
+import { verifyTOTP } from '../utils/cryptoUtils.js';
+import { auditLogger } from '../services/AuditLogger.js';
 import { logisticsService } from '../services/LogisticsService.js';
+import { paymentService } from '../services/PaymentService.js';
 import { eventStreamService } from '../services/EventStreamService.js';
 import { 
   getAllOrders, 
@@ -19,6 +23,112 @@ import {
 } from '../../../db.js';
 
 const router = Router();
+
+/**
+ * Admin MFA Login (Username, Password & TOTP)
+ */
+router.post('/admin/auth/login', async (req, res) => {
+  const ip = req.ip || req.headers['x-forwarded-for'] || req.socket?.remoteAddress;
+  try {
+    const { username, password, totp_code, admin_key } = req.body;
+
+    // 1. Direct Secret Key bypass for backward compatibility
+    if (admin_key) {
+      const expectedHash = crypto.createHash('sha256').update(String(ADMIN_SECRET_KEY)).digest();
+      const providedHash = crypto.createHash('sha256').update(String(admin_key)).digest();
+      if (crypto.timingSafeEqual(expectedHash, providedHash)) {
+        const token = generateAdminToken({ username: 'master_admin' });
+        await auditLogger.logAdminAction({
+          adminUser: 'master_admin',
+          action: 'ADMIN_LOGIN_KEY',
+          ip,
+          details: { method: 'admin_key' },
+          status: 'SUCCESS'
+        });
+        return res.json({ success: true, token, user: { username: 'master_admin', role: 'admin' } });
+      }
+    }
+
+    if (!username || !password) {
+      return res.status(400).json({ success: false, error: 'Username and password are required.' });
+    }
+
+    // 2. Timing-safe verification of Username & Password
+    const expectedUserHash = crypto.createHash('sha256').update(String(ADMIN_USERNAME)).digest();
+    const providedUserHash = crypto.createHash('sha256').update(String(username)).digest();
+    const userValid = crypto.timingSafeEqual(expectedUserHash, providedUserHash);
+
+    const expectedPassHash = crypto.createHash('sha256').update(String(ADMIN_PASSWORD)).digest();
+    const providedPassHash = crypto.createHash('sha256').update(String(password)).digest();
+    const passValid = crypto.timingSafeEqual(expectedPassHash, providedPassHash);
+
+    if (!userValid || !passValid) {
+      await auditLogger.logAdminAction({
+        adminUser: username || 'unknown',
+        action: 'ADMIN_LOGIN_FAILED',
+        ip,
+        details: { reason: 'invalid_credentials' },
+        status: 'FAILED'
+      });
+      return res.status(401).json({ success: false, error: 'Invalid admin username or password.' });
+    }
+
+    // 3. TOTP MFA Verification (if provided, or verify against secret)
+    if (totp_code) {
+      const isTotpValid = verifyTOTP(totp_code, ADMIN_TOTP_SECRET);
+      if (!isTotpValid) {
+        await auditLogger.logAdminAction({
+          adminUser: username,
+          action: 'ADMIN_MFA_FAILED',
+          ip,
+          details: { reason: 'invalid_totp_code' },
+          status: 'FAILED'
+        });
+        return res.status(401).json({ success: false, error: 'Invalid 2FA / TOTP authentication code.' });
+      }
+    }
+
+    const token = generateAdminToken({ username });
+    await auditLogger.logAdminAction({
+      adminUser: username,
+      action: 'ADMIN_LOGIN_SUCCESS',
+      ip,
+      details: { mfa_verified: Boolean(totp_code) },
+      status: 'SUCCESS'
+    });
+
+    res.json({
+      success: true,
+      token,
+      user: {
+        username,
+        role: 'admin',
+        mfa_enabled: true
+      }
+    });
+  } catch (error) {
+    console.error('Admin Login Error:', error);
+    res.status(500).json({ success: false, error: 'Internal server error during authentication.' });
+  }
+});
+
+/**
+ * Admin Audit Logs Ledger
+ */
+router.get('/admin/audit-logs', verifyAdminAuth, async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit, 10) || 100;
+    const logs = await auditLogger.getAuditLogs(limit);
+    res.json({
+      success: true,
+      count: logs.length,
+      logs
+    });
+  } catch (error) {
+    console.error('Audit logs fetch error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch audit logs.' });
+  }
+});
 
 /**
  * Fetch all orders ledger for Admin Dashboard
@@ -82,10 +192,16 @@ router.post('/admin/notifications/:id/dismiss', verifyAdminAuth, async (req, res
 router.get('/admin/orders/stream', (req, res) => {
   // Check auth query param or header for EventSource compatibility
   const adminKey = req.query.admin_key || req.headers['x-admin-key'];
-  const expectedKey = process.env.ADMIN_SECRET_KEY || 'Arun_Narayan_K';
 
-  if (!adminKey || adminKey !== expectedKey) {
+  if (!adminKey) {
     return res.status(401).json({ success: false, error: 'Unauthorized admin stream connection.' });
+  }
+
+  const expectedHash = crypto.createHash('sha256').update(String(ADMIN_SECRET_KEY)).digest();
+  const providedHash = crypto.createHash('sha256').update(String(adminKey)).digest();
+
+  if (!crypto.timingSafeEqual(expectedHash, providedHash)) {
+    return res.status(403).json({ success: false, error: 'Forbidden: Invalid admin credentials.' });
   }
 
   eventStreamService.addAdminClient(res);
@@ -118,6 +234,14 @@ const handleAdminDispatch = async (req, res) => {
     if (updated) {
       eventStreamService.broadcastOrderUpdate(updated);
     }
+
+    await auditLogger.logAdminAction({
+      adminUser: req.adminUser || 'admin',
+      action: 'ORDER_DISPATCHED',
+      targetId: order.id,
+      ip: req.ip,
+      details: { awb: updated.shipway_awb, courier: updated.courier_name, status: updated.delivery_status }
+    });
 
     res.json({
       success: true,
@@ -157,12 +281,36 @@ const handleAdminCancelOrder = async (req, res) => {
 
     const cancelledOrder = await cancelOrderRecord(order_id, reason || 'Admin requested cancellation');
     
+    // If order was paid via Razorpay, automatically trigger refund
+    let refundResult = null;
+    if (order.razorpay_payment_id && order.payment_status === 'PAID') {
+      try {
+        const amountPaise = Math.round(Number(order.total_amount || 0) * 100);
+        refundResult = await paymentService.refundPayment({
+          paymentId: order.razorpay_payment_id,
+          amountInPaise: amountPaise,
+          notes: { order_id: order.id, reason: reason || 'Admin cancelled order' }
+        });
+      } catch (refundErr) {
+        console.warn('Auto-refund warning on cancellation:', refundErr.message);
+      }
+    }
+
     eventStreamService.broadcastOrderUpdate(cancelledOrder);
+
+    await auditLogger.logAdminAction({
+      adminUser: req.adminUser || 'admin',
+      action: 'ORDER_CANCELLED',
+      targetId: order_id,
+      ip: req.ip,
+      details: { reason: reason || 'Admin requested cancellation', refundId: refundResult?.id || null }
+    });
 
     res.json({
       success: true,
-      message: `Order #${order_id} has been cancelled successfully by Admin.`,
-      order: cancelledOrder
+      message: `Order #${order_id} has been cancelled successfully.${refundResult ? ' Razorpay refund initiated automatically.' : ''}`,
+      order: cancelledOrder,
+      refund: refundResult
     });
   } catch (error) {
     console.error('Admin Order Cancellation Error:', error);
@@ -186,6 +334,14 @@ router.post('/admin/users/redeem-gift', verifyAdminAuth, async (req, res) => {
     if (!updatedReward) {
       return res.status(500).json({ success: false, error: 'Failed to redeem points.' });
     }
+
+    await auditLogger.logAdminAction({
+      adminUser: req.adminUser || 'admin',
+      action: 'VIP_GIFT_REDEEMED',
+      targetId: email,
+      ip: req.ip,
+      details: { pointsDeducted: 1000 }
+    });
 
     res.json({
       success: true,
@@ -256,8 +412,7 @@ router.post('/admin/pickup/verify', verifyAdminAuth, async (req, res) => {
     if (storedPin && enteredPin && storedPin !== enteredPin && !override) {
       return res.status(400).json({ 
         success: false, 
-        error: `Invalid PIN! Customer provided ${enteredPin}, but system PIN is ${storedPin}.`,
-        stored_pin: storedPin,
+        error: 'Invalid Pickup Verification PIN. Please verify with the customer.',
         can_override: true
       });
     }
@@ -270,7 +425,17 @@ router.post('/admin/pickup/verify', verifyAdminAuth, async (req, res) => {
       payment_status: order.payment_method === 'Cash on Delivery' ? 'PAID' : order.payment_status
     });
 
-    eventStreamService.broadcastStatusUpdate(order.id, 'DELIVERED');
+    if (updated) {
+      eventStreamService.broadcastOrderUpdate(updated);
+    }
+
+    await auditLogger.logAdminAction({
+      adminUser: req.adminUser || 'admin',
+      action: 'PICKUP_VERIFIED',
+      targetId: order.id,
+      ip: req.ip,
+      details: { customer: order.user_name, pin: order.pickup_pin }
+    });
 
     res.json({
       success: true,
