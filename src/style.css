@@ -429,7 +429,7 @@ body {
 .hero-section {
   display: flex;
   align-items: center;
-  padding-top: 155px;
+  padding-top: 190px;
   padding-bottom: 45px;
   background:
     linear-gradient(to right, rgba(250, 246, 240, 0.92) 0%, rgba(250, 246, 240, 0.75) 45%, rgba(250, 246, 240, 0.25) 100%),
@@ -6473,7 +6473,7 @@ body {
   }
 
   .hero-section {
-    padding-top: 160px !important;
+    padding-top: 185px !important;
     padding-bottom: 60px !important;
     min-height: auto !important;
   }
