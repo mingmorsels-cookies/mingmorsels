@@ -15,7 +15,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'almond_snack_2pcs',
-        name: 'Twin Delight',
+        name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Freshly baked whole-almond cookies.',
@@ -49,7 +49,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'rose_snack_2pcs',
-        name: 'Twin Delight',
+        name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Fragrant floral cookies infused with organic petals.',
@@ -83,7 +83,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'oatsnuts_snack_2pcs',
-        name: 'Twin Delight',
+        name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Crunchy high-fibre cookies packed with nuts.',
@@ -117,7 +117,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'orange_snack_2pcs',
-        name: 'Twin Delight',
+        name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Zesty citrus cookies with refreshing orange zest.',
@@ -151,7 +151,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'walnut_snack_2pcs',
-        name: 'Twin Delight',
+        name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
         price: 50,
         desc: '2 Nutty Omega-3 rich whole walnut cookies.',
@@ -185,7 +185,7 @@ export const PRODUCT_BOX_CATALOG = {
     boxes: [
       {
         id: 'walnut_sf_snack_2pcs',
-        name: 'Twin Delight',
+        name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
         price: 55,
         desc: '2 Zero-sugar guilt-free whole walnut cookies.',

@@ -139,7 +139,7 @@
                 nutrition: { Calories: "72.7 kcal", Carbs: "5.1g", Protein: "1.51g", Fat: "5.14g", "Saturated Fat": "3g", "Trans Fat": "0g", Sugar: "3.24g", Sodium: "89.6mg", Potassium: "397.2mg", Preservatives: "None" }, 
                 tags: ["Gluten Aware", "Nut Rich", "No Dalda", "No Artificial Flavours"],
                 boxes: [
-                    { id: 'almond_snack_2pcs', name: 'Twin Delight', count: '2 Cookies', price: 40, img: '/almond-box-2pcs.png?v=2' },
+                    { id: 'almond_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/almond-box-2pcs.png?v=2' },
                     { id: 'almond_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/almond-box-8pcs.jpg', popular: true },
                     { id: 'almond_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/almond-box-12pcs.png?v=2' }
                 ]
@@ -155,7 +155,7 @@
                 nutrition: { Calories: "135 kcal", Carbs: "15g", Protein: "3g", Fat: "6g", Sugar: "5g", Fibre: "1.2g", Sodium: "30mg", Preservatives: "None" }, 
                 tags: ["Aromatic", "Edible Rose", "Low GI", "Handcrafted"],
                 boxes: [
-                    { id: 'rose_snack_2pcs', name: 'Twin Delight', count: '2 Cookies', price: 40, img: '/rose-box-2pcs.jpg' },
+                    { id: 'rose_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/rose-box-2pcs.jpg' },
                     { id: 'rose_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/rose-box-8pcs.jpg', popular: true },
                     { id: 'rose_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/rose-box-12pcs.png?v=2' }
                 ]
@@ -171,7 +171,7 @@
                 nutrition: { Calories: "148 kcal", Carbs: "18g", Protein: "5g", Fat: "6.5g", Sugar: "4g", Fibre: "3.2g", Sodium: "52mg", Preservatives: "None" }, 
                 tags: ["High Fibre", "Rolled Oats", "Superfood", "Energy Dense"],
                 boxes: [
-                    { id: 'oatsnuts_snack_2pcs', name: 'Twin Delight', count: '2 Cookies', price: 40, img: '/oats-box-2pcs.jpg' },
+                    { id: 'oatsnuts_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/oats-box-2pcs.jpg' },
                     { id: 'oatsnuts_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/oats-box-8pcs.jpg', popular: true },
                     { id: 'oatsnuts_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/oats-box-12pcs.jpg' }
                 ]
@@ -187,7 +187,7 @@
                 nutrition: { Calories: "138 kcal", Carbs: "16g", Protein: "3.2g", Fat: "6.2g", Sugar: "5.5g", Fibre: "1.4g", Sodium: "35mg", Preservatives: "None" }, 
                 tags: ["Citrus Zest", "Ceylon Cinnamon", "Fresh Baked"],
                 boxes: [
-                    { id: 'orange_snack_2pcs', name: 'Twin Delight', count: '2 Cookies', price: 40, img: '/orange-box-2pcs.jpg' },
+                    { id: 'orange_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/orange-box-2pcs.jpg' },
                     { id: 'orange_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/orange-box-8pcs.jpg', popular: true },
                     { id: 'orange_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/box-classic.jpg' }
                 ]
@@ -203,7 +203,7 @@
                 nutrition: { Calories: "145 kcal", Carbs: "14g", Protein: "4.2g", Fat: "8.5g", Sugar: "4.5g", Fibre: "2.1g", Sodium: "38mg", Preservatives: "None" }, 
                 tags: ["California Walnuts", "Omega-3 Rich", "Nut Rich", "No Dalda", "Brain Food"],
                 boxes: [
-                    { id: 'walnut_snack_2pcs', name: 'Twin Delight', count: '2 Cookies', price: 50, img: '/box-classic.jpg' },
+                    { id: 'walnut_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 50, img: '/box-classic.jpg' },
                     { id: 'walnut_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 210, img: '/box-lush.jpg', popular: true },
                     { id: 'walnut_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 420, img: '/box-extra.jpg' }
                 ]
@@ -219,7 +219,7 @@
                 nutrition: { Calories: "128 kcal", Carbs: "9g", Protein: "4.8g", Fat: "8.2g", Sugar: "0g", Fibre: "3.5g", Sodium: "32mg", Preservatives: "None" }, 
                 tags: ["Sugar Free", "Zero Sugar", "Stevia Sweetened", "Diabetic Friendly", "Keto Approved", "Nut Rich"],
                 boxes: [
-                    { id: 'walnut_sf_snack_2pcs', name: 'Twin Delight', count: '2 Cookies', price: 55, img: '/box-classic.jpg' },
+                    { id: 'walnut_sf_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 55, img: '/box-classic.jpg' },
                     { id: 'walnut_sf_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 220, img: '/box-lush.jpg', popular: true },
                     { id: 'walnut_sf_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 440, img: '/box-extra.jpg' }
                 ]
@@ -237,7 +237,7 @@
                 popular: false,
                 tags: ["Real Fruit", "Farm Fresh", "Crumble Top"],
                 boxes: [
-                    { id: 'strawberry_single_2pcs', name: 'Twin Delight', count: '2 Muffins', price: 70, img: '/box-strawberry-1.jpg' },
+                    { id: 'strawberry_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 70, img: '/box-strawberry-1.jpg' },
                     { id: 'strawberry_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 140, img: '/box-strawberry-2.jpg', popular: true },
                     { id: 'strawberry_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 210, img: '/box-strawberry-2.jpg' }
                 ]
@@ -255,7 +255,7 @@
                 popular: false, 
                 tags: ["Tropical Pineapple", "Toasted Coconut", "Fresh Baked"], 
                 boxes: [
-                    { id: 'pinacolada_single_2pcs', name: 'Twin Delight', count: '2 Muffins', price: 75, img: '/box-pinacolada-1.jpg' },
+                    { id: 'pinacolada_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-pinacolada-1.jpg' },
                     { id: 'pinacolada_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-pinacolada-2.jpg', popular: true },
                     { id: 'pinacolada_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 225, img: '/box-pinacolada-2.jpg' }
                 ]
@@ -271,7 +271,7 @@
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g", Preservatives: "None" }, 
                 tags: ["Butterscotch Bits", "Desi Ghee", "Nut Rich"], 
                 boxes: [
-                    { id: 'butterscotch_single_2pcs', name: 'Twin Delight', count: '2 Muffins', price: 75, img: '/box-butterscotch-1.jpg' },
+                    { id: 'butterscotch_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-butterscotch-1.jpg' },
                     { id: 'butterscotch_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-butterscotch-2.jpg', popular: true },
                     { id: 'butterscotch_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 225, img: '/box-butterscotch-2.jpg' }
                 ]
@@ -289,7 +289,7 @@
                 popular: true, 
                 tags: ["Dark Choco", "Belgian Chips", "Decadent"], 
                 boxes: [
-                    { id: 'chocochip_single_2pcs', name: 'Twin Delight', count: '2 Muffins', price: 80, img: '/box-chocochip-1.jpg' },
+                    { id: 'chocochip_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 80, img: '/box-chocochip-1.jpg' },
                     { id: 'chocochip_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 140, img: '/box-chocochip-2.jpg', popular: true },
                     { id: 'chocochip_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 240, img: '/box-chocochip-2.jpg' }
                 ]
@@ -307,7 +307,7 @@
                 popular: false, 
                 tags: ["Whole Wheat", "Tangy Currants", "No Margarine"], 
                 boxes: [
-                    { id: 'blackcurrant_single_2pcs', name: 'Twin Delight', count: '2 Muffins', price: 75, img: '/box-blackcurrant-1.jpg' },
+                    { id: 'blackcurrant_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-blackcurrant-1.jpg' },
                     { id: 'blackcurrant_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-blackcurrant-2.jpg', popular: true },
                     { id: 'blackcurrant_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 225, img: '/box-blackcurrant-2.jpg' }
                 ]
@@ -574,9 +574,9 @@
             }
 
             // AI Intent Recognition: Box Options & Packaging Sizes
-            if (/box option|box options|box size|box sizes|different box|packaging option|pack size|snack pack|classic box|classic delights|family pack|dozen delight|dozen delights|twin delight|how many cookies|how many pieces|box choices/.test(q)) {
+            if (/box option|box options|box size|box sizes|different box|packaging option|pack size|snack pack|classic box|classic delights|family pack|dozen delight|dozen delights|twin delight|twin delights|how many cookies|how many pieces|box choices/.test(q)) {
                 return {
-                    text: `📦 <strong>Available Box Sizes &amp; Packaging Tiers</strong><br><br>Every flavour is freshly baked and packed in 3 distinct brand box options:<br><br>• <strong>Twin Delight (2 Cookies / 2 Muffins)</strong>: Perfect for personal snacking &amp; on-the-go cravings (from ₹40).<br>• <strong>Classic Delights (8 Cookies / 4 Muffins)</strong>: Our #1 Bestseller — ideal for teatime sharing &amp; family dessert (from ₹140).<br>• <strong>Dozen Delights (12 Cookies / 6 Muffins)</strong>: Luxury keepsake presentation box for celebrations &amp; gatherings (from ₹210).<br><br>Tap on any flavour card to pick your box size and add directly to your basket! ✦`,
+                    text: `📦 <strong>Available Box Sizes &amp; Packaging Tiers</strong><br><br>Every flavour is freshly baked and packed in 3 distinct brand box options:<br><br>• <strong>Twin Delights (2 Cookies / 2 Muffins)</strong>: Perfect for personal snacking &amp; on-the-go cravings (from ₹40).<br>• <strong>Classic Delights (8 Cookies / 4 Muffins)</strong>: Our #1 Bestseller — ideal for teatime sharing &amp; family dessert (from ₹140).<br>• <strong>Dozen Delights (12 Cookies / 6 Muffins)</strong>: Luxury keepsake presentation box for celebrations &amp; gatherings (from ₹210).<br><br>Tap on any flavour card to pick your box size and add directly to your basket! ✦`,
                     cards: ['almond', 'walnut_sf', 'rose'].map(k => renderCookieCard(k)).join('')
                 };
             }
