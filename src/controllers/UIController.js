@@ -315,7 +315,7 @@ export class UIController {
 
     createTextType(el, {
       text: [
-        "✨ Miora Delights Pvt Limited ",
+        "✨ Miora Delights Private Limited ",
         "🍪 When Moments Matter ",
         "🧈 Pure Cow Butter ",
         "🌱 Guilt-Free Indulgence "
