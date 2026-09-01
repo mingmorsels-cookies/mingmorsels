@@ -865,7 +865,7 @@
       const customerEmail = order?.user_email || userAddress.email || userProfile.email || localStorage.getItem('ming_morsels_email') || '';
       const customerPhone = order?.user_phone || userAddress.phone || userProfile.phone || localStorage.getItem('ming_morsels_phone') || '';
       const shippingAddress = order?.shipping_address || userAddress.address || localStorage.getItem('ming_morsels_address') || 'Express Bengaluru Delivery';
-      const totalAmount = order?.total_amount || urlParams.get('total') || 160;
+      const totalAmount = order?.total_amount || urlParams.get('total') || 140;
       const isCOD = (order?.payment_method?.toLowerCase().includes('cash') || isCODParam);
 
       // Greet Customer

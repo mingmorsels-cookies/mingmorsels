@@ -74,11 +74,21 @@ export class AuthController {
       setTimeout(() => this.showNotifPermissionModal(), 2000);
 
       try {
-        await fetch('/api/auth/google-verify', {
+        const verifyRes = await fetch('/api/auth/google-verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ credential: response.credential || 'direct_auth', profile: userProfile })
+          body: JSON.stringify({ 
+            credential: response.credential || 'direct_auth', 
+            profile: userProfile,
+            email: userProfile.email,
+            name: userProfile.name,
+            picture: userProfile.avatar
+          })
         });
+        const verifyData = await verifyRes.json();
+        if (verifyData.token) {
+          localStorage.setItem('customer_token', verifyData.token);
+        }
       } catch (e) {
         console.log('[AuthController] Backend sync:', e.message);
       }
@@ -663,7 +673,7 @@ export class AuthController {
         <div style="margin-bottom: 16px;">
           ${cart.map(item => {
             const qty = Math.max(1, parseInt(item.quantity ?? item.qty ?? 1, 10) || 1);
-            const price = Number(item.price || item.customPrice || 160) || 160;
+            const price = Number(item.price || item.customPrice || 140) || 140;
             const itemTotal = price * qty;
             total += itemTotal;
             const name = item.name || item.customName || 'Artisanal Cookie Box';

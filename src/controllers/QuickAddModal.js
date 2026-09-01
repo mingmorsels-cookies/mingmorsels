@@ -25,7 +25,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'almond_classic_8pcs',
         name: 'Classic Box',
         countLabel: 'Up to 8 Cookies',
-        price: 160,
+        price: 140,
         desc: '8 Artisanal cookies in signature gold box.',
         img: '/almond-box-8pcs.jpg',
         popular: true
@@ -59,7 +59,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'rose_classic_8pcs',
         name: 'Classic Box',
         countLabel: 'Up to 8 Cookies',
-        price: 160,
+        price: 140,
         desc: '8 Handcrafted floral treats in signature bakery box.',
         img: '/rose-box-8pcs.jpg',
         popular: true
@@ -93,7 +93,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'oatsnuts_classic_8pcs',
         name: 'Classic Box',
         countLabel: 'Up to 8 Cookies',
-        price: 160,
+        price: 140,
         desc: '8 Wholesome energy-dense cookies in classic box.',
         img: '/oats-box-8pcs.jpg',
         popular: true
@@ -127,7 +127,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'orange_classic_8pcs',
         name: 'Classic Box',
         countLabel: 'Up to 8 Cookies',
-        price: 160,
+        price: 140,
         desc: '8 Orange peel treats in signature gift box.',
         img: '/orange-box-8pcs.jpg',
         popular: true
@@ -421,7 +421,7 @@ export function initQuickAddModal() {
         <div style="display: flex; align-items: center; gap: 16px; margin-left: auto;">
           <div style="text-align: right;">
             <span style="font-size: 11px; color: #705840; display: block; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Total Price</span>
-            <strong id="qa-total-price" style="font-size: 22px; color: #2C1810; font-weight: 800;">₹160</strong>
+            <strong id="qa-total-price" style="font-size: 22px; color: #2C1810; font-weight: 800;">₹140</strong>
           </div>
 
           <button id="qa-btn-add-basket" style="

@@ -12,7 +12,7 @@ const PRODUCTS_DATA = {
     category: 'Signature Cookie',
     categoryLink: 'Cookies',
     tagline: 'Crafted with whole roasted almonds — rich, buttery crunch with every single bite.',
-    price: 160,
+    price: 140,
     rating: '5.0',
     reviewsCount: 128,
     badges: ['Nut Rich', 'Organic Honey', 'Zero Dalda'],
@@ -44,7 +44,7 @@ const PRODUCTS_DATA = {
     category: 'Floral Delicacy',
     categoryLink: 'Cookies',
     tagline: 'Infused with edible Damask rose petals and cardamom for an aromatic tea-time luxury.',
-    price: 160,
+    price: 140,
     rating: '4.9',
     reviewsCount: 96,
     badges: ['Edible Rose', 'Low GI', 'Handcrafted'],
@@ -75,7 +75,7 @@ const PRODUCTS_DATA = {
     category: 'Wholesome Crunch',
     categoryLink: 'Cookies',
     tagline: 'Hearty rolled oats, walnuts, and chia seeds sweetened naturally with organic raw honey.',
-    price: 160,
+    price: 140,
     rating: '4.95',
     reviewsCount: 142,
     badges: ['High Fibre', 'Rolled Oats', 'Superfood Nutrients'],
@@ -106,7 +106,7 @@ const PRODUCTS_DATA = {
     category: 'Zesty Refreshment',
     categoryLink: 'Cookies',
     tagline: 'Sun-ripened orange zest fused with warm Ceylon cinnamon for a vibrant citrus crunch.',
-    price: 160,
+    price: 140,
     rating: '4.88',
     reviewsCount: 84,
     badges: ['Citrus Zest', 'Ceylon Cinnamon', 'Fresh Baked'],
@@ -309,7 +309,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Box',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 160,
+      price: 140,
       unit: '/ box (8 freshly baked pieces)',
       img: '/rose-box-8pcs.jpg',
       badge: '8 Cookies · Popular',
@@ -342,7 +342,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Box',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 160,
+      price: 140,
       unit: '/ box (8 freshly baked pieces)',
       img: '/almond-box-8pcs.jpg',
       badge: '8 Cookies · Popular',
@@ -375,7 +375,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Box',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 160,
+      price: 140,
       unit: '/ box (8 freshly baked pieces)',
       img: '/orange-box-8pcs.jpg',
       badge: '8 Cookies · Popular',
@@ -398,7 +398,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Box',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 160,
+      price: 140,
       unit: '/ box (8 freshly baked pieces)',
       img: '/oats-box-8pcs.jpg',
       badge: '8 Cookies · Popular',
@@ -639,7 +639,8 @@ function initReviewSubmission() {
           feedbackBox.style.background = 'rgba(46, 204, 113, 0.12)';
           feedbackBox.style.border = '1px solid rgba(46, 204, 113, 0.35)';
           feedbackBox.style.color = '#27ae60';
-          feedbackBox.innerHTML = `✨ <strong>Thank you, ${name}!</strong> Your review has been submitted for moderation and will appear live once approved by our confectionery artisans.`;
+          const safeName = String(name).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+          feedbackBox.innerHTML = `✨ <strong>Thank you, ${safeName}!</strong> Your review has been submitted for moderation and will appear live once approved by our confectionery artisans.`;
           form.reset();
         } else {
           feedbackBox.style.background = 'rgba(231, 76, 60, 0.12)';
@@ -869,7 +870,7 @@ function updatePriceDisplay() {
   else if (selectedPackaging === 'lush') { boxExtra = 130; boxCapacity = 4; }
 
   const boxOptions = COOKIE_BOX_OPTIONS[currentProduct.id];
-  const basePrice = (boxOptions && selectedBoxOption) ? selectedBoxOption.price : (currentProduct.price || 160);
+  const basePrice = (boxOptions && selectedBoxOption) ? selectedBoxOption.price : (currentProduct.price || 140);
 
   const itemCountPerUnit = (currentProduct.type === 'muffin') ? 1 : (selectedBoxOption ? (selectedBoxOption.cookieCount || 1) : 1);
   const totalItems = selectedQuantity * itemCountPerUnit;
@@ -1203,7 +1204,7 @@ function addToCart(product, qty) {
   let cartItemId = product.id;
   let cartItemName = product.name;
   let cartItemImg = `/img-${product.id}.png`;
-  let unitPrice = Number(product.price || 160);
+  let unitPrice = Number(product.price || 140);
   let itemCountPerUnit = product.type === 'muffin' ? 1 : 1;
 
   const boxOptions = COOKIE_BOX_OPTIONS[product.id];

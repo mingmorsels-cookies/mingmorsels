@@ -140,7 +140,7 @@
                 tags: ["Gluten Aware", "Nut Rich", "No Dalda", "No Artificial Flavours"],
                 boxes: [
                     { id: 'almond_snack_2pcs', name: 'Snack Pack', count: '2 Cookies', price: 40, img: '/almond-box-2pcs.png?v=2' },
-                    { id: 'almond_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 160, img: '/almond-box-8pcs.jpg', popular: true },
+                    { id: 'almond_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 140, img: '/almond-box-8pcs.jpg', popular: true },
                     { id: 'almond_family_12pcs', name: 'Family Pack', count: '12 Cookies', price: 360, img: '/almond-box-12pcs.png?v=2' }
                 ]
             },
@@ -156,7 +156,7 @@
                 tags: ["Aromatic", "Edible Rose", "Low GI", "Handcrafted"],
                 boxes: [
                     { id: 'rose_snack_2pcs', name: 'Snack Pack', count: '2 Cookies', price: 40, img: '/rose-box-2pcs.jpg' },
-                    { id: 'rose_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 160, img: '/rose-box-8pcs.jpg', popular: true },
+                    { id: 'rose_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 140, img: '/rose-box-8pcs.jpg', popular: true },
                     { id: 'rose_family_12pcs', name: 'Family Pack', count: '12 Cookies', price: 360, img: '/rose-box-12pcs.png?v=2' }
                 ]
             },
@@ -172,7 +172,7 @@
                 tags: ["High Fibre", "Rolled Oats", "Superfood", "Energy Dense"],
                 boxes: [
                     { id: 'oatsnuts_snack_2pcs', name: 'Snack Pack', count: '2 Cookies', price: 40, img: '/oats-box-2pcs.jpg' },
-                    { id: 'oatsnuts_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 160, img: '/oats-box-8pcs.jpg', popular: true },
+                    { id: 'oatsnuts_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 140, img: '/oats-box-8pcs.jpg', popular: true },
                     { id: 'oatsnuts_family_12pcs', name: 'Family Pack', count: '12 Cookies', price: 360, img: '/oats-box-12pcs.jpg' }
                 ]
             },
@@ -188,7 +188,7 @@
                 tags: ["Citrus Zest", "Ceylon Cinnamon", "Fresh Baked"],
                 boxes: [
                     { id: 'orange_snack_2pcs', name: 'Snack Pack', count: '2 Cookies', price: 40, img: '/orange-box-2pcs.jpg' },
-                    { id: 'orange_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 160, img: '/orange-box-8pcs.jpg', popular: true },
+                    { id: 'orange_classic_8pcs', name: 'Classic Box', count: '8 Cookies', price: 140, img: '/orange-box-8pcs.jpg', popular: true },
                     { id: 'orange_family_12pcs', name: 'Family Pack', count: '12 Cookies', price: 360, img: '/box-classic.jpg' }
                 ]
             },
@@ -290,7 +290,7 @@
                 tags: ["Dark Choco", "Belgian Chips", "Decadent"],
                 boxes: [
                     { id: 'chocochip_single_2pcs', name: 'Snack Pack', count: '2 Muffins', price: 80, img: '/box-chocochip-1.jpg' },
-                    { id: 'chocochip_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 160, img: '/box-chocochip-2.jpg', popular: true },
+                    { id: 'chocochip_box_4pcs', name: 'Classic Box', count: '4 Muffins', price: 140, img: '/box-chocochip-2.jpg', popular: true },
                     { id: 'chocochip_party_6pcs', name: 'Family Pack', count: '6 Muffins', price: 240, img: '/box-chocochip-2.jpg' }
                 ]
             },
@@ -1418,7 +1418,7 @@
 
         function updateChatbotBoxFooter() {
             const product = COOKIES[cbSelectedProductKey] || COOKIES.almond;
-            const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || { price: 160 };
+            const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || { price: 140 };
             const total = box.price * cbQuantity;
 
             const qtyDisp = document.getElementById('cb-qa-qty-display');
@@ -1442,7 +1442,7 @@
 
         function confirmChatbotBoxAddToCart() {
             const product = COOKIES[cbSelectedProductKey] || COOKIES.almond;
-            const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || (product.boxes && product.boxes[0]) || { id: cbSelectedProductKey, name: 'Classic Box', price: 160, count: '8 Cookies' };
+            const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || (product.boxes && product.boxes[0]) || { id: cbSelectedProductKey, name: 'Classic Box', price: 140, count: '8 Cookies' };
 
             // 1. Add to parent website CartStore if in iframe
             if (window.top && window.top.cartStore) {

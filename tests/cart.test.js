@@ -16,14 +16,14 @@ describe('CartStore Unit Tests', () => {
     cartStore.addItem({
       id: 'almond',
       name: 'Almond Cookies',
-      price: 160,
+      price: 140,
       quantity: 2,
       packaging: 'none'
     });
 
     expect(cartStore.getItems().length).toBe(1);
     expect(cartStore.getTotalCount()).toBe(2);
-    expect(cartStore.getTotalAmount()).toBe(320);
+    expect(cartStore.getTotalAmount()).toBe(280);
   });
 
   it('should increment quantity when adding the same item with same packaging', () => {
