@@ -137,9 +137,7 @@ const handleGetAdminOrders = async (req, res) => {
   try {
     const allOrders = await getAllOrders();
     const orders = allOrders.filter(order => 
-      order.delivery_status !== 'CANCELLED' && 
-      order.payment_status !== 'FAILED' && 
-      order.payment_status !== 'CANCELLED'
+      order.payment_status !== 'FAILED'
     );
     const userRewards = await getUserRewards();
     res.json({

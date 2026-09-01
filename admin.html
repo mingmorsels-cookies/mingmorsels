@@ -1474,9 +1474,12 @@
           }
 
           tbody.innerHTML = orders.map(o => {
+            const isCancelled = o.delivery_status === 'CANCELLED' || o.payment_status === 'CANCELLED';
             const amt = parseInt(o.total_amount, 10) || 0;
-            totalRev += amt;
-            if (o.delivery_status === 'DISPATCHED' || o.delivery_status === 'IN_TRANSIT') inTransit++;
+            if (!isCancelled && (o.payment_status === 'PAID' || o.payment_status === 'paid')) {
+              totalRev += amt;
+            }
+            if ((o.delivery_status === 'DISPATCHED' || o.delivery_status === 'IN_TRANSIT') && !isCancelled) inTransit++;
 
             const email = (o.user_email || '').toLowerCase().trim();
             const totalCustomerOrders = emailOrderCount[email] || 1;
@@ -1489,8 +1492,11 @@
             const isPickup = o.delivery_mode === 'pickup' || (o.shipping_address && o.shipping_address.includes('Store Pickup:')) || o.pickup_pin;
 
             return `
-              <tr style="${isVipCustomer ? 'background: rgba(200, 150, 12, 0.06);' : ''}">
-                <td class="order-id" style="cursor:pointer;" onclick="showOrderDetailsById('${escapeHtml(o.id)}')">${escapeHtml(o.id)}</td>
+              <tr style="${isCancelled ? 'opacity: 0.75; background: rgba(231, 76, 60, 0.03);' : (isVipCustomer ? 'background: rgba(200, 150, 12, 0.06);' : '')}">
+                <td class="order-id" style="cursor:pointer;" onclick="showOrderDetailsById('${escapeHtml(o.id)}')">
+                  ${escapeHtml(o.id)}
+                  ${isCancelled ? '<span style="display:block; font-size:10px; color:#C0392B; font-weight:800;">[VOIDED]</span>' : ''}
+                </td>
                 <td>
                   <div style="font-weight:700; display:flex; align-items:center; flex-wrap:wrap; gap:6px;">
                     ${escapeHtml(o.user_name || 'Customer')}
@@ -1500,26 +1506,31 @@
                   <div style="font-size: 11px; color: #8C5803; margin-top: 2px; font-weight: 600;">★ ${customerPoints} Points (Total Orders: #${totalCustomerOrders})</div>
                 </td>
                 <td style="font-size:12px; max-width:280px;">${itemsHtml}</td>
-                <td style="font-weight:700; color:#8C5803;">₹${amt}</td>
+                <td style="font-weight:700; color:${isCancelled ? '#999; text-decoration:line-through;' : '#8C5803;'}">₹${amt}</td>
                 <td style="font-size:12px; max-width:200px;">
                   ${isPickup ? `<span style="background:rgba(30,130,76,0.12); color:var(--color-success); padding:2px 6px; border-radius:4px; font-weight:700; display:inline-block; margin-bottom:2px;">🏪 STORE PICKUP</span><br/>PIN: <strong style="color:#8C5803;">${escapeHtml(o.pickup_pin || '----')}</strong>` : escapeHtml(o.shipping_address || 'Bengaluru')}
                 </td>
-                <td><span class="badge-status ${o.delivery_status === 'CANCELLED' ? 'badge-pending' : 'badge-paid'}">${escapeHtml(o.delivery_status === 'CANCELLED' ? 'CANCELLED' : (o.payment_status || 'PAID'))}</span></td>
+                <td>
+                  ${isCancelled 
+                    ? `<span class="badge-status" style="background:rgba(231,76,60,0.12); color:#C0392B; border:1px solid rgba(231,76,60,0.25); font-weight:800;">❌ CANCELLED</span>`
+                    : `<span class="badge-status ${o.payment_status === 'PAID' ? 'badge-paid' : 'badge-pending'}">${escapeHtml(o.payment_status || 'PENDING')}</span>`
+                  }
+                </td>
                 <td style="font-family:monospace; font-size:12px; color:var(--color-brown); font-weight:600;">${isPickup ? 'Store Handover' : escapeHtml(o.shipway_awb || 'Pending')}</td>
                 <td style="font-size:12px;">${isPickup ? '🏪 Direct Pickup' : escapeHtml(o.courier_name || 'BlueDart Air')}</td>
                 <td style="white-space:nowrap;">
                   <button class="btn-action" onclick="showOrderDetailsById('${escapeHtml(o.id)}')" style="font-size:11.5px; padding:6px 10px; background:#F5EFE6; color:#3D2000; border:1px solid rgba(61,32,0,0.15); box-shadow:none;">
                     👁️ Details
                   </button>
-                  ${isPickup ? `
+                  ${!isCancelled ? (isPickup ? `
                     <button class="btn-action btn-pickup-verify-row" data-id="${escapeHtml(o.id)}" data-pin="${escapeHtml(o.pickup_pin || '')}" style="font-size:11.5px; padding:6px 10px; margin-left:4px;">
                       🔑 Verify PIN
                     </button>
                   ` : `
                     <button class="btn-action btn-dispatch" data-id="${escapeHtml(o.id)}" style="margin-left:4px;">${o.shipway_awb ? 'Re-Dispatch' : '🚚 Dispatch'}</button>
-                  `}
-                  ${o.delivery_status !== 'CANCELLED' ? `<button class="btn-action btn-admin-cancel" data-id="${escapeHtml(o.id)}" style="background:rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.3); color:#C0392B; margin-left:4px; box-shadow:none;">❌</button>` : ''}
-                  ${isVipCustomer ? `<button class="btn-action btn-vip-gifted" data-email="${escapeHtml(email)}" style="background: var(--color-gold); color: #1A0D00; font-weight: 800; margin-left: 4px;">🎁 Gift</button>` : ''}
+                  `) : ''}
+                  ${!isCancelled ? `<button class="btn-action btn-admin-cancel" data-id="${escapeHtml(o.id)}" style="background:rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.3); color:#C0392B; margin-left:4px; box-shadow:none;" title="Cancel Order & Refund">❌</button>` : ''}
+                  ${isVipCustomer && !isCancelled ? `<button class="btn-action btn-vip-gifted" data-email="${escapeHtml(email)}" style="background: var(--color-gold); color: #1A0D00; font-weight: 800; margin-left: 4px;">🎁 Gift</button>` : ''}
                 </td>
               </tr>
             `;
