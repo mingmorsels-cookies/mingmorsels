@@ -1024,6 +1024,9 @@
   <script>
     // Passcode / MFA Auth Lock
     let adminEventSource = null;
+    let latestLoadedOrders = [];
+    let latestUserRewards = {};
+    let latestEmailOrderCount = {};
     const authModal = document.getElementById('admin-auth-modal');
     const passcodeBtn = document.getElementById('btn-unlock-admin');
     const usernameInput = document.getElementById('admin-username-input');
@@ -1344,12 +1347,31 @@
                       ${escapeHtml(n.user_email || '')} • Re-Order ID: <strong style="color: #8C5803;">${escapeHtml(n.order_id || '')}</strong> (₹${n.total_amount || 0})
                     </div>
                   </div>
-                  <button class="btn-dismiss-vip-notif" data-id="${n.id}" style="background: var(--bg-cream-soft); border: 1px solid rgba(61,32,0,0.15); color: var(--color-brown); padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 700;">✓ Acknowledge</button>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <button class="btn-vip-gift-fulfill" data-email="${escapeHtml(n.user_email || '')}" data-id="${n.id}" style="background: linear-gradient(135deg, #C8960C 0%, #E0AB1E 100%); border: none; color: #1A0D00; font-weight: 800; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 12px; box-shadow: 0 2px 8px rgba(200,150,12,0.3);">🎁 Gift Sent (Reset 1,000 Pts)</button>
+                    <button class="btn-dismiss-vip-notif" data-id="${n.id}" style="background: var(--bg-cream-soft); border: 1px solid rgba(61,32,0,0.15); color: var(--color-brown); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 700;">✓ Dismiss</button>
+                  </div>
                 </div>
               `).join('')}
             </div>
           </div>
         `;
+
+        container.querySelectorAll('.btn-vip-gift-fulfill').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const email = btn.getAttribute('data-email');
+            const notifId = btn.getAttribute('data-id');
+            if (email) {
+              await window.fulfillVipGift(email);
+              try {
+                await fetch(`/api/admin/notifications/${encodeURIComponent(notifId)}/dismiss`, {
+                  method: 'POST',
+                  headers: getAdminHeaders()
+                });
+              } catch (e) {}
+            }
+          });
+        });
 
         container.querySelectorAll('.btn-dismiss-vip-notif').forEach(btn => {
           btn.addEventListener('click', async () => {
@@ -1413,6 +1435,7 @@
         const orders = (data.success && Array.isArray(data.orders)) ? data.orders : [];
         const userRewards = data.userRewards || {};
         latestLoadedOrders = orders;
+        latestUserRewards = userRewards;
 
         // Precompute customer order frequencies & points
         const emailOrderCount = {};
@@ -1420,6 +1443,7 @@
           const email = (o.user_email || '').toLowerCase().trim();
           if (email) emailOrderCount[email] = (emailOrderCount[email] || 0) + 1;
         });
+        latestEmailOrderCount = emailOrderCount;
 
         // 100% Real Live Metrics Calculation
         document.getElementById('metric-orders-count').textContent = orders.length;
@@ -1620,7 +1644,7 @@
                     <button class="btn-action btn-dispatch" data-id="${escapeHtml(o.id)}" style="margin-left:4px;">${o.shipway_awb ? 'Re-Dispatch' : '🚚 Dispatch'}</button>
                   `) : ''}
                   ${!isCancelled ? `<button class="btn-action btn-admin-cancel" data-id="${escapeHtml(o.id)}" style="background:rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.3); color:#C0392B; margin-left:4px; box-shadow:none;" title="Cancel Order & Refund">❌</button>` : ''}
-                  ${isVipCustomer && !isCancelled ? `<button class="btn-action btn-vip-gifted" data-email="${escapeHtml(email)}" style="background: var(--color-gold); color: #1A0D00; font-weight: 800; margin-left: 4px;">🎁 Gift</button>` : ''}
+                  ${isVipCustomer && !isCancelled ? `<button class="btn-action btn-vip-gifted" data-email="${escapeHtml(email)}" style="background: linear-gradient(135deg, #C8960C 0%, #E0AB1E 100%); color: #1A0D00; font-weight: 800; margin-left: 4px; box-shadow: 0 2px 8px rgba(200,150,12,0.3);" title="Mark 1,000 Pts VIP Gift as Sent & Reset Points">🎁 Gift Sent</button>` : ''}
                 </td>
               </tr>
             `;
@@ -1687,6 +1711,14 @@
                 alert('Cancellation failed.');
                 btn.textContent = '❌ Cancel';
               }
+            });
+          });
+
+          // Bind VIP Gift Sent buttons
+          tbody.querySelectorAll('.btn-vip-gifted').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const email = btn.getAttribute('data-email');
+              if (email) window.fulfillVipGift(email);
             });
           });
         } else {
@@ -1931,15 +1963,33 @@
         `;
       }).join('');
 
+      const custEmail = (order.user_email || '').toLowerCase().trim();
+      const totalCustomerOrders = latestEmailOrderCount[custEmail] || 1;
+      const redeemedPts = (latestUserRewards[custEmail]?.redeemed) || 0;
+      const livePts = Math.max(0, (totalCustomerOrders * 100) - redeemedPts);
+      const isVipCustomer = livePts >= 1000;
+
       body.innerHTML = `
         <!-- Customer & Delivery Summary Grid -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 18px;">
           <div style="background: var(--bg-cream-soft); border: 1.5px solid var(--color-gold-border); border-radius: 12px; padding: 14px;">
-            <div style="font-size: 11px; text-transform: uppercase; color: var(--color-text-muted); font-weight: 700; margin-bottom: 6px;">👤 Customer Profile</div>
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--color-text-muted); font-weight: 700; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+              <span>👤 Customer Profile</span>
+              ${isVipCustomer ? `<span style="background: var(--color-gold); color: #1A0D00; font-weight: 800; font-size: 10px; padding: 2px 7px; border-radius: 10px;">👑 1,000+ Pts VIP</span>` : ''}
+            </div>
             <div style="font-weight: 800; font-size: 15px; color: var(--color-brown);">${escapeHtml(order.user_name || 'Valued Customer')}</div>
             <div style="font-size: 12.5px; color: var(--color-text-muted); margin-top: 3px;">✉️ ${escapeHtml(order.user_email || 'N/A')}</div>
             <div style="font-size: 12.5px; color: #8C5803; font-weight: 600; margin-top: 3px;">📞 ${escapeHtml(order.user_phone || 'N/A')}</div>
-            ${order.customer_reward_points ? `<div style="font-size: 11.5px; color: #8C5803; font-weight: 700; margin-top: 5px;">★ Reward Points: ${order.customer_reward_points}</div>` : ''}
+            <div style="font-size: 12px; color: #8C5803; font-weight: 700; margin-top: 5px;">★ Points Balance: ${livePts} Points (${totalCustomerOrders} Total Orders)</div>
+            ${isVipCustomer ? `
+              <div style="margin-top: 10px; background: #FFFFFF; border: 1.5px solid var(--color-gold); border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(200,150,12,0.15);">
+                <div style="font-weight: 800; font-size: 12px; color: #7D4F00;">🎁 1,000+ Points VIP Milestone Reward Available!</div>
+                <div style="font-size: 11px; color: var(--color-text-muted); margin: 2px 0 6px;">Customer is eligible for their special milestone gift.</div>
+                <button onclick="fulfillVipGift('${escapeHtml(custEmail)}')" style="background: linear-gradient(135deg, #C8960C 0%, #E0AB1E 100%); color: #1A0D00; font-weight: 800; font-size: 11.5px; padding: 6px 12px; border-radius: 6px; cursor: pointer; border: none; width: 100%; text-align: center; box-shadow: 0 2px 6px rgba(200,150,12,0.25);">
+                  🎁 Mark Gift Sent &amp; Reset 1,000 Pts
+                </button>
+              </div>
+            ` : ''}
           </div>
 
           <div style="background: var(--bg-cream-soft); border: 1.5px solid var(--color-gold-border); border-radius: 12px; padding: 14px;">
@@ -2009,6 +2059,33 @@
       const modal = document.getElementById('admin-order-modal');
       if (modal) modal.style.display = 'none';
     }
+
+    window.fulfillVipGift = async function(email) {
+      const targetEmail = String(email || '').toLowerCase().trim();
+      if (!targetEmail) return;
+
+      const confirmGift = confirm(`🎁 Confirm VIP Gift Fulfillment:\n\nHas the special VIP milestone reward been packed and dispatched to ${targetEmail}?\n\nClicking OK will record the gift as sent and reset 1,000 points so the customer starts earning again towards their next 1,000 points.`);
+      if (!confirmGift) return;
+
+      try {
+        const res = await fetch('/api/admin/users/redeem-gift', {
+          method: 'POST',
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ email: targetEmail })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(`✅ VIP Milestone Gift Recorded as Dispatched!\n\n1,000 points deducted for ${targetEmail}.\nTheir points balance has been reset to start earning towards their next 1,000-point reward!`);
+          closeOrderDetailsModal();
+          fetchOrders();
+          fetchAdminNotifications();
+        } else {
+          alert(`⚠️ Could not redeem points: ${data.error || 'Server error'}`);
+        }
+      } catch (e) {
+        alert('Network error while recording gift.');
+      }
+    };
 
     document.getElementById('btn-close-order-modal')?.addEventListener('click', closeOrderDetailsModal);
     document.getElementById('btn-modal-close-footer')?.addEventListener('click', closeOrderDetailsModal);
