@@ -193,6 +193,190 @@ export class NotificationService {
   }
 
   /**
+   * Dispatches instant new order notification email to Admin (mingmorsels@gmail.com).
+   */
+  async sendAdminNewOrderAlert(order) {
+    if (!order) return false;
+
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || 'mingmorsels@gmail.com';
+    const items = Array.isArray(order.items) 
+      ? order.items 
+      : (typeof order.items_json === 'string' ? JSON.parse(order.items_json) : []);
+
+    const isPickup = order.delivery_mode === 'pickup' || (order.shipping_address && order.shipping_address.includes('Store Pickup:'));
+    const baseUrl = process.env.BASE_URL || 'https://www.mingmorsels.com';
+    const adminUrl = `${baseUrl}/admin.html`;
+
+    const itemsHtml = items.map(it => {
+      const qty = Number(it.quantity || it.qty || 1);
+      const rawName = String(it.name || it.id || 'Artisanal Baked Item').trim();
+      const packaging = String(it.packaging || it.packaging_tier || '').trim();
+      const combined = `${rawName} ${packaging} ${it.id || ''}`.toLowerCase();
+
+      let cleanFlavor = rawName.replace(/\s*\([^)]*\)/g, '').replace(/\s*\+.*$/i, '').trim();
+      if (!cleanFlavor) cleanFlavor = rawName;
+
+      const isMuffin = rawName.toLowerCase().includes('muffin') || cleanFlavor.toLowerCase().includes('muffin');
+      const unitLabel = isMuffin ? 'Muffins' : 'Cookies';
+
+      let tierName = 'Classic Delights';
+      let piecesPerBox = isMuffin ? 4 : 8;
+      if (combined.includes('dozen') || combined.includes('12')) {
+        tierName = 'Dozen Delights';
+        piecesPerBox = isMuffin ? 6 : 12;
+      } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('2')) {
+        tierName = 'Twin Delights';
+        piecesPerBox = 2;
+      }
+
+      let giftBox = 'Standard Bakery Pack (Included)';
+      if (combined.includes('lush')) giftBox = '✨ Lush Luxury Gift Box (+ Dry Fruits)';
+      else if (combined.includes('signature') || combined.includes('+₹15')) giftBox = '🎁 Signature Treat Box';
+      else if (combined.includes('custom_box') || combined.includes('gift')) giftBox = '🎀 Custom Curated Gift Box';
+
+      const details = it.details ? `<div style="font-size: 12px; color: #5B2C6F; margin-top: 4px;">🍬 <strong>Curated Flavors:</strong> ${it.details}</div>` : '';
+      const note = (it.note || it.customMessage || it.giftNote) ? `
+        <div style="font-size: 12px; color: #8C5803; background: #FFF8EB; border: 1px solid #FEEBC8; padding: 6px 10px; border-radius: 6px; margin-top: 6px;">
+          💌 <strong>Customer Gift Message / Note:</strong> "${it.note || it.customMessage || it.giftNote}"
+        </div>` : '';
+
+      return `
+        <tr style="border-bottom: 1.5px solid #F0E6D8;">
+          <td style="padding: 12px 10px; color: #3D2000; vertical-align: top;">
+            <strong style="font-size: 14px; color: #1A0D00;">${cleanFlavor}</strong>
+            <div style="font-size: 12px; color: #8C5803; font-weight: 600; margin-top: 3px;">
+              Tier: <strong>${tierName}</strong> (${piecesPerBox} ${unitLabel} / box)
+            </div>
+            <div style="font-size: 12px; color: #555; margin-top: 2px;">
+              Packaging: <strong>${giftBox}</strong>
+            </div>
+            ${details}
+            ${note}
+          </td>
+          <td style="padding: 12px 10px; text-align: center; font-weight: 800; font-size: 14px; color: #3D2000; vertical-align: top;">×${qty}</td>
+          <td style="padding: 12px 10px; text-align: right; font-weight: 800; font-size: 14px; color: #C8960C; vertical-align: top;">₹${(it.price || it.unit_price || 0) * qty}</td>
+        </tr>
+      `;
+    }).join('');
+
+    const htmlBody = `
+      <!DOCTYPE html>
+      <html>
+      <head><meta charset="utf-8"><title>New Order #${order.id}</title></head>
+      <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 24px; background-color: #FAF6F0;">
+        <div style="max-width: 640px; margin: 0 auto; background: #FFFFFF; border-radius: 14px; overflow: hidden; border: 1.5px solid #EADCCB; box-shadow: 0 8px 30px rgba(61,32,0,0.08); padding: 32px 28px;">
+          
+          <!-- Header Banner -->
+          <div style="background: linear-gradient(135deg, #3D2000 0%, #1A0D00 100%); color: #FFF; padding: 18px 22px; border-radius: 10px; margin-bottom: 24px;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #E0AB1E; font-weight: 800;">ADMIN STORE ALERT</div>
+            <h1 style="margin: 6px 0 0; font-size: 22px; font-weight: 800; color: #FFF;">🚨 New Order Received — #${order.id}</h1>
+          </div>
+
+          <!-- Customer & Order Overview Grid -->
+          <div style="background: #FFFDF9; border: 1px solid #F0E6D8; border-radius: 10px; padding: 16px; margin-bottom: 22px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6;">
+              <tr>
+                <td style="color: #8C7355; width: 35%;">Customer Name:</td>
+                <td style="font-weight: 700; color: #3D2000;">${order.user_name || 'Valued Customer'}</td>
+              </tr>
+              <tr>
+                <td style="color: #8C7355;">Email:</td>
+                <td style="font-weight: 600; color: #3D2000;"><a href="mailto:${order.user_email}" style="color: #C8960C; text-decoration: none;">${order.user_email || 'N/A'}</a></td>
+              </tr>
+              <tr>
+                <td style="color: #8C7355;">Phone:</td>
+                <td style="font-weight: 600; color: #3D2000;">${order.user_phone || 'N/A'}</td>
+              </tr>
+              <tr>
+                <td style="color: #8C7355;">Fulfillment:</td>
+                <td style="font-weight: 700; color: ${isPickup ? '#1E824C' : '#2980B9'};">
+                  ${isPickup ? `🏪 Store Pickup (Counter PIN: ${order.pickup_pin || '----'})` : '🚚 Express Courier Delivery'}
+                </td>
+              </tr>
+              <tr>
+                <td style="color: #8C7355;">Delivery Address:</td>
+                <td style="color: #3D2000;">${order.shipping_address || 'Express Bengaluru Delivery'}</td>
+              </tr>
+              <tr>
+                <td style="color: #8C7355;">Payment Status:</td>
+                <td style="font-weight: 700; color: #1E824C;">✅ PAID (${order.payment_method || 'Razorpay / UPI'})</td>
+              </tr>
+              <tr>
+                <td style="color: #8C7355;">Total Amount:</td>
+                <td style="font-size: 17px; font-weight: 900; color: #8C5803;">₹${order.total_amount}</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Items Ordered Section -->
+          <h2 style="font-size: 16px; color: #3D2000; margin: 0 0 12px; border-bottom: 2px solid #C8960C; padding-bottom: 6px;">
+            📦 Items &amp; Gift Packaging To Prepare (${items.length} item${items.length === 1 ? '' : 's'})
+          </h2>
+
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+            <thead>
+              <tr style="background: #F8EFE4; font-size: 12px; color: #705840; text-transform: uppercase;">
+                <th style="padding: 8px 10px; text-align: left;">Item &amp; Packaging Details</th>
+                <th style="padding: 8px 10px; text-align: center;">Qty</th>
+                <th style="padding: 8px 10px; text-align: right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${itemsHtml}
+            </tbody>
+          </table>
+
+          <!-- Direct Admin Dispatch CTA Button -->
+          <div style="text-align: center; margin-top: 28px;">
+            <a href="${adminUrl}" style="display: inline-block; background: linear-gradient(135deg, #C8960C 0%, #E0AB1E 100%); color: #1A0D00; font-weight: 800; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(200,150,12,0.3);">
+              👉 Open Admin Operations Portal to Dispatch Order →
+            </a>
+          </div>
+
+        </div>
+      </body>
+      </html>
+    `;
+
+    const subject = `🚨 New Order Alert! #${order.id} (₹${order.total_amount}) — ${order.user_name || 'Customer'}`;
+
+    if (this.resend) {
+      try {
+        console.log(`📧 [Resend Admin Alert] Sending to: ${adminEmail}`);
+        const fromAddress = process.env.RESEND_FROM_EMAIL || 'Ming Morsels Orders 🍪 <onboarding@resend.dev>';
+        await this.resend.emails.send({
+          from: fromAddress,
+          to: [adminEmail],
+          subject: subject,
+          html: htmlBody
+        });
+        console.log(`✅ [Resend Admin Alert] Sent to ${adminEmail} for order #${order.id}`);
+        return true;
+      } catch (err) {
+        console.error(`❌ [Resend Admin Alert] Exception:`, err.message);
+      }
+    }
+
+    if (this.transporter) {
+      try {
+        console.log(`📧 [SMTP Admin Alert] Attempting to send to: ${adminEmail}`);
+        await this.transporter.sendMail({
+          from: `"Ming Morsels Store Bot 🍪" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'mingmorsels@gmail.com'}>`,
+          to: adminEmail,
+          subject: subject,
+          html: htmlBody
+        });
+        console.log(`✅ [SMTP Admin Alert] Sent to ${adminEmail} for order #${order.id}`);
+        return true;
+      } catch (err) {
+        console.error(`❌ [SMTP Admin Alert] Failed to send to ${adminEmail}:`, err.message);
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * Dispatches SMS via Fast2SMS API to the customer's phone.
    * Requires FAST2SMS_API_KEY env variable.
    */

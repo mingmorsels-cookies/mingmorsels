@@ -377,6 +377,7 @@ const handleVerifyPayment = async (req, res) => {
 
         try {
           await notificationService.sendOrderConfirmationEmail(updatedOrder);
+          await notificationService.sendAdminNewOrderAlert(updatedOrder);
           notificationService.sendOrderConfirmationSMS(updatedOrder);
         } catch (notifErr) {
           console.error('Notification dispatch warning:', notifErr);
@@ -385,6 +386,7 @@ const handleVerifyPayment = async (req, res) => {
 
       // 4. Real-time SSE Broadcast to customer & admin
       eventStreamService.broadcastOrderUpdate(updatedOrder);
+      eventStreamService.broadcastNewOrder(updatedOrder);
     }
 
     res.json({
@@ -425,6 +427,7 @@ router.post('/payment/webhook', async (req, res) => {
         if (order) {
           const shipment = await logisticsService.pushOrderToShipway(order);
           await notificationService.sendOrderConfirmationEmail(order);
+          await notificationService.sendAdminNewOrderAlert(order);
           notificationService.sendOrderConfirmationSMS(order);
           console.log(`✅ [Webhook Processed] Order #${order.id} automatically marked paid.`);
         }
