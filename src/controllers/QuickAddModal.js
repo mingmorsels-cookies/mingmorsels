@@ -527,6 +527,9 @@ export function initQuickAddModal() {
       name: `${currentSelectedProduct.name} (${selectedBox.name} - ${selectedBox.countLabel})`,
       price: selectedBox.price,
       quantity: currentQuantity,
+      packaging: selectedBox.name,
+      packaging_tier: selectedBox.name,
+      countLabel: selectedBox.countLabel,
       image: selectedBox.img || currentSelectedProduct.image
     });
 

@@ -1357,50 +1357,52 @@
             const unitPrice = Number(item.unit_price || item.price || 0);
             const totalPrice = Number(item.total_price || (unitPrice > 0 ? unitPrice * qty : 0));
 
-            // Determine Packaging Badge
-            let packBadge = '';
-            const packLower = packaging.toLowerCase();
-            const nameLower = rawName.toLowerCase();
+          return items.map(item => {
+            const qty = Number(item.quantity || item.qty) || 1;
+            const rawName = String(item.name || item.customName || item.id || 'Artisanal Baked Delight').trim();
+            const packaging = String(item.packaging || item.packaging_tier || '').trim();
+            const details = String(item.details || item.flavors || item.customFlavors || '').trim();
+            const note = String(item.note || item.customMessage || item.giftNote || '').trim();
+            const unitPrice = Number(item.unit_price || item.price || 0);
+            const totalPrice = Number(item.total_price || (unitPrice > 0 ? unitPrice * qty : 0));
 
-            if (packLower.includes('lush') || nameLower.includes('lush')) {
-              packBadge = `<span style="background:rgba(232,165,152,0.3); color:#9E3D2E; border:1px solid #E8A598; padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">✨ Lush Box (+₹130)</span>`;
-            } else if (packLower.includes('classic') || nameLower.includes('classic') || packLower.includes('signature')) {
-              packBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">📦 Classic Delights (8 Pcs)</span>`;
-            } else if (packLower.includes('dozen') || nameLower.includes('dozen') || packLower.includes('12') || nameLower.includes('12 pcs')) {
-              packBadge = `<span style="background:rgba(91,44,111,0.16); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">👑 Dozen Delights (12 Pcs)</span>`;
-            } else if (packLower.includes('twin') || nameLower.includes('twin') || packLower.includes('snack') || nameLower.includes('2 pcs')) {
-              packBadge = `<span style="background:rgba(41,128,185,0.16); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🛍️ Twin Delights (2 Pcs)</span>`;
-            } else if (packLower.includes('gift') || nameLower.includes('gift box') || String(item.id || '').startsWith('custom_box')) {
-              packBadge = `<span style="background:rgba(142,68,173,0.16); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🎁 Custom Gift Box</span>`;
-            } else if (packaging && packaging !== 'none') {
-              packBadge = `<span style="background:rgba(61,32,0,0.08); color:var(--color-brown); padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px;">📦 ${escapeHtml(packaging)}</span>`;
+            // Extract Clean Flavor Name
+            let cleanFlavor = rawName
+              .replace(/\s*\([^)]*\)/g, '')
+              .replace(/\s*\+.*$/i, '')
+              .trim();
+            if (!cleanFlavor) cleanFlavor = rawName;
+
+            const isMuffin = rawName.toLowerCase().includes('muffin') || cleanFlavor.toLowerCase().includes('muffin');
+            const unitLabel = isMuffin ? 'Muffins' : 'Cookies';
+            const combined = `${rawName} ${packaging} ${item.id || ''}`.toLowerCase();
+
+            // Packaging Tier Badge
+            let tierBadge = '';
+            if (combined.includes('dozen') || combined.includes('12')) {
+              tierBadge = `<span style="background:rgba(91,44,111,0.14); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">👑 Dozen Delights (${isMuffin ? 6 : 12} ${unitLabel})</span>`;
+            } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('2')) {
+              tierBadge = `<span style="background:rgba(41,128,185,0.14); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🛍️ Twin Delights (2 ${unitLabel})</span>`;
+            } else if (combined.includes('custom_box') || combined.includes('gift box')) {
+              tierBadge = `<span style="background:rgba(142,68,173,0.14); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🎁 Custom Curated Box</span>`;
+            } else {
+              tierBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">📦 Classic Delights (${isMuffin ? 4 : 8} ${unitLabel})</span>`;
             }
 
-            if (isModal) {
-              return `
-                <div style="background:#FFF9F2; border:1px solid rgba(61,32,0,0.08); border-radius:10px; padding:12px; margin-bottom:10px;">
-                  <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
-                    <div style="flex:1;">
-                      <div style="font-weight:700; color:var(--color-brown); font-size:13.5px; display:flex; align-items:center; flex-wrap:wrap; gap:6px;">
-                        <span>🍪 ${qty}× ${escapeHtml(rawName)}</span>
-                        ${packBadge}
-                      </div>
-                      ${details ? `<div style="font-size:12px; color:#5B2C6F; font-weight:600; margin-top:5px; background:#FAF5FF; padding:4px 8px; border-radius:6px; border:1px solid #E9D8FD;">🍬 <strong>Curated Flavors:</strong> ${escapeHtml(details)}</div>` : ''}
-                      ${note ? `<div style="font-size:12px; color:#8C5803; background:#FFF8EB; padding:4px 8px; border-radius:6px; border:1px solid #FEEBC8; margin-top:5px;">💌 <strong>Gift Message:</strong> "${escapeHtml(note)}"</div>` : ''}
-                    </div>
-                    <div style="font-weight:800; color:#8C5803; font-size:14px; white-space:nowrap; text-align:right;">
-                      ${totalPrice > 0 ? `₹${totalPrice}` : ''}
-                    </div>
-                  </div>
-                </div>
-              `;
+            // Gift Box Add-on Badge
+            let giftBoxBadge = '';
+            if (combined.includes('lush')) {
+              giftBoxBadge = `<span style="background:rgba(232,165,152,0.3); color:#9E3D2E; border:1px solid #E8A598; padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">✨ Lush Box (+₹130)</span>`;
+            } else if (combined.includes('signature') || combined.includes('+₹15')) {
+              giftBoxBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">🎁 Signature Box (+₹15)</span>`;
             }
 
             return `
-              <div style="margin-bottom:6px; padding-bottom:6px; border-bottom:1px dashed rgba(61,32,0,0.08); line-height:1.4;">
-                <div style="font-weight:700; color:var(--color-brown); display:flex; align-items:center; flex-wrap:wrap; gap:5px; font-size:12px;">
-                  <span>🍪 ${qty}× ${escapeHtml(rawName)}</span>
-                  ${packBadge}
+              <div style="margin-bottom:8px; padding-bottom:8px; border-bottom:1px dashed rgba(61,32,0,0.1); line-height:1.4;">
+                <div style="font-weight:700; color:var(--color-brown); display:flex; align-items:center; flex-wrap:wrap; gap:5px; font-size:12.5px;">
+                  <span>🍪 <strong>${qty}×</strong> ${escapeHtml(cleanFlavor)}</span>
+                  ${tierBadge}
+                  ${giftBoxBadge}
                 </div>
                 ${details ? `<div style="font-size:11px; color:#5B2C6F; font-weight:600; margin-top:2px;">🍬 <em>${escapeHtml(details)}</em></div>` : ''}
                 ${note ? `<div style="font-size:11px; color:#8C5803; background:#FFF8EB; border:1px solid rgba(200,150,12,0.25); border-radius:4px; padding:2px 6px; margin-top:2px;">💌 Note: "${escapeHtml(note)}"</div>` : ''}
@@ -1710,46 +1712,131 @@
       const isPickup = order.delivery_mode === 'pickup' || (order.shipping_address && order.shipping_address.includes('Store Pickup:')) || order.pickup_pin;
       const isCOD = order.payment_method === 'Cash on Delivery' || order.payment_method === 'COD';
 
-      // Format Items for Modal
-      const itemsListHtml = items.map(item => {
+      // Format Items for Modal with Full Flavor, Packaging Tier, Quantity, and Gift Box Breakdown
+      const itemsListHtml = items.map((item, idx) => {
         const qty = Number(item.quantity || item.qty) || 1;
-        const rawName = item.name || item.customName || item.id || 'Artisanal Baked Delight';
-        const packaging = item.packaging ? String(item.packaging).trim() : '';
-        const details = item.details ? String(item.details).trim() : '';
-        const note = item.note || item.customMessage || item.giftNote ? String(item.note || item.customMessage || item.giftNote).trim() : '';
+        const rawName = String(item.name || item.customName || item.id || 'Artisanal Baked Delight').trim();
+        const packaging = String(item.packaging || item.packaging_tier || '').trim();
+        const details = String(item.details || item.flavors || item.customFlavors || '').trim();
+        const note = String(item.note || item.customMessage || item.giftNote || '').trim();
         const unitPrice = Number(item.unit_price || item.price || 0);
-        const totalPrice = Number(item.total_price || (unitPrice > 0 ? unitPrice * qty : 0));
+        const packagingFee = Number(item.packaging_fee || item.boxPrice || item.boxExtraPrice || 0);
+        const totalPrice = Number(item.total_price || (unitPrice > 0 ? (unitPrice * qty) + packagingFee : 0));
+        const itemImg = item.image || item.boxImage || (rawName.toLowerCase().includes('muffin') ? '/box-chocochip-2.jpg' : '/logo.png');
 
-        let packBadge = '';
-        const packLower = packaging.toLowerCase();
-        const nameLower = rawName.toLowerCase();
-        if (packLower.includes('lush') || nameLower.includes('lush')) {
-          packBadge = `<span style="background:rgba(232,165,152,0.3); color:#9E3D2E; border:1px solid #E8A598; padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px;">✨ Lush Luxury Box (+₹130)</span>`;
-        } else if (packLower.includes('classic') || nameLower.includes('classic') || packLower.includes('signature')) {
-          packBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px;">📦 Classic Delights (8 Pcs)</span>`;
-        } else if (packLower.includes('dozen') || nameLower.includes('dozen') || packLower.includes('12')) {
-          packBadge = `<span style="background:rgba(91,44,111,0.16); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px;">👑 Dozen Delights (12 Pcs)</span>`;
-        } else if (packLower.includes('twin') || nameLower.includes('twin') || packLower.includes('2')) {
-          packBadge = `<span style="background:rgba(41,128,185,0.16); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px;">🛍️ Twin Delights (2 Pcs)</span>`;
-        } else if (packLower.includes('gift') || nameLower.includes('gift box') || String(item.id || '').startsWith('custom_box')) {
-          packBadge = `<span style="background:rgba(142,68,173,0.16); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px;">🎁 Custom Gift Box</span>`;
-        } else if (packaging && packaging !== 'none') {
-          packBadge = `<span style="background:rgba(61,32,0,0.08); color:var(--color-brown); padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px;">📦 ${escapeHtml(packaging)}</span>`;
+        // Clean Flavor / Item Name (e.g. "Rose Petal Cookies", "Royal Almond Rich Cookies")
+        let cleanFlavor = rawName
+          .replace(/\s*\([^)]*\)/g, '')
+          .replace(/\s*\+.*$/i, '')
+          .trim();
+        if (!cleanFlavor) cleanFlavor = rawName;
+
+        const isMuffin = rawName.toLowerCase().includes('muffin') || cleanFlavor.toLowerCase().includes('muffin');
+        const unitLabel = isMuffin ? 'Muffins' : 'Cookies';
+        const combined = `${rawName} ${packaging} ${item.id || ''}`.toLowerCase();
+
+        // 1. Packaging Tier Recognition (Twin Delights, Classic Delights, Dozen Delights)
+        let tierName = 'Classic Delights';
+        let tierBadge = '';
+        let piecesPerBox = isMuffin ? 4 : 8;
+
+        if (combined.includes('dozen') || combined.includes('12')) {
+          tierName = 'Dozen Delights';
+          piecesPerBox = isMuffin ? 6 : 12;
+          tierBadge = `<span style="background:rgba(91,44,111,0.12); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">👑 Packaging Tier: <strong>Dozen Delights</strong> (${piecesPerBox} ${unitLabel} / box)</span>`;
+        } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('2')) {
+          tierName = 'Twin Delights';
+          piecesPerBox = 2;
+          tierBadge = `<span style="background:rgba(41,128,185,0.12); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🛍️ Packaging Tier: <strong>Twin Delights</strong> (2 ${unitLabel} / box)</span>`;
+        } else if (combined.includes('custom_box') || combined.includes('gift box')) {
+          tierName = 'Curated Box';
+          tierBadge = `<span style="background:rgba(142,68,173,0.12); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🎁 Packaging Tier: <strong>Custom Curated Box</strong></span>`;
+        } else {
+          tierName = 'Classic Delights';
+          piecesPerBox = isMuffin ? 4 : 8;
+          tierBadge = `<span style="background:rgba(200,150,12,0.14); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">📦 Packaging Tier: <strong>Classic Delights</strong> (${piecesPerBox} ${unitLabel} / box)</span>`;
+        }
+
+        const totalTreatCount = piecesPerBox * qty;
+
+        // 2. Specific Gift Box Style Recognition
+        let giftBoxBadge = '';
+        if (combined.includes('lush')) {
+          giftBoxBadge = `
+            <div style="margin-top:6px; background:rgba(232,165,152,0.22); border:1px solid #E8A598; border-radius:8px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#9E3D2E; font-weight:700;">
+              ✨ <strong>Gift Box:</strong> Lush Luxury Gift Box (+₹130 / box · Magnetic Keepsake Box with Premium Dry Fruits Pouch)
+            </div>`;
+        } else if (combined.includes('signature') || combined.includes('+₹15')) {
+          giftBoxBadge = `
+            <div style="margin-top:6px; background:rgba(200,150,12,0.12); border:1px solid rgba(200,150,12,0.3); border-radius:8px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#8C5803; font-weight:700;">
+              🎁 <strong>Gift Box:</strong> Signature Treat Box (+₹15 / box · Artisanal Ribbon Handle)
+            </div>`;
+        } else if (combined.includes('custom_box') || combined.includes('gift')) {
+          giftBoxBadge = `
+            <div style="margin-top:6px; background:rgba(142,68,173,0.12); border:1px solid rgba(142,68,173,0.25); border-radius:8px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#8E44AD; font-weight:700;">
+              🎀 <strong>Gift Box:</strong> Handcrafted Custom Gifting Box
+            </div>`;
+        } else {
+          giftBoxBadge = `
+            <div style="margin-top:6px; background:rgba(61,32,0,0.05); border:1px solid rgba(61,32,0,0.12); border-radius:8px; padding:5px 10px; display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--color-brown); font-weight:600;">
+              📦 <strong>Gift Box:</strong> Standard Bakery Brand Packaging (Fresh Daily Sealed · Included)
+            </div>`;
         }
 
         return `
-          <div style="background:#FFF9F2; border:1.5px solid rgba(61,32,0,0.09); border-radius:12px; padding:14px; margin-bottom:10px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
-              <div style="flex:1;">
-                <div style="font-weight:700; color:var(--color-brown); font-size:14px; display:flex; align-items:center; flex-wrap:wrap; gap:6px;">
-                  <span>🍪 ${qty}× ${escapeHtml(rawName)}</span>
-                  ${packBadge}
-                </div>
-                ${details ? `<div style="font-size:12.5px; color:#5B2C6F; font-weight:600; margin-top:5px; background:#FAF5FF; padding:5px 10px; border-radius:6px; border:1px solid #E9D8FD;">🍬 <strong>Curated Flavors:</strong> ${escapeHtml(details)}</div>` : ''}
-                ${note ? `<div style="font-size:12.5px; color:#8C5803; background:#FFF8EB; padding:5px 10px; border-radius:6px; border:1px solid #FEEBC8; margin-top:5px;">💌 <strong>Gift Message / Note:</strong> "${escapeHtml(note)}"</div>` : ''}
+          <div style="background:#FFFFFF; border:1.5px solid rgba(61,32,0,0.12); border-radius:14px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(61,32,0,0.04);">
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+              <!-- Thumbnail Image -->
+              <div style="width:72px; height:72px; border-radius:10px; overflow:hidden; border:1.5px solid rgba(61,32,0,0.12); background:#FFFDF9; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <img src="${itemImg}" alt="${escapeHtml(cleanFlavor)}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/logo.png';" />
               </div>
-              <div style="font-weight:800; color:#8C5803; font-size:15px; white-space:nowrap; text-align:right;">
-                ${totalPrice > 0 ? `₹${totalPrice}` : ''}
+
+              <!-- Content Column -->
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+                  <div>
+                    <h3 style="margin:0; font-size:16px; font-weight:800; color:var(--color-brown); font-family:var(--font-serif);">${escapeHtml(cleanFlavor)}</h3>
+                    <div style="font-size:11.5px; color:var(--color-text-muted); margin-top:2px;">Item SKU: <code>${escapeHtml(item.id || 'N/A')}</code></div>
+                  </div>
+                  <div style="font-size:17px; font-weight:900; color:#8C5803; text-align:right;">
+                    ${totalPrice > 0 ? `₹${totalPrice}` : ''}
+                  </div>
+                </div>
+
+                <!-- Badges Row: Quantity, Tier, Piece Count -->
+                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:10px 0 6px;">
+                  <span style="font-size:12px; font-weight:800; color:#3D2000; background:#F5EFE6; padding:4px 10px; border-radius:6px; border:1px solid rgba(61,32,0,0.15);">
+                    🔢 Quantity: <strong>${qty} Box${qty > 1 ? 'es' : ''}</strong> ${totalTreatCount > 0 ? `(Total ${totalTreatCount} ${unitLabel})` : ''}
+                  </span>
+                  ${tierBadge}
+                </div>
+
+                <!-- Gift Box Selection Banner -->
+                <div>
+                  ${giftBoxBadge}
+                </div>
+
+                <!-- Curated Flavors Assortment (if provided) -->
+                ${details ? `
+                  <div style="margin-top:8px; background:#FAF5FF; border:1px solid #E9D8FD; border-radius:8px; padding:8px 12px; font-size:12px; color:#5B2C6F;">
+                    🍬 <strong>Curated Flavors Packed in Box:</strong><br/>
+                    <span style="font-weight:700;">${escapeHtml(details)}</span>
+                  </div>
+                ` : ''}
+
+                <!-- Customer Gift Greeting Message -->
+                ${note ? `
+                  <div style="margin-top:8px; background:#FFF8EB; border:1px solid #FEEBC8; border-radius:8px; padding:8px 12px; font-size:12.5px; color:#8C5803;">
+                    💌 <strong>Gift Greeting Card Message:</strong><br/>
+                    <span style="font-style:italic; font-weight:600;">"${escapeHtml(note)}"</span>
+                  </div>
+                ` : ''}
+
+                <!-- Price Calculation Breakdown -->
+                <div style="font-size:11.5px; color:var(--color-text-muted); margin-top:10px; border-top:1px dashed rgba(61,32,0,0.1); padding-top:6px; display:flex; justify-content:space-between; flex-wrap:wrap;">
+                  <span>Unit Price: <strong>₹${unitPrice}</strong> per box × ${qty} ${packagingFee > 0 ? `(+₹${packagingFee} packaging add-on)` : ''}</span>
+                  <span style="font-weight:700; color:var(--color-brown);">Item Subtotal: ₹${totalPrice > 0 ? totalPrice : unitPrice * qty}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1843,20 +1930,37 @@
       const items = typeof order.items_json === 'string' ? JSON.parse(order.items_json) : (order.items_json || []);
       const itemsRows = items.map((it, idx) => {
         const qty = Number(it.quantity || it.qty || 1);
-        const name = it.name || it.id || 'Artisanal Baked Item';
-        const packaging = it.packaging ? `<div style="font-size:11px; color:#666;">Packaging: ${it.packaging}</div>` : '';
-        const details = it.details ? `<div style="font-size:11px; color:#5B2C6F;">Flavors: ${it.details}</div>` : '';
-        const note = it.note ? `<div style="font-size:11px; color:#8C5803; background:#FFF8EB; padding:2px 4px; margin-top:2px;">Note: "${it.note}"</div>` : '';
+        const rawName = String(it.name || it.id || 'Artisanal Baked Item').trim();
+        const packaging = String(it.packaging || it.packaging_tier || '').trim();
+        const combined = `${rawName} ${packaging} ${it.id || ''}`.toLowerCase();
+
+        let cleanFlavor = rawName.replace(/\s*\([^)]*\)/g, '').replace(/\s*\+.*$/i, '').trim();
+        if (!cleanFlavor) cleanFlavor = rawName;
+
+        let tierName = 'Classic Delights (8 Pcs)';
+        if (combined.includes('dozen') || combined.includes('12')) tierName = 'Dozen Delights (12 Pcs)';
+        else if (combined.includes('twin') || combined.includes('2')) tierName = 'Twin Delights (2 Pcs)';
+
+        let giftBox = 'Standard Packaging';
+        if (combined.includes('lush')) giftBox = 'Lush Luxury Box (+ Dry Fruits)';
+        else if (combined.includes('signature')) giftBox = 'Signature Treat Box';
+
+        const details = it.details ? `<div style="font-size:11px; color:#5B2C6F; margin-top:3px;">Flavors: <strong>${escapeHtml(it.details)}</strong></div>` : '';
+        const note = it.note ? `<div style="font-size:11px; color:#8C5803; background:#FFF8EB; border:1px solid #FEEBC8; padding:3px 6px; margin-top:3px;">Greeting Note: "${escapeHtml(it.note)}"</div>` : '';
+
         return `
           <tr>
-            <td style="padding:8px; border-bottom:1px solid #eee; text-align:center;">${idx + 1}</td>
-            <td style="padding:8px; border-bottom:1px solid #eee;">
-              <strong>${name}</strong>
-              ${packaging}
+            <td style="padding:10px; border-bottom:1px solid #eee; text-align:center;">${idx + 1}</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">
+              <strong style="font-size:14px; color:#3D2000;">${escapeHtml(cleanFlavor)}</strong>
+              <div style="font-size:12px; color:#666; margin-top:2px;">
+                Tier: <strong style="color:#333;">${tierName}</strong> &nbsp;|&nbsp; 
+                Box: <strong style="color:#C8960C;">${giftBox}</strong>
+              </div>
               ${details}
               ${note}
             </td>
-            <td style="padding:8px; border-bottom:1px solid #eee; text-align:center; font-weight:bold;">${qty}</td>
+            <td style="padding:10px; border-bottom:1px solid #eee; text-align:center; font-size:15px; font-weight:bold;">${qty}</td>
           </tr>
         `;
       }).join('');
