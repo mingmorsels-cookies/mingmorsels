@@ -1093,11 +1093,11 @@
       if (combined.includes('dozen') || combined.includes('12') || combined.includes('party') || combined.includes('6pcs') || combined.includes('6 pcs')) {
         tierName = 'Dozen Delights';
         piecesPerBox = isMuffin ? 6 : 12;
-        tierBadge = `<span style="background:rgba(91,44,111,0.14); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">👑 Dozen Delights (${piecesPerBox} ${unitLabel})</span>`;
+        tierBadge = `<span style="background:rgba(91,44,111,0.14); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">👑 Dozen Delights</span>`;
       } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('single') || combined.includes('2')) {
         tierName = 'Twin Delights';
         piecesPerBox = 2;
-        tierBadge = `<span style="background:rgba(41,128,185,0.14); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🛍️ Twin Delights (2 ${unitLabel})</span>`;
+        tierBadge = `<span style="background:rgba(41,128,185,0.14); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🛍️ Twin Delights</span>`;
       } else if (combined.includes('custom_box') || combined.includes('gift box') || combined.includes('builder')) {
         tierName = 'Custom Curated Box';
         piecesPerBox = 4;
@@ -1105,7 +1105,7 @@
       } else {
         tierName = 'Classic Delights';
         piecesPerBox = isMuffin ? 4 : 8;
-        tierBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">📦 Classic Delights (${piecesPerBox} ${unitLabel})</span>`;
+        tierBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">📦 Classic Delights</span>`;
       }
 
       let giftBoxBadge = '';
@@ -2106,13 +2106,13 @@
           // Expanded Packaging Tier Badge
           let tierBadge = '';
           if (meta.tierName === 'Dozen Delights') {
-            tierBadge = `<span style="background:rgba(91,44,111,0.12); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">👑 Packaging Tier: <strong>Dozen Delights</strong> (${meta.piecesPerBox} ${meta.unitLabel} / box)</span>`;
+            tierBadge = `<span style="background:rgba(91,44,111,0.12); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">👑 Packaging Tier: <strong>Dozen Delights</strong></span>`;
           } else if (meta.tierName === 'Twin Delights') {
-            tierBadge = `<span style="background:rgba(41,128,185,0.12); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🛍️ Packaging Tier: <strong>Twin Delights</strong> (2 ${meta.unitLabel} / box)</span>`;
+            tierBadge = `<span style="background:rgba(41,128,185,0.12); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🛍️ Packaging Tier: <strong>Twin Delights</strong></span>`;
           } else if (meta.tierName === 'Custom Curated Box') {
             tierBadge = `<span style="background:rgba(142,68,173,0.12); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🎁 Packaging Tier: <strong>Custom Curated Box</strong></span>`;
           } else {
-            tierBadge = `<span style="background:rgba(200,150,12,0.14); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">📦 Packaging Tier: <strong>Classic Delights</strong> (${meta.piecesPerBox} ${meta.unitLabel} / box)</span>`;
+            tierBadge = `<span style="background:rgba(200,150,12,0.14); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">📦 Packaging Tier: <strong>Classic Delights</strong></span>`;
           }
 
           return `
@@ -2135,10 +2135,10 @@
                     </div>
                   </div>
 
-                  <!-- Badges Row: Quantity, Tier, Piece Count -->
+                  <!-- Badges Row: Quantity, Tier -->
                   <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:10px 0 6px;">
                     <span style="font-size:12px; font-weight:800; color:#3D2000; background:#F5EFE6; padding:4px 10px; border-radius:6px; border:1px solid rgba(61,32,0,0.15);">
-                      🔢 Quantity: <strong>${qty} Box${qty > 1 ? 'es' : ''}</strong> ${totalTreatCount > 0 ? `(Total ${totalTreatCount} ${meta.unitLabel})` : ''}
+                      🔢 Quantity: <strong>${qty} Box${qty > 1 ? 'es' : ''}</strong>
                     </span>
                     ${tierBadge}
                   </div>
@@ -2348,7 +2348,7 @@
             <td style="padding:10px; border-bottom:1px solid #eee;">
               <strong style="font-size:14px; color:#3D2000;">${meta.isMuffin ? '🧁' : '🍪'} ${escapeHtml(meta.cleanName)}</strong>
               <div style="font-size:12px; color:#666; margin-top:2px;">
-                Tier: <strong style="color:#333;">${meta.tierName} (${meta.piecesPerBox} ${meta.unitLabel})</strong> &nbsp;|&nbsp; 
+                Tier: <strong style="color:#333;">${meta.tierName}</strong> &nbsp;|&nbsp; 
                 Box: <strong style="color:#C8960C;">${giftBox}</strong>
               </div>
               ${details}

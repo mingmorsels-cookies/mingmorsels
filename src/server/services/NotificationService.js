@@ -255,7 +255,7 @@ export class NotificationService {
           <td style="padding: 12px 10px; color: #3D2000; vertical-align: top;">
             <strong style="font-size: 14px; color: #1A0D00;">${cleanFlavor}</strong>
             <div style="font-size: 12px; color: #8C5803; font-weight: 600; margin-top: 3px;">
-              Tier: <strong>${tierName}</strong> (${piecesPerBox} ${unitLabel} / box)
+              Tier: <strong>${tierName}</strong>
             </div>
             <div style="font-size: 12px; color: #555; margin-top: 2px;">
               Packaging: <strong>${giftBox}</strong>
