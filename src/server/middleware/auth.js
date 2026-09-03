@@ -17,7 +17,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'test_jwt_secret_key_32_bytes_long_
 export const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET_KEY || 'test_admin_key_for_unit_tests';
 
 export const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'ASDFGHJKL;\'';
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'miora';
 export const ADMIN_TOTP_SECRET = process.env.ADMIN_TOTP_SECRET || 'JBSWY3DPEHPK3PXP';
 
 /**
