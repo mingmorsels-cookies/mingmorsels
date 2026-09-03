@@ -1490,11 +1490,35 @@ function promptForShippingDetails(onComplete) {
               <span>🏪 Self-Pickup Location</span>
               <span style="font-size: 10.5px; background: #2E6B1A; color: #FFF; padding: 2px 7px; border-radius: 10px;">₹0 Delivery Fee</span>
             </div>
-            <p style="margin: 6px 0 2px; color: #3D2000; font-size: 12.5px; line-height: 1.4;">
+            <p style="margin: 6px 0 4px; color: #3D2000; font-size: 12.5px; line-height: 1.4;">
               <strong>Ming Morsels Production House</strong><br/>
               1st A, Main Road, mingmorsels, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026
             </p>
-              ⏱️ Fresh batch packaged & ready within 2–3 hours. You'll receive a pickup SMS with collection PIN.
+
+            <!-- Dynamic Store Pickup Hours & Sunday Notice -->
+            <div id="p-ship-pickup-schedule-notice">
+              ${(new Date().getDay() === 0) ? `
+                <div style="background: #FFF3CD; border: 1.5px solid #FFEBAA; border-radius: 8px; padding: 10px 12px; margin-top: 8px; text-align: left;">
+                  <div style="font-weight: 700; color: #856404; font-size: 12.5px; display: flex; align-items: center; gap: 6px;">
+                    <span>⚠️</span> <span>Sunday Holiday Notice</span>
+                  </div>
+                  <p style="margin: 4px 0 0; color: #664D03; font-size: 12px; line-height: 1.45;">
+                    Sunday is a weekly holiday for store pickup. Since you are ordering today, your fresh cookies will be baked and ready for collection <strong>tomorrow on Monday between 10:00 AM and 4:00 PM</strong>.
+                  </p>
+                </div>
+                <div style="font-size: 11px; color: #705840; margin-top: 6px;">
+                  🕒 <strong>Regular Store Pickup Hours:</strong> 10:00 AM – 4:00 PM (Monday – Saturday).
+                </div>
+              ` : `
+                <div style="background: rgba(46, 107, 26, 0.08); border: 1px solid rgba(46, 107, 26, 0.2); border-radius: 8px; padding: 8px 12px; margin-top: 8px; text-align: left;">
+                  <div style="font-weight: 700; color: #2E6B1A; font-size: 12px; display: flex; align-items: center; gap: 6px;">
+                    <span>🕒</span> <span>Store Pickup Hours: 10:00 AM – 4:00 PM</span>
+                  </div>
+                  <p style="margin: 3px 0 0; color: #2E6B1A; font-size: 11.5px; line-height: 1.4;">
+                    Available daily <strong>Monday – Saturday (10:00 AM to 4:00 PM)</strong>. Ready in 2–3 hours with collection PIN. <em>(Sunday is a weekly holiday).</em>
+                  </p>
+                </div>
+              `}
             </div>
           </div>
 
