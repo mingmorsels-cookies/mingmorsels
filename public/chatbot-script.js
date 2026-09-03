@@ -77,19 +77,25 @@
         let currentLang = 'en';
 
         const TRANSLATIONS = {
-            en: { welcome: `Welcome to <strong>The Cookie Atelier</strong> — where every cookie is a labour of love. 🍪<br><br>I'm your personal cookie guide. Ask me anything — about our cookies, ingredients, nutrition, or let me suggest based on your mood. All our cookies are crafted with <strong>100% natural ingredients</strong>, free from Dalda, harmful oils, or artificial preservatives.<br><br><em>What can I help you with today?</em>`, placeholder: "Ask about cookies, ingredients, mood recommendations...", moodLabel: "How are you feeling today? Let us suggest the perfect cookie ❆", footer: "❆ No Dalda · No Artificial Preservatives · No Harmful Oils · 100% Natural ❆", moods: { happy: "Happy", tired: "Tired", romantic: "Romantic", stressed: "Stressed", health: "Health Conscious", festive: "Festive" } },
-            hi: { welcome: `<strong>The Cookie Atelier</strong> में आपका स्वागत है! 🍪<br><br>मैं आपका कुकी गाइड हूँ।<br><br><em>आज मैं आपकी कैसे मदद कर सकता हूँ?</em>`, placeholder: "कुकीज़, सामग्री, मूड सुझाव पूछें...", moodLabel: "आज आप कैसा महसूस कर रहे हैं? ❆", footer: "❆ डालडा नहीं · कृत्रिम परिरक्षक नहीं · 100% प्राकृतिक ❆", moods: { happy: "खुश", tired: "थका", romantic: "रोमांटिक", stressed: "तनावग्रस्त", health: "स्वास्थ्य जागरूक", festive: "उत्सव" } },
-            kn: { welcome: `<strong>The Cookie Atelier</strong> ಗೆ ಸ್ವಾಗತ! 🍪<br><br><em>ಇಂದು ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?</em>`, placeholder: "ಕುಕಿಗಳು, ಪದಾರ್ಥಗಳು ಬಗ್ಗೆ ಕೇಳಿ...", moodLabel: "ಇಂದು ನೀವು ಹೇಗೆ ಅನುಭವಿಸುತ್ತಿದ್ದೀರಿ? ❆", footer: "❆ ඡಾಲ್ಡಾ ಇಲ್ಲ · 100% ನೈಸರ್ಗಿಕ ❆", moods: { happy: "ಸಂತೋಷ", tired: "ದಣಿದ", romantic: "ರೊಮ್ಯಾಂಟಿಕ್", stressed: "ಒತ್ತಡ", health: "ಆರೋಗ್ಯ", festive: "ಹಬ್ಬ" } },
-            ta: { welcome: `<strong>The Cookie Atelier</strong> உள்ளே வரவேற்கிறோம்! 🍪<br><br><em>இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?</em>`, placeholder: "குக்கிகள், பொருட்கள் பற்றி கேளுங்கள்...", moodLabel: "இன்று நீங்கள் எப்படி உணர்கிறீர்கள்? ❆", footer: "❆ ඡால்டா இல்லை · 100% இயற்கை ❆", moods: { happy: "மகிழ்ச்சி", tired: "சோர்வு", romantic: "காதல்", stressed: "மன அழுத்தம்", health: "ஆரோக்கியம்", festive: "திருவிழா" } },
-            te: { welcome: `<strong>The Cookie Atelier</strong> కి స్వాగతం! 🍪<br><br><em>ఈరోజు నేను మీకు ఎలా సహాయం చేయగలను?</em>`, placeholder: "కుకీలు, పదార్థాలు గురించి అడగండి...", moodLabel: "ఈరోజు మీరు ఎలా అనుభవిస్తున్నారు? ❆", footer: "❆ ඡాల్డా లేదు · 100% సహజం ❆", moods: { happy: "సంతోషం", tired: "అలసట", romantic: "రొమాంటిక్", stressed: "ఒత్తిడి", health: "ఆరోగ్యం", festive: "పండుగ" } },
-            ar: { welcome: `مرحباً بك في <strong>The Cookie Atelier</strong>! 🍪<br><br><em>كيف يمكنني مساعدتك اليوم؟</em>`, placeholder: "اسأل عن البسكويت...", moodLabel: "كيف تشعر اليوم؟ ❆", footer: "❆ بدون دالدا · 100% طبيعي ❆", moods: { happy: "سعيد", tired: "متعب", romantic: "رومانسي", stressed: "متوتر", health: "مهتم بصحته", festive: "مبتهج" } }
+            en: { 
+                welcome: `Salutations, esteemed patron. Welcome to the <strong>Ming Morsels Haute Pâtisserie Atelier</strong> — where culinary alchemy converges with pure epicurean transcendence. ⚜️<br><br>I am your <strong>Confectionery Sommelier</strong>. I curate bespoke gastronomic odysseys through our small-batch, unctuous grass-fed butter emulsions, single-estate cold-pressed botanicals, and saccharine elegance sweetened exclusively with <strong>unadulterated plant-derived Stevia</strong> — completely unburdened by hydrogenated lipids (Dalda), artificial stabilizers, or synthetic preservatives.<br><br><em>How may I orchestrate your discerning palate today?</em>`, 
+                placeholder: "Inquire about provenance, tasting notes, macronutrient kinetics...", 
+                moodLabel: "✨ Declare Your Epicurean Disposition · Allow Our Sommelier to Curate an Epiphany", 
+                footer: "✦ Absolute Repudiation of Dalda · Zero Synthetic Preservatives · 100% Plant-Derived Stevia ✦", 
+                moods: { happy: "Euphoric", tired: "Soporific", romantic: "Sybaritic", stressed: "Overstimulated", health: "Ascetic", festive: "Gala" } 
+            },
+            hi: { welcome: `<strong>Ming Morsels Haute Pâtisserie</strong> में आपका स्वागत है! ⚜️<br><br>मैं आपका कन्फेक्शनरी सोम्मेलीयर हूँ। शुद्ध मक्खन, प्राकृतिक स्टीविया और बेदाग सामग्रियों से तैयार हमारी लग्जरी कुकीज की दुनिया में आपका स्वागत है।<br><br><em>आज आपकी क्या सेवा करें?</em>`, placeholder: "सामग्री, स्वाद या मूड के अनुसार पूछें...", moodLabel: "आज आपकी मनोदशा क्या है? सोम्मेलीयर से सुझाव लें ✦", footer: "✦ डालडा मुक्त · शून्य कृत्रिम संरक्षक · 100% प्राकृतिक स्टीविया ✦", moods: { happy: "प्रसन्न", tired: "श्रांत", romantic: "अनुरागी", stressed: "तनावग्रस्त", health: "स्वास्थ्यनिष्ठ", festive: "उत्सव" } },
+            kn: { welcome: `<strong>Ming Morsels Haute Pâtisserie</strong> ಗೆ ಸುಸ್ವಾಗತ! ⚜️<br><br>ನಾನು ನಿಮ್ಮ ಕಾನ್ಫೆಕ್ಷನರಿ ಸೊಮೆಲಿಯರ್. ಶುದ್ಧ ಬೆಣ್ಣೆ ಹಾಗೂ ನೈಸರ್ಗಿಕ ಸ್ಟೀವಿಯಾದಿಂದ ತಯಾರಿಸಿದ ಅದ್ಭುತ ರುಚಿಗಳನ್ನು ಆನಂದಿಸಿ.<br><br><em>ಇಂದು ನಾನು ನಿಮಗೆ ಹೇಗೆ ಮಾರ್ಗದರ್ಶನ ನೀಡಲಿ?</em>`, placeholder: "ಪದಾರ್ಥಗಳು ಮತ್ತು ರುಚಿಗಳ ಬಗ್ಗೆ ಕೇಳಿ...", moodLabel: "ಇಂದು ನಿಮ್ಮ ಮನಸ್ಥಿತಿ ಹೇಗಿದೆ? ✦", footer: "✦ ಡಾಲ್ಡಾ ರಹಿತ · 100% ನೈಸರ್ಗಿಕ ಸ್ಟೀವಿಯಾ ✦", moods: { happy: "ಹರ್ಷದಾಯಕ", tired: "ದಣಿವಿನ", romantic: "ರೊಮ್ಯಾಂಟಿಕ್", stressed: "ಒತ್ತಡ", health: "ಆರೋಗ್ಯ", festive: "ಸಂಭ್ರಮ" } },
+            ta: { welcome: `<strong>Ming Morsels Haute Pâtisserie</strong> க்கு நல்வரவு! ⚜️<br><br>நான் உங்கள் பிரத்யேக சமையற்கலை வழிகாட்டி. தூய வெண்ணெய் மற்றும் இயற்கை ஸ்டீவியா கலந்த சுவைகளை அனுபவியுங்கள்.<br><br><em>இன்று உங்களுக்கு நான் எவ்வாறு உதவட்டும்?</em>`, placeholder: "சுவைகள் மற்றும் பொருட்கள் பற்றி கேளுங்கள்...", moodLabel: "உங்கள் இன்றைய மனநிலை என்ன? ✦", footer: "✦ டால்டா இல்லை · 100% இயற்கை ஸ்டீவியா ✦", moods: { happy: "மகிழ்ச்சி", tired: "சோர்வு", romantic: "காதல்", stressed: "அழுத்தம்", health: "ஆரோக்கியம்", festive: "கொண்டாட்டம்" } },
+            te: { welcome: `<strong>Ming Morsels Haute Pâtisserie</strong> కి స్వాగతం! ⚜️<br><br>నేను మీ కన్ఫెక్షనరీ సోమెలియర్. స్వచ్ఛమైన వెన్న మరియు సహజ స్టీవియాతో చేసిన అద్భుత రుచులను ఆస్వాదించండి.<br><br><em>ఈరోజు మీకు ఎలా సేవ చేయగలను?</em>`, placeholder: "రుచులు, పోషకాల గురించి అడగండి...", moodLabel: "ఈరోజు మీ మూడ్ ఎలా ఉంది? ✦", footer: "✦ డాల్డా రహితం · 100% సహజ స్టీవియా ✦", moods: { happy: "సంతోషం", tired: "అలసట", romantic: "ప్రేమ", stressed: "ఒత్తిడి", health: "ఆరోగ్యం", festive: "ఉత్సవం" } },
+            ar: { welcome: `مرحباً بكم في <strong>Ming Morsels Haute Pâtisserie</strong>! ⚜️<br><br>أنا خبير الحلويات الفاخرة الخاص بك. اكتشف تحفنا المخبوزة بالزبدة النقية ونبات الستيفيا الطبيعي.<br><br><em>كيف يمكنني إرشاد ذائقتكم اليوم؟</em>`, placeholder: "استفسر عن المكونات والنكهات الفاخرة...", moodLabel: "ما هو مزاجك اليوم؟ دعنا نلهمك ✦", footer: "✦ بدون دهون مهدرجة · خالي من المواد الحافظة · 100% ستيفيا طبيعية ✦", moods: { happy: "مبتهج", tired: "مجهد", romantic: "رومانسي", stressed: "متوتر", health: "صحي", festive: "احتفالي" } }
         };
 
         const BOT_RESPONSES = {
-            all: { en: "Here is our complete artisan collection — <strong>6 Signature Cookies &amp; 5 Soft-Baked Muffins</strong>, all crafted with 100% natural ingredients:<br><br>🌰 <strong>Almond Rich Cookies</strong> — Classic roasted almond crunch<br>🌹 <strong>Rose Petal Cookies</strong> — Damask rose &amp; cardamom aroma<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Hearty rolled oats &amp; walnuts<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment<br>🧠 <strong>Walnut Cookies</strong> — California walnuts &amp; butter crunch<br>🍃 <strong>Sugar-Free Walnut Cookies</strong> — 100% Sugar-free, sweetened with Stevia<br>🍓 <strong>Strawberry Muffins</strong> — Real Mahabaleshwar strawberries<br>🍍 <strong>Pinacolada Muffins</strong> — Tropical pineapple &amp; coconut<br>🧈 <strong>Butterscotch Muffins</strong> — Caramelized crunch bits<br>🍫 <strong>Chocochip Muffins</strong> — Rich dark chocolate chips<br>🫐 <strong>Black Currant Muffin</strong> — Tangy black currants &amp; vanilla<br><br>Tap any item above to learn more! ❆" },
-            natural: { en: "At <strong>The Cookie Atelier</strong>, we take purity seriously:<br><br>✅ <strong>No Dalda</strong> — no hydrogenated fat<br>✅ <strong>No Artificial Preservatives</strong><br>✅ <strong>No Harmful Oils</strong><br>✅ <strong>No Artificial Colours or Flavours</strong><br>✅ <strong>Real Ingredients</strong> — real rose petals, plant-based Stevia, pure butter 🌿" },
-            hello: { en: "Hello and welcome to <strong>The Cookie Atelier</strong>! 🍪✨<br><br>We craft 4 Signature Cookies &amp; 4 Soft Muffins with 100% natural ingredients. You can:<br>• Ask about any cookie or muffin<br>• Tell me your mood for a suggestion<br>• Ask about ingredients, nutrition, or gifting 🎁" },
-            fallback: { en: "I didn't quite catch that. You can ask about any cookie or muffin, share your mood, or tap any flavour pill above! ❆" }
+            all: { en: "Behold our complete gastronomic compendium — <strong>6 Signature Haute Cookies &amp; 5 Velvety Soft-Baked Muffins</strong>, orchestrated with impeccable artisanal provenance:<br><br>🌰 <strong>Royal Roasted Almond</strong> — Slow-caramelized California drupes in unctuous cow butter<br>🌹 <strong>Damask Rose Petal &amp; Cardamom</strong> — Ethereal floral volatiles with Malabar spice sillage<br>🌾 <strong>Artisanal Rolled Oats &amp; Nuts</strong> — Sustained kinetic vitality with omega-dense walnuts<br>🍊 <strong>Cold-Pressed Valencia Orange Peel</strong> — Vibrant citrus terpene notes and Ceylon cinnamon<br>🧠 <strong>California Walnut Gourmet Crunch</strong> — Polyunsaturated neuro-protective omega-3 richness<br>🍃 <strong>Stevia-Sweetened Zero-Sugar Walnut</strong> — Absolute saccharose negation; Reb-A steviol elegance<br>🍓 <strong>Mahabaleshwar Strawberry Sponge Muffin</strong> — Tart pectin compote nestled in buttery crumb<br>🍍 <strong>Tropical Pinacolada Sponge Muffin</strong> — Torrefied coconut crisps &amp; sun-ripened pineapple essence<br>🧈 <strong>Golden Butterscotch Cashew Muffin</strong> — Unadulterated brown butter reduction &amp; toffee pearls<br>🍫 <strong>70% Belgian Dark Chocochip Muffin</strong> — Single-estate Theobroma cacao micro-emulsion<br>🫐 <strong>Nordic Black Currant Atta Muffin</strong> — Whole wheat provenance with antioxidant anthocyanins<br><br>Select any creation below to inspect its sensory parameters and packaging tiers! ✦" },
+            natural: { en: "At <strong>Ming Morsels</strong>, our foundational dogma is uncompromised epicurean purity:<br><br>⚜️ <strong>Categorical Repudiation of Dalda</strong> — Absolute zero hydrogenated trans-lipids<br>⚜️ <strong>Zero Synthetic Preservatives</strong> — Pure, ephemeral shelf-life dictated by natural physics<br>⚜️ <strong>Zero Deleterious Seed Oils</strong> — Churned exclusively with 100% pasture-fed cow butter<br>⚜️ <strong>Botanical Sweetening Architecture</strong> — Zero refined white sugar; pristine Stevia extracts<br>⚜️ <strong>Authentic Terroir Provenance</strong> — Real hand-harvested Damask petals, California nuts, and whole spices 🌿" },
+            hello: { en: "Salutations and warm felicitations! ⚜️✨<br><br>Welcome to the <strong>Ming Morsels Haute Confectionery Atelier</strong>. How may I be of service to your discerning palate?<br><br>• Inquire into any single-estate cookie or muffin creation<br>• Declare your emotional disposition for a neuro-gastronomic pairing<br>• Review our airtight gold-foil gift coffrets or dietary macronutrient kinetics 🎁" },
+            fallback: { en: "My gastronomic comprehension requires slight refinement. You may inquire about any specific artisanal creation, disclose your mood for a sensory pairing, or explore our curated chips above! ✦" }
         };
 
         function setLang(lang, el) {
@@ -129,15 +135,15 @@
 
         const COOKIES = {
             almond: { 
-                name: "Almond Rich Cookies", 
+                name: "Royal Roasted Almond Rich Cookies", 
                 emoji: "🌰", 
                 img: "/almond/1.jpg", 
                 color: "#FFF3DC", 
-                review: "A timeless classic reimagined. Crafted with whole roasted premium California almonds, organic cow butter, and natural plant-based Stevia. Crumbly on the outside, meltingly soft inside.", 
+                review: "An opulent assemblage of slow-roasted California drupes suspended within an unctuous pasture-churned cow butter matrix. We orchestrate a delicate Maillard caramelization sweetened through botanical Stevia, yielding an ineffable kinetic crumb that dissolves into a velvety, mellifluous finish on the discerning palate.", 
                 stars: 5, 
                 price: 180, 
                 nutrition: { Calories: "72.7 kcal", Carbs: "5.1g", Protein: "1.51g", Fat: "5.14g", "Saturated Fat": "3g", "Trans Fat": "0g", Sugar: "3.24g", Sodium: "89.6mg", Potassium: "397.2mg", Preservatives: "None" }, 
-                tags: ["Gluten Aware", "Nut Rich", "No Dalda", "No Artificial Flavours"],
+                tags: ["Nutrient Dense", "Pasture Butter", "No Dalda", "Stevia Sweetened"],
                 boxes: [
                     { id: 'almond_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/almond-box-2pcs.png?v=2' },
                     { id: 'almond_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/almond-box-8pcs.jpg', popular: true },
@@ -145,15 +151,15 @@
                 ]
             },
             rose: { 
-                name: "Rose Petal Cookies", 
+                name: "Damask Rose Petal & Cardamom Cookies", 
                 emoji: "🌹", 
                 img: "/rose-petal/1.jpg", 
                 color: "#FDE8E8", 
-                review: "Floral sophistication in every bite. Infused with organic Damask rose petals and cardamom — delicate, aromatic, and perfect for tea-time luxury.", 
+                review: "An ethereal olfactory and gustatory symphony distilled from organic Damask rose petals (Rosa damascena) paired with green Malabar cardamom seeds. The volatile floral terpenes evoke aristocratic nostalgia, counterpoised with an uncompromised glycemic equilibrium via natural plant steviol extracts.", 
                 stars: 5, 
                 price: 190, 
                 nutrition: { Calories: "135 kcal", Carbs: "15g", Protein: "3g", Fat: "6g", Sugar: "5g", Fibre: "1.2g", Sodium: "30mg", Preservatives: "None" }, 
-                tags: ["Aromatic", "Edible Rose", "Low GI", "Handcrafted"],
+                tags: ["Damask Terroir", "Aromatic Sillage", "Low GI", "Haute Pâtisserie"],
                 boxes: [
                     { id: 'rose_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/rose-box-2pcs.jpg' },
                     { id: 'rose_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/rose-box-8pcs.jpg', popular: true },
@@ -161,31 +167,31 @@
                 ]
             },
             oatsnuts: { 
-                name: "Oats & Nuts Cookies", 
+                name: "Artisanal Rolled Oats & Walnut Cookies", 
                 emoji: "🌾", 
                 img: "/oats-nuts/1.jpg", 
                 color: "#F5F0E8", 
-                review: "Packed with rolled oats, California walnuts, flaxseeds, and natural plant-based Stevia. Hearty, filling, and deeply nutritious for clean energy.", 
+                review: "A rustic, nutrient-dense formulation composed of whole-grain rolled groats, California walnuts, golden flax lignans, and unadulterated botanical Stevia. Engineered for prolonged kinetic vitality and gastrointestinal equilibrium through complex beta-glucan polysaccharide fibres.", 
                 stars: 5, 
                 price: 170, 
                 nutrition: { Calories: "148 kcal", Carbs: "18g", Protein: "5g", Fat: "6.5g", Sugar: "4g", Fibre: "3.2g", Sodium: "52mg", Preservatives: "None" }, 
-                tags: ["High Fibre", "Rolled Oats", "Superfood", "Energy Dense"],
+                tags: ["Beta-Glucan Dense", "Omega Fatty Acids", "Sustained Satiety", "Pure Provender"],
                 boxes: [
                     { id: 'oatsnuts_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/oats-box-2pcs.jpg' },
                     { id: 'oatsnuts_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/oats-box-8pcs.jpg', popular: true },
-                    { id: 'oatsnuts_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/oats-box-12pcs.jpg' }
+                    { id: 'oatsnuts_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/oats-box-12jpg' }
                 ]
             },
             orange: { 
-                name: "Orange Peel Cookies", 
+                name: "Cold-Pressed Valencia Orange Peel Shortbread", 
                 emoji: "🍊", 
                 img: "/orange-peel/1.jpg", 
                 color: "#FFF0E0", 
-                review: "Bursting with natural citrus oils from cold-pressed orange peels and Ceylon cinnamon. A refreshing zesty twist on classic shortbread.", 
+                review: "An exuberant aperitif shortbread imbued with cold-pressed limonene essential oils derived from ripe Valencia orange rinds, tempered by the delicate aromatic warmth of Ceylon True Cinnamon (Cinnamomum verum). A vivacious, zesty contrast to rich cultured cow dairy.", 
                 stars: 5, 
                 price: 185, 
                 nutrition: { Calories: "138 kcal", Carbs: "16g", Protein: "3.2g", Fat: "6.2g", Sugar: "5.5g", Fibre: "1.4g", Sodium: "35mg", Preservatives: "None" }, 
-                tags: ["Citrus Zest", "Ceylon Cinnamon", "Fresh Baked"],
+                tags: ["Citrus Terpenes", "Ceylon Cinnamon", "Aperitif Harmony", "Zero Dalda"],
                 boxes: [
                     { id: 'orange_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/orange-box-2pcs.jpg' },
                     { id: 'orange_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/orange-box-8pcs.jpg', popular: true },
@@ -193,15 +199,15 @@
                 ]
             },
             walnut: { 
-                name: "California Walnut Cookies", 
+                name: "California Walnut Connoisseur Cookies", 
                 emoji: "🧠", 
                 img: "/img-walnut.png?v=2", 
                 color: "#F7EFE8", 
-                review: "Rich, crunchy whole California walnuts blended into golden butter dough with natural plant-based Stevia. Superb nutty crunch and brain-boosting omega-3s.", 
+                review: "Premium hand-cracked California Juglans regia kernels suspended in a golden butter shortbread dough. Imparts an assertive, earthy crunch teeming with bioavailable alpha-linolenic omega-3 triglycerides, harmonized with pure Stevia sweetness and zero artificial adulterants.", 
                 stars: 5, 
                 price: 210, 
                 nutrition: { Calories: "145 kcal", Carbs: "14g", Protein: "4.2g", Fat: "8.5g", Sugar: "4.5g", Fibre: "2.1g", Sodium: "38mg", Preservatives: "None" }, 
-                tags: ["California Walnuts", "Omega-3 Rich", "Nut Rich", "No Dalda", "Brain Food"],
+                tags: ["Neuro-Protective", "Polyunsaturated Lipids", "Single-Estate Nuts", "Zero Trans-Fats"],
                 boxes: [
                     { id: 'walnut_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 50, img: '/box-classic.jpg' },
                     { id: 'walnut_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 210, img: '/box-lush.jpg', popular: true },
@@ -209,15 +215,15 @@
                 ]
             },
             walnut_sf: { 
-                name: "Sugar-Free Walnut Cookies", 
+                name: "Stevia Zero-Sugar Walnut Cookies", 
                 emoji: "🍃", 
                 img: "/img-walnut-sf.png?v=2", 
                 color: "#EBF5EB", 
-                review: "100% Zero Added Sugar! Sweetened with natural organic Stevia extract and packed with roasted premium California walnuts. Guilt-free, diabetic-friendly & keto-approved.", 
+                review: "An avant-garde milestone in diabetic-conscious gourmandise. Absolute negation of refined sucrose and fructose, utilizing pure molecular Reb-A steviol glycosides to achieve sweetness without insulin spikes. Laden with roasted California walnuts for guilt-free ketogenic indulgence.", 
                 stars: 5, 
                 price: 220, 
                 nutrition: { Calories: "128 kcal", Carbs: "9g", Protein: "4.8g", Fat: "8.2g", Sugar: "0g", Fibre: "3.5g", Sodium: "32mg", Preservatives: "None" }, 
-                tags: ["Sugar Free", "Zero Sugar", "Stevia Sweetened", "Diabetic Friendly", "Keto Approved", "Nut Rich"],
+                tags: ["Zero Sucrose", "Reb-A Stevia", "Diabetic Connoisseur", "Ketogenic Compliant"],
                 boxes: [
                     { id: 'walnut_sf_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 55, img: '/box-classic.jpg' },
                     { id: 'walnut_sf_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 220, img: '/box-lush.jpg', popular: true },
@@ -225,17 +231,17 @@
                 ]
             },
             strawberry: { 
-                name: "Strawberry Muffin", 
+                name: "Mahabaleshwar Strawberry Sponge Muffin", 
                 type: "muffin", 
                 emoji: "🍓", 
                 img: "/img-strawberry.jpg", 
                 color: "#FCEEEE", 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" },
-                review: "Soft, moist cake loaded with real strawberry compote and topped with a buttery streusel crumble.", 
-                ingredients: "Fresh Strawberry Compote, Organic Wheat Flour, Unsalted Butter, Pure Vanilla, Natural Stevia.", 
+                review: "A tender, moisture-rich crumb infused with slow-reduced Mahabaleshwar strawberry coulis, crowned with an artisanal butter streusel crumble for textural counterpoint.", 
+                ingredients: "Pristine Strawberry Coulis, Whole Grain Atta, Grass-Fed Butter, Bourbon Vanilla, Stevia Extract.", 
                 price: 140, 
                 popular: false,
-                tags: ["Real Fruit", "Farm Fresh", "Crumble Top"],
+                tags: ["Pectin Rich", "Streusel Crown", "Pasture Butter"],
                 boxes: [
                     { id: 'strawberry_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 70, img: '/box-strawberry-1.jpg' },
                     { id: 'strawberry_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 140, img: '/box-strawberry-2.jpg', popular: true },
@@ -243,17 +249,17 @@
                 ]
             },
             pinacolada: { 
-                name: "Pinacolada Muffins", 
+                name: "Tropical Pinacolada Sponge Muffin", 
                 type: "muffin", 
                 emoji: "🍍", 
                 img: "/img-pinacolada.jpg", 
                 color: "#FFFBEA", 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" }, 
-                review: "Transport your palate to the tropics. Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.", 
-                ingredients: "Golden Pineapple Cubes, Toasted Coconut Flakes, Pure Cow Milk, Whole Flour, Natural Stevia, Vanilla.", 
+                review: "An exotic escape for the senses. Sun-ripened Ananas comosus (pineapple) tidbits intermingled with roasted desiccated coconut flakes within a light, buttery sponge.", 
+                ingredients: "Caramelized Pineapple Tidbits, Toasted Coconut Flakes, Pure Cow Dairy, Stevia, Whole Wheat.", 
                 price: 135, 
                 popular: false, 
-                tags: ["Tropical Pineapple", "Toasted Coconut", "Fresh Baked"], 
+                tags: ["Tropical Terroir", "Desiccated Coconut", "Moist Crumb"], 
                 boxes: [
                     { id: 'pinacolada_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-pinacolada-1.jpg' },
                     { id: 'pinacolada_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-pinacolada-2.jpg', popular: true },
@@ -261,15 +267,15 @@
                 ]
             },
             butterscotch: { 
-                name: "Butterscotch Muffins", 
+                name: "Golden Butterscotch & Cashew Muffin", 
                 emoji: "🧈", 
                 img: "/img-butterscotch.jpg", 
                 color: "#FDF4E5", 
-                review: "Rich caramel-infused muffin base studded with crunchy butterscotch bits and toasted cashew crunch. A comforting sweet indulgence.", 
+                review: "A decadent brown-butter reduction married with caramelized jaggery crunch pearls and roasted Goan cashew morsels. An enveloping warmth of comforting richness.", 
                 stars: 5, 
                 price: 150, 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g", Preservatives: "None" }, 
-                tags: ["Butterscotch Bits", "Desi Ghee", "Nut Rich"], 
+                tags: ["Brown Butter", "Goan Cashews", "Zero Margarine"], 
                 boxes: [
                     { id: 'butterscotch_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-butterscotch-1.jpg' },
                     { id: 'butterscotch_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-butterscotch-2.jpg', popular: true },
@@ -277,17 +283,17 @@
                 ]
             },
             chocochip: { 
-                name: "Chocochip Muffins", 
+                name: "70% Belgian Dark Chocochip Muffin", 
                 type: "muffin", 
                 emoji: "🍫", 
                 img: "/img-chocochip.jpg", 
                 color: "#F5ECE6", 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "6.13g" }, 
-                review: "For true chocolate lovers. Rich 70% single-origin dark cocoa sponge packed with generous Belgian chocolate chips that melt when warmed.", 
-                ingredients: "70% Dark Belgian Chocolate, Dutch Cocoa Powder, Organic Butter, Raw Sugar, Whole Milk.", 
+                review: "A hedonistic plunge into single-origin 70% Belgian Theobroma cacao. Micro-emulsified with cultured whole dairy, yielding an ineffably moist sponge embedded with bittersweet chocolate liquor drops.", 
+                ingredients: "70% Belgian Dark Chocolate, Dutch Alkalized Cacao, Grass-Fed Butter, Stevia, Whole Wheat.", 
                 price: 150, 
                 popular: true, 
-                tags: ["Dark Choco", "Belgian Chips", "Decadent"], 
+                tags: ["70% Single Origin", "Belgian Cacao", "Polyphenol Rich"], 
                 boxes: [
                     { id: 'chocochip_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 80, img: '/box-chocochip-1.jpg' },
                     { id: 'chocochip_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 140, img: '/box-chocochip-2.jpg', popular: true },
@@ -295,24 +301,24 @@
                 ]
             },
             blackcurrant: { 
-                name: "Black Currant Muffin", 
+                name: "Nordic Black Currant Atta Muffin", 
                 type: "muffin", 
                 emoji: "🫐", 
                 img: "/img-blackcurrant.jpg", 
                 color: "#F1EDF5", 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" }, 
-                review: "A delicious whole wheat muffin bursting with tangy black currants. A perfect balance of sweetness and tartness.", 
-                ingredients: "Whole Wheat Flour (Atta), Milk Solids, Sugar, Seed Oil, Black Currant Pulp, Whole Black Raisins, Vanilla Flavour.", 
+                review: "An artisanal whole-grain wheat sponge punctuated by tart, sun-dried Ribes nigrum (black currants) rich in anthocyanin antioxidants, balancing astringent sharpness with mellow vanilla notes.", 
+                ingredients: "Stone-Ground Whole Wheat Atta, Black Currant Extract, Natural Stevia, Cultured Butter.", 
                 price: 150, 
                 popular: false, 
-                tags: ["Whole Wheat", "Tangy Currants", "No Margarine"], 
+                tags: ["Anthocyanin Rich", "Stone Ground", "Zero Dalda"], 
                 boxes: [
                     { id: 'blackcurrant_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-blackcurrant-1.jpg' },
                     { id: 'blackcurrant_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-blackcurrant-2.jpg', popular: true },
                     { id: 'blackcurrant_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 225, img: '/box-blackcurrant-2.jpg' }
                 ]
             }
-        }
+        };
 
         const MOOD_MAP = { happy: ["rose", "orange", "strawberry", "pinacolada", "walnut"], tired: ["oatsnuts", "almond", "chocochip", "butterscotch", "blackcurrant"], romantic: ["rose", "strawberry", "chocochip", "walnut"], stressed: ["almond", "oatsnuts", "butterscotch", "walnut"], health: ["walnut_sf", "oatsnuts", "almond", "blackcurrant", "walnut"], festive: ["rose", "orange", "butterscotch", "chocochip", "walnut"], sad: ["chocochip", "butterscotch", "almond", "walnut"], anxious: ["oatsnuts", "rose", "pinacolada", "walnut_sf"], energetic: ["oatsnuts", "almond", "blackcurrant", "walnut"] };
 
@@ -409,13 +415,13 @@
         }
 
         const MOOD_INTROS = {
-            happy: { en: "You're in a great mood — let's keep that energy going! 🎉", hi: "आप खुश हैं — इस ऊर्जा को बनाए रखें! 🎉", kn: "ನೀವು ಸಂತೋಷದಲ್ಲಿದ್ದೀರಿ! 🎉", ta: "மகிழ்ச்சியாக இருக்கிறீர்கள்! 🎉", te: "మీరు సంతోషంగా ఉన్నారు! 🎉", fr: "Vous êtes de bonne humeur! 🎉", ar: "أنت في مزاج رائع! 🎉", ml: "സന്തോഷമായിരിക്കുന്നു! 🎉" },
-            tired: { en: "Feeling low on energy? These cookies will give you a natural boost! ⚡", hi: "थके हुए हैं? ये कुकीज़ आपको ऊर्जा देंगी! ⚡", kn: "ಶಕ್ತಿ ಕಡಿಮೆಯಾಗಿದೆಯೇ? ⚡", ta: "ஆற்றல் குறைவாக உணர்கிறீர்களா? ⚡", te: "అలసిపోయారా? ⚡", fr: "Vous manquez d'énergie? ⚡", ar: "تشعر بانخفاض الطاقة؟ ⚡", ml: "ഊർജ്ജം കുറവോ? ⚡" },
-            romantic: { en: "Ooh, romantic! Cookies worth sharing with someone special 🌹", hi: "रोमांटिक मूड! 🌹", kn: "ರೊಮ್ಯಾಂಟಿಕ್! 🌹", ta: "காதல் மனநிலை! 🌹", te: "రొమాంటిక్! 🌹", fr: "Romantique! 🌹", ar: "رومانسي! 🌹", ml: "റൊമാന്റിക് മൂഡ്! 🌹" },
-            stressed: { en: "Take a breath — these cookies bring calm and comfort 🤍", hi: "सांस लें — ये कुकीज़ शांति देंगी 🤍", kn: "ಒಂದು ಉಸಿರು ತೆಗೆದುಕೊಳ್ಳಿ 🤍", ta: "ஒரு மூச்சு எடுங்கள் 🤍", te: "ఒక్క క్షణం ఆగండి 🤍", fr: "Respirez 🤍", ar: "خذ نفساً عميقاً 🤍", ml: "ഒരു ശ്വാസം എടുക്കൂ 🤍" },
-            health: { en: "Love your health-first approach! Our most nutritious picks 🌿", hi: "स्वास्थ्य पर ध्यान! 🌿", kn: "ಆರೋಗ್ಯ ಮೊದಲು! 🌿", ta: "ஆரோக்கியம் முதலில்! 🌿", te: "ఆరోగ్యం ముందు! 🌿", fr: "La santé d'abord! 🌿", ar: "الصحة أولاً! 🌿", ml: "ആരോഗ്യം ആദ്യം! 🌿" },
-            festive: { en: "Festive vibes! Our most gifted and celebratory cookies ✨", hi: "उत्सव का माहौल! ✨", kn: "ಹಬ್ಬದ ವಾತಾವರಣ! ✨", ta: "திருவிழா மனநிலை! ✨", te: "పండుగ వాతావరణం! ✨", fr: "Ambiance festive! ✨", ar: "أجواء احتفالية! ✨", ml: "ആഘോഷ മൂഡ്! ✨" },
-            sad: { en: "Sending you a virtual hug 🤗 These cookies are pure comfort:", hi: "आभासी गले लगाते हैं 🤗", kn: "ಆಭಾಸಿ ಆಲಿಂಗನ 🤗", ta: "மெய்நிகர் அரவணைப்பு 🤗", te: "వర్చువల్ హగ్ 🤗", fr: "Un câlin virtuel 🤗", ar: "عناق افتراضي 🤗", ml: "വെർച്വൽ ആലിംഗനം 🤗" }
+            happy: { en: "A buoyant, euphoric state of mind! We prescribe floral volatiles and zesty citrus shortbread to elevate your dopamine kinetics: ⚜️🎉", hi: "उल्लासपूर्ण मनोदशा! आपके आनंद को और बढ़ाने के लिए हमारा विशेष चयन: ⚜️🎉", kn: "ಹರ್ಷದಾಯಕ ಮನಸ್ಥಿತಿ! ನಿಮ್ಮ ಉಲ್ಲಾಸವನ್ನು ಹೆಚ್ಚಿಸಲು ಸೊಮೆಲಿಯರ್ ಆಯ್ಕೆ: ⚜️🎉", ta: "மகிழ்ச்சியான தருணம்! உங்கள் உற்சாகத்தை கூட்ட எங்களின் பிரத்யேக தேர்வு: ⚜️🎉", te: "ఆనందకరమైన సమయం! మీ ఉత్సాహాన్ని రెట్టింపు చేసే అద్భుత రుచులు: ⚜️🎉", fr: "Une disposition euphorique! Pour magnifier votre vitalité: ⚜️🎉", ar: "مزاج مبتهج ورائع! لتغذية روحكم بالسعادة: ⚜️🎉", ml: "സന്തോഷകരമായ സമയം! ⚜️🎉" },
+            tired: { en: "Experiencing metabolic fatigue? These nutrient-dense whole-grain groats and polyunsaturated lipids restore sustained cellular stamina: ⚡", hi: "ऊर्जा की कमी? ये पौष्टिक मेवे और ओट्स आपको नई ताजगी प्रदान करेंगे! ⚡", kn: "ಆಯಾಸವೇ? ನೈಸರ್ಗಿಕ ಶಕ್ತಿ ನೀಡುವ ವಿಶಿಷ್ಟ ಕುಕಿಗಳು: ⚡", ta: "சோர்வாக உணர்கிறீர்களா? உடனடி இயற்கை புத்துணர்ச்சிக்கு: ⚡", te: "అలసటగా ఉందా? సహజ శక్తిని అందించే రుచులు: ⚡", fr: "Fatigue métabolique? Restaurez votre vitalité cellulaire: ⚡", ar: "هل تشعر بالإجهاد؟ إليك ما يجدد طاقتك الحيوية: ⚡", ml: "ഊർജ്ജം വീണ്ടെടുക്കാൻ: ⚡" },
+            romantic: { en: "An amorous, sybaritic disposition! Ethereal Damask rose essence and decadent 70% single-estate Belgian cacao crafted for intimate communion: 🌹", hi: "अनुरागी और रोमांटिक माहौल! गुलाब और डार्क चॉकलेट का यह सम्मिश्रण आपके लिए: 🌹", kn: "ರೊಮ್ಯಾಂಟಿಕ್ ಕ್ಷಣಗಳು! ಗುಲಾಬಿ ಹಾಗೂ ಡಾರ್ಕ್ ಚಾಕೊಲೇಟ್ ಸಂಗಮ: 🌹", ta: "காதல் ததும்பும் நேரம்! ரோஜா மற்றும் சாக்லேட் கலவை: 🌹", te: "రొమాంటిక్ క్షణాలు! గులాబీ మరియు డార్క్ చాక్లెట్ అమృతం: 🌹", fr: "Une disposition amoureuse et sybaritique: 🌹", ar: "لحظات رومانسية وشاعرية فاخرة: 🌹", ml: "റൊമാന്റിക് അനുഭൂതി: 🌹" },
+            stressed: { en: "When the central nervous system is overstimulated, pure cow butter shortbread rich in neuro-protective omega-3s induces serene psychological equanimity: 🤍", hi: "तनाव से मुक्ति! अखरोट और शुद्ध मक्खन की यह शांतिदायक मिठास: 🤍", kn: "ಮನಸ್ಸಿನ ಶಾಂತಿಗೆ! ಒಮೆಗಾ-3 ಸಮೃದ್ಧ ವಾಲ್ನಟ್ ಕುಕಿಗಳು: 🤍", ta: "மன அமைதிக்கு! ஒமேகா-3 நிறைந்த வால்நட் தேர்வு: 🤍", te: "ప్రశాంతత కోసం! ఒమేగా-3 సమృద్ధ వాల్నట్ రుచులు: 🤍", fr: "Pour apaiser un système nerveux surstimulé: 🤍", ar: "لاستعادة السكينة والهدوء النفسي: 🤍", ml: "മനസ്സിന് ശാന്തി നൽകാൻ: 🤍" },
+            health: { en: "An ascetic, health-conscious philosophy! Zero sucrose, diabetic-compliant Reb-A Stevia formulations engineered with uncompromising purity: 🌿", hi: "स्वास्थ्य और शुद्धता का संगम! बिना चीनी, स्टीविया युक्त पौष्टिक चयन: 🌿", kn: "ಆರೋಗ್ಯಕ್ಕೆ ಆದ್ಯತೆ! ಸಕ್ಕರೆ ರಹಿತ ಶುದ್ಧ ಸ್ಟೀವಿಯಾ ಕುಕಿಗಳು: 🌿", ta: "ஆரோக்கியத்திற்கான அற்புதம்! சர்க்கரை இல்லாத ஸ்டீவியா குக்கிகள்: 🌿", te: "ఆరోగ్యకరమైన ఎంపిక! చక్కెర రహిత స్టీవియా రుచులు: 🌿", fr: "Une approche ascétique et diététique: 🌿", ar: "نهج صحي نقي خالٍ من السكر: 🌿", ml: "ആരോഗ്യകരമായ തിരഞ്ഞെടുപ്പ്: 🌿" },
+            festive: { en: "A grand gala celebration! Aristocratic Damask petals and caramelized confections designed for regal feasts and festive gifting: ✨", hi: "भव्य उत्सव और उल्लास! उपहार और दावतों के लिए हमारा सर्वश्रेष्ठ शाही संग्रह: ✨", kn: "ಸಂಭ್ರಮದ ಕ್ಷಣಗಳು! ರಾಜಮನೆತನದ ರುಚಿಗಳು: ✨", ta: "கொண்டாட்ட தருணங்கள்! அரச சுவைகள்: ✨", te: "ఉత్సవ సంబరాలు! రాజసం ఉట్టిపడే రుచులు: ✨", fr: "Une célébration festive et royale: ✨", ar: "أجواء احتفالية ملكية باذخة: ✨", ml: "ഉത്സവാഘോഷങ്ങൾ: ✨" },
+            sad: { en: "A tender embrace for the soul. The comforting unction of pasture butter and single-origin dark cacao to restore emotional harmony: 🤗", hi: "मन को सांत्वना देने वाला हमारा सबसे स्वादिष्ट और आरामदायक संग्रह: 🤗", kn: "ಮನಸ್ಸಿಗೆ ಆಹ್ಲಾದ ನೀಡುವ ವಿಶಿಷ್ಟ ಕುಕಿಗಳು: 🤗", ta: "மனதை இதமாக்கும் சுவைகள்: 🤗", te: "మనసుకు హాయినిచ్చే రుచులు: 🤗", fr: "Un réconfort profond pour l'âme: 🤗", ar: "عناق دافئ لروحك من الشوكولاتة الفاخرة: 🤗", ml: "ആശ്വാസം നൽകുന്നവ: 🤗" }
         };
 
         function getBotReply(userMsg) {
@@ -546,37 +552,51 @@
                 }
                 return { text: getLangText('hello', lang) };
             }
+            // AI Intent Recognition: Store Pickup & Sunday Operating Schedule
+            if (/pickup|store pickup|collect|studio|timings|timing|sunday|holiday|hours|opening hours/.test(q)) {
+                return {
+                    text: `🏪 <strong>Haute Pâtisserie Studio Counter Handover &amp; Operating Hours</strong><br><br>• <strong>Daily Connoisseur Pickup:</strong> 10:00 AM – 4:00 PM (Monday through Saturday).<br>• <strong>Sunday Weekly Sabbatical:</strong> Closed for store pickup. Creations commissioned on Sunday are freshly baked and prepared for collection on <strong>Monday from 10:00 AM onwards</strong>.<br>• <strong>Nayanda Halli Atelier Location:</strong> 1st A Main Road, SLV Layout, Phase 3, Nayanda Halli, Bengaluru 560026.<br><br>Dispatched with your confidential 4-digit verification PIN upon oven completion! ✦`
+                };
+            }
+
+            // AI Intent Recognition: Connoisseur Reward Points & VIP 1000 Milestone
+            if (/reward|point|points|vip|gift box|1000|loyalty|milestone|bonus/.test(q)) {
+                return {
+                    text: `👑 <strong>The Ming Morsels Connoisseurship Guild</strong><br><br>• <strong>+100 Reward Points:</strong> Accrued automatically with every confirmed order.<br>• <strong>1,000 Points Master Chef Milestone:</strong> Upon reaching 1,000 points, our Master Chefs bestow upon you an exclusive, complimentary <strong>Special Artisanal Gift Box</strong> handcrafted and personalized with your next order.<br><br>Monitor your live points balance seamlessly across your account dashboard! ⚜️`
+                };
+            }
+
             // AI Intent Recognition: Gift Boxes & Packaging
             if (/gift|box|package|packaging|hamper|gifting|present|tin|lush|signature|box builder/.test(q)) {
                 if (/muffin.*lush|lush.*muffin/.test(q)) {
                     return {
-                        text: `⚠️ <strong>Muffin Packaging Restriction:</strong><br>Muffins cannot fit inside the <strong>Lush Luxury Box</strong>.<br>Please select our <strong>Signature Treat Box (+₹15)</strong> which fits up to 10 cookies and muffins!<br><br><button onclick="openGiftBuilder()" style="background:linear-gradient(135deg, #C6960C 0%, #A67C00 100%); border:none; color:#FFF; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">🎁 Open Gift Box Builder</button>`
+                        text: `⚠️ <strong>Pâtisserie Architectural Constraint:</strong><br>Our voluptuous muffins cannot reside within the rigid dimensions of the <strong>Lush Luxury Keepsake Box</strong>.<br>Pray select our <strong>Signature Artisanal Box (+₹15)</strong>, engineered to accommodate up to 10 assorted cookies and muffins seamlessly!<br><br><button onclick="openGiftBuilder()" style="background:linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%); border:none; color:#120E0B; padding:7px 16px; border-radius:8px; font-weight:800; cursor:pointer;">🎁 Enter Bespoke Gift Atelier</button>`
                     };
                 }
 
                 return {
-                    text: `🎁 <strong>Handcrafted Luxury Gift Boxes</strong><br><br>We offer two exquisite packaging options:<br>• <strong>Signature Treat Box (+₹15)</strong>: Holds up to <strong>10 cookies & muffins</strong> (Classic orange gable handle box).<br>• <strong>Lush Luxury Box (+₹130)</strong>: Holds up to <strong>4 cookies + Premium Roasted Dry Fruits pouch</strong> (Blush floral keepsake box; muffins cannot fit).<br><br><button onclick="openGiftBuilder()" style="background:linear-gradient(135deg, #C6960C 0%, #A67C00 100%); border:none; color:#FFF; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">🎁 Build Custom Gift Box</button>`
+                    text: `🎁 <strong>Aristocratic Keepsake Packaging &amp; Presentation Coffrets</strong><br><br>We offer two distinguished packaging presentations:<br>• <strong>Signature Gable Coffret (+₹15)</strong>: Accommodates up to <strong>10 cookies &amp; muffins</strong> in our classic royal saffron structure.<br>• <strong>Lush Luxury Flora Keepsake (+₹130)</strong>: Holds up to <strong>4 single-estate cookies + vacuum-sealed Roasted Dry Fruits pouch</strong> in a blush floral keepsake case (muffins excluded).<br><br><button onclick="openGiftBuilder()" style="background:linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%); border:none; color:#120E0B; padding:7px 16px; border-radius:8px; font-weight:800; cursor:pointer;">🎁 Construct Bespoke Gift Coffret</button>`
                 };
             }
 
             // AI Intent Recognition: Bulk Inquiries & Corporate Quotes
             if (/bulk|corporate|wedding|wholesale|event|party|50 box|100 box|large order|discount/.test(q)) {
                 return {
-                    text: `🏢 <strong>Corporate Orders</strong><br>We offer up to <strong>35% off</strong> with custom luxury gift packaging for corporate events & weddings!<br><br>👉 <a href="/bulk-order.html" target="_top" style="color:var(--gold); font-weight:bold;">Click here to open our Instant Bulk Price Calculator</a>.`
+                    text: `🏢 <strong>Corporate &amp; Aristocratic Gifting Conclaves</strong><br>We curate grand-scale culinary gifts with up to <strong>35% bespoke consideration</strong>, bespoke foil embossing, and personalized sommelier tasting cards for grand gala events and weddings.<br><br>👉 <a href="/bulk-order.html" target="_top" style="color:var(--gold); font-weight:bold; text-decoration:underline;">Access the Instant Institutional Tier Calculator</a>.`
                 };
             }
 
             // AI Intent Recognition: Order Tracking & Shipway Status
             if (/track|where is my order|status|delivery|shipway|awb|courier|dispatch/.test(q)) {
                 return {
-                    text: `📦 <strong>Order & Shipment Tracking</strong><br>You can track your order live via Shipway Air Logistics.<br><br>👉 <a href="/track-order.html" target="_top" style="color:var(--gold); font-weight:bold;">Click here to open Live Order Tracking Portal</a>.`
+                    text: `📦 <strong>Real-Time Transit &amp; Logistics Provenance</strong><br>Trace your consignment's thermal and geographic journey live through BlueDart / Shipway Air Priority.<br><br>👉 <a href="/track-order.html" target="_top" style="color:var(--gold); font-weight:bold; text-decoration:underline;">Enter Live Order Tracking Concierge</a>.`
                 };
             }
 
             // AI Intent Recognition: Box Options & Packaging Sizes
             if (/box option|box options|box size|box sizes|different box|packaging option|pack size|snack pack|classic box|classic delights|family pack|dozen delight|dozen delights|twin delight|twin delights|how many cookies|how many pieces|box choices/.test(q)) {
                 return {
-                    text: `📦 <strong>Available Box Sizes &amp; Packaging Tiers</strong><br><br>Every flavour is freshly baked and packed in 3 distinct brand box options:<br><br>• <strong>Twin Delights (2 Cookies / 2 Muffins)</strong>: Perfect for personal snacking &amp; on-the-go cravings (from ₹40).<br>• <strong>Classic Delights (8 Cookies / 4 Muffins)</strong>: Our #1 Bestseller — ideal for teatime sharing &amp; family dessert (from ₹140).<br>• <strong>Dozen Delights (12 Cookies / 6 Muffins)</strong>: Luxury keepsake presentation box for celebrations &amp; gatherings (from ₹210).<br><br>Tap on any flavour card to pick your box size and add directly to your basket! ✦`,
+                    text: `📦 <strong>Curated Volumetric Presentations</strong><br><br>Every creation is sealed within airtight, food-grade gold foil to arrest oxidative degradation, available in 3 distinct tiers:<br><br>• <strong>Twin Delights (2 Pieces)</strong>: Ephemeral indulgence tailored for personal degustation (from ₹40).<br>• <strong>Classic Delights (8 Cookies / 4 Muffins)</strong>: Our quintessential bestseller — the definitive centerpiece for grand salon teatime (from ₹140).<br>• <strong>Dozen Delights (12 Cookies / 6 Muffins)</strong>: Opulent presentation box for sybaritic banquets and convivial gatherings (from ₹210).<br><br>Select any creation below to configure your box dimensions! ✦`,
                     cards: ['almond', 'walnut_sf', 'rose'].map(k => renderCookieCard(k)).join('')
                 };
             }
@@ -584,15 +604,15 @@
             // AI Intent Recognition: Nutrition & Dietary Information
             if (/nutrition|nutritional|calorie|calories|protein|fat|sugar content|carbs|macros|macro|healthy facts/.test(q)) {
                 return {
-                    text: `🥗 <strong>100% Pure &amp; Wholesome Nutritional Standards</strong><br><br>All Ming Morsels creations are handcrafted with zero Dalda, zero artificial preservatives, and clean real ingredients:<br><br>• <strong>Zero-Sugar Walnut</strong>: 128 kcal · 0g Sugar · 4.8g Protein · 3.5g Fibre<br>• <strong>Roasted Almond</strong>: 72.7 kcal · 1.5g Protein · 5.1g Healthy Fats<br>• <strong>Oats &amp; Nuts</strong>: 148 kcal · 5g Protein · 3.2g Fibre (High Energy)<br>• <strong>Rose Petal</strong>: 135 kcal · Low GI Damask Rose Extract<br><br>Check out the full nutrition tables on the flavour cards below:`,
+                    text: `🥗 <strong>Macronutrient Kinetics &amp; Bioactive Integrity</strong><br><br>Our recipes maintain strict biochemical purity: zero hydrogenated lipids, zero artificial preservatives, and clean whole-food density:<br><br>• <strong>Stevia Zero-Sugar Walnut</strong>: 128 kcal · 0g Refined Sugars · 4.8g Protein · 3.5g Satiety Fibre<br>• <strong>Royal Roasted Almond</strong>: 72.7 kcal · 1.51g Bioavailable Protein · 5.14g Heart-Healthy Lipids<br>• <strong>Rolled Oats &amp; Nuts</strong>: 148 kcal · 5g Sustained Protein · 3.2g Beta-Glucans<br>• <strong>Damask Rose Petal</strong>: 135 kcal · Low Glycemic Index Damask Terpenes<br><br>Review the exhaustive nutritional certificates below:`,
                     cards: ['walnut_sf', 'oatsnuts', 'almond'].map(k => renderCookieCard(k)).join('')
                 };
             }
 
             // AI Intent Recognition: Smart Recommendation
-            if (/recommend|suggest|which one|best seller|favorite|popular|top/.test(q)) {
+            if (/recommend|suggest|which one|best seller|favorite|popular|top|pairing/.test(q)) {
                 return {
-                    text: `✨ <strong>AI Flavour Recommendation</strong><br>Our #1 Bestseller is <strong>Roasted Almond Rich Cookies</strong> (Nutty & Buttery) paired with <strong>Double Dark Chocochip Muffin</strong>!<br><br>Want a personalized match? <button onclick="window.top.document.getElementById('btn-open-flavor-quiz')?.click()" style="background:var(--gold); border:none; color:#120E0B; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">Take AI Flavor Quiz</button>`,
+                    text: `✨ <strong>Sommelier's Premier Degustation Pairing</strong><br>Our highest distinction is awarded to the <strong>Royal Roasted Almond Rich Cookies</strong> paired alongside our <strong>70% Single-Origin Belgian Dark Chocochip Muffin</strong> for a sublime contrast of caramelized nut crunch and unctuous cocoa depth.<br><br>Desire a bespoke neuro-gastronomic match? <button onclick="window.top.document.getElementById('btn-open-flavor-quiz')?.click()" style="background:linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%); border:none; color:#120E0B; padding:7px 16px; border-radius:8px; font-weight:800; cursor:pointer;">Initiate Connoisseur Flavour Quiz</button>`,
                     card: 'almond'
                 };
             }
