@@ -570,29 +570,29 @@
   <div id="admin-auth-modal" class="auth-modal-overlay">
     <div class="auth-card" style="max-width: 440px;">
       <div style="font-size: 40px; margin-bottom: 8px;">🛡️</div>
-      <h2>Staff 2FA Login</h2>
-      <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px;">Authenticate with administrative credentials and 6-digit TOTP code.</p>
+      <h2>Staff Portal Login</h2>
+      <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px;">Authenticate with administrative credentials.</p>
       
       <div style="display: flex; flex-direction: column; gap: 10px; text-align: left;">
         <div>
           <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted);">Admin Username</label>
-          <input type="text" id="admin-username-input" class="auth-input" style="margin: 4px 0 0; text-align: left; letter-spacing: normal;" placeholder="admin" value="admin" />
+          <input type="text" id="admin-username-input" class="auth-input" style="margin: 4px 0 0; text-align: left; letter-spacing: normal;" placeholder="admin" value="admin" autocomplete="username" />
         </div>
         <div>
-          <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted);">Master Password</label>
-          <input type="password" id="admin-passcode-input" class="auth-input" style="margin: 4px 0 0; text-align: left; letter-spacing: normal;" placeholder="••••••••" value="mingmorsels2026" />
+          <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted);">Admin Password</label>
+          <input type="password" id="admin-passcode-input" class="auth-input" style="margin: 4px 0 0; text-align: left; letter-spacing: normal;" placeholder="Enter password (e.g. miora)" autocomplete="current-password" autofocus />
         </div>
         <div>
           <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); display: flex; justify-content: space-between;">
-            <span>Authenticator 6-Digit Code (2FA)</span>
-            <span style="color: var(--color-gold); font-size: 10px;">Google / MS Authenticator</span>
+            <span>Authenticator Code (Optional 2FA)</span>
+            <span style="color: var(--color-gold); font-size: 10px;">Optional</span>
           </label>
-          <input type="text" id="admin-totp-input" class="auth-input" maxlength="6" style="margin: 4px 0 0; font-size: 18px; font-weight: 700; color: #8C5803; letter-spacing: 6px;" placeholder="123456" />
+          <input type="text" id="admin-totp-input" class="auth-input" maxlength="6" style="margin: 4px 0 0; font-size: 18px; font-weight: 700; color: #8C5803; letter-spacing: 6px;" placeholder="Optional" />
         </div>
       </div>
 
-      <button id="btn-unlock-admin" class="auth-btn" style="margin-top: 18px;">🔐 Verify MFA &amp; Enter Portal</button>
-      <p id="auth-error-msg" style="color: #E74C3C; font-size: 12px; margin-top: 12px; display: none;">Invalid credentials or 2FA code. Please try again.</p>
+      <button id="btn-unlock-admin" class="auth-btn" style="margin-top: 18px;">🔐 Verify &amp; Enter Portal</button>
+      <p id="auth-error-msg" style="color: #E74C3C; font-size: 12px; margin-top: 12px; display: none;"></p>
     </div>
   </div>
 
@@ -1044,14 +1044,23 @@
       }
     }
 
-    passcodeBtn.addEventListener('click', async () => {
+    async function handleAdminLogin() {
       const username = (usernameInput?.value || 'admin').trim();
       const password = (passcodeInput?.value || '').trim();
       const totp = (totpInput?.value || '').trim();
 
+      if (!password) {
+        if (errorMsg) {
+          errorMsg.innerText = 'Please enter your admin password.';
+          errorMsg.style.display = 'block';
+        }
+        passcodeInput?.focus();
+        return;
+      }
+
       const origText = passcodeBtn.innerText;
       passcodeBtn.disabled = true;
-      passcodeBtn.innerText = '⏳ Verifying 2FA Credentials...';
+      passcodeBtn.innerText = '⏳ Verifying Credentials...';
       if (errorMsg) errorMsg.style.display = 'none';
 
       try {
@@ -1068,24 +1077,35 @@
         const data = await res.json();
         if (res.ok && data.success && data.token) {
           sessionStorage.setItem('mm_admin_token', data.token);
+          sessionStorage.setItem('mm_admin_key', data.token);
           sessionStorage.setItem('mm_admin_authenticated', 'true');
           authModal.style.display = 'none';
           loadAdminDashboard();
         } else {
           if (errorMsg) {
-            errorMsg.innerText = data.error || 'Invalid credentials or 2FA code.';
+            errorMsg.innerText = data.error || 'Invalid credentials. Please try again.';
             errorMsg.style.display = 'block';
           }
         }
       } catch (err) {
         if (errorMsg) {
-          errorMsg.innerText = 'Network error verifying credentials.';
+          errorMsg.innerText = 'Network error verifying credentials. Please check connection.';
           errorMsg.style.display = 'block';
         }
       } finally {
         passcodeBtn.disabled = false;
         passcodeBtn.innerText = origText;
       }
+    }
+
+    passcodeBtn.addEventListener('click', handleAdminLogin);
+    [usernameInput, passcodeInput, totpInput].forEach(inp => {
+      inp?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleAdminLogin();
+        }
+      });
     });
 
     checkAuth();
