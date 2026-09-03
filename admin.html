@@ -1032,6 +1032,129 @@
     let latestLoadedOrders = [];
     let latestUserRewards = {};
     let latestEmailOrderCount = {};
+    window.ordersMap = new Map();
+
+    const PRODUCT_META_CATALOG = {
+      almond: { name: 'Almond Rich Cookies', isMuffin: false, img: '/almond/1.jpg' },
+      rose: { name: 'Rose Petal & Cardamom Cookies', isMuffin: false, img: '/rose-petal/1.jpg' },
+      oatsnuts: { name: 'Oats & Nuts Cookies', isMuffin: false, img: '/oats-nuts/1.jpg' },
+      orange: { name: 'Orange Peel Shortbread', isMuffin: false, img: '/orange-peel/1.jpg' },
+      walnut: { name: 'California Walnut Cookies', isMuffin: false, img: '/img-walnut.png?v=2' },
+      walnut_sf: { name: 'Sugar-Free Walnut Cookies', isMuffin: false, img: '/img-walnut-sf.png?v=2' },
+      strawberry: { name: 'Strawberry Sponge Muffin', isMuffin: true, img: '/img-strawberry.jpg' },
+      pinacolada: { name: 'Pinacolada Sponge Muffin', isMuffin: true, img: '/img-pinacolada.jpg' },
+      butterscotch: { name: 'Butterscotch Cashew Muffin', isMuffin: true, img: '/img-butterscotch.jpg' },
+      chocochip: { name: '70% Dark Chocochip Muffin', isMuffin: true, img: '/img-chocochip.jpg' },
+      blackcurrant: { name: 'Black Currant Atta Muffin', isMuffin: true, img: '/img-blackcurrant.jpg' }
+    };
+
+    function getOrderItemsArray(order) {
+      if (!order) return [];
+      const raw = order.items !== undefined ? order.items : order.items_json;
+      if (Array.isArray(raw)) return raw;
+      if (typeof raw === 'string') {
+        try {
+          const p = JSON.parse(raw);
+          if (Array.isArray(p)) return p;
+          if (p && typeof p === 'object') return [p];
+        } catch (e) {}
+      }
+      if (raw && typeof raw === 'object') return [raw];
+      return [];
+    }
+
+    function resolveItemMeta(item) {
+      if (!item) item = {};
+      const rawId = String(item.id || item.productId || item.key || '').trim().toLowerCase();
+      const rawName = String(item.name || item.customName || item.title || '').trim();
+      const baseKey = rawId.split('_')[0] || '';
+      
+      const meta = PRODUCT_META_CATALOG[rawId] || PRODUCT_META_CATALOG[baseKey] || {};
+      
+      let cleanName = rawName;
+      if (!cleanName || cleanName === 'Artisanal Baked Delight' || cleanName === 'Cookie Box' || cleanName === 'custom_item') {
+        cleanName = meta.name || (baseKey ? (baseKey.charAt(0).toUpperCase() + baseKey.slice(1) + ' Box') : 'Artisanal Cookie Box');
+      }
+
+      cleanName = cleanName
+        .replace(/\s*\([^)]*\)/g, '')
+        .replace(/\s*\+.*$/i, '')
+        .trim();
+      if (!cleanName) cleanName = meta.name || 'Artisanal Treat Box';
+
+      const isMuffin = meta.isMuffin || cleanName.toLowerCase().includes('muffin') || rawId.includes('muffin');
+      const unitLabel = isMuffin ? 'Muffins' : 'Cookies';
+      const combined = `${rawId} ${rawName} ${item.packaging || ''} ${item.packaging_tier || ''} ${item.box_type || ''}`.toLowerCase();
+
+      let tierName = 'Classic Delights';
+      let piecesPerBox = isMuffin ? 4 : 8;
+      let tierBadge = '';
+
+      if (combined.includes('dozen') || combined.includes('12') || combined.includes('party') || combined.includes('6pcs') || combined.includes('6 pcs')) {
+        tierName = 'Dozen Delights';
+        piecesPerBox = isMuffin ? 6 : 12;
+        tierBadge = `<span style="background:rgba(91,44,111,0.14); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">👑 Dozen Delights (${piecesPerBox} ${unitLabel})</span>`;
+      } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('single') || combined.includes('2')) {
+        tierName = 'Twin Delights';
+        piecesPerBox = 2;
+        tierBadge = `<span style="background:rgba(41,128,185,0.14); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🛍️ Twin Delights (2 ${unitLabel})</span>`;
+      } else if (combined.includes('custom_box') || combined.includes('gift box') || combined.includes('builder')) {
+        tierName = 'Custom Curated Box';
+        piecesPerBox = 4;
+        tierBadge = `<span style="background:rgba(142,68,173,0.14); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🎁 Custom Curated Box</span>`;
+      } else {
+        tierName = 'Classic Delights';
+        piecesPerBox = isMuffin ? 4 : 8;
+        tierBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">📦 Classic Delights (${piecesPerBox} ${unitLabel})</span>`;
+      }
+
+      let giftBoxBadge = '';
+      if (combined.includes('lush')) {
+        giftBoxBadge = `<span style="background:rgba(232,165,152,0.3); color:#9E3D2E; border:1px solid #E8A598; padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">✨ Lush Box (+₹130)</span>`;
+      } else if (combined.includes('signature') || combined.includes('+₹15')) {
+        giftBoxBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">🎁 Signature Box (+₹15)</span>`;
+      }
+
+      const itemImg = item.image || item.boxImage || item.img || meta.img || (isMuffin ? '/img-chocochip.jpg' : '/almond/1.jpg');
+
+      return {
+        cleanName,
+        isMuffin,
+        unitLabel,
+        tierName,
+        piecesPerBox,
+        tierBadge,
+        giftBoxBadge,
+        itemImg,
+        combined
+      };
+    }
+
+    function formatOrderItemsHTML(items) {
+      const itemsArray = Array.isArray(items) ? items : (typeof items === 'string' ? JSON.parse(items || '[]') : []);
+      if (itemsArray.length === 0) {
+        return `<div style="color:var(--color-text-muted); font-size:12px;">Standard Cookie Box</div>`;
+      }
+
+      return itemsArray.map(item => {
+        const qty = Number(item.quantity || item.qty) || 1;
+        const meta = resolveItemMeta(item);
+        const details = String(item.details || item.flavors || item.customFlavors || '').trim();
+        const note = String(item.note || item.customMessage || item.giftNote || '').trim();
+
+        return `
+          <div style="margin-bottom:8px; padding-bottom:8px; border-bottom:1px dashed rgba(61,32,0,0.1); line-height:1.4;">
+            <div style="font-weight:700; color:var(--color-brown); display:flex; align-items:center; flex-wrap:wrap; gap:5px; font-size:12.5px;">
+              <span>${meta.isMuffin ? '🧁' : '🍪'} <strong>${qty}×</strong> ${escapeHtml(meta.cleanName)}</span>
+              ${meta.tierBadge}
+              ${meta.giftBoxBadge}
+            </div>
+            ${details ? `<div style="font-size:11px; color:#5B2C6F; font-weight:600; margin-top:2px;">🍬 <em>${escapeHtml(details)}</em></div>` : ''}
+            ${note ? `<div style="font-size:11px; color:#8C5803; background:#FFF8EB; border:1px solid rgba(200,150,12,0.25); border-radius:4px; padding:2px 6px; margin-top:2px;">💌 Note: "${escapeHtml(note)}"</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
     const authModal = document.getElementById('admin-auth-modal');
     const passcodeBtn = document.getElementById('btn-unlock-admin');
     const usernameInput = document.getElementById('admin-username-input');
@@ -1603,128 +1726,6 @@
         let inTransit = 0;
 
         let currentOrdersList = orders;
-
-        const PRODUCT_META_CATALOG = {
-          almond: { name: 'Almond Rich Cookies', isMuffin: false, img: '/almond/1.jpg' },
-          rose: { name: 'Rose Petal & Cardamom Cookies', isMuffin: false, img: '/rose-petal/1.jpg' },
-          oatsnuts: { name: 'Oats & Nuts Cookies', isMuffin: false, img: '/oats-nuts/1.jpg' },
-          orange: { name: 'Orange Peel Shortbread', isMuffin: false, img: '/orange-peel/1.jpg' },
-          walnut: { name: 'California Walnut Cookies', isMuffin: false, img: '/img-walnut.png?v=2' },
-          walnut_sf: { name: 'Sugar-Free Walnut Cookies', isMuffin: false, img: '/img-walnut-sf.png?v=2' },
-          strawberry: { name: 'Strawberry Sponge Muffin', isMuffin: true, img: '/img-strawberry.jpg' },
-          pinacolada: { name: 'Pinacolada Sponge Muffin', isMuffin: true, img: '/img-pinacolada.jpg' },
-          butterscotch: { name: 'Butterscotch Cashew Muffin', isMuffin: true, img: '/img-butterscotch.jpg' },
-          chocochip: { name: '70% Dark Chocochip Muffin', isMuffin: true, img: '/img-chocochip.jpg' },
-          blackcurrant: { name: 'Black Currant Atta Muffin', isMuffin: true, img: '/img-blackcurrant.jpg' }
-        };
-
-        function getOrderItemsArray(order) {
-          if (!order) return [];
-          const raw = order.items !== undefined ? order.items : order.items_json;
-          if (Array.isArray(raw)) return raw;
-          if (typeof raw === 'string') {
-            try {
-              const p = JSON.parse(raw);
-              if (Array.isArray(p)) return p;
-              if (p && typeof p === 'object') return [p];
-            } catch (e) {}
-          }
-          if (raw && typeof raw === 'object') return [raw];
-          return [];
-        }
-
-        function resolveItemMeta(item) {
-          const rawId = String(item.id || item.productId || item.key || '').trim().toLowerCase();
-          const rawName = String(item.name || item.customName || item.title || '').trim();
-          const baseKey = rawId.split('_')[0] || '';
-          
-          const meta = PRODUCT_META_CATALOG[rawId] || PRODUCT_META_CATALOG[baseKey] || {};
-          
-          let cleanName = rawName;
-          if (!cleanName || cleanName === 'Artisanal Baked Delight' || cleanName === 'Cookie Box' || cleanName === 'custom_item') {
-            cleanName = meta.name || (baseKey ? (baseKey.charAt(0).toUpperCase() + baseKey.slice(1) + ' Box') : 'Artisanal Cookie Box');
-          }
-
-          cleanName = cleanName
-            .replace(/\s*\([^)]*\)/g, '')
-            .replace(/\s*\+.*$/i, '')
-            .trim();
-          if (!cleanName) cleanName = meta.name || 'Artisanal Treat Box';
-
-          const isMuffin = meta.isMuffin || cleanName.toLowerCase().includes('muffin') || rawId.includes('muffin');
-          const unitLabel = isMuffin ? 'Muffins' : 'Cookies';
-          const combined = `${rawId} ${rawName} ${item.packaging || ''} ${item.packaging_tier || ''} ${item.box_type || ''}`.toLowerCase();
-
-          let tierName = 'Classic Delights';
-          let piecesPerBox = isMuffin ? 4 : 8;
-          let tierBadge = '';
-
-          if (combined.includes('dozen') || combined.includes('12') || combined.includes('party') || combined.includes('6pcs') || combined.includes('6 pcs')) {
-            tierName = 'Dozen Delights';
-            piecesPerBox = isMuffin ? 6 : 12;
-            tierBadge = `<span style="background:rgba(91,44,111,0.14); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">👑 Dozen Delights (${piecesPerBox} ${unitLabel})</span>`;
-          } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('single') || combined.includes('2')) {
-            tierName = 'Twin Delights';
-            piecesPerBox = 2;
-            tierBadge = `<span style="background:rgba(41,128,185,0.14); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🛍️ Twin Delights (2 ${unitLabel})</span>`;
-          } else if (combined.includes('custom_box') || combined.includes('gift box') || combined.includes('builder')) {
-            tierName = 'Custom Curated Box';
-            piecesPerBox = 4;
-            tierBadge = `<span style="background:rgba(142,68,173,0.14); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🎁 Custom Curated Box</span>`;
-          } else {
-            tierName = 'Classic Delights';
-            piecesPerBox = isMuffin ? 4 : 8;
-            tierBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">📦 Classic Delights (${piecesPerBox} ${unitLabel})</span>`;
-          }
-
-          let giftBoxBadge = '';
-          if (combined.includes('lush')) {
-            giftBoxBadge = `<span style="background:rgba(232,165,152,0.3); color:#9E3D2E; border:1px solid #E8A598; padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">✨ Lush Box (+₹130)</span>`;
-          } else if (combined.includes('signature') || combined.includes('+₹15')) {
-            giftBoxBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">🎁 Signature Box (+₹15)</span>`;
-          }
-
-          const itemImg = item.image || item.boxImage || item.img || meta.img || (isMuffin ? '/img-chocochip.jpg' : '/almond/1.jpg');
-
-          return {
-            cleanName,
-            isMuffin,
-            unitLabel,
-            tierName,
-            piecesPerBox,
-            tierBadge,
-            giftBoxBadge,
-            itemImg,
-            combined
-          };
-        }
-
-        // Rich Order Items Formatter Helper
-        function formatOrderItemsHTML(items) {
-          const itemsArray = Array.isArray(items) ? items : (typeof items === 'string' ? JSON.parse(items || '[]') : []);
-          if (itemsArray.length === 0) {
-            return `<div style="color:var(--color-text-muted); font-size:12px;">Standard Cookie Box</div>`;
-          }
-
-          return itemsArray.map(item => {
-            const qty = Number(item.quantity || item.qty) || 1;
-            const meta = resolveItemMeta(item);
-            const details = String(item.details || item.flavors || item.customFlavors || '').trim();
-            const note = String(item.note || item.customMessage || item.giftNote || '').trim();
-
-            return `
-              <div style="margin-bottom:8px; padding-bottom:8px; border-bottom:1px dashed rgba(61,32,0,0.1); line-height:1.4;">
-                <div style="font-weight:700; color:var(--color-brown); display:flex; align-items:center; flex-wrap:wrap; gap:5px; font-size:12.5px;">
-                  <span>${meta.isMuffin ? '🧁' : '🍪'} <strong>${qty}×</strong> ${escapeHtml(meta.cleanName)}</span>
-                  ${meta.tierBadge}
-                  ${meta.giftBoxBadge}
-                </div>
-                ${details ? `<div style="font-size:11px; color:#5B2C6F; font-weight:600; margin-top:2px;">🍬 <em>${escapeHtml(details)}</em></div>` : ''}
-                ${note ? `<div style="font-size:11px; color:#8C5803; background:#FFF8EB; border:1px solid rgba(200,150,12,0.25); border-radius:4px; padding:2px 6px; margin-top:2px;">💌 Note: "${escapeHtml(note)}"</div>` : ''}
-              </div>
-            `;
-          }).join('');
-        }
 
         if (orders.length > 0) {
           const pickupTbody = document.getElementById('pickup-orders-table-body');
