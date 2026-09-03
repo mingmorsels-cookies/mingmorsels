@@ -1435,13 +1435,12 @@
 
           <div style="flex: 1; background: #FFF; border: 1px solid #EADCCB; border-radius: 10px; padding: 14px; box-shadow: 0 2px 6px rgba(61,32,0,0.02);">
             <strong style="font-size: 13.5px; color: #3D2000; display: block; margin-bottom: 8px; font-weight: 700;">Payment Method</strong>
-            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1E824C; background: rgba(30,130,76,0.06); padding: 8px 10px; border-radius: 6px; border: 1px solid rgba(30,130,76,0.2);">
-              <span>🔒 100% Secure Online Prepaid</span>
-            </div>
-            <div style="font-size: 11px; color: #8A6E55; margin-top: 6px;">
-              UPI (GPay, PhonePe, Paytm) · Credit/Debit Cards · NetBanking
-            </div>
-            <input type="hidden" name="payment_method" value="online">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; margin-bottom: 8px; cursor: pointer; color: #5C3A21;">
+              <input type="radio" name="payment_method" value="online" checked> Online (Razorpay / UPI / Cards)
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer; color: #5C3A21;">
+              <input type="radio" name="payment_method" value="cod"> Cash on Delivery / Pay at Store
+            </label>
           </div>
         </div>
       </div>
