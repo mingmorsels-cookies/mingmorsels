@@ -3,61 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Order Confirmed — Ming Morsels Confectionery</title>
+  <title>Order Confirmed — Ming Morsels Luxury Confectionery</title>
   
   <link rel="icon" type="image/png" href="/logo.png?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/src/style.css">
   
   <style>
     :root {
-      --bg-dark: #120E0B;
-      --bg-card: #1C1510;
-      --color-gold: #C8960C;
-      --color-gold-light: #E5B21D;
+      --bg-dark: #0E0A07;
+      --bg-surface: #160F0B;
+      --bg-card: rgba(26, 18, 13, 0.88);
+      --bg-card-hover: rgba(36, 26, 18, 0.95);
+      --color-gold: #D4AF37;
+      --color-gold-light: #F3E5AB;
+      --color-gold-bright: #F5C344;
+      --color-gold-dark: #996515;
       --color-cream: #FAF6F0;
+      --color-cream-muted: #D8CEBE;
       --color-text-muted: #A39282;
-      --color-border: rgba(200, 150, 12, 0.22);
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --color-border: rgba(212, 175, 55, 0.28);
+      --color-border-subtle: rgba(255, 255, 255, 0.08);
+      --color-success: #2ECC71;
+      --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --shadow-luxury: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 40px rgba(212, 175, 55, 0.08);
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(200, 150, 12, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(140, 83, 62, 0.08) 0%, transparent 40%);
+        radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(140, 83, 62, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(20, 14, 9, 0.9) 0%, transparent 100%),
+        url('/hero-bg.png?v=2');
+      background-attachment: fixed;
+      background-size: cover;
       color: var(--color-cream);
       font-family: var(--font-sans);
       min-height: 100vh;
-      margin: 0;
-      padding: 0;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     /* ── Header Bar ── */
     .confirmation-nav {
       width: 100%;
-      background: rgba(18, 14, 11, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(14, 10, 7, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--color-border);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 12px 24px;
+      padding: 14px 28px;
     }
 
     .nav-inner {
-      max-width: 1140px;
+      max-width: 1180px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -67,7 +80,7 @@
     .nav-brand-link {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       text-decoration: none;
     }
 
@@ -75,49 +88,60 @@
       height: 48px;
       width: auto;
       object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));
+    }
+
+    .nav-brand-text {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--color-gold);
     }
 
     .nav-btn-home {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(200, 150, 12, 0.35);
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid var(--color-border);
       color: var(--color-cream);
       text-decoration: none;
-      padding: 8px 18px;
+      padding: 9px 20px;
       border-radius: 30px;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 600;
-      transition: all 0.25s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .nav-btn-home:hover {
-      background: rgba(200, 150, 12, 0.18);
+      background: rgba(212, 175, 55, 0.2);
       border-color: var(--color-gold);
-      transform: translateY(-1px);
+      color: #FFF;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.25);
     }
 
     /* ── Main Container ── */
     .confirmation-wrapper {
-      max-width: 1080px;
+      max-width: 1180px;
       width: 100%;
-      margin: 32px auto 60px;
-      padding: 0 20px;
+      margin: 36px auto 70px;
+      padding: 0 24px;
       flex: 1;
     }
 
     /* ── Hero Status Banner ── */
     .hero-banner {
-      background: linear-gradient(180deg, rgba(28, 21, 16, 0.95) 0%, rgba(20, 15, 11, 0.98) 100%);
-      border: 1px solid var(--color-border);
-      border-radius: 20px;
-      padding: 36px 28px;
+      background: linear-gradient(180deg, rgba(30, 20, 14, 0.95) 0%, rgba(18, 12, 8, 0.98) 100%);
+      border: 1.5px solid var(--color-border);
+      border-radius: 24px;
+      padding: 44px 32px 36px;
       text-align: center;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-      margin-bottom: 28px;
+      box-shadow: var(--shadow-luxury);
+      margin-bottom: 30px;
     }
 
     .hero-banner::before {
@@ -126,50 +150,103 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent 0%, #C8960C 50%, transparent 100%);
+      height: 4px;
+      background: linear-gradient(90deg, transparent 0%, #D4AF37 30%, #FFF2A1 50%, #D4AF37 70%, transparent 100%);
+    }
+
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .success-crest-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
     }
 
     .success-crest {
-      width: 72px;
-      height: 72px;
-      background: linear-gradient(135deg, #F5C344 0%, #C8960C 100%);
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%);
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
-      box-shadow: 0 0 32px rgba(200, 150, 12, 0.4);
-      animation: crestPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+      animation: crestPop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .crest-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px dashed rgba(212, 175, 55, 0.5);
+      animation: rotateRing 20s linear infinite;
+    }
+
+    @keyframes rotateRing {
+      to { transform: rotate(360deg); }
     }
 
     @keyframes crestPop {
-      0% { transform: scale(0.6); opacity: 0; }
+      0% { transform: scale(0.5); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
     .success-crest svg {
-      width: 36px;
-      height: 36px;
-      color: #120E0B;
-      stroke-width: 3;
+      width: 40px;
+      height: 40px;
+      color: #160F0B;
+      stroke-width: 3.2;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(28px, 4.5vw, 42px);
+      font-size: clamp(30px, 4.5vw, 44px);
       font-weight: 700;
-      color: var(--color-gold);
-      margin: 0 0 8px 0;
+      color: #FFFFFF;
+      margin: 0 0 10px 0;
       letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #FFF2A1 0%, #D4AF37 50%, #E5B21D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
-      font-size: 15px;
-      color: #D5C4B3;
-      max-width: 640px;
-      margin: 0 auto 18px;
-      line-height: 1.5;
+      font-size: 15.5px;
+      color: var(--color-cream-muted);
+      max-width: 680px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
+    }
+
+    .hero-subtitle strong {
+      color: #FFFFFF;
+      font-weight: 600;
     }
 
     .order-meta-pills {
@@ -177,58 +254,135 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .meta-pill {
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
+      border: 1px solid var(--color-border);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 13.5px;
       color: var(--color-cream);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .meta-pill strong {
-      color: var(--color-gold-light);
+      color: var(--color-gold-bright);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-copy-id {
+      background: none;
+      border: none;
+      color: var(--color-gold);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0 2px;
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+
+    .btn-copy-id:hover {
+      transform: scale(1.2);
     }
 
     .meta-pill.status-live {
-      background: rgba(46, 204, 113, 0.15);
+      background: rgba(46, 204, 113, 0.12);
       border-color: rgba(46, 204, 113, 0.4);
       color: #2ECC71;
       font-weight: 700;
     }
 
+    /* ── VIP Reward Points Celebration Card ── */
+    .vip-points-card {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(91, 44, 111, 0.15) 100%);
+      border: 1.5px solid var(--color-gold);
+      border-radius: 18px;
+      padding: 18px 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .vip-points-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .vip-trophy {
+      font-size: 32px;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(212, 175, 55, 0.2);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vip-points-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 3px;
+    }
+
+    .vip-points-sub {
+      font-size: 13px;
+      color: var(--color-gold-light);
+      line-height: 1.4;
+    }
+
+    .vip-points-badge {
+      background: linear-gradient(135deg, #F5C344 0%, #C8960C 100%);
+      color: #120E0B;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      white-space: nowrap;
+    }
+
     /* ── Progress Journey Tracker ── */
     .journey-card {
       background: var(--bg-card);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--color-border);
-      border-radius: 16px;
-      padding: 24px 20px;
-      margin-bottom: 28px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 28px 24px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-luxury);
     }
 
     .journey-title {
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: var(--color-gold);
-      margin: 0 0 20px 0;
+      margin: 0 0 24px 0;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
     }
 
     .journey-steps {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      gap: 12px;
       position: relative;
     }
 
@@ -241,16 +395,16 @@
     }
 
     .step-icon-wrap {
-      width: 42px;
-      height: 42px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+      border: 2px solid rgba(255, 255, 255, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      margin-bottom: 8px;
+      font-size: 20px;
+      margin-bottom: 10px;
       z-index: 2;
       transition: all 0.3s ease;
     }
@@ -259,15 +413,15 @@
       background: #2ECC71;
       border-color: #2ECC71;
       color: #120E0B;
-      box-shadow: 0 0 16px rgba(46, 204, 113, 0.4);
+      box-shadow: 0 0 20px rgba(46, 204, 113, 0.45);
     }
 
     .journey-step.active .step-icon-wrap {
-      background: var(--color-gold);
-      border-color: var(--color-gold-light);
+      background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 100%);
+      border-color: #FFF2A1;
       color: #120E0B;
-      box-shadow: 0 0 20px rgba(200, 150, 12, 0.5);
-      animation: stepPulse 1.8s infinite;
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.6);
+      animation: stepPulse 2s infinite ease-in-out;
     }
 
     @keyframes stepPulse {
@@ -276,14 +430,14 @@
     }
 
     .step-name {
-      font-size: 12.5px;
+      font-size: 13.5px;
       font-weight: 700;
-      color: var(--color-cream);
+      color: #FFFFFF;
       margin-bottom: 2px;
     }
 
     .step-sub {
-      font-size: 11px;
+      font-size: 11.5px;
       color: var(--color-text-muted);
     }
 
@@ -291,36 +445,37 @@
     .confirmation-grid {
       display: grid;
       grid-template-columns: 1.35fr 1fr;
-      gap: 24px;
+      gap: 28px;
     }
 
     .section-card {
       background: var(--bg-card);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--color-border);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      margin-bottom: 24px;
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: var(--shadow-luxury);
+      margin-bottom: 26px;
     }
 
     .card-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 14px;
-      margin-bottom: 18px;
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .card-head-title {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 700;
       color: var(--color-gold);
       margin: 0;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     /* ── Ordered Items List ── */
@@ -328,8 +483,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+      transition: background 0.2s;
     }
 
     .order-item-row:last-child {
@@ -343,28 +499,31 @@
     }
 
     .item-icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(200, 150, 12, 0.2);
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 24px;
       flex-shrink: 0;
     }
 
     .item-title {
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 700;
-      color: var(--color-cream);
-      margin: 0 0 2px 0;
+      color: #FFFFFF;
+      margin: 0 0 3px 0;
     }
 
     .item-tag {
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .item-price-col {
@@ -372,70 +531,73 @@
     }
 
     .item-qty {
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--color-text-muted);
     }
 
     .item-total {
-      font-size: 15px;
+      font-size: 15.5px;
       font-weight: 700;
-      color: var(--color-gold-light);
+      color: var(--color-gold-bright);
     }
 
     /* ── Delivery / Pickup Specific Cards ── */
     .pickup-highlight-box {
-      background: linear-gradient(135deg, rgba(200, 150, 12, 0.15) 0%, rgba(61, 32, 0, 0.25) 100%);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.16) 0%, rgba(61, 32, 0, 0.35) 100%);
       border: 1.5px solid var(--color-gold);
-      border-radius: 12px;
-      padding: 20px;
+      border-radius: 16px;
+      padding: 22px;
       text-align: center;
       margin-top: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     }
 
     .pin-label {
-      font-size: 11.5px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--color-gold-light);
+      letter-spacing: 2px;
+      color: var(--color-gold-bright);
       margin-bottom: 6px;
     }
 
     .pin-code-display {
-      font-size: 38px;
+      font-size: 42px;
       font-weight: 800;
-      letter-spacing: 8px;
+      letter-spacing: 10px;
       color: #FFFFFF;
       font-family: monospace;
-      text-shadow: 0 0 20px rgba(200, 150, 12, 0.6);
-      margin: 4px 0 10px 0;
+      text-shadow: 0 0 24px rgba(212, 175, 55, 0.7);
+      margin: 4px 0 12px 0;
     }
 
     .pickup-address-text {
-      font-size: 13px;
-      color: #E0D5C1;
+      font-size: 13.5px;
+      color: var(--color-cream-muted);
       line-height: 1.5;
-      margin: 0 0 12px 0;
+      margin: 0 0 14px 0;
     }
 
     .info-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .info-row {
       display: flex;
       justify-content: space-between;
       font-size: 13.5px;
+      line-height: 1.4;
     }
 
     .info-row .label {
       color: var(--color-text-muted);
+      flex-shrink: 0;
     }
 
     .info-row .val {
-      color: var(--color-cream);
+      color: #FFFFFF;
       font-weight: 600;
       text-align: right;
     }
@@ -445,54 +607,55 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      font-size: 13.5px;
-      color: #D5C4B3;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: var(--color-cream-muted);
     }
 
     .bill-row.total-row {
-      border-top: 1.5px dashed rgba(255, 255, 255, 0.15);
-      padding-top: 14px;
-      margin-top: 14px;
-      font-size: 18px;
+      border-top: 1.5px dashed rgba(212, 175, 55, 0.3);
+      padding-top: 16px;
+      margin-top: 16px;
+      font-size: 19px;
       font-weight: 800;
       color: #FFFFFF;
     }
 
     .bill-row.total-row .total-amount {
-      color: var(--color-gold-light);
-      font-size: 22px;
+      color: var(--color-gold-bright);
+      font-size: 24px;
+      font-weight: 800;
     }
 
     .payment-badge-box {
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin: 16px 0 20px 0;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 18px 0 22px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .payment-badge-tag {
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 12px;
+      padding: 4px 12px;
+      border-radius: 14px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .badge-cod {
-      background: rgba(245, 166, 35, 0.2);
-      border: 1px solid rgba(245, 166, 35, 0.5);
+      background: rgba(245, 166, 35, 0.18);
+      border: 1px solid rgba(245, 166, 35, 0.45);
       color: #FFC107;
     }
 
     .badge-prepaid {
-      background: rgba(46, 204, 113, 0.2);
-      border: 1px solid rgba(46, 204, 113, 0.5);
+      background: rgba(46, 204, 113, 0.18);
+      border: 1px solid rgba(46, 204, 113, 0.45);
       color: #2ECC71;
     }
 
@@ -500,7 +663,7 @@
     .action-btn-stack {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .btn-action-primary {
@@ -508,42 +671,45 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: #25D366;
+      background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
       color: #FFFFFF;
       text-decoration: none;
-      padding: 14px 18px;
+      padding: 14px 20px;
       border-radius: 12px;
       font-weight: 700;
-      font-size: 14px;
-      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
-      transition: all 0.2s;
+      font-size: 14.5px;
+      box-shadow: 0 6px 20px rgba(46, 204, 113, 0.35);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-action-primary:hover {
-      background: #22bf5b;
-      transform: translateY(-1px);
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(46, 204, 113, 0.5);
     }
 
     .btn-action-gold {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #F5C344 0%, #C8960C 100%);
+      gap: 10px;
+      background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #B8860B 100%);
       color: #120E0B;
       text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 13.5px;
-      transition: all 0.2s;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 14.5px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       border: none;
       cursor: pointer;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
     }
 
     .btn-action-gold:hover {
       filter: brightness(1.08);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(212, 175, 55, 0.5);
     }
 
     .btn-action-outline {
@@ -551,21 +717,23 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: transparent;
-      border: 1px solid rgba(200, 150, 12, 0.4);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--color-border);
       color: var(--color-cream);
       text-decoration: none;
-      padding: 11px 16px;
-      border-radius: 10px;
+      padding: 12px 18px;
+      border-radius: 12px;
       font-weight: 600;
-      font-size: 13px;
-      transition: all 0.2s;
+      font-size: 13.5px;
+      transition: all 0.2s ease;
       cursor: pointer;
     }
 
     .btn-action-outline:hover {
-      background: rgba(200, 150, 12, 0.15);
+      background: rgba(212, 175, 55, 0.15);
       border-color: var(--color-gold);
+      color: #FFFFFF;
+      transform: translateY(-1px);
     }
 
     .action-btn-row {
@@ -579,26 +747,26 @@
 
     /* ── Freshness Promise Card ── */
     .freshness-card {
-      background: rgba(200, 150, 12, 0.05);
-      border: 1px dashed rgba(200, 150, 12, 0.3);
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 20px;
-      font-size: 12.5px;
-      color: #D5C4B3;
-      line-height: 1.5;
+      background: rgba(212, 175, 55, 0.06);
+      border: 1px dashed rgba(212, 175, 55, 0.35);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 22px;
+      font-size: 13px;
+      color: var(--color-cream-muted);
+      line-height: 1.55;
     }
 
     .freshness-card strong {
-      color: var(--color-gold);
+      color: var(--color-gold-bright);
     }
 
     /* ── Confetti ── */
     .confetti {
       position: fixed;
-      width: 8px;
-      height: 14px;
-      opacity: 0.8;
+      width: 9px;
+      height: 15px;
+      opacity: 0.85;
       pointer-events: none;
       animation: fall linear forwards;
       z-index: 9999;
@@ -620,6 +788,13 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 18px;
       }
+      .vip-points-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-banner {
+        padding: 36px 20px 28px;
+      }
     }
   </style>
 </head>
@@ -630,9 +805,10 @@
     <div class="nav-inner">
       <a href="/" class="nav-brand-link">
         <img src="/logo.png?v=2" alt="Ming Morsels" class="nav-brand-logo" />
+        <span class="nav-brand-text">mingmorsels</span>
       </a>
       <a href="/" class="nav-btn-home">
-        <span>← Continue Shopping</span>
+        <span>← Continue Exploring Menu</span>
       </a>
     </div>
   </header>
@@ -640,51 +816,76 @@
   <main class="confirmation-wrapper">
     <!-- Hero Status Banner -->
     <section class="hero-banner">
-      <div class="success-crest">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
+      <div class="success-crest-wrapper">
+        <div class="crest-ring"></div>
+        <div class="success-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
       </div>
-      <h1 class="hero-title">Order Confirmed &amp; Baking in Studio</h1>
+      
+      <div class="hero-eyebrow">
+        <span>✨ Handcrafted Luxury Confectionery</span>
+      </div>
+      
+      <h1 class="hero-title">Order Confirmed &amp; <span>Baking in Studio</span></h1>
+      
       <p class="hero-subtitle" id="hero-customer-greeting">
-        Thank you for your order! Our master confectioners have received your artisanal selection and are now handcrafted baking your fresh batch.
+        Thank you for your order. Our master confectioners have received your artisanal selection and are now small-batch baking your fresh treats with 100% pure cow butter &amp; natural plant-based Stevia.
       </p>
 
       <div class="order-meta-pills">
         <div class="meta-pill">
-          <span>Order ID:</span>
+          <span>Order Reference:</span>
           <strong id="disp-order-id">#MM-Loading...</strong>
+          <button class="btn-copy-id" id="btn-copy-order-id" title="Copy Order ID">📋</button>
         </div>
         <div class="meta-pill">
           <span>Placed On:</span>
           <strong id="disp-order-date">Just Now</strong>
         </div>
         <div class="meta-pill status-live" id="disp-status-pill">
-          <span>● Baking in Studio</span>
+          <span>● Fresh Oven Batch</span>
         </div>
       </div>
     </section>
 
+    <!-- VIP Reward Points Banner -->
+    <section class="vip-points-card">
+      <div class="vip-points-left">
+        <div class="vip-trophy">🎉</div>
+        <div>
+          <div class="vip-points-title">You Earned +100 Connoisseur Reward Points!</div>
+          <div class="vip-points-sub">
+            Complete <strong>1,000 Points</strong> (10 orders) to unlock our VIP Chef Milestone and receive a <strong>Special Handcrafted Artisanal Gift Box</strong>!
+          </div>
+        </div>
+      </div>
+      <div class="vip-points-badge">+100 PTS CREDITED</div>
+    </section>
+
     <!-- Progress Journey Timeline -->
     <section class="journey-card">
-      <h3 class="journey-title">
-        <span>⏱️ Live Kitchen &amp; Fulfillment Timeline</span>
-      </h3>
+      <div class="journey-title">
+        <span>⏱️ Live Kitchen &amp; Fulfillment Journey</span>
+        <span style="font-size: 11px; color: var(--color-text-muted); font-weight: 500;">Bengaluru Central Baking Studio</span>
+      </div>
       <div class="journey-steps">
         <div class="journey-step completed">
           <div class="step-icon-wrap">✓</div>
-          <div class="step-name">Order Accepted</div>
-          <div class="step-sub" id="time-step-1">Confirmed</div>
+          <div class="step-name">Order Confirmed</div>
+          <div class="step-sub" id="time-step-1">Verified</div>
         </div>
         <div class="journey-step active">
           <div class="step-icon-wrap">🍪</div>
-          <div class="step-name">Baking Studio</div>
-          <div class="step-sub">In Kitchen</div>
+          <div class="step-name">Stone Oven Baking</div>
+          <div class="step-sub">In Kitchen Batch</div>
         </div>
         <div class="journey-step">
           <div class="step-icon-wrap">🎁</div>
-          <div class="step-name">Gold Packaging</div>
-          <div class="step-sub">Quality Seal</div>
+          <div class="step-name">Gold Foil Packaging</div>
+          <div class="step-sub">Airtight Shield</div>
         </div>
         <div class="journey-step">
           <div class="step-icon-wrap" id="icon-step-4">🚚</div>
@@ -709,7 +910,7 @@
 
           <div id="order-items-container">
             <!-- Dynamically populated via JS -->
-            <div style="text-align:center; padding: 20px; color: var(--color-text-muted);">
+            <div style="text-align:center; padding: 24px; color: var(--color-text-muted);">
               Loading order treats...
             </div>
           </div>
@@ -735,13 +936,13 @@
         <section class="section-card">
           <div class="card-head">
             <h2 class="card-head-title">
-              <span>🧾 Bill Summary</span>
+              <span>🧾 Financial Receipt</span>
             </h2>
-            <span style="font-size: 11px; background: rgba(46,204,113,0.15); color: #2ECC71; padding: 2px 8px; border-radius: 10px; font-weight: 700;">100% Tax Compliant</span>
+            <span style="font-size: 11px; background: rgba(46,204,113,0.15); color: #2ECC71; padding: 2px 10px; border-radius: 12px; font-weight: 700;">100% Tax Compliant</span>
           </div>
 
           <div class="bill-row">
-            <span>Cookies &amp; Muffins Subtotal</span>
+            <span>Artisanal Treats Subtotal</span>
             <span id="bill-subtotal" style="color: #FFF; font-weight: 600;">₹0</span>
           </div>
           <div class="bill-row" id="bill-discount-row" style="display: none;">
@@ -753,7 +954,7 @@
             <span id="bill-delivery" style="color: #FFF; font-weight: 600;">FREE</span>
           </div>
           <div class="bill-row">
-            <span>Estimated GST Taxes</span>
+            <span>Estimated GST Taxes (5%)</span>
             <span id="bill-gst" style="color: #FFF; font-weight: 600;">Included</span>
           </div>
 
@@ -764,10 +965,10 @@
 
           <div class="payment-badge-box">
             <div>
-              <div style="font-size: 11px; color: var(--color-text-muted); margin-bottom: 2px;">Payment Method</div>
-              <div style="font-size: 13.5px; font-weight: 700; color: #FFF;" id="disp-payment-method">Cash on Delivery</div>
+              <div style="font-size: 11.5px; color: var(--color-text-muted); margin-bottom: 2px;">Payment Method</div>
+              <div style="font-size: 14px; font-weight: 700; color: #FFF;" id="disp-payment-method">Cash on Delivery</div>
             </div>
-            <span class="payment-badge-tag badge-cod" id="disp-payment-badge">Pay at Counter / Handover</span>
+            <span class="payment-badge-tag badge-cod" id="disp-payment-badge">Pay at Handover</span>
           </div>
 
           <!-- Quick Action Buttons -->
@@ -776,11 +977,11 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.073-1.045-.062-.239-.079-.533-.187-.935-.362-1.637-.714-2.709-2.366-2.791-2.476-.082-.109-.667-.888-.667-1.694 0-.806.422-1.203.573-1.368.144-.158.337-.234.453-.234.116 0 .232.002.333.007.108.005.253-.041.396.302.147.351.503 1.229.547 1.319.044.09.073.195.015.311-.059.117-.088.19-.176.293-.088.104-.185.232-.264.312-.088.089-.18.187-.078.362.102.176.452.746.969 1.208.666.595 1.227.78 1.403.867.176.088.278.074.382-.045.103-.118.441-.513.559-.689.117-.176.234-.147.395-.088.161.059 1.026.484 1.202.572.176.088.293.132.337.205.044.074.044.428-.1 1.246z"/>
               </svg>
-              <span>💬 Live WhatsApp Updates</span>
+              <span>💬 Live WhatsApp Concierge</span>
             </a>
 
             <a id="btn-live-track" href="/track-order.html" class="btn-action-gold">
-              <span>🚚 Track Live Journey</span>
+              <span>🚚 Track Live Order Journey →</span>
             </a>
 
             <div class="action-btn-row">
@@ -795,7 +996,7 @@
 
           <!-- Freshness Promise -->
           <div class="freshness-card">
-            <strong>✨ The Ming Morsels Promise:</strong> Handcrafted in pure cow butter with zero margarine &amp; zero preservatives. Best enjoyed within 10 days of delivery.
+            <strong>✨ The Ming Morsels Promise:</strong> Handcrafted in 100% pure cow butter and natural plant-based Stevia with zero palm oil, zero dalda &amp; zero preservatives. Best enjoyed within 10 days of fresh baking.
           </div>
         </section>
       </div>
@@ -805,15 +1006,15 @@
   <script>
     // Confetti Effect
     function launchConfetti() {
-      const colors = ['#C8960C', '#F5C344', '#FFFFFF', '#E0D5C1', '#2ECC71'];
-      for (let i = 0; i < 55; i++) {
+      const colors = ['#D4AF37', '#FFDF79', '#FFFFFF', '#E0D5C1', '#2ECC71'];
+      for (let i = 0; i < 60; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.left = Math.random() * 100 + 'vw';
         confetti.style.top = -10 + 'px';
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         confetti.style.animationDuration = (Math.random() * 2.5 + 2.5) + 's';
-        confetti.style.animationDelay = Math.random() * 1.5 + 's';
+        confetti.style.animationDelay = Math.random() * 1.2 + 's';
         confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
         document.body.appendChild(confetti);
         setTimeout(() => confetti.remove(), 5000);
@@ -831,6 +1032,15 @@
     document.getElementById('disp-order-id').innerText = '#' + cleanId;
     document.getElementById('disp-order-date').innerText = new Date().toLocaleDateString('en-IN', {
       day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+
+    // Copy Order ID Button
+    document.getElementById('btn-copy-order-id')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(cleanId).then(() => {
+        const btn = document.getElementById('btn-copy-order-id');
+        btn.textContent = '✅';
+        setTimeout(() => btn.textContent = '📋', 2000);
+      });
     });
 
     // Update Action Links
@@ -861,25 +1071,26 @@
       const deliveryMode = order?.delivery_mode || urlParams.get('mode') || localStorage.getItem('ming_morsels_delivery_mode') || 'courier';
       const isPickup = deliveryMode === 'pickup' || (order?.shipping_address && order.shipping_address.includes('Store Pickup:'));
       const pickupPin = order?.pickup_pin || urlParams.get('pin') || localStorage.getItem('ming_morsels_pickup_pin') || '4892';
-      const customerName = order?.user_name || userProfile.name || localStorage.getItem('ming_morsels_name') || 'Connoisseur';
+      const customerName = order?.user_name || userProfile.name || localStorage.getItem('ming_morsels_name') || 'Valued Connoisseur';
       const customerEmail = order?.user_email || userAddress.email || userProfile.email || localStorage.getItem('ming_morsels_email') || '';
       const customerPhone = order?.user_phone || userAddress.phone || userProfile.phone || localStorage.getItem('ming_morsels_phone') || '';
       const shippingAddress = order?.shipping_address || userAddress.address || localStorage.getItem('ming_morsels_address') || 'Express Bengaluru Delivery';
       const totalAmount = order?.total_amount || urlParams.get('total') || 140;
       const isCOD = (order?.payment_method?.toLowerCase().includes('cash') || isCODParam);
+      const isSundayOrder = (new Date(order?.created_at || Date.now()).getDay() === 0);
 
       // Greet Customer
       if (customerName) {
         document.getElementById('hero-customer-greeting').innerHTML = `
-          Dear <strong>${customerName}</strong>, thank you for your order! Your freshly baked batch is now in the oven. ${customerEmail ? `An invoice and tracking confirmation has been sent to <strong>${customerEmail}</strong>.` : ''}
+          Dear <strong>${customerName}</strong>, thank you for your order! Your freshly baked batch is now entering our central ovens. ${customerEmail ? `A digital tax invoice & confirmation have been dispatched to <strong>${customerEmail}</strong>.` : ''}
         `;
       }
 
       // Step 4 Label for Pickup vs Delivery
       if (isPickup) {
         document.getElementById('icon-step-4').innerText = '🏪';
-        document.getElementById('label-step-4').innerText = 'Store Ready';
-        document.getElementById('sub-step-4').innerText = 'Ready in 2-3 hrs';
+        document.getElementById('label-step-4').innerText = 'Store Counter Ready';
+        document.getElementById('sub-step-4').innerText = isSundayOrder ? 'Ready Monday (10 AM)' : 'Ready in 2-3 hrs';
       }
 
       // Render Items
@@ -896,7 +1107,7 @@
             <div class="item-icon-box">${it.type === 'muffin' ? '🧁' : '🍪'}</div>
             <div>
               <div class="item-title">${it.name || 'Artisanal Baked Item'}</div>
-              <div class="item-tag">${it.packaging || it.unit || 'Fresh Signature Pack'}</div>
+              <div class="item-tag">${it.packaging || it.unit || 'Fresh Signature Box'}</div>
             </div>
           </div>
           <div class="item-price-col">
@@ -917,27 +1128,43 @@
             <div class="pin-label">🔑 Your Store Collection PIN</div>
             <div class="pin-code-display">${pickupPin}</div>
             <p class="pickup-address-text">
-              Please present this <strong>PIN</strong> or <strong>Order ID (${cleanId})</strong> at our Nayanda Halli kitchen counter.
+              Present this <strong>PIN</strong> or <strong>Order ID (#${cleanId})</strong> at our Nayanda Halli studio counter.
             </p>
             <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-              <a href="https://maps.google.com/?q=1st+A+Main+Road+mingmorsels+SLV+layout+Phase+3+Nayanda+Halli+Bengaluru+560026" target="_blank" class="btn-action-outline" style="padding: 8px 14px; font-size: 12px;">
-                📍 Open in Google Maps
+              <a href="https://maps.google.com/?q=1st+A+Main+Road+mingmorsels+SLV+layout+Phase+3+Nayanda+Halli+Bengaluru+560026" target="_blank" class="btn-action-outline" style="padding: 9px 16px; font-size: 13px;">
+                📍 Open Location in Google Maps
               </a>
             </div>
           </div>
 
+          ${isSundayOrder ? `
+          <div style="background: #FFF3CD; border: 1.5px solid #FFEBAA; border-radius: 12px; padding: 14px 16px; margin-top: 16px; text-align: left;">
+            <div style="font-weight: 700; color: #856404; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
+              <span>⚠️</span> <span>Sunday Holiday Notice</span>
+            </div>
+            <p style="margin: 6px 0 0; color: #664D03; font-size: 12.5px; line-height: 1.45;">
+              Sunday is a weekly holiday for store pickup. Since you placed your order today, your cookies will be freshly baked and ready for pickup <strong>tomorrow on Monday between 10:00 AM and 4:00 PM</strong>.
+            </p>
+          </div>
+          ` : `
+          <div style="background: rgba(46, 107, 26, 0.12); border: 1px solid rgba(46, 107, 26, 0.3); border-radius: 12px; padding: 12px 16px; margin-top: 16px; text-align: left;">
+            <div style="font-weight: 700; color: #2ECC71; font-size: 13px; display: flex; align-items: center; gap: 6px;">
+              <span>🕒</span> <span>Store Pickup Operating Hours</span>
+            </div>
+            <p style="margin: 4px 0 0; color: #E0D5C1; font-size: 12px; line-height: 1.4;">
+              Open daily <strong>Monday – Saturday (10:00 AM to 4:00 PM)</strong>. Ready within 2–3 hours. <em>(Sunday is weekly holiday)</em>.
+            </p>
+          </div>
+          `}
+
           <div class="info-list" style="margin-top: 18px;">
             <div class="info-row">
-              <span class="label">Pickup Studio Location:</span>
-              <span class="val">1st A, Main Road, mingmorsels, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026</span>
+              <span class="label">Baking Studio Address:</span>
+              <span class="val">1st A, Main Road, mingmorsels, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru 560026</span>
             </div>
             <div class="info-row">
-              <span class="label">Ready Time:</span>
-              <span class="val" style="color: #2ECC71;">Ready in 2–3 Hours</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Customer Contact:</span>
-              <span class="val">${customerPhone || '+91 98884 10202'}</span>
+              <span class="label">Customer Phone:</span>
+              <span class="val">${customerPhone || '+91 88841 02020'}</span>
             </div>
           </div>
         `;
@@ -946,24 +1173,24 @@
         fulfillmentContent.innerHTML = `
           <div class="info-list">
             <div class="info-row">
-              <span class="label">Recipient Name:</span>
+              <span class="label">Recipient:</span>
               <span class="val">${customerName}</span>
             </div>
             <div class="info-row">
-              <span class="label">Contact Phone:</span>
-              <span class="val">${customerPhone || '+91 98884 10202'}</span>
+              <span class="label">Phone:</span>
+              <span class="val">${customerPhone || '+91 88841 02020'}</span>
             </div>
             <div class="info-row">
-              <span class="label">Email Address:</span>
+              <span class="label">Email:</span>
               <span class="val">${customerEmail || 'orders@mingmorsels.com'}</span>
             </div>
             <div class="info-row">
-              <span class="label">Delivery Address:</span>
+              <span class="label">Destination Address:</span>
               <span class="val" style="max-width: 60%;">${shippingAddress}</span>
             </div>
             <div class="info-row">
-              <span class="label">Courier Service:</span>
-              <span class="val" style="color: var(--color-gold);">${order?.courier || 'BlueDart Air Priority (Shipway Verified)'}</span>
+              <span class="label">Logistics Partner:</span>
+              <span class="val" style="color: var(--color-gold);">${order?.courier || 'BlueDart Air Priority (Shipway)'}</span>
             </div>
             <div class="info-row">
               <span class="label">Estimated Delivery:</span>
@@ -978,7 +1205,7 @@
       document.getElementById('bill-total').innerText = `₹${totalAmount}`;
       document.getElementById('bill-delivery').innerHTML = isPickup 
         ? '<span style="color:#2ECC71;">₹0 (Free Store Pickup)</span>' 
-        : (totalAmount >= 1000 ? '<span style="color:#2ECC71;">FREE (Orders ₹1000+)</span>' : '₹49');
+        : (totalAmount >= 1000 ? '<span style="color:#2ECC71;">FREE (Orders ₹1,000+)</span>' : '₹49');
 
       const payMethodText = isCOD ? 'Cash on Delivery (Pay at Handover)' : 'Prepaid via Razorpay';
       document.getElementById('disp-payment-method').innerText = payMethodText;
