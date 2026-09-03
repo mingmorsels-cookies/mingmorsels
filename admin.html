@@ -1482,15 +1482,6 @@
 
           return items.map(item => {
             const qty = Number(item.quantity || item.qty) || 1;
-            const rawName = item.name || item.customName || item.id || 'Artisanal Baked Delight';
-            const packaging = item.packaging ? String(item.packaging).trim() : '';
-            const details = item.details ? String(item.details).trim() : '';
-            const note = item.note || item.customMessage || item.giftNote ? String(item.note || item.customMessage || item.giftNote).trim() : '';
-            const unitPrice = Number(item.unit_price || item.price || 0);
-            const totalPrice = Number(item.total_price || (unitPrice > 0 ? unitPrice * qty : 0));
-
-          return items.map(item => {
-            const qty = Number(item.quantity || item.qty) || 1;
             const rawName = String(item.name || item.customName || item.id || 'Artisanal Baked Delight').trim();
             const packaging = String(item.packaging || item.packaging_tier || '').trim();
             const details = String(item.details || item.flavors || item.customFlavors || '').trim();
