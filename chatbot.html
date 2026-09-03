@@ -139,11 +139,12 @@
 
         .hero {
             background: var(--hero-grad);
-            padding: 28px 24px 20px;
+            padding: 22px 20px 16px;
             text-align: center;
             position: relative;
             overflow: visible;
             transition: background 0.3s;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .hero::before {
@@ -153,20 +154,60 @@
             background: radial-gradient(ellipse at 20% 50%, rgba(200, 150, 12, 0.15), transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(232, 184, 75, 0.1), transparent 50%);
         }
 
+        .chatbot-brand-emblem {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 6px;
+            z-index: 2;
+        }
+
+        .chatbot-brand-logo {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            background: #FFFFFF;
+            padding: 4px;
+            border-radius: 50%;
+            border: 2px solid #D4AF37;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35), 0 0 0 3px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chatbot-brand-logo:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .brand-status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #10B981;
+            border: 2px solid #140D03;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10B981;
+        }
+
         .hero-tag {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 11px;
-            letter-spacing: 4px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
             color: var(--gold2);
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             position: relative;
         }
 
         /* ===== SPELL-OUT FEATURE ===== */
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 24px;
+            font-weight: 800;
             color: #FFF8EE;
             line-height: 1.2;
             position: relative;
@@ -174,6 +215,7 @@
             display: inline-block;
             cursor: pointer;
             user-select: none;
+            letter-spacing: 0.5px;
         }
 
         .hero-title em {
@@ -635,33 +677,40 @@
         }
 
         .avatar {
-            width: 30px;
-            height: 30px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 700;
         }
 
         .avatar.bot {
-            width: 50px;
-            height: 50px;
-            background: #ffffff url('logo.png?v=2') no-repeat center;
-            background-size: contain;
-            border: 1px solid var(--border);
+            width: 40px;
+            height: 40px;
+            background: #FFFFFF url('/logo.png?v=2') no-repeat center;
+            background-size: 85% auto;
+            border: 2px solid #D4AF37;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.25);
         }
 
         .avatar.user {
-            background: var(--gold);
-            color: white;
-            font-size: 12px;
+            background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 100%);
+            color: #1A1008;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         [data-theme="dark"] .avatar.bot {
-            background-color: #2A1A05;
+            background-color: #1A1008;
+            border-color: #D4AF37;
+            box-shadow: 0 2px 12px rgba(212, 175, 55, 0.35);
         }
 
         .bubble {
@@ -3177,7 +3226,12 @@
             </div>
         </div>
 
-        <div class="hero-tag">⚜️ LE SOMMELIER CONFECTIONNEUR ⚜️</div>
+        <div class="chatbot-brand-emblem">
+            <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="chatbot-brand-logo" />
+            <div class="brand-status-dot" title="Online Sommelier"></div>
+        </div>
+
+        <div class="hero-tag">✦ GOURMET COOKIE CONCIERGE ✦</div>
 
         <!-- Luxury Clickable Brand Title -->
         <div class="hero-title" onclick="spellOutTitle()" title="Click to hear it spoken!">
@@ -3185,44 +3239,44 @@
             mingmorsels
         </div>
 
-        <div class="hero-sub">Haute Pâtisserie · 100% Plant Stevia · Zero Hydrogenated Lipids</div>
+        <div class="hero-sub">Handcrafted Luxury · 100% Pure Butter · Natural Stevia</div>
         <div class="morsels-tabs">
-            <button class="morsels-tab-btn active" id="tabChatBtn" onclick="switchTab('chat')">⚜️ Sommelier Atelier</button>
-            <button class="morsels-tab-btn" id="tabBoutiqueBtn" onclick="switchTab('boutique')">🏛️ Connoisseur Boutique</button>
+            <button class="morsels-tab-btn active" id="tabChatBtn" onclick="switchTab('chat')">💬 Atelier Chat</button>
+            <button class="morsels-tab-btn" id="tabBoutiqueBtn" onclick="switchTab('boutique')">🛍️ Cookie Boutique</button>
         </div>
     </div>
 
     <div class="cookie-strip">
-        <div class="cookie-chip" onclick="askAbout('Royal Roasted Almond Rich Cookies')"><span>🌰</span>Royal Almond</div>
-        <div class="cookie-chip" onclick="askAbout('Damask Rose Petal & Cardamom Cookies')"><span>🌹</span>Damask Rose</div>
-        <div class="cookie-chip" onclick="askAbout('Artisanal Rolled Oats & Walnut Cookies')"><span>🌾</span>Omega Oats</div>
-        <div class="cookie-chip" onclick="askAbout('Cold-Pressed Valencia Orange Peel Shortbread')"><span>🍊</span>Valencia Zest</div>
-        <div class="cookie-chip" onclick="askAbout('California Walnut Connoisseur Cookies')"><span>🧠</span>California Walnut</div>
-        <div class="cookie-chip" onclick="askAbout('Stevia Zero-Sugar Walnut Cookies')"><span>🍃</span>Stevia Zero-Sugar</div>
-        <div class="cookie-chip" onclick="askAbout('Mahabaleshwar Strawberry Sponge Muffin')"><span>🍓</span>Strawberry Sponge</div>
-        <div class="cookie-chip" onclick="askAbout('Tropical Pinacolada Sponge Muffin')"><span>🍍</span>Pinacolada Sponge</div>
-        <div class="cookie-chip" onclick="askAbout('Golden Butterscotch & Cashew Muffin')"><span>🧈</span>Butterscotch Cashew</div>
-        <div class="cookie-chip" onclick="askAbout('70% Belgian Dark Chocochip Muffin')"><span>🍫</span>70% Dark Cacao</div>
-        <div class="cookie-chip" onclick="askAbout('Nordic Black Currant Atta Muffin')"><span>🫐</span>Nordic Currant</div>
-        <div class="cookie-chip" onclick="sendMessage('Disclose your entire gastronomic compendium')"><span>✨</span>All Creations</div>
-        <div class="gift-trigger-chip" onclick="openGiftBuilder()"><span>🎁</span>Bespoke Coffret</div>
+        <div class="cookie-chip" onclick="askAbout('Almond Rich Cookies')"><span>🌰</span>Almond Rich</div>
+        <div class="cookie-chip" onclick="askAbout('Rose Petal Cookies')"><span>🌹</span>Rose Petal</div>
+        <div class="cookie-chip" onclick="askAbout('Oats Nuts Cookies')"><span>🌾</span>Oats &amp; Nuts</div>
+        <div class="cookie-chip" onclick="askAbout('Orange Peel Cookies')"><span>🍊</span>Orange Peel</div>
+        <div class="cookie-chip" onclick="askAbout('Walnut Cookies')"><span>🧠</span>Walnut Crunch</div>
+        <div class="cookie-chip" onclick="askAbout('Sugar-Free Walnut Cookies')"><span>🍃</span>Sugar-Free Walnut</div>
+        <div class="cookie-chip" onclick="askAbout('Strawberry Muffins')"><span>🍓</span>Strawberry Muffin</div>
+        <div class="cookie-chip" onclick="askAbout('Pinacolada Muffins')"><span>🍍</span>Pinacolada Muffin</div>
+        <div class="cookie-chip" onclick="askAbout('Butterscotch Muffins')"><span>🧈</span>Butterscotch Muffin</div>
+        <div class="cookie-chip" onclick="askAbout('Chocochip Muffins')"><span>🍫</span>Dark Chocochip</div>
+        <div class="cookie-chip" onclick="askAbout('Black Currant Muffin')"><span>🫐</span>Black Currant</div>
+        <div class="cookie-chip" onclick="sendMessage('Show me all cookie and muffin flavours!')"><span>✨</span>All Flavours</div>
+        <div class="gift-trigger-chip" onclick="openGiftBuilder()"><span>🎁</span>Gift Box Builder</div>
     </div>
 
     <div class="mood-banner">
-        <div class="mood-label" id="moodLabel">✨ Declare Your Epicurean Disposition · Allow Our Sommelier to Curate an Epiphany ✦</div>
+        <div class="mood-label" id="moodLabel">How are you feeling today? Let our Sommelier suggest the perfect cookie ✦</div>
         <div class="mood-btns">
-            <button class="mood-btn" onclick="sendMessage('I am in a buoyant, euphoric mood, orchestrate a pairing!')">✨ <span
-                    class="mood-txt-happy">Euphoric</span></button>
-            <button class="mood-btn" onclick="sendMessage('Experiencing metabolic fatigue, prescribe sustained cellular energy')">⚡
-                <span class="mood-txt-tired">Soporific</span></button>
-            <button class="mood-btn" onclick="sendMessage('In a sybaritic and romantic disposition, recommend an intimate confection')">🌹 <span
-                    class="mood-txt-romantic">Sybaritic</span></button>
-            <button class="mood-btn" onclick="sendMessage('My nervous system is overstimulated, prescribe a calming formulation')">🧘
-                <span class="mood-txt-stressed">Overstimulated</span></button>
-            <button class="mood-btn" onclick="sendMessage('I adhere to an ascetic, diabetic and ketogenic dietary philosophy')">🌿 <span
-                    class="mood-txt-health">Ascetic</span></button>
-            <button class="mood-btn" onclick="sendMessage('Preparing for a grand gala celebration and festive gifting!')">👑 <span
-                    class="mood-txt-festive">Gala</span></button>
+            <button class="mood-btn" onclick="sendMessage('I am feeling happy and energetic, suggest a treat!')">😊 <span
+                    class="mood-txt-happy">Happy &amp; Upbeat</span></button>
+            <button class="mood-btn" onclick="sendMessage('I am feeling tired and need clean energy, what do you suggest?')">⚡
+                <span class="mood-txt-tired">Tired &amp; Need Energy</span></button>
+            <button class="mood-btn" onclick="sendMessage('I am feeling romantic and want a luxurious dessert')">💕 <span
+                    class="mood-txt-romantic">Romantic &amp; Sweet</span></button>
+            <button class="mood-btn" onclick="sendMessage('I am stressed, suggest a comforting treat')">🧘
+                <span class="mood-txt-stressed">Stressed &amp; Need Calm</span></button>
+            <button class="mood-btn" onclick="sendMessage('I want something healthy and sugar-free!')">🥗 <span
+                    class="mood-txt-health">Healthy &amp; Sugar-Free</span></button>
+            <button class="mood-btn" onclick="sendMessage('I am celebrating a party or festive occasion!')">🎉 <span
+                    class="mood-txt-festive">Party &amp; Festive</span></button>
         </div>
     </div>
 
@@ -3230,9 +3284,9 @@
         <div class="msg">
             <div class="avatar bot"></div>
             <div class="bubble bot" id="welcomeMsg">
-                Salutations, esteemed patron. Welcome to the <strong>Ming Morsels Haute Pâtisserie Atelier</strong> — where culinary alchemy converges with pure epicurean transcendence. ⚜️<br><br>
-                I am your <strong>Confectionery Sommelier</strong>. I curate bespoke gastronomic odysseys through our small-batch, unctuous grass-fed butter emulsions, single-estate cold-pressed botanicals, and saccharine elegance sweetened exclusively with <strong>unadulterated plant-derived Stevia</strong> — completely unburdened by hydrogenated lipids (Dalda), artificial stabilizers, or synthetic preservatives.<br><br>
-                <em>How may I orchestrate your discerning palate today?</em>
+                Welcome to <strong>Ming Morsels</strong> — where handcrafted luxury meets pure, wholesome baking! 🍪✨<br><br>
+                I'm your personal <strong>Cookie Sommelier</strong>. I'm here to help you pick the perfect treats crafted with 100% pasture-fed butter and natural Stevia — free from Dalda, zero preservatives, and no harmful oils.<br><br>
+                <em>Ask me for flavour recommendations, nutrition facts, custom gift boxes, or pick a mood above to match your vibe!</em>
             </div>
         </div>
     </div>
@@ -3266,33 +3320,27 @@
             <div class="carousel-track" id="carouselTrack">
                 <div class="carousel-slide">
                     <div class="carousel-text">
-                        <div class="carousel-tag">Monsoon Special ☕</div>
-                        <div class="carousel-title">Warm Makhana Cardamom</div>
-                        <div class="carousel-sub">Light, desi lotus seeds baked with fragrant green cardamom. Perfect
-                            with a hot cup of tea!</div>
+                        <div class="carousel-tag">Artisan Bestseller 🌰</div>
+                        <div class="carousel-title">Royal Roasted Almond</div>
+                        <div class="carousel-sub">Slow-roasted California almonds in golden pasture butter dough. Perfect with coffee or tea!</div>
                     </div>
-                    <img src="/img-oats.png?v=2" class="carousel-img" alt="Makhana Cardamom"
-                        onerror="this.src='https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?w=150'" loading="lazy">
+                    <img src="/almond/1.jpg" class="carousel-img" alt="Almond Rich Cookies" loading="lazy">
                 </div>
                 <div class="carousel-slide">
                     <div class="carousel-text">
                         <div class="carousel-tag">Healthy Delights 🌿</div>
                         <div class="carousel-title">Sugar-Free Walnut Omega-3</div>
-                        <div class="carousel-sub">Rich brain-boosting walnuts sweetened naturally. Diabetic friendly,
-                            zero refined sugar.</div>
+                        <div class="carousel-sub">Rich California walnuts sweetened naturally with Stevia. Diabetic friendly with 0g added sugar.</div>
                     </div>
-                    <img src="sugarfree_walnut_cookie.png?v=2" class="carousel-img" alt="Sugar-Free Walnut"
-                        onerror="this.src='https://images.pexels.com/photos/6996200/pexels-photo-6996200.jpeg?w=150'" loading="lazy">
+                    <img src="/img-walnut-sf.png?v=2" class="carousel-img" alt="Sugar-Free Walnut" loading="lazy">
                 </div>
                 <div class="carousel-slide">
                     <div class="carousel-text">
                         <div class="carousel-tag">Gifting Favourite 💝</div>
-                        <div class="carousel-title">Rose Petal Romance</div>
-                        <div class="carousel-sub">Fragrant organic rose petals baked into crumbly dough. The sweet
-                            romance your heart deserves.</div>
+                        <div class="carousel-title">Rose Petal &amp; Cardamom</div>
+                        <div class="carousel-sub">Fragrant organic Damask rose petals baked into crumbly dough for a royal luxury teatime.</div>
                     </div>
-                    <img src="/rose-petal/1.jpg" class="carousel-img" alt="Rose Petal"
-                        onerror="this.src='https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?w=150'" loading="lazy">
+                    <img src="/rose-petal/1.jpg" class="carousel-img" alt="Rose Petal" loading="lazy">
                 </div>
             </div>
             <div class="carousel-dots" id="carouselDots">
