@@ -636,6 +636,9 @@
     </a>
 
     <div class="admin-nav-right">
+      <button id="btn-test-sound" class="btn-action" style="font-size: 11.5px; font-weight: 700; padding: 6px 12px; background: rgba(30,130,76,0.12); color: var(--color-success); border: 1px solid rgba(30,130,76,0.25); box-shadow: none; cursor: pointer;" title="Click to test order bell sound and unlock browser audio">
+        🔔 Sound Alert: ON (Test)
+      </button>
       <div class="status-badge" style="background: rgba(200, 150, 12, 0.12); color: #8C5803; border-color: var(--color-gold-border);">
         <span>👑 Admin: <strong>mingmorsels@gmail.com</strong></span>
       </div>
@@ -1207,13 +1210,45 @@
 
     document.getElementById('btn-refresh-audit')?.addEventListener('click', fetchAuditLogs);
 
+    // Audio Context Singleton & Autoplay Unlocker
+    let adminAudioCtx = null;
+    function getAdminAudioContext() {
+      if (!adminAudioCtx) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          adminAudioCtx = new AudioCtx();
+        }
+      }
+      if (adminAudioCtx && adminAudioCtx.state === 'suspended') {
+        adminAudioCtx.resume().catch(() => {});
+      }
+      return adminAudioCtx;
+    }
+
+    // Auto-unlock audio on ANY user click, touch, or keystroke
+    function unlockAudioOnGesture() {
+      getAdminAudioContext();
+    }
+    document.addEventListener('click', unlockAudioOnGesture, { passive: true });
+    document.addEventListener('touchstart', unlockAudioOnGesture, { passive: true });
+    document.addEventListener('keydown', unlockAudioOnGesture, { passive: true });
+
     function initAdminSSE() {
-      if (adminEventSource) adminEventSource.close();
+      if (adminEventSource) {
+        try { adminEventSource.close(); } catch (e) {}
+      }
       const key = sessionStorage.getItem('mm_admin_token') || sessionStorage.getItem('mm_admin_key');
       if (!key) return;
+
       try {
         adminEventSource = new EventSource(`/api/admin/orders/stream?admin_key=${encodeURIComponent(key)}`);
+        
+        adminEventSource.addEventListener('open', () => {
+          console.log('🟢 [Admin SSE] Real-time order stream connected.');
+        });
+
         adminEventSource.addEventListener('new_order', (e) => {
+          console.log('🚨 [Admin SSE] new_order received:', e.data);
           let orderData = null;
           try {
             orderData = e.data ? JSON.parse(e.data) : null;
@@ -1223,9 +1258,11 @@
           fetchAdminNotifications();
           fetchAuditLogs();
         });
+
         adminEventSource.addEventListener('admin_order_feed', () => {
           fetchOrders();
         });
+
         adminEventSource.addEventListener('vip_milestone_alert', (e) => {
           try {
             const alertData = JSON.parse(e.data);
@@ -1234,43 +1271,98 @@
             fetchAdminNotifications();
           } catch (err) {}
         });
-      } catch (e) {}
+
+        adminEventSource.onerror = () => {
+          console.warn('⚠️ [Admin SSE] Connection interrupted. Auto-reconnecting in 5s...');
+          if (adminEventSource) {
+            try { adminEventSource.close(); } catch (e) {}
+          }
+          setTimeout(() => {
+            if (sessionStorage.getItem('mm_admin_token') || sessionStorage.getItem('mm_admin_key')) {
+              initAdminSSE();
+            }
+          }, 5000);
+        };
+      } catch (e) {
+        console.error('SSE initialization error:', e);
+      }
     }
 
+    // Joyful, clear multi-tone Confectionery Order Chime
     function playNewOrderSound() {
       try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        const ctx = new AudioCtx();
-        if (ctx.state === 'suspended') ctx.resume();
+        const ctx = getAdminAudioContext();
+        if (!ctx) return;
 
-        const playTone = (freq, startTime, duration) => {
+        const playChimeNote = (freq, startOffset, duration, vol = 0.3) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, startTime);
-          gain.gain.setValueAtTime(0.25, startTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+          osc.type = 'triangle'; // Rich, warm harmonic tone
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + startOffset);
+          
+          gain.gain.setValueAtTime(0.001, ctx.currentTime + startOffset);
+          gain.gain.exponentialRampToValueAtTime(vol, ctx.currentTime + startOffset + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + startOffset + duration);
+          
           osc.connect(gain);
           gain.connect(ctx.destination);
-          osc.start(startTime);
-          osc.stop(startTime + duration);
+          
+          osc.start(ctx.currentTime + startOffset);
+          osc.stop(ctx.currentTime + startOffset + duration);
         };
 
-        const now = ctx.currentTime;
-        playTone(587.33, now, 0.22);        // D5
-        playTone(880.00, now + 0.14, 0.4);  // A5
-      } catch (e) {}
+        // 4-Note Joyful Ascending Chime: C5 (523Hz) -> E5 (659Hz) -> G5 (784Hz) -> C6 (1046Hz)
+        playChimeNote(523.25, 0.00, 0.28, 0.35); // C5
+        playChimeNote(659.25, 0.12, 0.30, 0.40); // E5
+        playChimeNote(783.99, 0.24, 0.35, 0.45); // G5
+        playChimeNote(1046.50, 0.38, 0.65, 0.50); // C6 (High sparkle ring)
+
+        // Haptic feedback for mobile admin devices
+        if (navigator.vibrate) {
+          navigator.vibrate([200, 100, 200]);
+        }
+      } catch (e) {
+        console.warn('Audio chime warning:', e);
+      }
     }
+
+    // Flashing browser tab title for background visibility
+    let titleFlashTimer = null;
+    function flashOrderTitle(orderId) {
+      if (titleFlashTimer) clearInterval(titleFlashTimer);
+      const originalTitle = document.title;
+      let count = 0;
+      titleFlashTimer = setInterval(() => {
+        document.title = (count % 2 === 0) ? `🚨 (1) NEW ORDER #${orderId || ''}! 🚨` : originalTitle;
+        count++;
+        if (count >= 16) {
+          clearInterval(titleFlashTimer);
+          document.title = originalTitle;
+        }
+      }, 750);
+    }
+
+    // Test Sound Button Handler
+    document.getElementById('btn-test-sound')?.addEventListener('click', () => {
+      getAdminAudioContext();
+      playNewOrderSound();
+      if ('Notification' in window && Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      }
+      alert('🔔 Ding! Sound alerts are active.\n\nYou will hear this chime automatically whenever a customer places an order.');
+    });
 
     function showAdminNewOrderToast(orderData) {
       playNewOrderSound();
+
+      const orderId = orderData?.id || '';
+      if (orderId) flashOrderTitle(orderId);
 
       // Browser Desktop Push Notification
       if ('Notification' in window) {
         if (Notification.permission === 'granted') {
           try {
-            const nTitle = orderData?.id ? `🚨 New Order #${orderData.id} Received!` : '🚨 New Order Received!';
+            const nTitle = orderId ? `🚨 New Order #${orderId} Received!` : '🚨 New Order Received!';
             const nBody = `${orderData?.user_name || 'Customer'} ordered treats for ₹${orderData?.total_amount || '...'}`;
             new Notification(nTitle, { body: nBody, icon: '/logo.png' });
           } catch (e) {}
@@ -1285,32 +1377,33 @@
         top: 24px;
         right: 24px;
         background: #FFFFFF;
-        border: 2px solid #2ECC71;
-        box-shadow: 0 12px 40px rgba(46,204,113,0.3);
+        border: 2.5px solid #2ECC71;
+        box-shadow: 0 16px 45px rgba(46,204,113,0.35);
         border-radius: 16px;
         padding: 18px 22px;
         z-index: 999999;
         max-width: 440px;
         color: var(--color-brown);
+        animation: slideInToast 0.3s ease-out;
       `;
-      const orderId = orderData?.id || '';
       const amt = orderData?.total_amount ? `(₹${orderData.total_amount})` : '';
       const name = orderData?.user_name || 'Valued Customer';
       toast.innerHTML = `
         <div style="display: flex; align-items: start; gap: 12px;">
-          <span style="font-size: 30px;">🚨</span>
+          <span style="font-size: 32px;">🍪</span>
           <div style="flex: 1;">
-            <h4 style="font-size: 15px; font-weight: 800; color: #1E824C; margin: 0 0 4px 0;">New Order Placed! ${amt}</h4>
+            <div style="font-size: 11px; text-transform: uppercase; color: #1E824C; font-weight: 800; letter-spacing: 0.5px;">Live Store Order Alert</div>
+            <h4 style="font-size: 16px; font-weight: 800; color: #1E824C; margin: 2px 0 4px 0;">New Order Placed! ${amt}</h4>
             <p style="font-size: 13px; margin: 0 0 8px 0; color: var(--color-brown); line-height: 1.4;">
               <strong>${escapeHtml(name)}</strong> placed order ${orderId ? `<strong>#${escapeHtml(orderId)}</strong>` : ''}.
             </p>
             ${orderId ? `
-              <button onclick="showOrderDetailsById('${escapeHtml(orderId)}'); this.closest('div').parentElement.parentElement.remove();" style="background: linear-gradient(135deg, #C8960C 0%, #E0AB1E 100%); border: none; color: #1A0D00; font-weight: 800; font-size: 11.5px; padding: 6px 14px; border-radius: 6px; cursor: pointer;">
-                👁️ View Order Details →
+              <button onclick="showOrderDetailsById('${escapeHtml(orderId)}'); this.closest('div').parentElement.parentElement.remove();" style="background: linear-gradient(135deg, #C8960C 0%, #E0AB1E 100%); border: none; color: #1A0D00; font-weight: 800; font-size: 12px; padding: 7px 16px; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(200,150,12,0.3);">
+                👁️ View &amp; Prepare Order Details →
               </button>
             ` : ''}
           </div>
-          <button onclick="this.closest('div').parentElement.remove()" style="background: none; border: none; color: #AAA; font-size: 18px; cursor: pointer; padding: 0 4px;">✕</button>
+          <button onclick="this.closest('div').parentElement.remove()" style="background: none; border: none; color: #AAA; font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1;">✕</button>
         </div>
       `;
       document.body.appendChild(toast);
@@ -1319,6 +1412,7 @@
 
     // Dashboard Data Loader
     async function loadAdminDashboard() {
+      getAdminAudioContext();
       if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission();
       }
@@ -1328,6 +1422,13 @@
       fetchAdminReviews();
       fetchAuditLogs();
       initAdminSSE();
+
+      // Periodic Background Polling every 12 seconds for bulletproof backup
+      if (!window.adminPollingInterval) {
+        window.adminPollingInterval = setInterval(() => {
+          fetchOrders();
+        }, 12000);
+      }
     }
 
     // VIP Milestone Notifications Loader
@@ -1472,6 +1573,19 @@
             window.ordersMap.set(rz.replace(/[^a-zA-Z0-9]/g, '').toLowerCase(), o);
           }
         });
+
+        // Detect brand new orders on polling if not initial load
+        if (window.hasInitialOrdersLoaded) {
+          orders.forEach(o => {
+            const cleanId = String(o.id || '').trim();
+            if (cleanId && window.knownOrderIds && !window.knownOrderIds.has(cleanId)) {
+              console.log('🆕 [Polling Diff] Brand new order detected:', cleanId);
+              showAdminNewOrderToast(o);
+            }
+          });
+        }
+        window.hasInitialOrdersLoaded = true;
+        window.knownOrderIds = new Set(orders.map(o => String(o.id || '').trim()).filter(Boolean));
 
         // Precompute customer order frequencies & points
         const emailOrderCount = {};

@@ -225,6 +225,7 @@ const handleCreateOrder = async (req, res) => {
 
         try {
           await notificationService.sendOrderConfirmationEmail(newOrder);
+          await notificationService.sendAdminNewOrderAlert(newOrder);
           await notificationService.sendOrderConfirmationSMS(newOrder);
           await sendPushToCustomer({
             phone: newOrder.user_phone,

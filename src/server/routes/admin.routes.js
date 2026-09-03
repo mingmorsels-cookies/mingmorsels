@@ -4,7 +4,7 @@
 
 import { Router } from 'express';
 import crypto from 'crypto';
-import { verifyAdminAuth, ADMIN_SECRET_KEY, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_TOTP_SECRET, generateAdminToken } from '../middleware/auth.js';
+import { verifyAdminAuth, ADMIN_SECRET_KEY, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_TOTP_SECRET, generateAdminToken, verifyAdminToken } from '../middleware/auth.js';
 import { verifyTOTP } from '../utils/cryptoUtils.js';
 import { auditLogger } from '../services/AuditLogger.js';
 import { logisticsService } from '../services/LogisticsService.js';
@@ -199,20 +199,31 @@ router.post('/admin/notifications/:id/dismiss', verifyAdminAuth, async (req, res
  */
 router.get('/admin/orders/stream', (req, res) => {
   // Check auth query param or header for EventSource compatibility
-  const adminKey = req.query.admin_key || req.headers['x-admin-key'];
+  const adminKey = req.query.admin_key || 
+                   req.headers['x-admin-token'] || 
+                   req.headers['x-admin-key'] ||
+                   (req.headers['authorization']?.startsWith('Bearer ') ? req.headers['authorization'].split(' ')[1] : null);
 
   if (!adminKey) {
     return res.status(401).json({ success: false, error: 'Unauthorized admin stream connection.' });
   }
 
-  const expectedHash = crypto.createHash('sha256').update(String(ADMIN_SECRET_KEY)).digest();
-  const providedHash = crypto.createHash('sha256').update(String(adminKey)).digest();
-
-  if (!crypto.timingSafeEqual(expectedHash, providedHash)) {
-    return res.status(403).json({ success: false, error: 'Forbidden: Invalid admin credentials.' });
+  // 1. Verify signed JWT Admin Session Token (used by portal)
+  const tokenPayload = verifyAdminToken(adminKey);
+  if (tokenPayload) {
+    return eventStreamService.addAdminClient(res);
   }
 
-  eventStreamService.addAdminClient(res);
+  // 2. Direct Static Secret Key comparison for scripts/legacy keys
+  try {
+    const expectedHash = crypto.createHash('sha256').update(String(ADMIN_SECRET_KEY)).digest();
+    const providedHash = crypto.createHash('sha256').update(String(adminKey)).digest();
+    if (crypto.timingSafeEqual(expectedHash, providedHash)) {
+      return eventStreamService.addAdminClient(res);
+    }
+  } catch (e) {}
+
+  return res.status(403).json({ success: false, error: 'Forbidden: Invalid admin credentials.' });
 });
 
 /**

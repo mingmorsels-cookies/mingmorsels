@@ -354,14 +354,18 @@ export class NotificationService {
       try {
         console.log(`📧 [Resend Admin Alert] Sending to: ${adminEmail}`);
         const fromAddress = process.env.RESEND_FROM_EMAIL || 'Ming Morsels Orders 🍪 <onboarding@resend.dev>';
-        await this.resend.emails.send({
+        const { data, error } = await this.resend.emails.send({
           from: fromAddress,
           to: [adminEmail],
           subject: subject,
           html: htmlBody
         });
-        console.log(`✅ [Resend Admin Alert] Sent to ${adminEmail} for order #${order.id}`);
-        return true;
+        if (error) {
+          console.error(`❌ [Resend Admin Alert] Resend API error for ${adminEmail}:`, error);
+        } else {
+          console.log(`✅ [Resend Admin Alert] Sent to ${adminEmail} for order #${order.id}, id: ${data?.id}`);
+          return true;
+        }
       } catch (err) {
         console.error(`❌ [Resend Admin Alert] Exception:`, err.message);
       }
