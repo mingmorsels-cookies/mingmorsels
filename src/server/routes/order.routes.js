@@ -270,7 +270,7 @@ const handleCreateOrder = async (req, res) => {
       || String(shipping_address || '').toLowerCase().includes('indiranagar');
     const pickupPin = isPickupOrder ? String(Math.floor(1000 + Math.random() * 9000)) : null;
 
-    // Store Order Record in Database
+    // Store Order Record in Database as DRAFT_UNPAID until payment succeeds
     const newOrder = await createOrderRecord({
       id: orderId,
       user_name: user_name || 'Valued Connoisseur',
@@ -285,7 +285,7 @@ const handleCreateOrder = async (req, res) => {
       delivery_mode: isPickupOrder ? 'pickup' : 'courier',
       pickup_pin: pickupPin,
       payment_method: 'Prepaid (Razorpay)',
-      payment_status: 'PENDING',
+      payment_status: 'DRAFT_UNPAID', // Unpaid draft until customer successfully completes payment
       razorpay_order_id: rzpOrderId,
       shipping_address: shipping_address || 'Express Bengaluru Delivery'
     });
@@ -293,8 +293,7 @@ const handleCreateOrder = async (req, res) => {
     // Place temporary stock reservation hold (10 mins TTL)
     reserveStockHold(newOrder.id, calculation.verifiedItems);
 
-    // Broadcast real-time new order to admin stream
-    eventStreamService.broadcastNewOrder(newOrder);
+    // Note: Do not broadcast to admin until payment signature is verified in /verify-payment or webhook!
 
     // Auto-issue customer JWT for seamless session retention
     const customerToken = generateCustomerToken({

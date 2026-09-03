@@ -644,13 +644,24 @@ export async function getUserOrders(userEmail) {
   const cleanEmail = String(userEmail).trim().toLowerCase();
   const store = await readLocalStoreAsync();
   return store.orders
-    .filter(o => (o.user_email || '').toLowerCase() === cleanEmail)
+    .filter(o => {
+      if ((o.user_email || '').toLowerCase() !== cleanEmail) return false;
+      if (o.payment_status === 'DRAFT_UNPAID') return false;
+      if (o.payment_method === 'Prepaid (Razorpay)' && o.payment_status === 'PENDING') return false;
+      return true;
+    })
     .map(formatOrderForOutput);
 }
 
 export async function getAllOrders() {
   const store = await readLocalStoreAsync();
   return (store.orders || [])
+    .filter(o => {
+      // Exclude unpaid prepaid checkout drafts (only include confirmed paid orders and valid COD orders)
+      if (o.payment_status === 'DRAFT_UNPAID') return false;
+      if (o.payment_method === 'Prepaid (Razorpay)' && o.payment_status === 'PENDING') return false;
+      return true;
+    })
     .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
     .map(formatOrderForOutput);
 }
