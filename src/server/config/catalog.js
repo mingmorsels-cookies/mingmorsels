@@ -92,7 +92,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (8 pcs)',
     stock: 95,
     rating: 4.95,
-    description: 'Rolled oats, California walnuts, chia seeds, and raw honey with pista-elaichi crunch.'
+    description: 'Rolled oats, California walnuts, chia seeds, and plant-based Stevia with pista-elaichi crunch.'
   },
   'oatsnuts_snack_2pcs': {
     id: 'oatsnuts_snack_2pcs',

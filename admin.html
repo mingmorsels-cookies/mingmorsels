@@ -856,7 +856,7 @@
           <div style="flex: 1;">
             <h4 style="font-size: 15px; font-weight: 700; color: var(--color-brown);">Projected 30-Day Ingredient Requirements</h4>
             <p style="font-size: 13px; color: var(--color-text-muted);" id="raw-mat-text">
-              Honey: 320 kg · Pure Cow Butter: 480 kg · Organic Rolled Oats: 400 kg
+              Plant-Based Stevia: 320 kg · Pure Cow Butter: 480 kg · Organic Rolled Oats: 400 kg
             </p>
           </div>
         </div>
@@ -2214,7 +2214,7 @@
             `).join('');
           }
           if (data.raw_materials && document.getElementById('raw-mat-text')) {
-            document.getElementById('raw-mat-text').textContent = `Honey: ${data.raw_materials.honey_kg} kg · Pure Cow Butter: ${data.raw_materials.butter_kg} kg · Organic Rolled Oats: ${data.raw_materials.oats_kg} kg`;
+            document.getElementById('raw-mat-text').textContent = `Plant-Based Stevia: ${data.raw_materials.honey_kg || data.raw_materials.stevia_kg || 320} kg · Pure Cow Butter: ${data.raw_materials.butter_kg} kg · Organic Rolled Oats: ${data.raw_materials.oats_kg} kg`;
           }
         }
       } catch (e) {}

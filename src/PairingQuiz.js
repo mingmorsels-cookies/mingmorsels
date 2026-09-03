@@ -73,7 +73,7 @@ function injectQuizHTML() {
             </button>
             <button class="quiz-option-btn" data-answer="floral_aromatic" data-type="vibe">
               <span class="option-emoji">🌹</span>
-              <span>Aromatic Floral & Mild Honey</span>
+              <span>Aromatic Floral &amp; Natural Sweetness</span>
             </button>
           </div>
         </div>
@@ -157,7 +157,7 @@ function computeAIMatch(drink, vibe) {
     reason = "Zesty sun-dried orange peel and berry notes create a bright, refreshing taste contrast.";
   } else {
     bestKey = 'rose';
-    reason = "Delicate organic rose petals infused with raw honey provide an elegant, aromatic tea pairing.";
+    reason = "Delicate organic rose petals infused with pure cow butter provide an elegant, aromatic tea pairing.";
   }
 
   const matchedProduct = PRODUCT_VECTORS[bestKey] || PRODUCT_VECTORS.almond;

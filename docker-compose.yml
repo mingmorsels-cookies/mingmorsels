@@ -20,10 +20,16 @@ services:
   redis:
     image: redis:7-alpine
     container_name: mingmorsels_redis
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru --save 60 1 --loglevel notice
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: always
 
   postgres:

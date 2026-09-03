@@ -9,7 +9,7 @@ const REVIEWS_DATA = [
     handle: "@ananya_bakes",
     initials: "AS",
     avatarBg: "linear-gradient(135deg, #C6960C, #E5B21D)",
-    text: "Unboxing the 6-pack Rose & Almond box... the aroma of organic raw honey and fresh butter hit me instantly! Crisp and melt-in-mouth.",
+    text: "Unboxing the 6-pack Rose & Almond box... the aroma of roasted nuts and fresh butter hit me instantly! Crisp and melt-in-mouth.",
     img: "/rose-petal/1.jpg",
     tag: "🌹 Rose Cookies Box",
     stars: "★★★★★"
@@ -59,7 +59,7 @@ const REVIEWS_DATA = [
     handle: "@deepak_v",
     initials: "DV",
     avatarBg: "linear-gradient(135deg, #673AB7, #9C27B0)",
-    text: "We ordered 80 gift hampers for our corporate festive gifting. Every client called to compliment the authentic honey crunch!",
+    text: "We ordered 80 gift hampers for our corporate festive gifting. Every client called to compliment the authentic artisanal crunch!",
     img: "/unboxing_gable.jpg",
     tag: "✨ Gable Festive Pack",
     stars: "★★★★★"
@@ -79,7 +79,7 @@ const REVIEWS_DATA = [
     handle: "@arjun_foodie",
     initials: "AR",
     avatarBg: "linear-gradient(135deg, #4E342E, #8D6E63)",
-    text: "Sugarfree Walnut Cookies are a blessing for my diabetic parents. Real raw apiary taste with zero artificial aftertaste.",
+    text: "Sugarfree Walnut Cookies are a blessing for my diabetic parents. Real pure Stevia sweetness with zero artificial aftertaste.",
     img: "/sugarfree_walnut_cookie.png?v=2",
     tag: "🌿 Sugar-Free Walnut",
     stars: "★★★★★"

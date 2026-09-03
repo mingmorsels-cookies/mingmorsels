@@ -15,8 +15,8 @@ const PRODUCTS_DATA = {
     price: 140,
     rating: '5.0',
     reviewsCount: 128,
-    badges: ['Nut Rich', 'Organic Honey', 'Zero Dalda'],
-    desc: 'A timeless classic reimagined. Crafted with whole roasted premium California almonds, organic cow butter, and raw honey. Crumbly on the outside, meltingly soft on the inside with a nutty aroma.',
+    badges: ['Nut Rich', 'Plant-Based Stevia', 'Zero Dalda'],
+    desc: 'A timeless classic reimagined. Crafted with whole roasted premium California almonds, organic cow butter, and natural plant-based Stevia. Crumbly on the outside, meltingly soft on the inside with a nutty aroma.',
     type: 'cookie',
     color: 0xD4A373,
     nutrition: {
@@ -31,10 +31,10 @@ const PRODUCTS_DATA = {
       potassium: '397.2mg',
       fibre: '1.5g'
     },
-    ingredients: 'Whole Roasted Almonds, Unbleached Wheat Flour, Pure Cow Butter, Organic Raw Honey, Cardamom Extract, Sea Salt.',
+    ingredients: 'Whole Roasted Almonds, Unbleached Wheat Flour, Pure Cow Butter, Natural Stevia Extract, Cardamom Extract, Sea Salt.',
     reviews: [
       { name: 'Ananya Roy', location: 'Bengaluru', rating: 5, text: 'Absolutely heavenly! The buttery crunch and generous almond bits make these my favorite morning pairing with chai.' },
-      { name: 'Rohan Mehta', location: 'Indiranagar', rating: 5, text: 'Freshly baked perfection! You can taste the purity of honey and butter instead of sickly sweet sugar.' },
+      { name: 'Rohan Mehta', location: 'Indiranagar', rating: 5, text: 'Freshly baked perfection! You can taste the natural Stevia and butter instead of sickly sweet sugar.' },
       { name: 'Priya Sharma', location: 'Koramangala', rating: 5, text: 'The texture is incredible — crisp on the edges and soft in the middle. Packaging was spotless and fresh.' }
     ]
   },
@@ -43,43 +43,42 @@ const PRODUCTS_DATA = {
     name: 'Rose Petal Cookies',
     category: 'Floral Delicacy',
     categoryLink: 'Cookies',
-    tagline: 'Infused with edible Damask rose petals and cardamom for an aromatic tea-time luxury.',
+    tagline: 'Infused with authentic Damascus rose petals and rich cow butter.',
     price: 140,
-    rating: '4.9',
+    rating: '4.98',
     reviewsCount: 96,
-    badges: ['Edible Rose', 'Low GI', 'Handcrafted'],
-    desc: 'Inspired by royal Indian confections. Hand-picked organic Damask rose petals infused into slow-baked butter dough with subtle cardamom undertones.',
+    badges: ['Real Rose Petals', 'Floral Infusion', 'Eggless'],
+    desc: 'An exquisite sensory journey. Made with naturally dried organic Damascus rose petals, cardamom essence, and 100% cow butter. Delicately floral and irresistibly crumbly.',
     type: 'cookie',
     color: 0xE8A598,
     nutrition: {
-      cal: 67.25,
-      carbs: '7.01g',
-      fat: '3.9g',
-      satFat: '2.8g',
+      cal: 74.3,
+      carbs: '5.3g',
+      protein: '1.40g',
+      fat: '4.8g',
+      satFat: '3.80g',
       transFat: '0g',
-      sugar: '3.24g',
-      protein: '1.04g',
-      sodium: '139.4mg',
-      potassium: '268.4mg',
-      fibre: '1.1g'
+      sugar: '3.2g',
+      sodium: '72.3mg',
+      potassium: '143.2mg',
+      fibre: '1.2g'
     },
-    ingredients: 'Organic Damask Rose Petals, Whole Wheat Flour, Pure Desi Ghee, Raw Cane Sugar, Cardamom Pods, Almond Flakes.',
+    ingredients: 'Damascus Rose Petals, Cardamom Pods, Unbleached Flour, Pure Cow Butter, Cane Sugar, Rose Water Extract.',
     reviews: [
-      { name: 'Kavita Sundaram', location: 'Chennai', rating: 5, text: 'The floral scent when opening the box is divine! Not overly sweet, perfect balance.' },
-      { name: 'Deepak Rao', location: 'Whitefield', rating: 5, text: 'My mother loves rose flavored treats and she rated this 10 out of 10!' }
+      { name: 'Dr. Meera N.', location: 'Chennai', rating: 5, text: 'The subtle rose aroma is simply therapeutic. Perfect with evening green tea!' }
     ]
   },
-  oatsnuts: {
-    id: 'oatsnuts',
+  oats: {
+    id: 'oats',
     name: 'Oats & Nuts Cookies',
     category: 'Wholesome Crunch',
     categoryLink: 'Cookies',
-    tagline: 'Hearty rolled oats, walnuts, and chia seeds sweetened naturally with organic raw honey.',
+    tagline: 'Hearty rolled oats, walnuts, and chia seeds sweetened naturally with plant-based Stevia.',
     price: 140,
     rating: '4.95',
     reviewsCount: 142,
     badges: ['High Fibre', 'Rolled Oats', 'Superfood Nutrients'],
-    desc: 'Packed with nutrient-dense rolled oats, California walnuts, flaxseeds, and organic honey. Perfect for a clean pre-workout boost or high-fibre mid-day snack.',
+    desc: 'Packed with nutrient-dense rolled oats, California walnuts, flaxseeds, and natural Stevia. Perfect for a clean pre-workout boost or high-fibre mid-day snack.',
     type: 'cookie',
     color: 0xC59B6C,
     nutrition: {
@@ -94,7 +93,7 @@ const PRODUCTS_DATA = {
       potassium: '367.5mg',
       fibre: '2.4g'
     },
-    ingredients: 'Rolled Oats, California Walnuts, Chia Seeds, Raw Apiary Honey, Organic Butter, Cinnamon Spice.',
+    ingredients: 'Rolled Oats, California Walnuts, Chia Seeds, Natural Stevia Extract, Organic Butter, Cinnamon Spice.',
     reviews: [
       { name: 'Siddharth V.', location: 'HSR Layout', rating: 5, text: 'My daily morning coffee companion. Filling, wholesome, and delicious without the guilt.' },
       { name: 'Neha Kapoor', location: 'Mumbai', rating: 5, text: 'Love the high fibre crunch. Tastes real and clean!' }
@@ -125,7 +124,7 @@ const PRODUCTS_DATA = {
       potassium: '60.5mg',
       fibre: '1.4g'
     },
-    ingredients: 'Fresh Orange Zest, Ceylon Cinnamon, Whole Grain Flour, Butter, Natural Honey, Vanilla Bean.',
+    ingredients: 'Fresh Orange Zest, Ceylon Cinnamon, Whole Grain Flour, Butter, Natural Stevia, Vanilla Bean.',
     reviews: [
       { name: 'Arjun Das', location: 'Hyderabad', rating: 5, text: 'The citrus aroma is wonderful! So fresh and crisp.' },
       { name: 'Sneha Patel', location: 'Pune', rating: 5, text: 'Unique flavor combination. My kids enjoyed it immensely.' }
@@ -156,7 +155,7 @@ const PRODUCTS_DATA = {
       potassium: '345.8mg',
       fibre: '2.4g'
     },
-    ingredients: 'California Walnut Halves, Unbleached Wheat Flour, Pure Cow Butter, Raw Honey, Vanilla Bean Extract.',
+    ingredients: 'California Walnut Halves, Unbleached Wheat Flour, Pure Cow Butter, Natural Stevia, Vanilla Bean Extract.',
     reviews: [
       { name: 'Siddharth Rao', location: 'Mumbai', rating: 5, text: 'The walnut crunch is out of this world! Melt in the mouth buttery texture with whole walnuts.' }
     ]
@@ -225,7 +224,7 @@ const PRODUCTS_DATA = {
     type: 'muffin',
     color: 0xF4A261,
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
-    ingredients: 'Golden Pineapple Cubes, Toasted Coconut Flakes, Pure Cow Milk, Whole Flour, Honey, Vanilla.',
+    ingredients: 'Golden Pineapple Cubes, Toasted Coconut Flakes, Pure Cow Milk, Whole Flour, Natural Stevia, Vanilla.',
     reviews: [
       { name: 'Rajesh Kumar', location: 'Kochi', rating: 5, text: 'Tangy and sweet pineapple flavor balance is spot on!' }
     ]
@@ -953,7 +952,7 @@ function openProductBoxLightbox(boxKey) {
     img.src = '/oats-box-12pcs.jpg';
     img.alt = 'Oats & Nuts Cookies - Dozen Delights (Up to 12 Cookies · 300g)';
     if (title) title.textContent = 'Oats & Nuts Cookies — Dozen Delights (Up to 12 Cookies · 300g)';
-    if (desc) desc.textContent = 'Large luxury Dozen Delights pack (Net Weight: 300g) baked with nutrient-rich rolled oats, California walnuts, and apiary raw honey.';
+    if (desc) desc.textContent = 'Large luxury Dozen Delights pack (Net Weight: 300g) baked with nutrient-rich rolled oats, California walnuts, and natural plant-based Stevia.';
   } else if (boxKey === 'lush') {
     img.src = '/box-lush.jpg';
     img.alt = 'Lush Luxury Box';

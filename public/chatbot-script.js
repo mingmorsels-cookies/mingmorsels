@@ -87,7 +87,7 @@
 
         const BOT_RESPONSES = {
             all: { en: "Here is our complete artisan collection — <strong>6 Signature Cookies &amp; 5 Soft-Baked Muffins</strong>, all crafted with 100% natural ingredients:<br><br>🌰 <strong>Almond Rich Cookies</strong> — Classic roasted almond crunch<br>🌹 <strong>Rose Petal Cookies</strong> — Damask rose &amp; cardamom aroma<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Hearty rolled oats &amp; walnuts<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment<br>🧠 <strong>Walnut Cookies</strong> — California walnuts &amp; butter crunch<br>🍃 <strong>Sugar-Free Walnut Cookies</strong> — 100% Sugar-free, sweetened with Stevia<br>🍓 <strong>Strawberry Muffins</strong> — Real Mahabaleshwar strawberries<br>🍍 <strong>Pinacolada Muffins</strong> — Tropical pineapple &amp; coconut<br>🧈 <strong>Butterscotch Muffins</strong> — Caramelized crunch bits<br>🍫 <strong>Chocochip Muffins</strong> — Rich dark chocolate chips<br>🫐 <strong>Black Currant Muffin</strong> — Tangy black currants &amp; vanilla<br><br>Tap any item above to learn more! ❆" },
-            natural: { en: "At <strong>The Cookie Atelier</strong>, we take purity seriously:<br><br>✅ <strong>No Dalda</strong> — no hydrogenated fat<br>✅ <strong>No Artificial Preservatives</strong><br>✅ <strong>No Harmful Oils</strong><br>✅ <strong>No Artificial Colours or Flavours</strong><br>✅ <strong>Real Ingredients</strong> — real rose petals, raw honey, pure butter 🌿" },
+            natural: { en: "At <strong>The Cookie Atelier</strong>, we take purity seriously:<br><br>✅ <strong>No Dalda</strong> — no hydrogenated fat<br>✅ <strong>No Artificial Preservatives</strong><br>✅ <strong>No Harmful Oils</strong><br>✅ <strong>No Artificial Colours or Flavours</strong><br>✅ <strong>Real Ingredients</strong> — real rose petals, plant-based Stevia, pure butter 🌿" },
             hello: { en: "Hello and welcome to <strong>The Cookie Atelier</strong>! 🍪✨<br><br>We craft 4 Signature Cookies &amp; 4 Soft Muffins with 100% natural ingredients. You can:<br>• Ask about any cookie or muffin<br>• Tell me your mood for a suggestion<br>• Ask about ingredients, nutrition, or gifting 🎁" },
             fallback: { en: "I didn't quite catch that. You can ask about any cookie or muffin, share your mood, or tap any flavour pill above! ❆" }
         };
@@ -133,7 +133,7 @@
                 emoji: "🌰", 
                 img: "/almond/1.jpg", 
                 color: "#FFF3DC", 
-                review: "A timeless classic reimagined. Crafted with whole roasted premium California almonds, organic cow butter, and raw honey. Crumbly on the outside, meltingly soft inside.", 
+                review: "A timeless classic reimagined. Crafted with whole roasted premium California almonds, organic cow butter, and natural plant-based Stevia. Crumbly on the outside, meltingly soft inside.", 
                 stars: 5, 
                 price: 180, 
                 nutrition: { Calories: "72.7 kcal", Carbs: "5.1g", Protein: "1.51g", Fat: "5.14g", "Saturated Fat": "3g", "Trans Fat": "0g", Sugar: "3.24g", Sodium: "89.6mg", Potassium: "397.2mg", Preservatives: "None" }, 
@@ -165,7 +165,7 @@
                 emoji: "🌾", 
                 img: "/oats-nuts/1.jpg", 
                 color: "#F5F0E8", 
-                review: "Packed with rolled oats, California walnuts, flaxseeds, and organic raw honey. Hearty, filling, and deeply nutritious for clean energy.", 
+                review: "Packed with rolled oats, California walnuts, flaxseeds, and natural plant-based Stevia. Hearty, filling, and deeply nutritious for clean energy.", 
                 stars: 5, 
                 price: 170, 
                 nutrition: { Calories: "148 kcal", Carbs: "18g", Protein: "5g", Fat: "6.5g", Sugar: "4g", Fibre: "3.2g", Sodium: "52mg", Preservatives: "None" }, 
@@ -197,7 +197,7 @@
                 emoji: "🧠", 
                 img: "/img-walnut.png?v=2", 
                 color: "#F7EFE8", 
-                review: "Rich, crunchy whole California walnuts blended into golden butter dough with raw forest honey. Superb nutty crunch and brain-boosting omega-3s.", 
+                review: "Rich, crunchy whole California walnuts blended into golden butter dough with natural plant-based Stevia. Superb nutty crunch and brain-boosting omega-3s.", 
                 stars: 5, 
                 price: 210, 
                 nutrition: { Calories: "145 kcal", Carbs: "14g", Protein: "4.2g", Fat: "8.5g", Sugar: "4.5g", Fibre: "2.1g", Sodium: "38mg", Preservatives: "None" }, 
@@ -232,7 +232,7 @@
                 color: "#FCEEEE", 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" },
                 review: "Soft, moist cake loaded with real strawberry compote and topped with a buttery streusel crumble.", 
-                ingredients: "Fresh Strawberry Compote, Organic Wheat Flour, Unsalted Butter, Pure Vanilla, Brown Sugar.", 
+                ingredients: "Fresh Strawberry Compote, Organic Wheat Flour, Unsalted Butter, Pure Vanilla, Natural Stevia.", 
                 price: 140, 
                 popular: false,
                 tags: ["Real Fruit", "Farm Fresh", "Crumble Top"],
@@ -250,7 +250,7 @@
                 color: "#FFFBEA", 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" }, 
                 review: "Transport your palate to the tropics. Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.", 
-                ingredients: "Golden Pineapple Cubes, Toasted Coconut Flakes, Pure Cow Milk, Whole Flour, Honey, Vanilla.", 
+                ingredients: "Golden Pineapple Cubes, Toasted Coconut Flakes, Pure Cow Milk, Whole Flour, Natural Stevia, Vanilla.", 
                 price: 135, 
                 popular: false, 
                 tags: ["Tropical Pineapple", "Toasted Coconut", "Fresh Baked"], 

@@ -9,7 +9,7 @@ export const PRODUCT_BOX_CATALOG = {
   almond: {
     id: 'almond',
     name: 'Almond Rich Cookies',
-    tagline: 'Whole roasted California almonds & raw organic honey',
+    tagline: 'Whole roasted California almonds & plant-based Stevia',
     image: '/almond/1.jpg',
     unitName: 'Cookies',
     boxes: [
@@ -77,7 +77,7 @@ export const PRODUCT_BOX_CATALOG = {
   oatsnuts: {
     id: 'oatsnuts',
     name: 'Oats & Nuts Cookies',
-    tagline: 'Rolled oats, roasted almonds, pistachios & honey',
+    tagline: 'Rolled oats, roasted almonds, pistachios & natural Stevia',
     image: '/oats-nuts/1.jpg',
     unitName: 'Cookies',
     boxes: [

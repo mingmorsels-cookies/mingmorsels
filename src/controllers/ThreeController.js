@@ -6,36 +6,80 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTimelineController } from './ScrollTimeline.js';
 
-// Prevent pitch-black textures while loading over slow networks
+// Texture Cache & WebP capability detection
+const _textureCache = new Map();
+let _isWebPSupported = null;
+
+function checkWebPSupport() {
+  if (_isWebPSupported !== null) return _isWebPSupported;
+  if (typeof document === 'undefined') return false;
+  const elem = document.createElement('canvas');
+  if (elem.getContext && elem.getContext('2d')) {
+    _isWebPSupported = elem.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+  } else {
+    _isWebPSupported = false;
+  }
+  return _isWebPSupported;
+}
+
+// Optimized Progressive TextureLoader with Caching & WebP Adaptation
 const _originalTexLoad = THREE.TextureLoader.prototype.load;
 THREE.TextureLoader.prototype.load = function(url, onLoad, onProgress, onError) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    let targetUrl = url;
+
+    // Progressive WebP Resolution if supported
+    if (checkWebPSupport() && url && (url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg'))) {
+      const webpUrl = url.replace(/\.(png|jpe?g)$/i, '.webp');
+      targetUrl = webpUrl;
+    }
+
+    if (_textureCache.has(targetUrl)) {
+      const cached = _textureCache.get(targetUrl);
+      if (onLoad) setTimeout(() => onLoad(cached), 0);
+      return cached;
+    }
+
     const texture = new THREE.Texture();
     
-    // Start with a 1x1 canvas to prevent the terrifying black void
+    // Lightweight 1x1 base placeholder
     const canvas = document.createElement('canvas');
     canvas.width = 1; canvas.height = 1;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#deb887'; // Base cookie dough color
+    ctx.fillStyle = '#deb887'; // Warm cookie dough
     ctx.fillRect(0, 0, 1, 1);
     texture.image = canvas;
     texture.needsUpdate = true;
+    texture.generateMipmaps = true;
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.magFilter = THREE.LinearFilter;
 
-    // Load the real image manually
     const loader = new THREE.ImageLoader(this.manager);
     loader.setCrossOrigin(this.crossOrigin);
     loader.setPath(this.path);
     
-    loader.load(url, function (image) {
-        // Discard the old 1x1 WebGL texture buffer completely!
+    loader.load(targetUrl, function (image) {
         texture.dispose(); 
-        
-        // Swap to the new high-res image
         texture.image = image;
         texture.needsUpdate = true;
-        
+        _textureCache.set(targetUrl, texture);
         if (onLoad) onLoad(texture);
-    }, onProgress, onError);
+    }, onProgress, function (err) {
+        // Fallback to original URL if WebP was not found
+        if (targetUrl !== url) {
+          loader.load(url, function (fallbackImage) {
+            texture.dispose();
+            texture.image = fallbackImage;
+            texture.needsUpdate = true;
+            _textureCache.set(url, texture);
+            if (onLoad) onLoad(texture);
+          }, onProgress, onError);
+        } else if (onError) {
+          onError(err);
+        }
+    });
 
+    _textureCache.set(targetUrl, texture);
     return texture;
 };
 
