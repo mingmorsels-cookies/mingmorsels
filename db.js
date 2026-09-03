@@ -381,8 +381,24 @@ export async function upsertUser({ google_id, name, email, picture }) {
 
 export function formatOrderForOutput(order) {
   if (!order) return null;
+  const rawItems = order.items !== undefined ? order.items : order.items_json;
+  let parsedItems = [];
+  if (Array.isArray(rawItems)) {
+    parsedItems = rawItems;
+  } else if (typeof rawItems === 'string') {
+    try {
+      parsedItems = JSON.parse(rawItems);
+    } catch (e) {
+      parsedItems = [];
+    }
+  } else if (rawItems && typeof rawItems === 'object') {
+    parsedItems = [rawItems];
+  }
+
   return {
     ...order,
+    items: parsedItems,
+    items_json: JSON.stringify(parsedItems),
     user_phone: decryptPII(order.user_phone),
     shipping_address: decryptPII(order.shipping_address)
   };
@@ -393,6 +409,7 @@ export async function createOrderRecord(orderData) {
 
   const encryptedPhone = user_phone ? encryptPII(user_phone) : null;
   const encryptedAddress = shipping_address ? encryptPII(shipping_address) : '';
+  const itemsArray = Array.isArray(items) ? items : (typeof items === 'string' ? JSON.parse(items || '[]') : []);
 
   if (pgPool) {
     try {
@@ -400,7 +417,7 @@ export async function createOrderRecord(orderData) {
         `INSERT INTO orders (id, user_id, user_name, user_email, user_phone, items_json, total_amount, payment_status, razorpay_order_id, shipping_address)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
          RETURNING *`,
-        [id, user_id || null, user_name, user_email, encryptedPhone, JSON.stringify(items), total_amount, payment_status || 'PENDING', razorpay_order_id || null, encryptedAddress]
+        [id, user_id || null, user_name, user_email, encryptedPhone, JSON.stringify(itemsArray), total_amount, payment_status || 'PENDING', razorpay_order_id || null, encryptedAddress]
       );
       return formatOrderForOutput(res.rows[0]);
     } catch (e) {}
@@ -412,7 +429,8 @@ export async function createOrderRecord(orderData) {
     user_name,
     user_email,
     user_phone: encryptedPhone,
-    items,
+    items: itemsArray,
+    items_json: JSON.stringify(itemsArray),
     total_amount,
     discount_amount: discount_amount || 0,
     applied_coupon: applied_coupon || null,

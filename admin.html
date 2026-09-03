@@ -1476,58 +1476,120 @@
 
         let currentOrdersList = orders;
 
+        const PRODUCT_META_CATALOG = {
+          almond: { name: 'Almond Rich Cookies', isMuffin: false, img: '/almond/1.jpg' },
+          rose: { name: 'Rose Petal & Cardamom Cookies', isMuffin: false, img: '/rose-petal/1.jpg' },
+          oatsnuts: { name: 'Oats & Nuts Cookies', isMuffin: false, img: '/oats-nuts/1.jpg' },
+          orange: { name: 'Orange Peel Shortbread', isMuffin: false, img: '/orange-peel/1.jpg' },
+          walnut: { name: 'California Walnut Cookies', isMuffin: false, img: '/img-walnut.png?v=2' },
+          walnut_sf: { name: 'Sugar-Free Walnut Cookies', isMuffin: false, img: '/img-walnut-sf.png?v=2' },
+          strawberry: { name: 'Strawberry Sponge Muffin', isMuffin: true, img: '/img-strawberry.jpg' },
+          pinacolada: { name: 'Pinacolada Sponge Muffin', isMuffin: true, img: '/img-pinacolada.jpg' },
+          butterscotch: { name: 'Butterscotch Cashew Muffin', isMuffin: true, img: '/img-butterscotch.jpg' },
+          chocochip: { name: '70% Dark Chocochip Muffin', isMuffin: true, img: '/img-chocochip.jpg' },
+          blackcurrant: { name: 'Black Currant Atta Muffin', isMuffin: true, img: '/img-blackcurrant.jpg' }
+        };
+
+        function getOrderItemsArray(order) {
+          if (!order) return [];
+          const raw = order.items !== undefined ? order.items : order.items_json;
+          if (Array.isArray(raw)) return raw;
+          if (typeof raw === 'string') {
+            try {
+              const p = JSON.parse(raw);
+              if (Array.isArray(p)) return p;
+              if (p && typeof p === 'object') return [p];
+            } catch (e) {}
+          }
+          if (raw && typeof raw === 'object') return [raw];
+          return [];
+        }
+
+        function resolveItemMeta(item) {
+          const rawId = String(item.id || item.productId || item.key || '').trim().toLowerCase();
+          const rawName = String(item.name || item.customName || item.title || '').trim();
+          const baseKey = rawId.split('_')[0] || '';
+          
+          const meta = PRODUCT_META_CATALOG[rawId] || PRODUCT_META_CATALOG[baseKey] || {};
+          
+          let cleanName = rawName;
+          if (!cleanName || cleanName === 'Artisanal Baked Delight' || cleanName === 'Cookie Box' || cleanName === 'custom_item') {
+            cleanName = meta.name || (baseKey ? (baseKey.charAt(0).toUpperCase() + baseKey.slice(1) + ' Box') : 'Artisanal Cookie Box');
+          }
+
+          cleanName = cleanName
+            .replace(/\s*\([^)]*\)/g, '')
+            .replace(/\s*\+.*$/i, '')
+            .trim();
+          if (!cleanName) cleanName = meta.name || 'Artisanal Treat Box';
+
+          const isMuffin = meta.isMuffin || cleanName.toLowerCase().includes('muffin') || rawId.includes('muffin');
+          const unitLabel = isMuffin ? 'Muffins' : 'Cookies';
+          const combined = `${rawId} ${rawName} ${item.packaging || ''} ${item.packaging_tier || ''} ${item.box_type || ''}`.toLowerCase();
+
+          let tierName = 'Classic Delights';
+          let piecesPerBox = isMuffin ? 4 : 8;
+          let tierBadge = '';
+
+          if (combined.includes('dozen') || combined.includes('12') || combined.includes('party') || combined.includes('6pcs') || combined.includes('6 pcs')) {
+            tierName = 'Dozen Delights';
+            piecesPerBox = isMuffin ? 6 : 12;
+            tierBadge = `<span style="background:rgba(91,44,111,0.14); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">👑 Dozen Delights (${piecesPerBox} ${unitLabel})</span>`;
+          } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('single') || combined.includes('2')) {
+            tierName = 'Twin Delights';
+            piecesPerBox = 2;
+            tierBadge = `<span style="background:rgba(41,128,185,0.14); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🛍️ Twin Delights (2 ${unitLabel})</span>`;
+          } else if (combined.includes('custom_box') || combined.includes('gift box') || combined.includes('builder')) {
+            tierName = 'Custom Curated Box';
+            piecesPerBox = 4;
+            tierBadge = `<span style="background:rgba(142,68,173,0.14); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🎁 Custom Curated Box</span>`;
+          } else {
+            tierName = 'Classic Delights';
+            piecesPerBox = isMuffin ? 4 : 8;
+            tierBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">📦 Classic Delights (${piecesPerBox} ${unitLabel})</span>`;
+          }
+
+          let giftBoxBadge = '';
+          if (combined.includes('lush')) {
+            giftBoxBadge = `<span style="background:rgba(232,165,152,0.3); color:#9E3D2E; border:1px solid #E8A598; padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">✨ Lush Box (+₹130)</span>`;
+          } else if (combined.includes('signature') || combined.includes('+₹15')) {
+            giftBoxBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">🎁 Signature Box (+₹15)</span>`;
+          }
+
+          const itemImg = item.image || item.boxImage || item.img || meta.img || (isMuffin ? '/img-chocochip.jpg' : '/almond/1.jpg');
+
+          return {
+            cleanName,
+            isMuffin,
+            unitLabel,
+            tierName,
+            piecesPerBox,
+            tierBadge,
+            giftBoxBadge,
+            itemImg,
+            combined
+          };
+        }
+
         // Rich Order Items Formatter Helper
-        function formatOrderItemsHTML(items, isModal = false) {
-          if (!Array.isArray(items) || items.length === 0) {
+        function formatOrderItemsHTML(items) {
+          const itemsArray = Array.isArray(items) ? items : (typeof items === 'string' ? JSON.parse(items || '[]') : []);
+          if (itemsArray.length === 0) {
             return `<div style="color:var(--color-text-muted); font-size:12px;">Standard Cookie Box</div>`;
           }
 
-          return items.map(item => {
+          return itemsArray.map(item => {
             const qty = Number(item.quantity || item.qty) || 1;
-            const rawName = String(item.name || item.customName || item.id || 'Artisanal Baked Delight').trim();
-            const packaging = String(item.packaging || item.packaging_tier || '').trim();
+            const meta = resolveItemMeta(item);
             const details = String(item.details || item.flavors || item.customFlavors || '').trim();
             const note = String(item.note || item.customMessage || item.giftNote || '').trim();
-            const unitPrice = Number(item.unit_price || item.price || 0);
-            const totalPrice = Number(item.total_price || (unitPrice > 0 ? unitPrice * qty : 0));
-
-            // Extract Clean Flavor Name
-            let cleanFlavor = rawName
-              .replace(/\s*\([^)]*\)/g, '')
-              .replace(/\s*\+.*$/i, '')
-              .trim();
-            if (!cleanFlavor) cleanFlavor = rawName;
-
-            const isMuffin = rawName.toLowerCase().includes('muffin') || cleanFlavor.toLowerCase().includes('muffin');
-            const unitLabel = isMuffin ? 'Muffins' : 'Cookies';
-            const combined = `${rawName} ${packaging} ${item.id || ''}`.toLowerCase();
-
-            // Packaging Tier Badge
-            let tierBadge = '';
-            if (combined.includes('dozen') || combined.includes('12')) {
-              tierBadge = `<span style="background:rgba(91,44,111,0.14); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">👑 Dozen Delights (${isMuffin ? 6 : 12} ${unitLabel})</span>`;
-            } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('2')) {
-              tierBadge = `<span style="background:rgba(41,128,185,0.14); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🛍️ Twin Delights (2 ${unitLabel})</span>`;
-            } else if (combined.includes('custom_box') || combined.includes('gift box')) {
-              tierBadge = `<span style="background:rgba(142,68,173,0.14); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">🎁 Custom Curated Box</span>`;
-            } else {
-              tierBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid var(--color-gold-border); padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:3px;">📦 Classic Delights (${isMuffin ? 4 : 8} ${unitLabel})</span>`;
-            }
-
-            // Gift Box Add-on Badge
-            let giftBoxBadge = '';
-            if (combined.includes('lush')) {
-              giftBoxBadge = `<span style="background:rgba(232,165,152,0.3); color:#9E3D2E; border:1px solid #E8A598; padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">✨ Lush Box (+₹130)</span>`;
-            } else if (combined.includes('signature') || combined.includes('+₹15')) {
-              giftBoxBadge = `<span style="background:rgba(200,150,12,0.16); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:2px 6px; border-radius:4px; font-weight:700; font-size:10px; display:inline-flex; align-items:center; gap:2px;">🎁 Signature Box (+₹15)</span>`;
-            }
 
             return `
               <div style="margin-bottom:8px; padding-bottom:8px; border-bottom:1px dashed rgba(61,32,0,0.1); line-height:1.4;">
                 <div style="font-weight:700; color:var(--color-brown); display:flex; align-items:center; flex-wrap:wrap; gap:5px; font-size:12.5px;">
-                  <span>🍪 <strong>${qty}×</strong> ${escapeHtml(cleanFlavor)}</span>
-                  ${tierBadge}
-                  ${giftBoxBadge}
+                  <span>${meta.isMuffin ? '🧁' : '🍪'} <strong>${qty}×</strong> ${escapeHtml(meta.cleanName)}</span>
+                  ${meta.tierBadge}
+                  ${meta.giftBoxBadge}
                 </div>
                 ${details ? `<div style="font-size:11px; color:#5B2C6F; font-weight:600; margin-top:2px;">🍬 <em>${escapeHtml(details)}</em></div>` : ''}
                 ${note ? `<div style="font-size:11px; color:#8C5803; background:#FFF8EB; border:1px solid rgba(200,150,12,0.25); border-radius:4px; padding:2px 6px; margin-top:2px;">💌 Note: "${escapeHtml(note)}"</div>` : ''}
@@ -1546,7 +1608,7 @@
             } else {
               pickupTbody.innerHTML = pickupOrders.map(o => {
                 const amt = parseInt(o.total_amount, 10) || 0;
-                const items = typeof o.items_json === 'string' ? JSON.parse(o.items_json) : (o.items_json || []);
+                const items = getOrderItemsArray(o);
                 const itemsHtml = formatOrderItemsHTML(items);
                 const isDelivered = o.delivery_status === 'DELIVERED' || o.pickup_verified;
 
@@ -1614,7 +1676,7 @@
             const customerPoints = o.customer_reward_points || ((totalCustomerOrders * 100) - redeemed);
             const isVipCustomer = o.is_vip_milestone_order || customerPoints >= 1000;
 
-            const items = typeof o.items_json === 'string' ? JSON.parse(o.items_json) : (o.items_json || []);
+            const items = getOrderItemsArray(o);
             const itemsHtml = formatOrderItemsHTML(items);
             const isPickup = o.delivery_mode === 'pickup' || (o.shipping_address && o.shipping_address.includes('Store Pickup:')) || o.pickup_pin;
 
@@ -1841,70 +1903,34 @@
         </span>
       `;
 
-      const items = typeof order.items_json === 'string' ? JSON.parse(order.items_json) : (order.items_json || []);
+      const items = getOrderItemsArray(order);
       const isPickup = order.delivery_mode === 'pickup' || (order.shipping_address && order.shipping_address.includes('Store Pickup:')) || order.pickup_pin;
       const isCOD = order.payment_method === 'Cash on Delivery' || order.payment_method === 'COD';
 
       // Format Items for Modal with Full Flavor, Packaging Tier, Quantity, and Gift Box Breakdown
       const itemsListHtml = items.map((item, idx) => {
         const qty = Number(item.quantity || item.qty) || 1;
-        const rawName = String(item.name || item.customName || item.id || 'Artisanal Baked Delight').trim();
-        const packaging = String(item.packaging || item.packaging_tier || '').trim();
+        const meta = resolveItemMeta(item);
         const details = String(item.details || item.flavors || item.customFlavors || '').trim();
         const note = String(item.note || item.customMessage || item.giftNote || '').trim();
         const unitPrice = Number(item.unit_price || item.price || 0);
         const packagingFee = Number(item.packaging_fee || item.boxPrice || item.boxExtraPrice || 0);
         const totalPrice = Number(item.total_price || (unitPrice > 0 ? (unitPrice * qty) + packagingFee : 0));
-        const itemImg = item.image || item.boxImage || (rawName.toLowerCase().includes('muffin') ? '/box-chocochip-2.jpg' : '/logo.png');
+        const totalTreatCount = meta.piecesPerBox * qty;
 
-        // Clean Flavor / Item Name (e.g. "Rose Petal Cookies", "Royal Almond Rich Cookies")
-        let cleanFlavor = rawName
-          .replace(/\s*\([^)]*\)/g, '')
-          .replace(/\s*\+.*$/i, '')
-          .trim();
-        if (!cleanFlavor) cleanFlavor = rawName;
-
-        const isMuffin = rawName.toLowerCase().includes('muffin') || cleanFlavor.toLowerCase().includes('muffin');
-        const unitLabel = isMuffin ? 'Muffins' : 'Cookies';
-        const combined = `${rawName} ${packaging} ${item.id || ''}`.toLowerCase();
-
-        // 1. Packaging Tier Recognition (Twin Delights, Classic Delights, Dozen Delights)
-        let tierName = 'Classic Delights';
-        let tierBadge = '';
-        let piecesPerBox = isMuffin ? 4 : 8;
-
-        if (combined.includes('dozen') || combined.includes('12')) {
-          tierName = 'Dozen Delights';
-          piecesPerBox = isMuffin ? 6 : 12;
-          tierBadge = `<span style="background:rgba(91,44,111,0.12); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">👑 Packaging Tier: <strong>Dozen Delights</strong> (${piecesPerBox} ${unitLabel} / box)</span>`;
-        } else if (combined.includes('twin') || combined.includes('snack') || combined.includes('2')) {
-          tierName = 'Twin Delights';
-          piecesPerBox = 2;
-          tierBadge = `<span style="background:rgba(41,128,185,0.12); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🛍️ Packaging Tier: <strong>Twin Delights</strong> (2 ${unitLabel} / box)</span>`;
-        } else if (combined.includes('custom_box') || combined.includes('gift box')) {
-          tierName = 'Curated Box';
-          tierBadge = `<span style="background:rgba(142,68,173,0.12); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🎁 Packaging Tier: <strong>Custom Curated Box</strong></span>`;
-        } else {
-          tierName = 'Classic Delights';
-          piecesPerBox = isMuffin ? 4 : 8;
-          tierBadge = `<span style="background:rgba(200,150,12,0.14); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">📦 Packaging Tier: <strong>Classic Delights</strong> (${piecesPerBox} ${unitLabel} / box)</span>`;
-        }
-
-        const totalTreatCount = piecesPerBox * qty;
-
-        // 2. Specific Gift Box Style Recognition
+        // Specific Gift Box Style Recognition
         let giftBoxBadge = '';
-        if (combined.includes('lush')) {
+        if (meta.combined.includes('lush')) {
           giftBoxBadge = `
             <div style="margin-top:6px; background:rgba(232,165,152,0.22); border:1px solid #E8A598; border-radius:8px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#9E3D2E; font-weight:700;">
               ✨ <strong>Gift Box:</strong> Lush Luxury Gift Box (+₹130 / box · Magnetic Keepsake Box with Premium Dry Fruits Pouch)
             </div>`;
-        } else if (combined.includes('signature') || combined.includes('+₹15')) {
+        } else if (meta.combined.includes('signature') || meta.combined.includes('+₹15')) {
           giftBoxBadge = `
             <div style="margin-top:6px; background:rgba(200,150,12,0.12); border:1px solid rgba(200,150,12,0.3); border-radius:8px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#8C5803; font-weight:700;">
               🎁 <strong>Gift Box:</strong> Signature Treat Box (+₹15 / box · Artisanal Ribbon Handle)
             </div>`;
-        } else if (combined.includes('custom_box') || combined.includes('gift')) {
+        } else if (meta.combined.includes('custom_box') || meta.combined.includes('gift')) {
           giftBoxBadge = `
             <div style="margin-top:6px; background:rgba(142,68,173,0.12); border:1px solid rgba(142,68,173,0.25); border-radius:8px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#8E44AD; font-weight:700;">
               🎀 <strong>Gift Box:</strong> Handcrafted Custom Gifting Box
@@ -1916,19 +1942,31 @@
             </div>`;
         }
 
+        // Expanded Packaging Tier Badge
+        let tierBadge = '';
+        if (meta.tierName === 'Dozen Delights') {
+          tierBadge = `<span style="background:rgba(91,44,111,0.12); color:#5B2C6F; border:1px solid rgba(91,44,111,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">👑 Packaging Tier: <strong>Dozen Delights</strong> (${meta.piecesPerBox} ${meta.unitLabel} / box)</span>`;
+        } else if (meta.tierName === 'Twin Delights') {
+          tierBadge = `<span style="background:rgba(41,128,185,0.12); color:#2980B9; border:1px solid rgba(41,128,185,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🛍️ Packaging Tier: <strong>Twin Delights</strong> (2 ${meta.unitLabel} / box)</span>`;
+        } else if (meta.tierName === 'Custom Curated Box') {
+          tierBadge = `<span style="background:rgba(142,68,173,0.12); color:#8E44AD; border:1px solid rgba(142,68,173,0.25); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">🎁 Packaging Tier: <strong>Custom Curated Box</strong></span>`;
+        } else {
+          tierBadge = `<span style="background:rgba(200,150,12,0.14); color:#8C5803; border:1px solid rgba(200,150,12,0.3); padding:4px 10px; border-radius:6px; font-weight:800; font-size:11.5px; display:inline-flex; align-items:center; gap:4px;">📦 Packaging Tier: <strong>Classic Delights</strong> (${meta.piecesPerBox} ${meta.unitLabel} / box)</span>`;
+        }
+
         return `
           <div style="background:#FFFFFF; border:1.5px solid rgba(61,32,0,0.12); border-radius:14px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(61,32,0,0.04);">
             <div style="display:flex; align-items:flex-start; gap:14px;">
               <!-- Thumbnail Image -->
               <div style="width:72px; height:72px; border-radius:10px; overflow:hidden; border:1.5px solid rgba(61,32,0,0.12); background:#FFFDF9; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
-                <img src="${itemImg}" alt="${escapeHtml(cleanFlavor)}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/logo.png';" />
+                <img src="${meta.itemImg}" alt="${escapeHtml(meta.cleanName)}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/almond/1.jpg';" />
               </div>
 
               <!-- Content Column -->
               <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
                   <div>
-                    <h3 style="margin:0; font-size:16px; font-weight:800; color:var(--color-brown); font-family:var(--font-serif);">${escapeHtml(cleanFlavor)}</h3>
+                    <h3 style="margin:0; font-size:16px; font-weight:800; color:var(--color-brown); font-family:var(--font-serif);">${meta.isMuffin ? '🧁' : '🍪'} ${escapeHtml(meta.cleanName)}</h3>
                     <div style="font-size:11.5px; color:var(--color-text-muted); margin-top:2px;">Item SKU: <code>${escapeHtml(item.id || 'N/A')}</code></div>
                   </div>
                   <div style="font-size:17px; font-weight:900; color:#8C5803; text-align:right;">
@@ -1939,7 +1977,7 @@
                 <!-- Badges Row: Quantity, Tier, Piece Count -->
                 <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:10px 0 6px;">
                   <span style="font-size:12px; font-weight:800; color:#3D2000; background:#F5EFE6; padding:4px 10px; border-radius:6px; border:1px solid rgba(61,32,0,0.15);">
-                    🔢 Quantity: <strong>${qty} Box${qty > 1 ? 'es' : ''}</strong> ${totalTreatCount > 0 ? `(Total ${totalTreatCount} ${unitLabel})` : ''}
+                    🔢 Quantity: <strong>${qty} Box${qty > 1 ? 'es' : ''}</strong> ${totalTreatCount > 0 ? `(Total ${totalTreatCount} ${meta.unitLabel})` : ''}
                   </span>
                   ${tierBadge}
                 </div>
@@ -2105,23 +2143,14 @@
 
     // Clean Printable Packing Slip Generator
     function printOrderPackingSlip(order) {
-      const items = typeof order.items_json === 'string' ? JSON.parse(order.items_json) : (order.items_json || []);
+      const items = getOrderItemsArray(order);
       const itemsRows = items.map((it, idx) => {
         const qty = Number(it.quantity || it.qty || 1);
-        const rawName = String(it.name || it.id || 'Artisanal Baked Item').trim();
-        const packaging = String(it.packaging || it.packaging_tier || '').trim();
-        const combined = `${rawName} ${packaging} ${it.id || ''}`.toLowerCase();
-
-        let cleanFlavor = rawName.replace(/\s*\([^)]*\)/g, '').replace(/\s*\+.*$/i, '').trim();
-        if (!cleanFlavor) cleanFlavor = rawName;
-
-        let tierName = 'Classic Delights (8 Pcs)';
-        if (combined.includes('dozen') || combined.includes('12')) tierName = 'Dozen Delights (12 Pcs)';
-        else if (combined.includes('twin') || combined.includes('2')) tierName = 'Twin Delights (2 Pcs)';
+        const meta = resolveItemMeta(it);
 
         let giftBox = 'Standard Packaging';
-        if (combined.includes('lush')) giftBox = 'Lush Luxury Box (+ Dry Fruits)';
-        else if (combined.includes('signature')) giftBox = 'Signature Treat Box';
+        if (meta.combined.includes('lush')) giftBox = 'Lush Luxury Box (+ Dry Fruits)';
+        else if (meta.combined.includes('signature')) giftBox = 'Signature Treat Box';
 
         const details = it.details ? `<div style="font-size:11px; color:#5B2C6F; margin-top:3px;">Flavors: <strong>${escapeHtml(it.details)}</strong></div>` : '';
         const note = it.note ? `<div style="font-size:11px; color:#8C5803; background:#FFF8EB; border:1px solid #FEEBC8; padding:3px 6px; margin-top:3px;">Greeting Note: "${escapeHtml(it.note)}"</div>` : '';
@@ -2130,9 +2159,9 @@
           <tr>
             <td style="padding:10px; border-bottom:1px solid #eee; text-align:center;">${idx + 1}</td>
             <td style="padding:10px; border-bottom:1px solid #eee;">
-              <strong style="font-size:14px; color:#3D2000;">${escapeHtml(cleanFlavor)}</strong>
+              <strong style="font-size:14px; color:#3D2000;">${meta.isMuffin ? '🧁' : '🍪'} ${escapeHtml(meta.cleanName)}</strong>
               <div style="font-size:12px; color:#666; margin-top:2px;">
-                Tier: <strong style="color:#333;">${tierName}</strong> &nbsp;|&nbsp; 
+                Tier: <strong style="color:#333;">${meta.tierName} (${meta.piecesPerBox} ${meta.unitLabel})</strong> &nbsp;|&nbsp; 
                 Box: <strong style="color:#C8960C;">${giftBox}</strong>
               </div>
               ${details}
