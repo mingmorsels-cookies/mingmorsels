@@ -106,7 +106,7 @@ export async function sendPushToCustomer({ phone, email, title, body, url, order
     if (subs.length === 0) return;
 
     const payload = JSON.stringify({
-      title: title || 'Ming Morsels 🍪',
+      title: title || 'mingmorsels 🍪',
       body: body || 'Your order has been confirmed!',
       url: url || '/order-confirmation.html',
       orderId

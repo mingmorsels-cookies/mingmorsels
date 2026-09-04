@@ -3,7 +3,7 @@ import request from 'supertest';
 import { app } from '../server.js';
 import { generateCustomerToken, ADMIN_SECRET_KEY, ADMIN_PASSWORD } from '../src/server/middleware/auth.js';
 
-describe('Ming Morsels API Endpoints (Supertest)', () => {
+describe('mingmorsels API Endpoints (Supertest)', () => {
   it('GET /api/health - should return healthy status, correlation id and CSP headers', async () => {
     const res = await request(app).get('/api/health');
     expect(res.status).toBe(200);
@@ -153,7 +153,7 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
     expect(res.status).toBe(200);
     expect(res.headers['content-type']).toContain('text/html');
     expect(res.text).toContain('TAX INVOICE');
-    expect(res.text).toContain('Ming Morsels');
+    expect(res.text).toContain('mingmorsels');
     expect(res.text).toContain('MIORA DELIGHTS PRIVATE LIMITED');
     expect(res.text).toContain('29AAUCM5423C1Z9');
   });

@@ -7,7 +7,7 @@ let server;
 let serverUrl;
 let browser;
 
-describe('Ming Morsels E2E Visual & WebGL Regression Suite', () => {
+describe('mingmorsels E2E Visual & WebGL Regression Suite', () => {
   beforeAll(async () => {
     // 1. Start Express server on ephemeral port
     await new Promise((resolve) => {

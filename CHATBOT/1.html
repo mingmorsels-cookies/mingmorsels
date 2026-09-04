@@ -32,7 +32,7 @@
             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">${nutRows}</div>
             <div style="margin-bottom:14px">${tags}</div>
             <div style="border-top:1px solid #E8D5B0;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
-                <div style="font-family:Georgia,serif;font-size:13px;color:#6B3A0F;font-style:italic">Ming Morsels · Natural · Handcrafted</div>
+                <div style="font-family:Georgia,serif;font-size:13px;color:#6B3A0F;font-style:italic">mingmorsels · Natural · Handcrafted</div>
                 <div style="font-size:11px;color:#8B6840">wa.me/918884102020</div>
             </div>
         </div>
@@ -84,7 +84,7 @@
                         const file = new File([blob], c.name.replace(/ /g, '_') + '_MingMorsels.png', { type: 'image/png' });
                         if (navigator.canShare({ files: [file] })) {
                             try {
-                                await navigator.share({ title: c.name + ' — Ming Morsels', text: c.name + ': ' + c.review.substring(0, 80) + '… Order: wa.me/918884102020', files: [file] });
+                                await navigator.share({ title: c.name + ' — mingmorsels', text: c.name + ': ' + c.review.substring(0, 80) + '… Order: wa.me/918884102020', files: [file] });
                                 showToast('✅ Shared!');
                             } catch (e) { fallbackCopy(key, cardUid, shareBtn); }
                         } else { fallbackCopy(key, cardUid, shareBtn); }
@@ -97,7 +97,7 @@
 
         function fallbackCopy(key, cardUid, shareBtn) {
             const c = COOKIES[key];
-            const text = c.name + ' by Ming Morsels 🍪\n' + c.review.substring(0, 100) + '…\nOrder: https://wa.me/918884102020';
+            const text = c.name + ' by mingmorsels 🍪\n' + c.review.substring(0, 100) + '…\nOrder: https://wa.me/918884102020';
             navigator.clipboard.writeText(text).then(() => {
                 if (shareBtn) { shareBtn.textContent = '✓ Copied!'; shareBtn.classList.add('copied'); setTimeout(() => { shareBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share'; shareBtn.classList.remove('copied'); }, 2500); }
                 showToast('📋 Link copied to clipboard!');
@@ -3189,7 +3189,7 @@
 
         <!-- CHANGED: clickable title with spoken name tooltip -->
         <div class="hero-title" onclick="spellOutTitle()" title="Click to hear it spoken!">
-            <span class="spell-tooltip" id="spellTooltip">✨ Ming Morsels ✨</span>
+            <span class="spell-tooltip" id="spellTooltip">✨ mingmorsels ✨</span>
             Ming <em>Morsels</em>
         </div>
 
@@ -4624,7 +4624,7 @@
 
         function shareQVCardSocial(platform) {
             const c = COOKIES[currentQVKey];
-            const desc = `${c.emoji} ${c.name} by Ming Morsels — wholesome, natural, handcrafted!`;
+            const desc = `${c.emoji} ${c.name} by mingmorsels — wholesome, natural, handcrafted!`;
             const link = "https://wa.me/918884102020";
             let url = "";
             if (platform === 'whatsapp') url = `https://wa.me/918884102020?text=Check%20out%20these%20delicious%20${c.name}!%20${desc}`;
@@ -4634,7 +4634,7 @@
             if (url) window.open(url, '_blank');
         }
 
-        function copyQVLinkFallback() { const c = COOKIES[currentQVKey]; const text = `${c.name} by Ming Morsels 🍪\n100% natural, preservative free!\nOrder: https://wa.me/918884102020`; navigator.clipboard.writeText(text).then(() => { showToast("📋 Link copied to clipboard!"); }).catch(() => showToast("⚠️ Clipboard not supported")); }
+        function copyQVLinkFallback() { const c = COOKIES[currentQVKey]; const text = `${c.name} by mingmorsels 🍪\n100% natural, preservative free!\nOrder: https://wa.me/918884102020`; navigator.clipboard.writeText(text).then(() => { showToast("📋 Link copied to clipboard!"); }).catch(() => showToast("⚠️ Clipboard not supported")); }
         function exportQVRecipePDF() { window.print(); }
         function trackCookieView(key) { cookieViews[key] = (cookieViews[key] || 0) + 1; saveStoreState(); }
 
@@ -4680,7 +4680,7 @@
 
         window.addEventListener('DOMContentLoaded', () => { initStoreState(); });
 
-        /* ===== SPELL-OUT MING MORSELS ===== */
+        /* ===== SPELL-OUT MINGMORSELS ===== */
         function spellOutTitle() {
             const tooltip = document.getElementById('spellTooltip');
             tooltip.classList.add('visible');
@@ -4688,7 +4688,7 @@
             if (window.speechSynthesis) window.speechSynthesis.cancel();
 
             if (window.speechSynthesis) {
-                const u = new SpeechSynthesisUtterance('Ming Morsels');
+                const u = new SpeechSynthesisUtterance('mingmorsels');
                 const voices = window.speechSynthesis.getVoices();
                 const v = getFemaleVoice('en', voices);
                 if (!v) {

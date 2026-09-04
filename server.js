@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Ming Morsels - Production-Grade Express API Server
+// mingmorsels - Production-Grade Express API Server
 // ─────────────────────────────────────────────────────────────────────────────
 
 import dotenv from 'dotenv';
@@ -216,7 +216,7 @@ app.get('/api/health', async (req, res) => {
   res.json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
-    service: 'Ming Morsels Artisanal Confectionery API',
+    service: 'mingmorsels Artisanal Confectionery API',
     environment: process.env.NODE_ENV || 'development',
     redis: redisHealth
   });
@@ -318,13 +318,13 @@ app.use((err, req, res, next) => {
 if (process.env.NODE_ENV !== 'test') {
   initPostgresTables().then(() => {
     app.listen(PORT, () => {
-      console.log(`✨ Ming Morsels Artisanal API running securely at http://localhost:${PORT}`);
+      console.log(`✨ mingmorsels Artisanal API running securely at http://localhost:${PORT}`);
       console.log(`🔒 Security: Hardened Authentication Active, Strict HMAC Verification, Static Protection Enabled.`);
     });
   }).catch((err) => {
     console.error('Database connection error during boot:', err);
     app.listen(PORT, () => {
-      console.log(`✨ Ming Morsels Artisanal API running in fallback mode at http://localhost:${PORT}`);
+      console.log(`✨ mingmorsels Artisanal API running in fallback mode at http://localhost:${PORT}`);
     });
   });
 }

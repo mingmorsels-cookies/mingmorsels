@@ -18,7 +18,7 @@ export class WhatsAppService {
     const courier = order.courier_name || 'BlueDart Express';
     const trackingUrl = order.tracking_url || `https://mingmorsels.com/track-order?order=${orderId}`;
 
-    return `✨ *Ming Morsels - Connoisseur Order Update* ✨
+    return `✨ *mingmorsels - Connoisseur Order Update* ✨
 
 Dear ${customerName},
 
@@ -36,7 +36,7 @@ Track your package live:
 👉 ${trackingUrl}
 
 Warm regards,
-*Ming Morsels Bangalore Artisans*`;
+*mingmorsels Bangalore Artisans*`;
   }
 
   /**

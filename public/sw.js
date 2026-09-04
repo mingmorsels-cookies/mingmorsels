@@ -22,9 +22,9 @@ self.addEventListener('push', (event) => {
   if (event.data) {
     try {
       const data = event.data.json();
-      const title = data.title || 'Ming Morsels';
+      const title = data.title || 'mingmorsels';
       const options = {
-        body: data.body || 'You have a new update from Ming Morsels!',
+        body: data.body || 'You have a new update from mingmorsels!',
         icon: '/favicon.ico',
         badge: '/favicon.ico',
         tag: 'ming-morsels-push',

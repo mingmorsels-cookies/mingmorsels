@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Ming Morsels - High-Performance Modular Application Entrypoint
+// mingmorsels - High-Performance Modular Application Entrypoint
 // ─────────────────────────────────────────────────────────────────────────────
 
 import './style.css';

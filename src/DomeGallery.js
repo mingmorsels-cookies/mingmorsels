@@ -191,7 +191,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
                     <div class="cdc-quote">${member.quote}</div>
                     <p class="cdc-desc">${member.desc}</p>
                     <div class="cdc-footer">
-                      <span class="cdc-tag">🍪 Ming Morsels</span>
+                      <span class="cdc-tag">🍪 mingmorsels</span>
                       <span class="cdc-expand">Tap to expand ↗</span>
                     </div>
                   </div>
@@ -471,7 +471,7 @@ export function initDomeGallery(containerEl, userProps = {}) {
         <div class="dome-popup-quote">${member.quote}</div>
         <p class="dome-popup-desc">${member.desc}</p>
         <div class="dome-popup-footer">
-          <span class="dome-popup-badge">🍪 Ming Morsels Cookie Crew</span>
+          <span class="dome-popup-badge">🍪 mingmorsels Cookie Crew</span>
           <span style="font-size:12px;color:#E5B84B;font-weight:700;">#MadeWithPassion</span>
         </div>
       </div>

@@ -13,8 +13,8 @@ export class SharedLayout {
     container.innerHTML = `
       <header class="header" role="banner">
         <div class="nav-container">
-          <a href="/" class="logo-link" aria-label="Ming Morsels Home">
-            <img src="/logo.png" alt="Ming Morsels" class="logo-img" />
+          <a href="/" class="logo-link" aria-label="mingmorsels Home">
+            <img src="/logo.png" alt="mingmorsels" class="logo-img" />
           </a>
           <nav class="desktop-nav" aria-label="Main Navigation">
             <a href="/#products" class="nav-link">Signature Cookies</a>
@@ -46,7 +46,7 @@ export class SharedLayout {
       <footer id="footer" class="footer" role="contentinfo">
         <div class="footer-content">
           <div class="footer-brand">
-            <img src="/logo.png" alt="Ming Morsels" class="footer-logo" />
+            <img src="/logo.png" alt="mingmorsels" class="footer-logo" />
             <p class="footer-tagline">When moments matter. Handcrafted artisanal confectionery baked with love in Bengaluru.</p>
           </div>
           <div class="footer-links-grid">

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Ming Morsels - GST Tax Invoice Generation Service (HSN 1905 Compliant)
+// mingmorsels - GST Tax Invoice Generation Service (HSN 1905 Compliant)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function escapeHtml(str) {
@@ -112,7 +112,7 @@ export class InvoiceService {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tax Invoice - ${escapeHtml(order.id)} | Ming Morsels</title>
+  <title>Tax Invoice - ${escapeHtml(order.id)} | mingmorsels</title>
   <style>
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -374,7 +374,7 @@ export class InvoiceService {
 
     <div class="footer-note">
       This is a computer-generated GST tax invoice. No signature is required.<br>
-      Thank you for indulging in handcrafted confectionery by Ming Morsels Artisanal Bangalore.
+      Thank you for indulging in handcrafted confectionery by mingmorsels Artisanal Bangalore.
     </div>
   </div>
 </body>

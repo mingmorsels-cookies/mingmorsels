@@ -134,7 +134,7 @@ function makeCrewCardDataURL(member) {
   <text x="38" y="145" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#FFF4D4">"${q}"</text>
   ${descSvg}
   <line x1="24" y1="240" x2="416" y2="240" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4 4"/>
-  <text x="28" y="264" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="800" fill="#F5C542">🍪 MING MORSELS CREW</text>
+  <text x="28" y="264" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="800" fill="#F5C542">🍪 MINGMORSELS CREW</text>
 </svg>`;
 
   return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;

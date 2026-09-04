@@ -121,7 +121,7 @@ export class NotificationService {
             ${isPickup ? `
             <div style="background: #F1F8E9; border-radius: 12px; border: 1px solid #A5D6A7; padding: 16px; margin: 24px 0;">
               <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #388E3C; text-transform: uppercase;">🏪 Store Pickup Details</p>
-              <p style="margin: 0 0 8px 0; font-size: 14px; color: #3D2000; font-weight: 600;">Ming Morsels Production House</p>
+              <p style="margin: 0 0 8px 0; font-size: 14px; color: #3D2000; font-weight: 600;">mingmorsels Production House</p>
               <p style="margin: 0 0 10px 0; font-size: 13px; color: #5D4037; line-height: 1.5;">1st A, Main Road, mingmorsels, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026</p>
               ${order.pickup_pin ? `<p style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700; color: #C8960C; background: #FAF6F0; padding: 8px 12px; border-radius: 8px; display: inline-block;">🔑 Your Pickup PIN: ${order.pickup_pin}</p>` : ''}
               
@@ -145,7 +145,7 @@ export class NotificationService {
 
             <!-- WhatsApp Updates -->
             <div style="text-align: center; margin: 20px 0;">
-              <a href="https://wa.me/918884102020?text=${encodeURIComponent(`Hi Ming Morsels! I just placed Order #${order.id}. Please share live updates here.`)}" style="display: inline-block; background: #25D366; color: #FFF; padding: 13px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 14px;">💬 Get Live Updates on WhatsApp</a>
+              <a href="https://wa.me/918884102020?text=${encodeURIComponent(`Hi mingmorsels! I just placed Order #${order.id}. Please share live updates here.`)}" style="display: inline-block; background: #25D366; color: #FFF; padding: 13px 24px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 14px;">💬 Get Live Updates on WhatsApp</a>
             </div>
 
             <div style="display: flex; gap: 12px; margin-top: 16px;">
@@ -162,11 +162,11 @@ export class NotificationService {
       try {
         console.log(`📧 [Resend] Sending order confirmation to: ${order.user_email}`);
         // Use verified domain if available, else Resend default sender
-        const fromAddress = process.env.RESEND_FROM_EMAIL || 'Ming Morsels 🍪 <onboarding@resend.dev>';
+        const fromAddress = process.env.RESEND_FROM_EMAIL || 'mingmorsels 🍪 <onboarding@resend.dev>';
         const { data, error } = await this.resend.emails.send({
           from: fromAddress,
           to: [order.user_email],
-          subject: `✅ Order #${order.id} Confirmed | Ming Morsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
+          subject: `✅ Order #${order.id} Confirmed | mingmorsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
           html: htmlBody
         });
         if (error) {
@@ -185,9 +185,9 @@ export class NotificationService {
       try {
         console.log(`📧 [SMTP] Attempting to send order confirmation to: ${order.user_email}`);
         await this.transporter.sendMail({
-          from: `"Ming Morsels Confectionery 🍪" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'mingmorsels@gmail.com'}>`,
+          from: `"mingmorsels Confectionery 🍪" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'mingmorsels@gmail.com'}>`,
           to: order.user_email,
-          subject: `✅ Order #${order.id} Confirmed | Ming Morsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
+          subject: `✅ Order #${order.id} Confirmed | mingmorsels — ${isCOD ? 'Cash on Delivery' : 'Payment Received'}`,
           html: htmlBody
         });
         console.log(`✅ [SMTP] Email sent to ${order.user_email} for order #${order.id}`);
@@ -353,7 +353,7 @@ export class NotificationService {
     if (this.resend) {
       try {
         console.log(`📧 [Resend Admin Alert] Sending to: ${adminEmail}`);
-        const fromAddress = process.env.RESEND_FROM_EMAIL || 'Ming Morsels Orders 🍪 <onboarding@resend.dev>';
+        const fromAddress = process.env.RESEND_FROM_EMAIL || 'mingmorsels Orders 🍪 <onboarding@resend.dev>';
         const { data, error } = await this.resend.emails.send({
           from: fromAddress,
           to: [adminEmail],
@@ -375,7 +375,7 @@ export class NotificationService {
       try {
         console.log(`📧 [SMTP Admin Alert] Attempting to send to: ${adminEmail}`);
         await this.transporter.sendMail({
-          from: `"Ming Morsels Store Bot 🍪" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'mingmorsels@gmail.com'}>`,
+          from: `"mingmorsels Store Bot 🍪" <${process.env.SMTP_USER || process.env.GMAIL_USER || 'mingmorsels@gmail.com'}>`,
           to: adminEmail,
           subject: subject,
           html: htmlBody
@@ -412,8 +412,8 @@ export class NotificationService {
       : 'Pickup Hours: 10AM-4PM (Mon-Sat, Sunday closed). Ready in 2-3 hrs.';
 
     const smsMessage = isPickup
-      ? `Hi ${order.user_name || 'there'}! Your Ming Morsels order #${order.id} (Rs.${order.total_amount}) is confirmed for Store Pickup at Nayanda Halli Studio. PIN: ${order.pickup_pin || '4892'}. ${pickupTimingText} ${isCOD ? `Keep Rs.${order.total_amount} ready. ` : ''}Track: ${trackUrl}`
-      : `Hi ${order.user_name || 'there'}! Your Ming Morsels order #${order.id} (Rs.${order.total_amount}) is confirmed! ${isCOD ? `Keep Rs.${order.total_amount} ready for COD. ` : ''}Delivery in 2-4 hrs. Track: ${trackUrl}`;
+      ? `Hi ${order.user_name || 'there'}! Your mingmorsels order #${order.id} (Rs.${order.total_amount}) is confirmed for Store Pickup at Nayanda Halli Studio. PIN: ${order.pickup_pin || '4892'}. ${pickupTimingText} ${isCOD ? `Keep Rs.${order.total_amount} ready. ` : ''}Track: ${trackUrl}`
+      : `Hi ${order.user_name || 'there'}! Your mingmorsels order #${order.id} (Rs.${order.total_amount}) is confirmed! ${isCOD ? `Keep Rs.${order.total_amount} ready for COD. ` : ''}Delivery in 2-4 hrs. Track: ${trackUrl}`;
 
     if (!apiKey) {
       console.log(`📱 [SMS - No API Key] To ${phone}: ${smsMessage}`);

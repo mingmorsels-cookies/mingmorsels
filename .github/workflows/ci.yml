@@ -1,4 +1,4 @@
-name: Ming Morsels CI/CD Production Pipeline
+name: mingmorsels CI/CD Production Pipeline
 
 on:
   push:

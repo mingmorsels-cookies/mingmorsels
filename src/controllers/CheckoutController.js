@@ -110,7 +110,7 @@ export class CheckoutController {
                 <span style="font-size: 10.5px; background: #2E6B1A; color: #FFF; padding: 2px 7px; border-radius: 10px;">₹0 Delivery Fee</span>
               </div>
               <p style="margin: 6px 0 4px; color: #3D2000; font-size: 12.5px; line-height: 1.4;">
-                <strong>Ming Morsels Production House</strong><br/>
+                <strong>mingmorsels Production House</strong><br/>
                 1st A, Main Road, mingmorsels, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026
               </p>
               
@@ -319,7 +319,7 @@ export class CheckoutController {
       let pincode = '';
 
       if (activeDeliveryMode === 'pickup') {
-        address = 'Store Pickup: Ming Morsels Production House, 1st A, Main Road, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026';
+        address = 'Store Pickup: mingmorsels Production House, 1st A, Main Road, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026';
         pincode = '560026';
       } else {
         address = document.getElementById('ship-modal-address').value.trim();
@@ -442,7 +442,7 @@ export class CheckoutController {
 
       let shippingAddress = details.address || '';
       if (isPickup) {
-        shippingAddress = 'Store Pickup: Ming Morsels Production House, 1st A, Main Road, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026';
+        shippingAddress = 'Store Pickup: mingmorsels Production House, 1st A, Main Road, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026';
       } else if (!shippingAddress || shippingAddress.length < 5) {
         shippingAddress = 'Bengaluru Urban';
       }
@@ -512,7 +512,7 @@ export class CheckoutController {
         key: keyId,
         amount: Number(orderData.amount),
         currency: "INR",
-        name: "Ming Morsels",
+        name: "mingmorsels",
         description: "Artisanal Confectionery - Fresh Daily Batch",
         image: "/logo.png",
         prefill: {

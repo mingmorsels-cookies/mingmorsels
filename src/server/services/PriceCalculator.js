@@ -116,7 +116,7 @@ export class PriceCalculator {
     }
 
     const shippingTier = isPickup 
-      ? { tier: 0, deliveryFee: 0, freeDeliveryAbove: 0, zone: 'Store Self-Pickup', area: 'Ming Morsels Studio (Nayanda Halli)' }
+      ? { tier: 0, deliveryFee: 0, freeDeliveryAbove: 0, zone: 'Store Self-Pickup', area: 'mingmorsels Studio (Nayanda Halli)' }
       : getPincodeShippingTier(pincode);
 
     const baseDeliveryFee = shippingTier.deliveryFee || 0;
