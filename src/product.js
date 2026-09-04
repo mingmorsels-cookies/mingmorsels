@@ -68,8 +68,8 @@ const PRODUCTS_DATA = {
       { name: 'Dr. Meera N.', location: 'Chennai', rating: 5, text: 'The subtle rose aroma is simply therapeutic. Perfect with evening green tea!' }
     ]
   },
-  oats: {
-    id: 'oats',
+  oatsnuts: {
+    id: 'oatsnuts',
     name: 'Oats & Nuts Cookies',
     category: 'Wholesome Crunch',
     categoryLink: 'Cookies',
@@ -290,6 +290,13 @@ const PRODUCTS_DATA = {
   }
 };
 
+// Aliases for seamless routing
+PRODUCTS_DATA.oats = PRODUCTS_DATA.oatsnuts;
+PRODUCTS_DATA.oats_nuts = PRODUCTS_DATA.oatsnuts;
+PRODUCTS_DATA.sugarfree_walnut = PRODUCTS_DATA.walnut_sf;
+PRODUCTS_DATA.sugarfreewalnut = PRODUCTS_DATA.walnut_sf;
+PRODUCTS_DATA.sf_walnut = PRODUCTS_DATA.walnut_sf;
+
 // Authentic Bakery Box Sizes (Rose Petal & Roasted Almond Rich Cookies)
 const COOKIE_BOX_OPTIONS = {
   rose: [
@@ -429,9 +436,12 @@ let cart = [];
 document.addEventListener('DOMContentLoaded', () => {
   // Parse Product ID from URL ?id=...
   const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id');
-  if (productId && PRODUCTS_DATA[productId]) {
-    currentProduct = PRODUCTS_DATA[productId];
+  let productId = urlParams.get('id') || urlParams.get('product') || urlParams.get('flavor');
+  if (productId) {
+    productId = productId.toLowerCase().trim();
+    if (PRODUCTS_DATA[productId]) {
+      currentProduct = PRODUCTS_DATA[productId];
+    }
   }
 
   // Update Page Title
