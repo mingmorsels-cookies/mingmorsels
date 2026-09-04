@@ -50,6 +50,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html:has(body.luxury-dark-page),
+body.luxury-dark-page {
+  background-color: #120E0B !important;
+  color: #E0D5C1 !important;
+}
+
 .nav-logo,
 .brand-logo-img {
   height: 44px;

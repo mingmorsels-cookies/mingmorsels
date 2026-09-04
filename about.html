@@ -68,14 +68,16 @@
       --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: #120E0B;
-      color: #FAF6F0;
+    
+    html, body.luxury-dark-page {
+      background-color: #120E0B !important;
+      color: #E0D5C1 !important;
       font-family: var(--font-sans);
       min-height: 100vh;
       line-height: 1.8;
       -webkit-font-smoothing: antialiased;
     }
+    
     .navbar {
       position: fixed;
       top: 0;
@@ -90,7 +92,7 @@
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 12px 24px;
+      padding: 14px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -109,7 +111,7 @@
     }
     .btn-primary {
       background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%);
-      color: #120E0B;
+      color: #120E0B !important;
       font-weight: 700;
       border-radius: 9999px;
       text-decoration: none;
@@ -122,99 +124,211 @@
     .btn-primary:hover {
       transform: translateY(-2px);
     }
+    
     .page-header {
-      padding: 120px 5% 60px;
+      padding: 140px 5% 50px;
       text-align: center;
-      background: linear-gradient(to bottom, #1a1410, var(--bg-dark, #120E0B));
-      border-bottom: 1px solid rgba(212, 163, 115, 0.1);
+      background: radial-gradient(ellipse at top, rgba(198, 150, 12, 0.15) 0%, #120E0B 70%);
+      border-bottom: 1px solid rgba(212, 163, 115, 0.15);
+    }
+    .page-tag {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #D4AF37;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      padding: 5px 16px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
     }
     .page-title {
       font-family: var(--font-serif);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      color: #C6960C;
-      margin: 0 0 20px;
+      font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+      color: #FFF !important;
+      margin: 0 0 16px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .page-title span {
+      color: #D4AF37;
+      font-style: italic;
     }
     .page-subtitle {
-      font-size: 1.1rem;
-      color: #E0D5C1;
-      max-width: 600px;
+      font-size: 1.15rem;
+      color: #C7BAA7 !important;
+      max-width: 620px;
       margin: 0 auto;
       line-height: 1.6;
     }
-    .content-section {
-      padding: 60px 5%;
-      max-width: 900px;
+    
+    .about-main-wrapper {
+      background-color: #120E0B;
+      padding: 60px 5% 100px;
+    }
+    .content-card {
+      max-width: 860px;
       margin: 0 auto;
-      color: #E0D5C1;
-      font-size: 1.1rem;
-      line-height: 1.8;
+      background: rgba(28, 21, 16, 0.75);
+      border: 1px solid rgba(212, 163, 115, 0.2);
+      border-radius: 20px;
+      padding: clamp(30px, 5vw, 60px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
-    .content-section h2 {
+    
+    .content-card h2 {
       font-family: var(--font-serif);
-      font-size: 2.2rem;
-      color: #C6960C;
-      margin-bottom: 24px;
-      border-bottom: 1px dashed rgba(200, 150, 12, 0.3);
-      padding-bottom: 12px;
+      font-size: clamp(1.8rem, 3.5vw, 2.3rem);
+      color: #D4AF37 !important;
+      margin: 36px 0 18px;
+      border-bottom: 1px dashed rgba(212, 163, 115, 0.25);
+      padding-bottom: 10px;
+      font-weight: 700;
     }
-    .content-section p {
-      margin-bottom: 24px;
+    .content-card h2:first-of-type {
+      margin-top: 0;
     }
+    .content-card p {
+      margin-bottom: 20px;
+      color: #D6C8B4 !important;
+      font-size: 1.08rem;
+      line-height: 1.85;
+    }
+    
     .highlight-box {
-      background: rgba(198, 150, 12, 0.05);
-      border: 1px solid rgba(198, 150, 12, 0.2);
-      border-radius: 12px;
-      padding: 30px;
-      margin: 40px 0;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.02) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 14px;
+      padding: 32px 28px;
+      margin: 36px 0;
       text-align: center;
+      position: relative;
     }
     .highlight-box h3 {
-      color: #FFF;
-      margin-bottom: 15px;
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: #FFF !important;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .highlight-box p {
+      color: #E2D5C3 !important;
+      margin-bottom: 0 !important;
+      font-size: 1.05rem;
+    }
+    
+    .story-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .feature-item {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(212, 163, 115, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .feature-title {
+      color: #D4AF37;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+    .feature-desc {
+      color: #AFA292 !important;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-bottom: 0 !important;
+    }
+    
+    .about-footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid rgba(212, 163, 115, 0.15);
+      color: #887B6F;
+      background: #0E0A08;
+      font-size: 0.92rem;
     }
   </style>
 </head>
-<body>
+<body class="luxury-dark-page">
   
+  <!-- Navigation Header -->
   <nav class="navbar">
     <div class="nav-container">
-      <a href="/" class="nav-brand">
+      <a href="/" class="nav-brand" aria-label="Ming Morsels Home">
         <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="nav-logo" width="44" height="44" style="height: 44px; width: auto; max-height: 44px; object-fit: contain;" loading="lazy" />
       </a>
       <div class="nav-actions">
-        <a href="/" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Back to Home</a>
+        <a href="/" class="btn-primary" style="padding: 9px 20px; font-size: 0.92rem;">Back to Home</a>
       </div>
     </div>
   </nav>
 
+  <!-- Page Header -->
   <header class="page-header">
-    <h1 class="page-title">Our Story</h1>
-    <p class="page-subtitle">Crafting artisanal cookies and muffins with passion, premium ingredients, and a touch of elegance.</p>
+    <span class="page-tag">✦ Artisanal Heritage ✦</span>
+    <h1 class="page-title">The Story Behind <span>Ming Morsels</span></h1>
+    <p class="page-subtitle">Crafting luxury cookies and gourmet muffins in Bengaluru with pure cow butter, natural plant Stevia, and uncompromising artistry.</p>
   </header>
 
-  <main class="content-section">
-    <h2>The Ming Morsels Promise</h2>
-    <p>At Ming Morsels, baking is more than a process—it is an art form. We believe that every bite should be an experience, a delicate balance of flavor, texture, and aroma that transports you to a moment of pure indulgence.</p>
-    
-    <p>Founded with a passion for uncompromising quality, Ming Morsels set out to redefine the cookie experience. We noticed that too many treats in the market relied on margarine, hydrogenated fats, and excessive sugars. We knew there was a better way.</p>
-    
-    <div class="highlight-box">
-      <h3>100% Pure Ingredients. Zero Compromises.</h3>
-      <p style="margin-bottom: 0;">We never use margarine. We never use artificial flavorings. Every batch is crafted using real, premium butter, organic ingredients, and authentic Belgian chocolate.</p>
+  <!-- Main Content Card -->
+  <main class="about-main-wrapper">
+    <div class="content-card">
+      <h2>The Ming Morsels Promise</h2>
+      <p>At Ming Morsels, baking is more than a culinary process — it is an art form. We believe every bite should be a sensorial experience: a delicate balance of rich buttery crunch, botanical aromatics, and clean sweetness that transports you to a moment of pure bliss.</p>
+      
+      <p>Founded in Bengaluru with a passion for unyielding quality, Ming Morsels set out to redefine the cookie and muffin landscape. We noticed that too many market treats relied on hydrogenated fats (dalda), artificial preservatives, chemical extenders, and excessive refined sugars. We knew connoisseurs deserved a purer, more luxurious alternative.</p>
+      
+      <!-- Highlight Banner -->
+      <div class="highlight-box">
+        <h3>100% Pure Ingredients • Zero Compromises</h3>
+        <p>Zero Margarine. Zero Dalda. Zero Palm Oil. Zero Refined Sugar. Every batch is slow-baked with 100% pasture-fed cow butter, natural plant-based Stevia, and genuine terroir botanicals.</p>
+      </div>
+      
+      <!-- 3 Pillars Grid -->
+      <div class="story-features-grid">
+        <div class="feature-item">
+          <span class="feature-icon">🧈</span>
+          <div class="feature-title">Pure Cow Butter</div>
+          <p class="feature-desc">100% real dairy butter for exquisite melt-in-the-mouth texture.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🌿</span>
+          <div class="feature-title">Plant-Based Stevia</div>
+          <p class="feature-desc">Naturally sweetened with zero refined sugar and zero sugar spikes.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🔥</span>
+          <div class="feature-title">Small-Batch Daily</div>
+          <p class="feature-desc">Stone-baked fresh every morning in temperature-controlled ovens.</p>
+        </div>
+      </div>
+      
+      <h2>Our Artisanal Process</h2>
+      <p>Every single cookie and soft-baked muffin is handcrafted in small artisanal batches to ensure absolute perfection. From slow-roasting whole California almonds to extracting the delicate essence of organic Damask rose petals, we oversee every step with master artisan precision.</p>
+      <p>We bake continuously every morning upon order placement, ensuring the treats delivered to your doorstep are as fresh, fragrant, and crumbly as the moment they left our central studio ovens.</p>
+      
+      <h2>Crafted for Every Sweet Occasion</h2>
+      <p>Whether you are treating yourself to a serene evening with our Stevia Sugar-Free California Walnut cookies, sharing our Belgian Dark Chocochip muffins with family, or sending our signature luxury gift tins to clients across India, Ming Morsels elevates every moment.</p>
+      <p>Thank you for allowing us to be part of your sweetest celebrations.</p>
     </div>
-    
-    <h2>Our Process</h2>
-    <p>Every cookie and muffin is hand-crafted in small batches to ensure absolute perfection. From the roasting of California almonds for our signature nut cookies to the delicate infusion of organic rose petals, we oversee every step of the journey.</p>
-    <p>We bake fresh daily, meaning the treats you receive are as fresh and aromatic as the moment they left our ovens.</p>
-    
-    <h2>For Every Occasion</h2>
-    <p>Whether you're treating yourself to a quiet evening with our Sugar-Free Walnut cookies, or gifting our elegant Signature Assortment box to a loved one, Ming Morsels is designed to elevate the occasion.</p>
-    <p>Thank you for letting us be a part of your sweetest moments.</p>
   </main>
 
-  <!-- Include standard footer -->
-  <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; color: #888;">
-    <p>&copy; 2026 mingmorsels. All rights reserved.</p>
+  <!-- Luxury Footer -->
+  <footer class="about-footer">
+    <p>&copy; 2026 Miora Delights Private Limited • mingmorsels. All rights reserved.</p>
   </footer>
 
 </body>
