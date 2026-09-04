@@ -176,78 +176,11 @@ const handleCreateOrder = async (req, res) => {
 
     const orderId = receipt || generateSecureOrderId();
 
-    // Handle COD (Cash on Delivery)
+    // Reject COD if requested
     if (req.body.payment_method === 'COD' || req.body.payment_method === 'cod') {
-      const isPickupOrder = req.body.delivery_mode === 'pickup' 
-        || String(shipping_address || '').includes('Store Pickup:') 
-        || String(shipping_address || '').toLowerCase().includes('pickup')
-        || String(shipping_address || '').toLowerCase().includes('nayandahalli')
-        || String(shipping_address || '').toLowerCase().includes('indiranagar');
-      const pickupPin = isPickupOrder ? String(Math.floor(1000 + Math.random() * 9000)) : null;
-
-      const newOrder = await createOrderRecord({
-        id: orderId,
-        user_name: user_name || 'Valued Connoisseur',
-        user_email: user_email.toLowerCase(),
-        user_phone: user_phone,
-        items: calculation.verifiedItems,
-        total_amount: calculation.totalAmount,
-        discount_amount: calculation.discountAmount,
-        applied_coupon: calculation.appliedCoupon?.code || null,
-        tax_gst: calculation.taxGST,
-        delivery_fee: calculation.deliveryFee,
-        delivery_mode: isPickupOrder ? 'pickup' : 'courier',
-        pickup_pin: pickupPin,
-        payment_method: 'Cash on Delivery',
-        payment_status: 'PENDING',
-        razorpay_order_id: null,
-        shipping_address: shipping_address || 'Express Bengaluru Delivery'
-      });
-
-      reserveStockHold(newOrder.id, calculation.verifiedItems);
-      eventStreamService.broadcastNewOrder(newOrder);
-
-      // Non-blocking async background tasks (Auto Push to Shipway & Email/SMS dispatch)
-      (async () => {
-        if (!isPickupOrder) {
-          try {
-            const shipment = await logisticsService.pushOrderToShipway(newOrder);
-            if (shipment) {
-              newOrder.shipway_awb = shipment.shipway_awb;
-              newOrder.courier_name = shipment.courier_name;
-              newOrder.tracking_url = shipment.tracking_url;
-              newOrder.delivery_status = shipment.status;
-            }
-          } catch (shipErr) {
-            console.error('Shipway push warning:', shipErr);
-          }
-        }
-
-        try {
-          await notificationService.sendOrderConfirmationEmail(newOrder);
-          await notificationService.sendAdminNewOrderAlert(newOrder);
-          await notificationService.sendOrderConfirmationSMS(newOrder);
-          await sendPushToCustomer({
-            phone: newOrder.user_phone,
-            email: newOrder.user_email,
-            title: `✅ Order #${newOrder.id} Confirmed — Ming Morsels`,
-            body: isPickupOrder
-              ? `Your order (₹${newOrder.total_amount}) is confirmed for Store Pickup at Nayanda Halli Studio. PIN: ${newOrder.pickup_pin || '4892'}. Ready in 2-3 hrs!`
-              : `Your cookies are in the oven! Order ₹${newOrder.total_amount} confirmed. Delivery in 2-4 hrs 🍪`,
-            url: `/order-confirmation.html?order_id=${newOrder.id}&payment_id=Cash%20On%20Delivery`,
-            orderId: newOrder.id
-          });
-        } catch (notifyErr) {
-          console.error('Notification warning:', notifyErr);
-        }
-      })().catch(err => console.error('Background COD dispatch error:', err));
-
-      return res.json({
-        success: true,
-        order_id: orderId,
-        pickup_pin: pickupPin,
-        delivery_mode: newOrder.delivery_mode,
-        is_cod: true
+      return res.status(400).json({
+        success: false,
+        error: 'Cash on Delivery has been discontinued. Please complete payment securely online via UPI, Cards, or NetBanking.'
       });
     }
 

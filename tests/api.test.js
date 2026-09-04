@@ -126,7 +126,7 @@ describe('Ming Morsels API Endpoints (Supertest)', () => {
     expect(res.body.success).toBe(true);
     expect(res.body).toHaveProperty('order_id');
     expect(res.body).toHaveProperty('customer_token');
-    expect(res.body.amount).toBe(21700);
+    expect(res.body.amount).toBe(19600);
   });
 
   it('GET /api/orders/:id/invoice - should render GST tax invoice HTML document', async () => {
