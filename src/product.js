@@ -1381,10 +1381,50 @@ function renderCartDrawerBody() {
   // Radio button logic for Checkout options
   const deliveryRadios = document.querySelectorAll('input[name="delivery_method"]');
   const pickupHint = document.getElementById('pickup-address-hint');
+  const lblShipping = document.getElementById('lbl-method-shipping-p');
+  const lblPickup = document.getElementById('lbl-method-pickup-p');
+  const deliveryPillTag = document.getElementById('delivery-mode-pill-tag-p');
 
   const updateCheckoutUI = () => {
     const isPickup = document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup';
     if (pickupHint) pickupHint.style.display = isPickup ? 'block' : 'none';
+
+    if (lblShipping && lblPickup) {
+      if (isPickup) {
+        lblPickup.style.background = '#2E6B1A';
+        lblPickup.style.color = '#FFF';
+        lblPickup.style.fontWeight = '700';
+        lblPickup.style.boxShadow = '0 2px 6px rgba(46,107,26,0.25)';
+
+        lblShipping.style.background = 'transparent';
+        lblShipping.style.color = '#705840';
+        lblShipping.style.fontWeight = '600';
+        lblShipping.style.boxShadow = 'none';
+
+        if (deliveryPillTag) {
+          deliveryPillTag.textContent = 'FREE ₹0';
+          deliveryPillTag.style.color = '#2E6B1A';
+          deliveryPillTag.style.background = 'rgba(46,107,26,0.12)';
+        }
+      } else {
+        lblShipping.style.background = '#C6960C';
+        lblShipping.style.color = '#FFF';
+        lblShipping.style.fontWeight = '700';
+        lblShipping.style.boxShadow = '0 2px 6px rgba(198,150,12,0.25)';
+
+        lblPickup.style.background = 'transparent';
+        lblPickup.style.color = '#705840';
+        lblPickup.style.fontWeight = '600';
+        lblPickup.style.boxShadow = 'none';
+
+        if (deliveryPillTag) {
+          deliveryPillTag.textContent = 'Pan-India / Bengaluru';
+          deliveryPillTag.style.color = '#C6960C';
+          deliveryPillTag.style.background = 'rgba(198,150,12,0.12)';
+        }
+      }
+    }
+
     if (btnRazorpay) {
       btnRazorpay.innerHTML = '<span>Pay & Checkout (Razorpay / UPI / Cards)</span>';
     }

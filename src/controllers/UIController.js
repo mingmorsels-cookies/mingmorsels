@@ -680,9 +680,12 @@ export class UIController {
     const cartGrandTotal = document.getElementById('cart-grand-total');
     if (cartGrandTotal) cartGrandTotal.textContent = `₹${estimatedTotal}`;
 
+    const isPickup = document.querySelector('input[name="delivery_method"]:checked')?.value === 'pickup';
     const cartDeliveryNote = document.getElementById('cart-delivery-note');
     if (cartDeliveryNote) {
-      if (subtotal >= 1000) {
+      if (isPickup) {
+        cartDeliveryNote.innerHTML = '<span style="color: #2E6B1A; font-weight: 700;">₹0 (FREE Store Pickup) 🏪</span>';
+      } else if (subtotal >= 1000) {
         cartDeliveryNote.innerHTML = '<span style="color: #2E6B1A; font-weight: 700;">FREE (Orders ₹1,000+) 🎉</span>';
       } else if (subtotal > 0) {
         const diff = 1000 - subtotal;
