@@ -164,6 +164,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      animation: autoDissolvePreloader 0.5s ease 1.5s forwards;
+    }
+
+    @keyframes autoDissolvePreloader {
+      0% {
+        opacity: 1;
+        pointer-events: all;
+      }
+      99% {
+        opacity: 0;
+        pointer-events: none;
+      }
+      100% {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -173,7 +192,7 @@
   <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
 
   <!-- Preloader & Radial Pixel Grid Reveal Screen -->
-  <div id="preloader" class="preloader-overlay">
+  <div id="preloader" class="preloader-overlay" onclick="this.style.opacity='0';this.style.pointerEvents='none';setTimeout(function(){document.getElementById('preloader').style.display='none';},300);">
     <div id="pixel-grid" class="pixel-grid"></div>
     <div class="preloader-content">
       <div class="preloader-logo-box">

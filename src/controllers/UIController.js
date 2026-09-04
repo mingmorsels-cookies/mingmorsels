@@ -33,18 +33,18 @@ export class UIController {
   }
 
   init() {
-    this.initPixelPreloader();
-    this.initDietaryFilterBar();
-    this.initNavLinks();
-    this.initMobileNavDrawer();
-    this.initProductDetailNavigation();
-    this.initFlowingMenuSection();
-    this.initFooterTextType();
-    this.initPolicyModals();
-    this.initChatbotWidget();
-    this.initSearchModal();
-    this.initOrangePeelSlider();
-    this.bindCartDrawerEvents();
+    try { this.initPixelPreloader(); } catch (e) { console.warn('Preloader init warning:', e); }
+    try { this.initDietaryFilterBar(); } catch (e) { console.warn('Dietary filter warning:', e); }
+    try { this.initNavLinks(); } catch (e) { console.warn('Nav links warning:', e); }
+    try { this.initMobileNavDrawer(); } catch (e) { console.warn('Mobile nav warning:', e); }
+    try { this.initProductDetailNavigation(); } catch (e) { console.warn('Product nav warning:', e); }
+    try { this.initFlowingMenuSection(); } catch (e) { console.warn('Flowing menu warning:', e); }
+    try { this.initFooterTextType(); } catch (e) { console.warn('Footer text warning:', e); }
+    try { this.initPolicyModals(); } catch (e) { console.warn('Policy modals warning:', e); }
+    try { this.initChatbotWidget(); } catch (e) { console.warn('Chatbot widget warning:', e); }
+    try { this.initSearchModal(); } catch (e) { console.warn('Search modal warning:', e); }
+    try { this.initOrangePeelSlider(); } catch (e) { console.warn('Orange slider warning:', e); }
+    try { this.bindCartDrawerEvents(); } catch (e) { console.warn('Cart drawer warning:', e); }
   }
 
   initPixelPreloader() {
