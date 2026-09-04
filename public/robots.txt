@@ -4,5 +4,21 @@ Disallow: /api/admin
 Disallow: /api/admin/*
 Disallow: /admin.html
 Disallow: /order-confirmation.html
+Disallow: /data_store.json
+
+User-agent: Googlebot
+Allow: /
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.webp
+Allow: /*.svg
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
 
 Sitemap: https://mingmorsels.com/sitemap.xml
+

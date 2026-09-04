@@ -1,74 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Homepage -->
   <url>
     <loc>https://mingmorsels.com/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://mingmorsels.com/logo.png?v=2</image:loc>
-      <image:title>Ming Morsels Artisanal Confectionery</image:title>
+      <image:title>Ming Morsels Handcrafted Artisanal Cookies Bengaluru</image:title>
+      <image:caption>Pure cow butter and natural plant-based Stevia luxury cookies and soft-baked muffins.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mingmorsels.com/almond/1.jpg</image:loc>
+      <image:title>Royal Almond Rich Butter Cookie</image:title>
+      <image:caption>Handcrafted with whole roasted California almonds and 100% pure pasture butter.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mingmorsels.com/rose-petal/1.jpg</image:loc>
+      <image:title>Organic Damask Rose Petal Cookie</image:title>
+      <image:caption>Infused with real sun-dried rose petals and aromatic green cardamom.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mingmorsels.com/oats-nuts/1.jpg</image:loc>
+      <image:title>Rolled Oats &amp; Crunchy Nuts Energy Cookie</image:title>
+      <image:caption>High-fiber rolled oats with California walnuts, cashews, and natural sweetness.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mingmorsels.com/img-walnut-sf.png?v=2</image:loc>
+      <image:title>Stevia Sugar-Free California Walnut Cookie</image:title>
+      <image:caption>100% diabetic-friendly, zero added sugar, sweetened naturally with plant Stevia.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mingmorsels.com/orange/1.jpg</image:loc>
+      <image:title>Sun-Dried Orange Peel &amp; Cinnamon Cookie</image:title>
+      <image:caption>Zesty citrus essence infused with pure butter and Ceylon cinnamon.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mingmorsels.com/box-classic.jpg</image:loc>
+      <image:title>Classic Connoisseur Box (6 Treats)</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mingmorsels.com/box-lush.jpg</image:loc>
+      <image:title>Lush Artisan Collection Box (12 Treats)</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mingmorsels.com/box-extra.jpg</image:loc>
+      <image:title>Grand Celebration Gifting Hamper (18 Treats)</image:title>
     </image:image>
   </url>
+
+  <!-- Product & Menu Page -->
   <url>
     <loc>https://mingmorsels.com/product.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://mingmorsels.com/almond_cookie_top_clean.png</image:loc>
+      <image:title>Handcrafted Artisanal Cookie Collection</image:title>
+    </image:image>
   </url>
+
+  <!-- Corporate & Bulk Orders -->
   <url>
     <loc>https://mingmorsels.com/bulk-order.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://mingmorsels.com/box-extra.jpg</image:loc>
+      <image:title>Luxury Corporate Gifting &amp; Event Favors</image:title>
+      <image:caption>Custom luxury gift boxes for corporate events, weddings, and celebrations in Bengaluru.</image:caption>
+    </image:image>
   </url>
+
+  <!-- Experience Center & Studio -->
   <url>
     <loc>https://mingmorsels.com/experience-center.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.80</priority>
   </url>
+
+  <!-- Brand Story & Philosophy -->
   <url>
     <loc>https://mingmorsels.com/about.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
+
+  <!-- Contact & Studio Support -->
   <url>
     <loc>https://mingmorsels.com/contact.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
+
+  <!-- Track Order -->
   <url>
     <loc>https://mingmorsels.com/track-order.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>always</changefreq>
-    <priority>0.6</priority>
+    <priority>0.60</priority>
   </url>
+
+  <!-- Policies -->
   <url>
     <loc>https://mingmorsels.com/shipping.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://mingmorsels.com/refund.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://mingmorsels.com/privacy.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.40</priority>
   </url>
   <url>
     <loc>https://mingmorsels.com/terms.html</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.40</priority>
   </url>
 </urlset>
