@@ -8,29 +8,29 @@
   <link rel="icon" type="image/png" href="/logo.png?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/src/style.css">
   
   <style>
     :root {
-      --bg-dark: #0E0A07;
-      --bg-surface: #160F0B;
-      --bg-card: rgba(26, 18, 13, 0.88);
-      --bg-card-hover: rgba(36, 26, 18, 0.95);
+      --bg-dark: #0D0906;
+      --bg-surface: #140E0A;
+      --bg-card: rgba(24, 17, 12, 0.92);
+      --bg-card-hover: rgba(32, 23, 16, 0.96);
       --color-gold: #D4AF37;
-      --color-gold-light: #F3E5AB;
+      --color-gold-light: #F7E7B4;
       --color-gold-bright: #F5C344;
       --color-gold-dark: #996515;
       --color-cream: #FAF6F0;
-      --color-cream-muted: #D8CEBE;
-      --color-text-muted: #A39282;
-      --color-border: rgba(212, 175, 55, 0.28);
-      --color-border-subtle: rgba(255, 255, 255, 0.08);
+      --color-cream-muted: #D5C7B6;
+      --color-text-muted: #9E8C7A;
+      --color-border: rgba(212, 175, 55, 0.24);
+      --color-border-subtle: rgba(255, 255, 255, 0.07);
       --color-success: #2ECC71;
-      --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+      --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
       --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-      --shadow-luxury: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 40px rgba(212, 175, 55, 0.08);
+      --shadow-luxury: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.06);
     }
 
     * {
@@ -42,9 +42,9 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 90% 90%, rgba(140, 83, 62, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(20, 14, 9, 0.9) 0%, transparent 100%),
+        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(140, 83, 62, 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(18, 12, 8, 0.92) 0%, transparent 100%),
         url('/hero-bg.png?v=2');
       background-attachment: fixed;
       background-size: cover;
@@ -56,92 +56,96 @@
       overflow-x: hidden;
     }
 
-    /* ── Header Bar ── */
+    /* ── Luxury Header Bar ── */
     .confirmation-nav {
       width: 100%;
-      background: rgba(14, 10, 7, 0.94);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(13, 9, 6, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--color-border);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 14px 28px;
+      padding: 12px 24px;
     }
 
     .nav-inner {
-      max-width: 1180px;
+      max-width: 1140px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
     }
 
     .nav-brand-link {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .nav-brand-logo {
-      height: 48px;
+      height: 42px;
       width: auto;
       object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));
+      filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.25));
     }
 
     .nav-brand-text {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       color: var(--color-gold);
     }
 
     .nav-btn-home {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: rgba(212, 175, 55, 0.08);
       border: 1px solid var(--color-border);
       color: var(--color-cream);
       text-decoration: none;
-      padding: 9px 20px;
-      border-radius: 30px;
-      font-size: 13.5px;
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: 13px;
       font-weight: 600;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .nav-btn-home:hover {
       background: rgba(212, 175, 55, 0.2);
       border-color: var(--color-gold);
       color: #FFF;
-      transform: translateY(-2px);
+      transform: translateY(-1px);
       box-shadow: 0 4px 16px rgba(212, 175, 55, 0.25);
     }
 
     /* ── Main Container ── */
     .confirmation-wrapper {
-      max-width: 1180px;
+      max-width: 1140px;
       width: 100%;
-      margin: 36px auto 70px;
-      padding: 0 24px;
+      margin: 28px auto 60px;
+      padding: 0 20px;
       flex: 1;
     }
 
     /* ── Hero Status Banner ── */
     .hero-banner {
-      background: linear-gradient(180deg, rgba(30, 20, 14, 0.95) 0%, rgba(18, 12, 8, 0.98) 100%);
-      border: 1.5px solid var(--color-border);
+      background: linear-gradient(180deg, rgba(28, 19, 13, 0.96) 0%, rgba(16, 11, 7, 0.98) 100%);
+      border: 1px solid var(--color-border);
       border-radius: 24px;
-      padding: 44px 32px 36px;
+      padding: 40px 28px 32px;
       text-align: center;
       position: relative;
       overflow: hidden;
       box-shadow: var(--shadow-luxury);
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
 
     .hero-banner::before {
@@ -150,46 +154,46 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
+      height: 3px;
       background: linear-gradient(90deg, transparent 0%, #D4AF37 30%, #FFF2A1 50%, #D4AF37 70%, transparent 100%);
     }
 
     .hero-banner::after {
       content: '';
       position: absolute;
-      top: -120px;
+      top: -100px;
       left: 50%;
       transform: translateX(-50%);
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, transparent 70%);
       pointer-events: none;
     }
 
     .success-crest-wrapper {
       position: relative;
       display: inline-block;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .success-crest {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%);
+      width: 76px;
+      height: 76px;
+      background: linear-gradient(135deg, #FFE89E 0%, #D4AF37 50%, #996515 100%);
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 40px rgba(212, 175, 55, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.6);
       animation: crestPop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .crest-ring {
       position: absolute;
-      inset: -8px;
+      inset: -7px;
       border-radius: 50%;
-      border: 1px dashed rgba(212, 175, 55, 0.5);
-      animation: rotateRing 20s linear infinite;
+      border: 1px dashed rgba(212, 175, 55, 0.45);
+      animation: rotateRing 24s linear infinite;
     }
 
     @keyframes rotateRing {
@@ -197,22 +201,22 @@
     }
 
     @keyframes crestPop {
-      0% { transform: scale(0.5); opacity: 0; }
+      0% { transform: scale(0.6); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
     .success-crest svg {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       color: #160F0B;
       stroke-width: 3.2;
     }
 
     .hero-eyebrow {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 2.5px;
+      letter-spacing: 3px;
       color: var(--color-gold);
       margin-bottom: 8px;
       display: inline-flex;
@@ -222,25 +226,27 @@
 
     .hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(30px, 4.5vw, 44px);
+      font-size: clamp(28px, 4.5vw, 42px);
       font-weight: 700;
-      color: #FFFFFF;
-      margin: 0 0 10px 0;
+      color: #FAF6F0;
+      margin: 0 0 12px 0;
       letter-spacing: 0.5px;
-      line-height: 1.2;
+      line-height: 1.25;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     }
 
     .hero-title span {
-      background: linear-gradient(135deg, #FFF2A1 0%, #D4AF37 50%, #E5B21D 100%);
+      background: linear-gradient(135deg, #FFF0B3 0%, #E8C15A 50%, #D4AF37 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      font-style: italic;
     }
 
     .hero-subtitle {
-      font-size: 15.5px;
+      font-size: 15px;
       color: var(--color-cream-muted);
-      max-width: 680px;
-      margin: 0 auto 24px;
+      max-width: 660px;
+      margin: 0 auto 22px;
       line-height: 1.6;
     }
 
@@ -254,15 +260,15 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 14px;
+      gap: 10px;
     }
 
     .meta-pill {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--color-border);
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 13.5px;
+      padding: 7px 16px;
+      border-radius: 24px;
+      font-size: 13px;
       color: var(--color-cream);
       display: inline-flex;
       align-items: center;
@@ -281,7 +287,7 @@
       border: none;
       color: var(--color-gold);
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       padding: 0 2px;
       display: inline-flex;
       align-items: center;
@@ -301,88 +307,91 @@
 
     /* ── VIP Reward Points Celebration Card ── */
     .vip-points-card {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(91, 44, 111, 0.15) 100%);
-      border: 1.5px solid var(--color-gold);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.14) 0%, rgba(91, 44, 111, 0.14) 100%);
+      border: 1px solid var(--color-gold);
       border-radius: 18px;
-      padding: 18px 24px;
-      margin-bottom: 28px;
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.12);
+      padding: 16px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.10);
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 14px;
     }
 
     .vip-points-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .vip-trophy {
-      font-size: 32px;
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: rgba(212, 175, 55, 0.2);
+      font-size: 28px;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.18);
       border: 1px solid rgba(212, 175, 55, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .vip-points-title {
-      font-size: 16px;
+      font-size: 15.5px;
       font-weight: 700;
       color: #FFFFFF;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .vip-points-sub {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--color-gold-light);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .vip-points-badge {
       background: linear-gradient(135deg, #F5C344 0%, #C8960C 100%);
       color: #120E0B;
       font-weight: 800;
-      font-size: 13px;
+      font-size: 12.5px;
       padding: 6px 14px;
       border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
       white-space: nowrap;
     }
 
     /* ── Progress Journey Tracker ── */
     .journey-card {
       background: var(--bg-card);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--color-border);
       border-radius: 20px;
-      padding: 28px 24px;
-      margin-bottom: 30px;
+      padding: 24px 20px;
+      margin-bottom: 24px;
       box-shadow: var(--shadow-luxury);
     }
 
     .journey-title {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
       color: var(--color-gold);
-      margin: 0 0 24px 0;
+      margin: 0 0 20px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
     .journey-steps {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 10px;
       position: relative;
     }
 
@@ -395,16 +404,16 @@
     }
 
     .step-icon-wrap {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.04);
       border: 2px solid rgba(255, 255, 255, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      margin-bottom: 10px;
+      font-size: 18px;
+      margin-bottom: 8px;
       z-index: 2;
       transition: all 0.3s ease;
     }
@@ -413,31 +422,31 @@
       background: #2ECC71;
       border-color: #2ECC71;
       color: #120E0B;
-      box-shadow: 0 0 20px rgba(46, 204, 113, 0.45);
+      box-shadow: 0 0 16px rgba(46, 204, 113, 0.4);
     }
 
     .journey-step.active .step-icon-wrap {
       background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 100%);
       border-color: #FFF2A1;
       color: #120E0B;
-      box-shadow: 0 0 24px rgba(212, 175, 55, 0.6);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.55);
       animation: stepPulse 2s infinite ease-in-out;
     }
 
     @keyframes stepPulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
+      50% { transform: scale(1.06); }
     }
 
     .step-name {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       color: #FFFFFF;
       margin-bottom: 2px;
     }
 
     .step-sub {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--color-text-muted);
     }
 
@@ -445,7 +454,7 @@
     .confirmation-grid {
       display: grid;
       grid-template-columns: 1.35fr 1fr;
-      gap: 28px;
+      gap: 24px;
     }
 
     .section-card {
@@ -453,9 +462,9 @@
       backdrop-filter: blur(14px);
       border: 1px solid var(--color-border);
       border-radius: 20px;
-      padding: 26px;
+      padding: 24px;
       box-shadow: var(--shadow-luxury);
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .card-head {
@@ -463,19 +472,19 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--color-border-subtle);
-      padding-bottom: 16px;
-      margin-bottom: 20px;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
     }
 
     .card-head-title {
       font-family: var(--font-serif);
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--color-gold);
       margin: 0;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     /* ── Ordered Items List ── */
@@ -483,7 +492,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 0;
+      padding: 12px 0;
       border-bottom: 1px solid var(--color-border-subtle);
       transition: background 0.2s;
     }
@@ -495,31 +504,31 @@
     .item-info {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .item-icon-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       background: rgba(212, 175, 55, 0.08);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      border: 1px solid rgba(212, 175, 55, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 22px;
       flex-shrink: 0;
     }
 
     .item-title {
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 700;
       color: #FFFFFF;
-      margin: 0 0 3px 0;
+      margin: 0 0 2px 0;
     }
 
     .item-tag {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--color-text-muted);
       display: flex;
       align-items: center;
@@ -531,12 +540,12 @@
     }
 
     .item-qty {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--color-text-muted);
     }
 
     .item-total {
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--color-gold-bright);
     }
@@ -544,50 +553,50 @@
     /* ── Delivery / Pickup Specific Cards ── */
     .pickup-highlight-box {
       background: linear-gradient(135deg, rgba(212, 175, 55, 0.16) 0%, rgba(61, 32, 0, 0.35) 100%);
-      border: 1.5px solid var(--color-gold);
+      border: 1px solid var(--color-gold);
       border-radius: 16px;
-      padding: 22px;
+      padding: 20px;
       text-align: center;
-      margin-top: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      margin-top: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
     .pin-label {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--color-gold-bright);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .pin-code-display {
-      font-size: 42px;
+      font-size: 38px;
       font-weight: 800;
-      letter-spacing: 10px;
+      letter-spacing: 8px;
       color: #FFFFFF;
       font-family: monospace;
-      text-shadow: 0 0 24px rgba(212, 175, 55, 0.7);
-      margin: 4px 0 12px 0;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+      margin: 2px 0 10px 0;
     }
 
     .pickup-address-text {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--color-cream-muted);
       line-height: 1.5;
-      margin: 0 0 14px 0;
+      margin: 0 0 12px 0;
     }
 
     .info-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .info-row {
       display: flex;
       justify-content: space-between;
-      font-size: 13.5px;
+      font-size: 13px;
       line-height: 1.4;
     }
 
@@ -607,55 +616,49 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      font-size: 14px;
+      margin-bottom: 10px;
+      font-size: 13.5px;
       color: var(--color-cream-muted);
     }
 
     .bill-row.total-row {
-      border-top: 1.5px dashed rgba(212, 175, 55, 0.3);
-      padding-top: 16px;
-      margin-top: 16px;
-      font-size: 19px;
+      border-top: 1px dashed rgba(212, 175, 55, 0.3);
+      padding-top: 14px;
+      margin-top: 14px;
+      font-size: 17px;
       font-weight: 800;
       color: #FFFFFF;
     }
 
     .bill-row.total-row .total-amount {
       color: var(--color-gold-bright);
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
     }
 
     .payment-badge-box {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--color-border-subtle);
       border-radius: 12px;
-      padding: 14px 16px;
-      margin: 18px 0 22px 0;
+      padding: 12px 14px;
+      margin: 16px 0 20px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .payment-badge-tag {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 14px;
+      padding: 4px 10px;
+      border-radius: 12px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    .badge-cod {
-      background: rgba(245, 166, 35, 0.18);
-      border: 1px solid rgba(245, 166, 35, 0.45);
-      color: #FFC107;
-    }
-
     .badge-prepaid {
-      background: rgba(46, 204, 113, 0.18);
-      border: 1px solid rgba(46, 204, 113, 0.45);
+      background: rgba(46, 204, 113, 0.16);
+      border: 1px solid rgba(46, 204, 113, 0.4);
       color: #2ECC71;
     }
 
@@ -663,74 +666,74 @@
     .action-btn-stack {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .btn-action-primary {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
       color: #FFFFFF;
       text-decoration: none;
-      padding: 14px 20px;
+      padding: 13px 18px;
       border-radius: 12px;
       font-weight: 700;
-      font-size: 14.5px;
-      box-shadow: 0 6px 20px rgba(46, 204, 113, 0.35);
+      font-size: 14px;
+      box-shadow: 0 4px 16px rgba(46, 204, 113, 0.3);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-action-primary:hover {
-      filter: brightness(1.1);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 26px rgba(46, 204, 113, 0.5);
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(46, 204, 113, 0.45);
     }
 
     .btn-action-gold {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #B8860B 100%);
       color: #120E0B;
       text-decoration: none;
-      padding: 14px 20px;
+      padding: 13px 18px;
       border-radius: 12px;
       font-weight: 800;
-      font-size: 14.5px;
+      font-size: 14px;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       border: none;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
     }
 
     .btn-action-gold:hover {
-      filter: brightness(1.08);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(212, 175, 55, 0.5);
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(212, 175, 55, 0.45);
     }
 
     .btn-action-outline {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--color-border);
       color: var(--color-cream);
       text-decoration: none;
-      padding: 12px 18px;
+      padding: 11px 16px;
       border-radius: 12px;
       font-weight: 600;
-      font-size: 13.5px;
+      font-size: 13px;
       transition: all 0.2s ease;
       cursor: pointer;
     }
 
     .btn-action-outline:hover {
-      background: rgba(212, 175, 55, 0.15);
+      background: rgba(212, 175, 55, 0.12);
       border-color: var(--color-gold);
       color: #FFFFFF;
       transform: translateY(-1px);
@@ -747,14 +750,14 @@
 
     /* ── Freshness Promise Card ── */
     .freshness-card {
-      background: rgba(212, 175, 55, 0.06);
-      border: 1px dashed rgba(212, 175, 55, 0.35);
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px dashed rgba(212, 175, 55, 0.3);
       border-radius: 14px;
-      padding: 18px;
-      margin-top: 22px;
-      font-size: 13px;
+      padding: 16px;
+      margin-top: 18px;
+      font-size: 12.5px;
       color: var(--color-cream-muted);
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
     .freshness-card strong {
@@ -764,8 +767,8 @@
     /* ── Confetti ── */
     .confetti {
       position: fixed;
-      width: 9px;
-      height: 15px;
+      width: 8px;
+      height: 14px;
       opacity: 0.85;
       pointer-events: none;
       animation: fall linear forwards;
@@ -786,14 +789,21 @@
       }
       .journey-steps {
         grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
+        gap: 16px;
       }
       .vip-points-card {
         flex-direction: column;
         align-items: flex-start;
       }
       .hero-banner {
-        padding: 36px 20px 28px;
+        padding: 32px 18px 24px;
+      }
+      .nav-brand-text {
+        font-size: 19px;
+      }
+      .nav-btn-home {
+        padding: 6px 14px;
+        font-size: 12px;
       }
     }
   </style>
@@ -808,7 +818,8 @@
         <span class="nav-brand-text">mingmorsels</span>
       </a>
       <a href="/" class="nav-btn-home">
-        <span>← Continue Exploring Menu</span>
+        <span>🍪</span>
+        <span>Explore Menu</span>
       </a>
     </div>
   </header>
@@ -826,13 +837,13 @@
       </div>
       
       <div class="hero-eyebrow">
-        <span>✨ Handcrafted Luxury Confectionery</span>
+        <span>✦ Handcrafted Luxury Confectionery ✦</span>
       </div>
       
       <h1 class="hero-title">Order Confirmed &amp; <span>Baking in Studio</span></h1>
       
       <p class="hero-subtitle" id="hero-customer-greeting">
-        Thank you for your order. Our master confectioners have received your artisanal selection and are now small-batch baking your fresh treats with 100% pure cow butter &amp; natural plant-based Stevia.
+        Thank you for choosing Ming Morsels. Our master confectioners have received your artisanal selection and are now small-batch baking your fresh treats with 100% pure cow butter &amp; natural plant-based Stevia.
       </p>
 
       <div class="order-meta-pills">
@@ -858,7 +869,7 @@
         <div>
           <div class="vip-points-title">You Earned +100 Connoisseur Reward Points!</div>
           <div class="vip-points-sub">
-            Complete <strong>1,000 Points</strong> (10 orders) to unlock our VIP Chef Milestone and receive a <strong>Special Handcrafted Artisanal Gift Box</strong>!
+            Reach <strong>1,000 Points</strong> (10 orders) to unlock our VIP Chef Milestone and receive a <strong>Special Handcrafted Artisanal Gift Box</strong>!
           </div>
         </div>
       </div>
@@ -905,7 +916,7 @@
             <h2 class="card-head-title">
               <span>🍪 Your Artisanal Selection</span>
             </h2>
-            <span style="font-size: 12px; color: var(--color-gold);" id="items-count-badge">Fresh Batch</span>
+            <span style="font-size: 11.5px; color: var(--color-gold);" id="items-count-badge">Fresh Batch</span>
           </div>
 
           <div id="order-items-container">
@@ -965,16 +976,16 @@
 
           <div class="payment-badge-box">
             <div>
-              <div style="font-size: 11.5px; color: var(--color-text-muted); margin-bottom: 2px;">Payment Method</div>
-              <div style="font-size: 14px; font-weight: 700; color: #FFF;" id="disp-payment-method">Cash on Delivery</div>
+              <div style="font-size: 11px; color: var(--color-text-muted); margin-bottom: 2px;">Payment Method</div>
+              <div style="font-size: 13.5px; font-weight: 700; color: #FFF;" id="disp-payment-method">Prepaid (Razorpay / UPI)</div>
             </div>
-            <span class="payment-badge-tag badge-cod" id="disp-payment-badge">Pay at Handover</span>
+            <span class="payment-badge-tag badge-prepaid" id="disp-payment-badge">✅ Verified Online</span>
           </div>
 
           <!-- Quick Action Buttons -->
           <div class="action-btn-stack">
             <a id="btn-whatsapp-link" href="https://wa.me/918884102020" target="_blank" rel="noopener noreferrer" class="btn-action-primary">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.073-1.045-.062-.239-.079-.533-.187-.935-.362-1.637-.714-2.709-2.366-2.791-2.476-.082-.109-.667-.888-.667-1.694 0-.806.422-1.203.573-1.368.144-.158.337-.234.453-.234.116 0 .232.002.333.007.108.005.253-.041.396.302.147.351.503 1.229.547 1.319.044.09.073.195.015.311-.059.117-.088.19-.176.293-.088.104-.185.232-.264.312-.088.089-.18.187-.078.362.102.176.452.746.969 1.208.666.595 1.227.78 1.403.867.176.088.278.074.382-.045.103-.118.441-.513.559-.689.117-.176.234-.147.395-.088.161.059 1.026.484 1.202.572.176.088.293.132.337.205.044.074.044.428-.1 1.246z"/>
               </svg>
               <span>💬 Live WhatsApp Concierge</span>
@@ -1007,17 +1018,17 @@
     // Confetti Effect
     function launchConfetti() {
       const colors = ['#D4AF37', '#FFDF79', '#FFFFFF', '#E0D5C1', '#2ECC71'];
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 50; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.left = Math.random() * 100 + 'vw';
         confetti.style.top = -10 + 'px';
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDuration = (Math.random() * 2.5 + 2.5) + 's';
-        confetti.style.animationDelay = Math.random() * 1.2 + 's';
+        confetti.style.animationDuration = (Math.random() * 2.2 + 2.2) + 's';
+        confetti.style.animationDelay = Math.random() * 1.0 + 's';
         confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
         document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 5000);
+        setTimeout(() => confetti.remove(), 4500);
       }
     }
     launchConfetti();
@@ -1026,8 +1037,6 @@
     const urlParams = new URLSearchParams(window.location.search);
     const rawOrderId = urlParams.get('order_id') || ('MM-' + Math.floor(100000 + Math.random() * 900000));
     const cleanId = rawOrderId.replace(/^#/, '');
-    const paymentId = urlParams.get('payment_id') || 'Cash on Delivery';
-    const isCODParam = paymentId.toLowerCase().includes('cash');
 
     document.getElementById('disp-order-id').innerText = '#' + cleanId;
     document.getElementById('disp-order-date').innerText = new Date().toLocaleDateString('en-IN', {
@@ -1050,11 +1059,28 @@
     const waMsg = encodeURIComponent(`Hi Ming Morsels! 🍪 I just placed Order #${cleanId}. Please share live order tracking updates here.`);
     document.getElementById('btn-whatsapp-link').href = `https://wa.me/918884102020?text=${waMsg}`;
 
-    // Load Live Order Details from Server (or fallback to local session)
+    // Load Live Order Details
     async function loadOrderData() {
       let order = null;
+
+      // Unmasked Local Profile Context
+      let userProfile = {};
+      let userAddress = {};
+      try { userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}'); } catch (e) {}
+      try { userAddress = JSON.parse(localStorage.getItem('user_address') || '{}'); } catch (e) {}
+      
+      const localName = localStorage.getItem('ming_morsels_name') || userProfile.name || userAddress.name || '';
+      const localEmail = localStorage.getItem('ming_morsels_email') || userProfile.email || userAddress.email || '';
+      const localPhone = localStorage.getItem('ming_morsels_phone') || userProfile.phone || userAddress.phone || '';
+      const localAddress = localStorage.getItem('ming_morsels_address') || userAddress.address || '';
+
       try {
-        const res = await fetch(`/api/shipping/track?order_id=${encodeURIComponent(cleanId)}`);
+        const token = localStorage.getItem('ming_morsels_customer_token') || sessionStorage.getItem('customer_token');
+        const headers = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const contactQuery = localEmail ? `&contact=${encodeURIComponent(localEmail)}` : (localPhone ? `&contact=${encodeURIComponent(localPhone)}` : '');
+
+        const res = await fetch(`/api/shipping/track?order_id=${encodeURIComponent(cleanId)}${contactQuery}`, { headers });
         if (res.ok) {
           const data = await res.json();
           if (data && data.success) {
@@ -1065,24 +1091,37 @@
         console.warn('Using local order context:', err);
       }
 
-      // Fallback variables
-      const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
-      const userAddress = JSON.parse(localStorage.getItem('user_address') || '{}');
+      // Determine unmasked customer display name & email
+      let customerName = localName;
+      if (!customerName || customerName.includes('*')) {
+        customerName = order?.user_name && !order.user_name.includes('*') ? order.user_name : (localName || 'Valued Connoisseur');
+      }
+      // If still has asterisks, clean up
+      if (customerName.includes('*')) {
+        customerName = customerName.replace(/\*/g, '').trim() || 'Valued Connoisseur';
+      }
+
+      let customerEmail = localEmail;
+      if (!customerEmail || customerEmail.includes('*')) {
+        customerEmail = order?.user_email && !order.user_email.includes('*') ? order.user_email : (localEmail || '');
+      }
+
+      const customerPhone = localPhone || (order?.user_phone && !order.user_phone.includes('*') ? order.user_phone : '+91 88841 02020');
       const deliveryMode = order?.delivery_mode || urlParams.get('mode') || localStorage.getItem('ming_morsels_delivery_mode') || 'courier';
       const isPickup = deliveryMode === 'pickup' || (order?.shipping_address && order.shipping_address.includes('Store Pickup:'));
-      const pickupPin = order?.pickup_pin || urlParams.get('pin') || localStorage.getItem('ming_morsels_pickup_pin') || '4892';
-      const customerName = order?.user_name || userProfile.name || localStorage.getItem('ming_morsels_name') || 'Valued Connoisseur';
-      const customerEmail = order?.user_email || userAddress.email || userProfile.email || localStorage.getItem('ming_morsels_email') || '';
-      const customerPhone = order?.user_phone || userAddress.phone || userProfile.phone || localStorage.getItem('ming_morsels_phone') || '';
-      const shippingAddress = order?.shipping_address || userAddress.address || localStorage.getItem('ming_morsels_address') || 'Express Bengaluru Delivery';
+      const pickupPin = order?.pickup_pin && !order.pickup_pin.includes('•') ? order.pickup_pin : (urlParams.get('pin') || localStorage.getItem('ming_morsels_pickup_pin') || '4892');
+      const shippingAddress = order?.shipping_address && !order.shipping_address.includes('*') ? order.shipping_address : (localAddress || 'Express Bengaluru Delivery');
       const totalAmount = order?.total_amount || urlParams.get('total') || 140;
-      const isCOD = (order?.payment_method?.toLowerCase().includes('cash') || isCODParam);
       const isSundayOrder = (new Date(order?.created_at || Date.now()).getDay() === 0);
 
-      // Greet Customer
-      if (customerName) {
-        document.getElementById('hero-customer-greeting').innerHTML = `
-          Dear <strong>${customerName}</strong>, thank you for your order! Your freshly baked batch is now entering our central ovens. ${customerEmail ? `A digital tax invoice & confirmation have been dispatched to <strong>${customerEmail}</strong>.` : ''}
+      // Greet Customer with Luxury Personal Touch
+      const greetingEl = document.getElementById('hero-customer-greeting');
+      if (greetingEl) {
+        const emailNotice = customerEmail 
+          ? ` A digital tax invoice &amp; order confirmation have been dispatched to <strong>${customerEmail}</strong>.`
+          : '';
+        greetingEl.innerHTML = `
+          Dear <strong>${customerName}</strong>, thank you for choosing Ming Morsels! Your freshly baked batch is now entering our stone ovens.${emailNotice}
         `;
       }
 
@@ -1128,7 +1167,7 @@
             <div class="pin-label">🔑 Your Store Collection PIN</div>
             <div class="pin-code-display">${pickupPin}</div>
             <p class="pickup-address-text">
-              Present this <strong>PIN</strong> or <strong>Order ID (#${cleanId})</strong> at our Nayanda Halli studio counter.
+              Present this <strong>PIN</strong> or <strong>Order Reference (#${cleanId})</strong> at our Nayanda Halli studio counter.
             </p>
             <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
               <a href="https://maps.google.com/?q=1st+A+Main+Road+mingmorsels+SLV+layout+Phase+3+Nayanda+Halli+Bengaluru+560026" target="_blank" class="btn-action-outline" style="padding: 9px 16px; font-size: 13px;">
@@ -1138,16 +1177,16 @@
           </div>
 
           ${isSundayOrder ? `
-          <div style="background: #FFF3CD; border: 1.5px solid #FFEBAA; border-radius: 12px; padding: 14px 16px; margin-top: 16px; text-align: left;">
-            <div style="font-weight: 700; color: #856404; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
+          <div style="background: rgba(255, 193, 7, 0.12); border: 1px solid rgba(255, 193, 7, 0.35); border-radius: 12px; padding: 14px 16px; margin-top: 14px; text-align: left;">
+            <div style="font-weight: 700; color: #FFC107; font-size: 13px; display: flex; align-items: center; gap: 6px;">
               <span>⚠️</span> <span>Sunday Holiday Notice</span>
             </div>
-            <p style="margin: 6px 0 0; color: #664D03; font-size: 12.5px; line-height: 1.45;">
-              Sunday is a weekly holiday for store pickup. Since you placed your order today, your cookies will be freshly baked and ready for pickup <strong>tomorrow on Monday between 10:00 AM and 4:00 PM</strong>.
+            <p style="margin: 6px 0 0; color: #E0D5C1; font-size: 12px; line-height: 1.45;">
+              Sunday is a weekly baking holiday for store counter collection. Your order will be freshly baked and ready for pickup <strong>tomorrow on Monday between 10:00 AM and 4:00 PM</strong>.
             </p>
           </div>
           ` : `
-          <div style="background: rgba(46, 107, 26, 0.12); border: 1px solid rgba(46, 107, 26, 0.3); border-radius: 12px; padding: 12px 16px; margin-top: 16px; text-align: left;">
+          <div style="background: rgba(46, 107, 26, 0.12); border: 1px solid rgba(46, 107, 26, 0.3); border-radius: 12px; padding: 12px 16px; margin-top: 14px; text-align: left;">
             <div style="font-weight: 700; color: #2ECC71; font-size: 13px; display: flex; align-items: center; gap: 6px;">
               <span>🕒</span> <span>Store Pickup Operating Hours</span>
             </div>
@@ -1157,14 +1196,14 @@
           </div>
           `}
 
-          <div class="info-list" style="margin-top: 18px;">
+          <div class="info-list" style="margin-top: 16px;">
             <div class="info-row">
               <span class="label">Baking Studio Address:</span>
               <span class="val">1st A, Main Road, mingmorsels, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru 560026</span>
             </div>
             <div class="info-row">
               <span class="label">Customer Phone:</span>
-              <span class="val">${customerPhone || '+91 88841 02020'}</span>
+              <span class="val">${customerPhone}</span>
             </div>
           </div>
         `;
@@ -1178,7 +1217,7 @@
             </div>
             <div class="info-row">
               <span class="label">Phone:</span>
-              <span class="val">${customerPhone || '+91 88841 02020'}</span>
+              <span class="val">${customerPhone}</span>
             </div>
             <div class="info-row">
               <span class="label">Email:</span>
@@ -1207,17 +1246,10 @@
         ? '<span style="color:#2ECC71;">₹0 (Free Store Pickup)</span>' 
         : (totalAmount >= 1000 ? '<span style="color:#2ECC71;">FREE (Orders ₹1,000+)</span>' : '₹49');
 
-      const payMethodText = isCOD ? 'Cash on Delivery (Pay at Handover)' : 'Prepaid via Razorpay';
-      document.getElementById('disp-payment-method').innerText = payMethodText;
-      
+      document.getElementById('disp-payment-method').innerText = '100% Prepaid (Razorpay / UPI / Card)';
       const badge = document.getElementById('disp-payment-badge');
-      if (isCOD) {
-        badge.className = 'payment-badge-tag badge-cod';
-        badge.innerText = isPickup ? '💵 Pay at Store Counter' : '💵 Pay on Delivery';
-      } else {
-        badge.className = 'payment-badge-tag badge-prepaid';
-        badge.innerText = '✅ Payment Verified';
-      }
+      badge.className = 'payment-badge-tag badge-prepaid';
+      badge.innerText = '✅ Payment Verified';
     }
 
     loadOrderData();
