@@ -69,6 +69,66 @@
   <link rel="stylesheet" href="/src/style.css">
   
   <style>
+    :root {
+      --bg-dark: #120E0B;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #120E0B;
+      color: #FAF6F0;
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(18, 14, 11, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo {
+      height: 44px;
+      width: auto;
+      max-height: 44px;
+      object-fit: contain;
+      display: block;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%);
+      color: #120E0B;
+      font-weight: 700;
+      border-radius: 9999px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+      transition: transform 0.2s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
     .page-header {
       padding: 120px 5% 60px;
       text-align: center;
@@ -147,33 +207,33 @@
       margin-bottom: 20px;
     }
     
-    .form-label {
+    .form-group label {
       display: block;
-      margin-bottom: 8px;
       color: #E0D5C1;
-      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
     }
     
-    .form-input, .form-textarea {
+    .form-group input, .form-group select, .form-group textarea {
       width: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.15);
       padding: 12px 16px;
-      color: #FFF;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
-      font-family: var(--font-sans);
-      box-sizing: border-box;
+      color: #FFF;
+      font-family: inherit;
+      font-size: 1rem;
       transition: border-color 0.3s;
     }
     
-    .form-input:focus, .form-textarea:focus {
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
       outline: none;
       border-color: #C6960C;
     }
     
-    .form-textarea {
-      min-height: 150px;
+    .form-group textarea {
       resize: vertical;
+      min-height: 120px;
     }
     
     .btn-submit {
@@ -201,7 +261,7 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="/" class="nav-brand">
-        <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="nav-logo"  loading="lazy" />
+        <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="nav-logo" width="44" height="44" style="height: 44px; width: auto; max-height: 44px; object-fit: contain;" loading="lazy" />
       </a>
       <div class="nav-actions">
         <a href="/" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Back to Home</a>
@@ -225,12 +285,12 @@
       
       <div class="info-block">
         <h3>Phone</h3>
-        <p>+91 (Support Phone Needed)</p>
+        <p><a href="tel:+918884102020">+91 8884102020</a></p>
       </div>
       
       <div class="info-block">
         <h3>Visit Our Experience Center</h3>
-        <p>Jayanagar, Bengaluru<br>Karnataka, India</p>
+        <p>1st Cross Rd, SLV Layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026</p>
       </div>
       
       <div class="info-block">

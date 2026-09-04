@@ -50,6 +50,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.nav-logo,
+.brand-logo-img {
+  height: 44px;
+  width: auto;
+  max-height: 44px;
+  max-width: 160px;
+  object-fit: contain;
+  display: inline-block;
+}
+
 /* GPU Hardware Acceleration & Render Performance */
 .canvas-3d-container,
 .product-card,

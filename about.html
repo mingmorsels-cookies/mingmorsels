@@ -62,20 +62,78 @@
   <link rel="stylesheet" href="/src/style.css">
   
   <style>
+    :root {
+      --bg-dark: #120E0B;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #120E0B;
+      color: #FAF6F0;
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(18, 14, 11, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo {
+      height: 44px;
+      width: auto;
+      max-height: 44px;
+      object-fit: contain;
+      display: block;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%);
+      color: #120E0B;
+      font-weight: 700;
+      border-radius: 9999px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+      transition: transform 0.2s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
     .page-header {
       padding: 120px 5% 60px;
       text-align: center;
       background: linear-gradient(to bottom, #1a1410, var(--bg-dark, #120E0B));
       border-bottom: 1px solid rgba(212, 163, 115, 0.1);
     }
-    
     .page-title {
       font-family: var(--font-serif);
       font-size: clamp(2.5rem, 5vw, 4rem);
       color: #C6960C;
       margin: 0 0 20px;
     }
-    
     .page-subtitle {
       font-size: 1.1rem;
       color: #E0D5C1;
@@ -83,7 +141,6 @@
       margin: 0 auto;
       line-height: 1.6;
     }
-    
     .content-section {
       padding: 60px 5%;
       max-width: 900px;
@@ -92,7 +149,6 @@
       font-size: 1.1rem;
       line-height: 1.8;
     }
-    
     .content-section h2 {
       font-family: var(--font-serif);
       font-size: 2.2rem;
@@ -101,11 +157,9 @@
       border-bottom: 1px dashed rgba(200, 150, 12, 0.3);
       padding-bottom: 12px;
     }
-    
     .content-section p {
       margin-bottom: 24px;
     }
-    
     .highlight-box {
       background: rgba(198, 150, 12, 0.05);
       border: 1px solid rgba(198, 150, 12, 0.2);
@@ -114,7 +168,6 @@
       margin: 40px 0;
       text-align: center;
     }
-    
     .highlight-box h3 {
       color: #FFF;
       margin-bottom: 15px;
@@ -126,7 +179,7 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="/" class="nav-brand">
-        <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="nav-logo"  loading="lazy" />
+        <img src="/logo.png?v=2" alt="Ming Morsels Logo" class="nav-logo" width="44" height="44" style="height: 44px; width: auto; max-height: 44px; object-fit: contain;" loading="lazy" />
       </a>
       <div class="nav-actions">
         <a href="/" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Back to Home</a>
