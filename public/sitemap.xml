@@ -92,6 +92,14 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- 5b. Blog & Bakery Stories -->
+  <url>
+    <loc>https://www.mingmorsels.com/blog.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
   <!-- 6. Contact & Studio Desk -->
   <url>
     <loc>https://www.mingmorsels.com/contact.html</loc>

@@ -258,6 +258,8 @@ const SEO_REDIRECTS = {
   '/about-us': '/about.html',
   '/our-story': '/about.html',
   '/story': '/about.html',
+  '/blog': '/blog.html',
+  '/journal': '/blog.html',
   '/contact-us': '/contact.html',
   '/help': '/contact.html',
   '/experience': '/experience-center.html',
