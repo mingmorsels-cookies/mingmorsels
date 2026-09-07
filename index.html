@@ -554,7 +554,7 @@
         <a href="#home" class="nav-link">Home</a>
         <a href="#products" class="nav-link">Cookies</a>
         <a href="#muffins" class="nav-link">Muffins</a>
-        <a href="#products" class="nav-link">Details</a>
+        <a href="/about.html" class="nav-link">Our Story</a>
         <a href="/bulk-order.html" class="nav-link" style="color: #C8960C; font-weight: 600;">Corporate Orders</a>
         <a href="/experience-center.html" class="nav-link">Experience Center</a>
         <a href="/admin.html" class="nav-link admin-only-link"
@@ -634,6 +634,10 @@
         <a href="#muffins" class="mobile-nav-item">
           <span class="mobile-nav-icon">🧁</span>
           <span>Handcrafted Muffins</span>
+        </a>
+        <a href="/about.html" class="mobile-nav-item">
+          <span class="mobile-nav-icon">📖</span>
+          <span>Our Story &amp; Vision</span>
         </a>
         <button type="button" id="btn-mobile-gift-builder" class="mobile-nav-item">
           <span class="mobile-nav-icon">🎁</span>
@@ -1171,38 +1175,85 @@
       <div id="flowing-menu-root" style="height: auto; position: relative; width: 100%;"></div>
     </section>
 
-    <!-- Section 4: Why Choose Us? (The mingmorsels Promise) -->
-    <section id="why-choose-us" class="why-choose-section">
-      <div class="why-choose-container">
-        <!-- Vision & Mission Banner -->
-        <div style="background: linear-gradient(135deg, rgba(38, 28, 20, 0.95) 0%, rgba(20, 15, 12, 0.95) 100%); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 18px; padding: clamp(20px, 3.5vw, 32px); color: #FAF6F0; box-shadow: 0 10px 30px rgba(0,0,0,0.4); margin-bottom: 36px; text-align: left;">
-          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 12px;">
-            <div>
-              <span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37;">Miora Delights Private Limited</span>
-              <h3 style="font-family: var(--font-serif); font-size: clamp(20px, 3vw, 26px); color: #FFF; margin: 4px 0 0 0;">mingmorsels &bull; <em style="color: #FFDF79; font-style: italic;">When moments matter.</em></h3>
+    <!-- Dedicated Section: Our Vision, Mission & Brand Promise -->
+    <section id="vision-mission" class="vision-mission-section" style="background: linear-gradient(180deg, #18110B 0%, #0E0A07 100%); padding: 75px 24px; position: relative; z-index: 2; border-top: 1px solid rgba(212, 175, 55, 0.25); border-bottom: 1px solid rgba(212, 175, 55, 0.25);">
+      <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+        
+        <!-- Enterprise Badge -->
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50px; padding: 6px 20px; margin-bottom: 16px;">
+          <span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37;">Miora Delights Private Limited</span>
+        </div>
+
+        <h2 style="font-family: var(--font-serif); font-size: clamp(26px, 4vw, 42px); font-weight: 700; color: #FFFFFF; margin-bottom: 8px; line-height: 1.25;">
+          mingmorsels <span style="color: #D4AF37; font-style: italic; font-weight: 400;">— When moments matter.</span>
+        </h2>
+        
+        <p style="font-size: clamp(14px, 2vw, 17px); color: #FFDF79; font-weight: 600; font-family: var(--font-serif); margin-bottom: 36px; letter-spacing: 0.5px;">
+          ✦ Pure Butter &bull; Distinctive Flavours &bull; Memorable Moments ✦
+        </p>
+
+        <!-- Vision & Mission 2-Card Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; text-align: left; margin-bottom: 36px;">
+          
+          <!-- Vision Card -->
+          <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 20px; padding: clamp(24px, 4vw, 36px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); position: relative; overflow: hidden; backdrop-filter: blur(10px);">
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+              <div style="width: 46px; height: 46px; border-radius: 12px; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;">🔭</div>
+              <div>
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; display: block;">OUR VISION</span>
+                <h3 style="font-family: var(--font-serif); font-size: 21px; color: #FFF; margin: 0; font-weight: 700;">India's Most Loved Cookie Brand</h3>
+              </div>
             </div>
-            <div style="background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 50px; padding: 5px 14px; font-size: 11.5px; font-weight: 700; color: #FFDF79;">
-              ✦ Pure Butter &bull; Distinctive Flavours &bull; Memorable Moments ✦
-            </div>
+            <p style="font-size: 14.5px; color: #D6C8B4; line-height: 1.75; margin: 0;">
+              To become one of India’s most loved premium cookie brands, known for exceptional taste, distinctive flavours and unforgettable cookie experiences.
+            </p>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
-            <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 16px 18px;">
-              <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #D4AF37; text-transform: uppercase; margin-bottom: 6px;">🔭 OUR VISION</div>
-              <p style="font-size: 13px; color: #D6C8B4; line-height: 1.6; margin: 0;">
-                To become one of India’s most loved premium cookie brands, known for exceptional taste, distinctive flavours and unforgettable cookie experiences.
-              </p>
+          <!-- Mission Card -->
+          <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 20px; padding: clamp(24px, 4vw, 36px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); position: relative; overflow: hidden; backdrop-filter: blur(10px);">
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+              <div style="width: 46px; height: 46px; border-radius: 12px; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;">🎯</div>
+              <div>
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; display: block;">OUR MISSION</span>
+                <h3 style="font-family: var(--font-serif); font-size: 21px; color: #FFF; margin: 0; font-weight: 700;">Memorable Moments in Every Bite</h3>
+              </div>
             </div>
-
-            <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 16px 18px;">
-              <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #D4AF37; text-transform: uppercase; margin-bottom: 6px;">🎯 OUR MISSION</div>
-              <p style="font-size: 13px; color: #D6C8B4; line-height: 1.6; margin: 0;">
-                To craft premium cookies and baked treats that turn everyday moments into memorable experiences — using pure butter, distinctive flavour combinations and thoughtfully chosen ingredients, with no margarine.
-              </p>
-            </div>
+            <p style="font-size: 14.5px; color: #D6C8B4; line-height: 1.75; margin: 0;">
+              To craft premium cookies and baked treats that turn everyday moments into memorable experiences — using pure butter, distinctive flavour combinations and thoughtfully chosen ingredients, with no margarine.
+            </p>
           </div>
         </div>
 
+        <!-- 3 Pillars Footer Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; border-top: 1px solid rgba(212, 175, 55, 0.15); padding-top: 24px; margin-bottom: 24px;">
+          <div style="text-align: center; padding: 10px;">
+            <div style="font-size: 22px; margin-bottom: 6px;">🧈</div>
+            <div style="color: #FFDF79; font-weight: 700; font-size: 13.5px; margin-bottom: 2px;">100% Pure Cow Butter</div>
+            <div style="color: #A09A95; font-size: 12px;">Rich taste & zero margarine</div>
+          </div>
+          <div style="text-align: center; padding: 10px;">
+            <div style="font-size: 22px; margin-bottom: 6px;">🌿</div>
+            <div style="color: #FFDF79; font-weight: 700; font-size: 13.5px; margin-bottom: 2px;">Distinctive Flavours</div>
+            <div style="color: #A09A95; font-size: 12px;">Artisanal botanicals & whole nuts</div>
+          </div>
+          <div style="text-align: center; padding: 10px;">
+            <div style="font-size: 22px; margin-bottom: 6px;">✨</div>
+            <div style="color: #FFDF79; font-weight: 700; font-size: 13.5px; margin-bottom: 2px;">Memorable Moments</div>
+            <div style="color: #A09A95; font-size: 12px;">Baked fresh daily for every celebration</div>
+          </div>
+        </div>
+
+        <div>
+          <a href="/about.html" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%); color: #120E0B; font-weight: 700; font-size: 13px; padding: 10px 24px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 14px rgba(212,175,55,0.3); transition: transform 0.2s ease;">
+            Explore Our Artisanal Story &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Why Choose Us? -->
+    <section id="why-choose-us" class="why-choose-section">
+      <div class="why-choose-container">
         <h2 class="why-choose-title">Why Choose Us?</h2>
 
         <div class="why-choose-grid">
