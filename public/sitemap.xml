@@ -3,74 +3,74 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <!-- 1. Homepage -->
   <url>
-    <loc>https://mingmorsels.com/</loc>
+    <loc>https://www.mingmorsels.com/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://mingmorsels.com/logo.png?v=2</image:loc>
+      <image:loc>https://www.mingmorsels.com/logo.png?v=2</image:loc>
       <image:title>mingmorsels Handcrafted Artisanal Cookies Bengaluru</image:title>
       <image:caption>Pure cow butter and natural plant-based Stevia luxury cookies and soft-baked muffins.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mingmorsels.com/almond/1.jpg</image:loc>
+      <image:loc>https://www.mingmorsels.com/almond/1.jpg</image:loc>
       <image:title>Royal Almond Rich Butter Cookie</image:title>
       <image:caption>Handcrafted with whole roasted California almonds and 100% pure pasture butter.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mingmorsels.com/rose-petal/1.jpg</image:loc>
+      <image:loc>https://www.mingmorsels.com/rose-petal/1.jpg</image:loc>
       <image:title>Organic Damask Rose Petal Cookie</image:title>
       <image:caption>Infused with real sun-dried rose petals and aromatic green cardamom.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mingmorsels.com/oats-nuts/1.jpg</image:loc>
+      <image:loc>https://www.mingmorsels.com/oats-nuts/1.jpg</image:loc>
       <image:title>Rolled Oats &amp; Crunchy Nuts Energy Cookie</image:title>
       <image:caption>High-fiber rolled oats with California walnuts, cashews, and natural sweetness.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mingmorsels.com/img-walnut-sf.png?v=2</image:loc>
+      <image:loc>https://www.mingmorsels.com/img-walnut-sf.png?v=2</image:loc>
       <image:title>Stevia Sugar-Free California Walnut Cookie</image:title>
       <image:caption>100% diabetic-friendly, zero added sugar, sweetened naturally with plant Stevia.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mingmorsels.com/orange/1.jpg</image:loc>
+      <image:loc>https://www.mingmorsels.com/orange/1.jpg</image:loc>
       <image:title>Sun-Dried Orange Peel &amp; Cinnamon Cookie</image:title>
       <image:caption>Zesty citrus essence infused with pure butter and Ceylon cinnamon.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://mingmorsels.com/box-classic.jpg</image:loc>
+      <image:loc>https://www.mingmorsels.com/box-classic.jpg</image:loc>
       <image:title>Classic Connoisseur Box (6 Treats)</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://mingmorsels.com/box-lush.jpg</image:loc>
+      <image:loc>https://www.mingmorsels.com/box-lush.jpg</image:loc>
       <image:title>Lush Artisan Collection Box (12 Treats)</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://mingmorsels.com/box-extra.jpg</image:loc>
+      <image:loc>https://www.mingmorsels.com/box-extra.jpg</image:loc>
       <image:title>Grand Celebration Gifting Hamper (18 Treats)</image:title>
     </image:image>
   </url>
 
   <!-- 2. Product Menu Collection -->
   <url>
-    <loc>https://mingmorsels.com/product.html</loc>
+    <loc>https://www.mingmorsels.com/product.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://mingmorsels.com/almond_cookie_top_clean.png</image:loc>
+      <image:loc>https://www.mingmorsels.com/almond_cookie_top_clean.png</image:loc>
       <image:title>Handcrafted Artisanal Cookie &amp; Muffin Collection</image:title>
     </image:image>
   </url>
 
   <!-- 3. Corporate & Bulk Orders -->
   <url>
-    <loc>https://mingmorsels.com/bulk-order.html</loc>
+    <loc>https://www.mingmorsels.com/bulk-order.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://mingmorsels.com/box-extra.jpg</image:loc>
+      <image:loc>https://www.mingmorsels.com/box-extra.jpg</image:loc>
       <image:title>Luxury Corporate Gifting &amp; Event Favors</image:title>
       <image:caption>Custom luxury gift boxes for corporate events, weddings, and celebrations in Bengaluru.</image:caption>
     </image:image>
@@ -78,7 +78,7 @@
 
   <!-- 4. Experience Center & Production House -->
   <url>
-    <loc>https://mingmorsels.com/experience-center.html</loc>
+    <loc>https://www.mingmorsels.com/experience-center.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -86,7 +86,7 @@
 
   <!-- 5. Brand Story, Vision & Philosophy -->
   <url>
-    <loc>https://mingmorsels.com/about.html</loc>
+    <loc>https://www.mingmorsels.com/about.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -94,7 +94,7 @@
 
   <!-- 6. Contact & Studio Desk -->
   <url>
-    <loc>https://mingmorsels.com/contact.html</loc>
+    <loc>https://www.mingmorsels.com/contact.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -102,7 +102,7 @@
 
   <!-- 7. Live Order Tracking -->
   <url>
-    <loc>https://mingmorsels.com/track-order.html</loc>
+    <loc>https://www.mingmorsels.com/track-order.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>always</changefreq>
     <priority>0.70</priority>
@@ -110,25 +110,25 @@
 
   <!-- 8. Policies & Legal -->
   <url>
-    <loc>https://mingmorsels.com/shipping.html</loc>
+    <loc>https://www.mingmorsels.com/shipping.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://mingmorsels.com/refund.html</loc>
+    <loc>https://www.mingmorsels.com/refund.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://mingmorsels.com/privacy.html</loc>
+    <loc>https://www.mingmorsels.com/privacy.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://mingmorsels.com/terms.html</loc>
+    <loc>https://www.mingmorsels.com/terms.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
