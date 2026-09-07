@@ -29,6 +29,7 @@ export default defineConfig({
         trackOrder: resolve(import.meta.dirname, 'track-order.html'),
         bulkOrder: resolve(import.meta.dirname, 'bulk-order.html'),
         admin: resolve(import.meta.dirname, 'admin.html'),
+        blog: resolve(import.meta.dirname, 'blog.html'),
         chatbot: resolve(import.meta.dirname, 'chatbot.html'),
         about: resolve(import.meta.dirname, 'about.html'),
         contact: resolve(import.meta.dirname, 'contact.html'),

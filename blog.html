@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Blog &amp; Bakery Stories | mingmorsels Bengaluru</title>
-  <meta name="description" content="Discover behind-the-scenes bakery stories, artisanal baking craft, recipe highlights, and videos from mingmorsels Bengaluru." />
-  <meta name="keywords" content="mingmorsels blog, artisanal bakery videos, baking craft bengaluru, pure butter cookies story" />
+  <title>Blog | mingmorsels Bengaluru</title>
+  <meta name="description" content="Official Blog of mingmorsels — Handcrafted luxury confectionery in Bengaluru." />
   <meta name="author" content="Miora Delights Private Limited" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="robots" content="index, follow" />
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
@@ -17,18 +16,9 @@
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="canonical" href="https://www.mingmorsels.com/blog.html" />
 
-  <!-- OpenGraph -->
-  <meta property="og:site_name" content="mingmorsels" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Blog &amp; Bakery Stories | mingmorsels" />
-  <meta property="og:description" content="Behind-the-scenes stories, artisanal recipes, and sweet moments from our Bengaluru bakery." />
-  <meta property="og:image" content="https://www.mingmorsels.com/logo.png?v=2" />
-  <meta property="og:url" content="https://www.mingmorsels.com/blog.html" />
-  <meta property="og:locale" content="en_IN" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -40,7 +30,6 @@
       --text: #2C1800;
       --muted: #7A5C3E;
       --border: #E8DCBE;
-      --radius: 16px;
       --font-serif: 'Playfair Display', Georgia, serif;
       --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -155,121 +144,21 @@
       transform: translateY(-1px);
     }
 
-    /* Hero Header */
-    .blog-hero {
-      text-align: center;
-      padding: 60px 24px 40px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .blog-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-      background: rgba(200, 150, 12, 0.1);
-      border: 1px solid rgba(200, 150, 12, 0.3);
-      padding: 5px 16px;
-      border-radius: 50px;
-      margin-bottom: 16px;
-    }
-    .blog-title {
-      font-family: var(--font-serif);
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 800;
-      color: var(--brown);
-      line-height: 1.2;
-      margin-bottom: 14px;
-    }
-    .blog-title span {
-      color: var(--gold-dark);
-      font-style: italic;
-      font-weight: 400;
-    }
-    .blog-subtitle {
-      font-size: clamp(15px, 2vw, 17px);
-      color: var(--muted);
-      line-height: 1.6;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    /* Empty State / Gallery Container */
-    .blog-container {
-      max-width: 1140px;
-      margin: 0 auto 60px;
-      padding: 0 24px;
-      width: 100%;
+    /* Empty Blog Canvas */
+    .blog-empty-canvas {
       flex: 1;
-    }
-
-    .empty-state-card {
-      background: linear-gradient(145deg, #FFFFFF 0%, #FFFDF9 50%, #FAF3E7 100%);
-      border: 1.5px dashed rgba(200, 150, 12, 0.4);
-      border-radius: 24px;
-      padding: 60px 32px;
-      text-align: center;
-      box-shadow: 0 16px 40px -10px rgba(61, 32, 0, 0.05);
-    }
-
-    .empty-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #FAF3E7 0%, #F5E5C9 100%);
-      border: 1px solid rgba(200, 150, 12, 0.4);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      color: var(--gold-dark);
-      box-shadow: 0 8px 20px rgba(200, 150, 12, 0.15);
-    }
-
-    .empty-title {
-      font-family: var(--font-serif);
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--brown);
-      margin-bottom: 10px;
-    }
-
-    .empty-desc {
-      font-size: 15px;
-      color: var(--muted);
-      max-width: 500px;
-      margin: 0 auto 24px;
-      line-height: 1.65;
-    }
-
-    .placeholder-badges {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 16px;
-    }
-    .placeholder-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      padding: 6px 16px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--brown);
-      box-shadow: 0 2px 8px rgba(61, 32, 0, 0.03);
+      min-height: 65vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      width: 100%;
     }
 
     /* Footer */
     .footer {
       background: #120E0B;
       color: #D6C8B4;
-      padding: 40px 24px;
+      padding: 36px 24px;
       margin-top: auto;
       border-top: 1px solid rgba(212, 175, 55, 0.2);
     }
@@ -291,7 +180,6 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-cta { padding: 7px 14px; font-size: 12px; }
-      .empty-state-card { padding: 40px 20px; }
     }
   </style>
 </head>
@@ -323,32 +211,9 @@
     <a href="/#products" class="nav-cta">Order Fresh &rarr;</a>
   </nav>
 
-  <!-- Hero Header -->
-  <header class="blog-hero">
-    <span class="blog-tag">✦ Visual Stories &amp; Articles ✦</span>
-    <h1 class="blog-title">The mingmorsels <span>Journal</span></h1>
-    <p class="blog-subtitle">Behind-the-scenes baking videos, artisanal confectionery stories, recipe inspirations, and sweet moments from Bengaluru.</p>
-  </header>
-
-  <!-- Empty State Container for Future Videos and Photos -->
-  <main class="blog-container">
-    <div class="empty-state-card">
-      <div class="empty-icon">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="23 7 16 12 23 17 23 7"></polygon>
-          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-        </svg>
-      </div>
-      <h2 class="empty-title">Stories &amp; Videos Coming Soon</h2>
-      <p class="empty-desc">We are currently capturing fresh moments from our central studio kitchen — upcoming video reels, photo galleries, and artisanal articles will appear right here.</p>
-      
-      <div class="placeholder-badges">
-        <span class="placeholder-badge">📹 Studio Baking Reels</span>
-        <span class="placeholder-badge">📸 High-Res Photo Galleries</span>
-        <span class="placeholder-badge">🧈 Butter &amp; Ingredient Stories</span>
-        <span class="placeholder-badge">✨ Festive Gifting Inspiration</span>
-      </div>
-    </div>
+  <!-- Empty Canvas for User's Future Videos and Photos -->
+  <main class="blog-empty-canvas" id="blog-content">
+    <!-- Blank section ready for videos, reels, and photos -->
   </main>
 
   <!-- Footer -->

@@ -289,6 +289,7 @@ const PUBLIC_HTML_PAGES = new Set([
   'index.html',
   'about.html',
   'admin.html',
+  'blog.html',
   'bulk-order.html',
   'chatbot.html',
   'contact.html',
