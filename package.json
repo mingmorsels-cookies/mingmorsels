@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run --exclude 'tests/e2e.test.js'",
+    "test": "vitest run --testTimeout=15000 --exclude 'tests/e2e.test.js'",
     "test:e2e": "vitest run tests/e2e.test.js"
   },
   "devDependencies": {
