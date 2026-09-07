@@ -252,6 +252,53 @@
       margin-bottom: 0 !important;
     }
     
+    .vision-mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 36px 0;
+    }
+    .vm-card {
+      background: linear-gradient(135deg, rgba(38, 28, 20, 0.9) 0%, rgba(20, 15, 12, 0.9) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 16px;
+      padding: 30px 26px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .vm-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, #D4AF37, #996515);
+    }
+    .vm-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #D4AF37;
+      margin-bottom: 8px;
+    }
+    .vm-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: #FFF !important;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .vm-desc {
+      color: #D6C8B4 !important;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      margin-bottom: 0 !important;
+    }
+
     .about-footer {
       text-align: center;
       padding: 40px 20px;
@@ -278,19 +325,35 @@
 
   <!-- Page Header -->
   <header class="page-header">
-    <span class="page-tag">✦ Artisanal Heritage ✦</span>
+    <span class="page-tag">✦ When moments matter ✦</span>
     <h1 class="page-title">The Story Behind <span>mingmorsels</span></h1>
-    <p class="page-subtitle">Crafting luxury cookies and gourmet muffins in Bengaluru with pure cow butter, natural plant Stevia, and uncompromising artistry.</p>
+    <p class="page-subtitle">Crafting luxury cookies and gourmet baked treats with 100% pure cow butter, distinctive flavour combinations, and zero margarine.</p>
   </header>
 
   <!-- Main Content Card -->
   <main class="about-main-wrapper">
     <div class="content-card">
       <h2>The mingmorsels Promise</h2>
-      <p>At mingmorsels, baking is more than a culinary process — it is an art form. We believe every bite should be a sensorial experience: a delicate balance of rich buttery crunch, botanical aromatics, and clean sweetness that transports you to a moment of pure bliss.</p>
+      <p style="font-size: 1.22rem; font-weight: 600; color: #FFDF79 !important; margin-bottom: 14px; font-family: var(--font-serif);">Pure Butter. Distinctive Flavours. Memorable Moments.</p>
+      <p>At <strong>mingmorsels</strong> (Miora Delights Private Limited), baking is more than a culinary process — it is an art form designed for <em>when moments matter</em>. We believe every bite should turn an ordinary occasion into an unforgettable sensory experience: a delicate balance of rich buttery crunch, botanical aromatics, and clean wholesome goodness.</p>
       
       <p>Founded in Bengaluru with a passion for unyielding quality, mingmorsels set out to redefine the cookie and muffin landscape. We noticed that too many market treats relied on hydrogenated fats (dalda), artificial preservatives, chemical extenders, and excessive refined sugars. We knew connoisseurs deserved a purer, more luxurious alternative.</p>
       
+      <!-- Vision & Mission Grid -->
+      <div class="vision-mission-grid">
+        <div class="vm-card">
+          <span class="vm-tag">🔭 OUR VISION</span>
+          <h3 class="vm-title">India's Most Loved Cookie Brand</h3>
+          <p class="vm-desc">To become one of India’s most loved premium cookie brands, known for exceptional taste, distinctive flavours and unforgettable cookie experiences.</p>
+        </div>
+
+        <div class="vm-card">
+          <span class="vm-tag">🎯 OUR MISSION</span>
+          <h3 class="vm-title">Memorable Moments in Every Bite</h3>
+          <p class="vm-desc">To craft premium cookies and baked treats that turn everyday moments into memorable experiences — using pure butter, distinctive flavour combinations and thoughtfully chosen ingredients, with no margarine.</p>
+        </div>
+      </div>
+
       <!-- Highlight Banner -->
       <div class="highlight-box">
         <h3>100% Pure Ingredients • Zero Compromises</h3>
@@ -321,8 +384,8 @@
       <p>We bake continuously every morning upon order placement, ensuring the treats delivered to your doorstep are as fresh, fragrant, and crumbly as the moment they left our central studio ovens.</p>
       
       <h2>Crafted for Every Sweet Occasion</h2>
-      <p>Whether you are treating yourself to a serene evening with our Stevia Sugar-Free California Walnut cookies, sharing our Belgian Dark Chocochip muffins with family, or sending our signature luxury gift tins to clients across India, mingmorsels elevates every moment.</p>
-      <p>Thank you for allowing us to be part of your sweetest celebrations.</p>
+      <p>Whether you are treating yourself to a serene evening with our Stevia Sugar-Free California Walnut cookies, sharing our Belgian Dark Chocochip muffins with family, or sending our signature luxury gift tins to clients across India, mingmorsels elevates every celebration.</p>
+      <p>Thank you for allowing us to be part of your sweetest celebrations — <em>when moments matter</em>.</p>
     </div>
   </main>
 
