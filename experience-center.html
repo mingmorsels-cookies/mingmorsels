@@ -496,13 +496,16 @@
           </div>
           <div class="info-row">
             <div class="info-icon">&#128336;</div>
-            <div>
-              <div class="info-label">Store Pickup &amp; Visiting Hours</div>
+            <div style="flex: 1;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+                <div class="info-label" style="margin-bottom: 0;">Store Pickup &amp; Visiting Hours</div>
+                <span id="center-live-status" class="open-badge" style="margin-top: 0; font-size: 11px;">🟢 Open Today</span>
+              </div>
               <table class="hours-table">
-                <tr><td>Monday &ndash; Saturday</td><td><strong>10:00 AM &ndash; 4:00 PM</strong></td></tr>
-                <tr><td>Sunday</td><td style="color: #C0392B; font-weight: 700;">🚫 Closed (Weekly Holiday)</td></tr>
+                <tr id="row-mon-sat"><td style="padding: 4px 6px; border-radius: 6px 0 0 6px;">Monday &ndash; Saturday</td><td style="text-align: right; padding: 4px 6px; border-radius: 0 6px 6px 0;"><strong style="color: #2D6A4F;">10:00 AM &ndash; 4:00 PM</strong></td></tr>
+                <tr id="row-sun"><td style="padding: 4px 6px; border-radius: 6px 0 0 6px;">Sunday</td><td style="text-align: right; padding: 4px 6px; border-radius: 0 6px 6px 0; color: #8C7A6B; font-weight: 600;">Closed (Weekly Holiday)</td></tr>
               </table>
-              <div style="font-size: 11.5px; color: #705840; margin-top: 6px; line-height: 1.35;">
+              <div style="font-size: 11.5px; color: #705840; margin-top: 8px; line-height: 1.35;">
                 💡 <em>Store pickup orders placed on Sunday are freshly baked and available for pickup Monday from 10:00 AM onwards.</em>
               </div>
             </div>
@@ -622,6 +625,48 @@
 
   <script>
     document.getElementById('v-date').min = new Date().toISOString().split('T')[0];
+
+    function updateExperienceCenterLiveStatus() {
+      const statusEl = document.getElementById('center-live-status');
+      if (!statusEl) return;
+      
+      // Calculate IST time (UTC+5:30)
+      const now = new Date();
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const ist = new Date(utc + (3600000 * 5.5));
+      const day = ist.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+      const hour = ist.getHours();
+      const minute = ist.getMinutes();
+      const timeNum = hour + (minute / 60);
+
+      const isSunday = (day === 0);
+      const isOpenHours = (!isSunday && timeNum >= 10.0 && timeNum < 16.0);
+      
+      const monSatRow = document.getElementById('row-mon-sat');
+      const sunRow = document.getElementById('row-sun');
+
+      if (isSunday) {
+        statusEl.textContent = '🔴 Closed Today (Sunday Weekly Holiday)';
+        statusEl.style.background = '#fde8e8';
+        statusEl.style.color = '#c0392b';
+        statusEl.style.borderColor = 'rgba(192, 57, 43, 0.3)';
+        if (sunRow) sunRow.style.background = 'rgba(192, 57, 43, 0.08)';
+      } else if (isOpenHours) {
+        statusEl.textContent = '🟢 Open Today (10:00 AM – 4:00 PM)';
+        statusEl.style.background = '#e8f7ee';
+        statusEl.style.color = '#2d8a50';
+        statusEl.style.borderColor = 'rgba(45, 138, 80, 0.3)';
+        if (monSatRow) monSatRow.style.background = 'rgba(45, 138, 80, 0.08)';
+      } else {
+        statusEl.textContent = '🟡 Closed Now (Opens 10:00 AM Mon–Sat)';
+        statusEl.style.background = '#fef6e7';
+        statusEl.style.color = '#d97706';
+        statusEl.style.borderColor = 'rgba(217, 119, 6, 0.3)';
+        if (monSatRow) monSatRow.style.background = 'rgba(217, 119, 6, 0.05)';
+      }
+    }
+    updateExperienceCenterLiveStatus();
+
     async function submitVisitForm(e) {
       e.preventDefault();
       const form = document.getElementById('visit-form');
