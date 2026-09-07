@@ -230,6 +230,58 @@ app.use('/api', analyticsRoutes);
 app.use('/api', reviewRoutes);
 app.use('/', pushRoutes); // Handles both /api/push/* and /api/admin/push/*
 
+// 8.5 SEO Endpoints & 301 Canonical Redirects
+app.get('/robots.txt', (req, res) => {
+  const distPath = path.resolve('dist/robots.txt');
+  const pubPath = path.resolve('public/robots.txt');
+  const target = fs.existsSync(distPath) ? distPath : pubPath;
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.sendFile(target);
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  const distPath = path.resolve('dist/sitemap.xml');
+  const pubPath = path.resolve('public/sitemap.xml');
+  const target = fs.existsSync(distPath) ? distPath : pubPath;
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.sendFile(target);
+});
+
+// Common Legacy / Alternate URL 301 Permanent Redirects
+const SEO_REDIRECTS = {
+  '/products': '/product.html',
+  '/menu': '/product.html',
+  '/cookies': '/product.html',
+  '/muffins': '/product.html',
+  '/about-us': '/about.html',
+  '/our-story': '/about.html',
+  '/story': '/about.html',
+  '/contact-us': '/contact.html',
+  '/help': '/contact.html',
+  '/experience': '/experience-center.html',
+  '/store': '/experience-center.html',
+  '/location': '/experience-center.html',
+  '/bulk': '/bulk-order.html',
+  '/corporate': '/bulk-order.html',
+  '/corporate-orders': '/bulk-order.html',
+  '/track': '/track-order.html',
+  '/orders': '/track-order.html',
+  '/privacy-policy': '/privacy.html',
+  '/terms-and-conditions': '/terms.html',
+  '/cancellation-refund': '/refund.html',
+  '/shipping-policy': '/shipping.html'
+};
+
+app.use((req, res, next) => {
+  const normalizedPath = req.path.toLowerCase().replace(/\/+$/, '');
+  if (SEO_REDIRECTS[normalizedPath]) {
+    return res.redirect(301, SEO_REDIRECTS[normalizedPath]);
+  }
+  next();
+});
+
 // 9. Safe Dynamic Nonce-Injected HTML Serving (Takes precedence over raw static files)
 const PUBLIC_HTML_PAGES = new Set([
   'index.html',

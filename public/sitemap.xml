@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Homepage -->
+  <!-- 1. Homepage -->
   <url>
     <loc>https://mingmorsels.com/</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -51,24 +51,24 @@
     </image:image>
   </url>
 
-  <!-- Product & Menu Page -->
+  <!-- 2. Product Menu Collection -->
   <url>
     <loc>https://mingmorsels.com/product.html</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <image:image>
       <image:loc>https://mingmorsels.com/almond_cookie_top_clean.png</image:loc>
-      <image:title>Handcrafted Artisanal Cookie Collection</image:title>
+      <image:title>Handcrafted Artisanal Cookie &amp; Muffin Collection</image:title>
     </image:image>
   </url>
 
-  <!-- Corporate & Bulk Orders -->
+  <!-- 3. Corporate & Bulk Orders -->
   <url>
     <loc>https://mingmorsels.com/bulk-order.html</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
     <image:image>
       <image:loc>https://mingmorsels.com/box-extra.jpg</image:loc>
       <image:title>Luxury Corporate Gifting &amp; Event Favors</image:title>
@@ -76,61 +76,61 @@
     </image:image>
   </url>
 
-  <!-- Experience Center & Studio -->
+  <!-- 4. Experience Center & Production House -->
   <url>
     <loc>https://mingmorsels.com/experience-center.html</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 5. Brand Story, Vision & Philosophy -->
+  <url>
+    <loc>https://mingmorsels.com/about.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 6. Contact & Studio Desk -->
+  <url>
+    <loc>https://mingmorsels.com/contact.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
 
-  <!-- Brand Story & Philosophy -->
-  <url>
-    <loc>https://mingmorsels.com/about.html</loc>
-    <lastmod>2026-09-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
-
-  <!-- Contact & Studio Support -->
-  <url>
-    <loc>https://mingmorsels.com/contact.html</loc>
-    <lastmod>2026-09-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
-
-  <!-- Track Order -->
+  <!-- 7. Live Order Tracking -->
   <url>
     <loc>https://mingmorsels.com/track-order.html</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>always</changefreq>
-    <priority>0.60</priority>
+    <priority>0.70</priority>
   </url>
 
-  <!-- Policies -->
+  <!-- 8. Policies & Legal -->
   <url>
     <loc>https://mingmorsels.com/shipping.html</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
     <loc>https://mingmorsels.com/refund.html</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
     <loc>https://mingmorsels.com/privacy.html</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.40</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://mingmorsels.com/terms.html</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.40</priority>
+    <priority>0.50</priority>
   </url>
 </urlset>
