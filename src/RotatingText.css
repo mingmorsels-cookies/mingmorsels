@@ -9,6 +9,7 @@
   position: relative;
   vertical-align: middle;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .rotating-text-wrapper {
@@ -18,7 +19,7 @@
   justify-content: center;
   overflow: hidden;
   vertical-align: middle;
-  line-height: 1.15;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
@@ -27,16 +28,18 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  top: 0;
-  left: 0;
   line-height: inherit;
 }
 
 .rotating-text-item.is-animating-out {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
 }
 

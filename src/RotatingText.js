@@ -3,29 +3,32 @@ import './RotatingText.css';
 
 /**
  * RotatingText.js
- * High-performance, staggered character/word flip animation matching React Bits RotatingText
+ * High-performance word/character flip animation matching React Bits RotatingText
  * Source reference: React Bits / Vengeance UI
  */
 export function initRotatingText(container, options = {}) {
   if (!container) return () => {};
 
   const config = {
-    texts: ['Bright & Shine', 'Pure Radiance', 'Shining Joy'],
+    texts: ['Bright and Shine'],
     mainClassName: '',
     splitLevelClassName: 'overflow-hidden',
-    staggerFrom: 'first', // 'first' ensures left-to-right natural reading without dropping initial letters
-    staggerDuration: 0.018,
-    rotationInterval: 2400,
-    splitBy: 'characters', // 'characters' | 'words'
+    staggerFrom: 'first',
+    staggerDuration: 0.02,
+    rotationInterval: 2800,
+    splitBy: 'words', // 'words' prevents letter-splitting artifacts (e.g. 'Bright' becoming 'right')
     initial: { y: '100%', opacity: 0 },
     animate: { y: '0%', opacity: 1 },
-    exit: { y: '-120%', opacity: 0 },
-    transition: { duration: 0.38, ease: 'back.out(1.2)' },
+    exit: { y: '-100%', opacity: 0 },
+    transition: { duration: 0.4, ease: 'power2.out' },
     loop: true,
     ...options
   };
 
-  const texts = Array.isArray(config.texts) && config.texts.length > 0 ? config.texts : ['mingmorsels'];
+  const rawTexts = Array.isArray(config.texts) && config.texts.length > 0 ? config.texts : ['Bright and Shine'];
+  // Deduplicate consecutive duplicate texts to prevent phantom loops
+  const texts = rawTexts.filter((t, i) => i === 0 || t !== rawTexts[i - 1]);
+  
   let currentIndex = 0;
   let isTransitioning = false;
   let timerId = null;
@@ -88,30 +91,17 @@ export function initRotatingText(container, options = {}) {
     return item;
   }
 
-  // Calculate stagger delay based on staggerFrom
-  function getStaggerDelay(index, total) {
-    if (total <= 1) return 0;
-    const dur = config.staggerDuration;
-    switch (config.staggerFrom) {
-      case 'first':
-        return index * dur;
-      case 'last':
-        return (total - 1 - index) * dur;
-      case 'center': {
-        const center = (total - 1) / 2;
-        return Math.abs(center - index) * dur;
-      }
-      case 'random':
-        return Math.random() * dur * total;
-      default:
-        return (total - 1 - index) * dur;
-    }
-  }
-
   // Mount initial element
   let currentEl = renderTextItem(texts[currentIndex]);
   currentEl.classList.add('is-animating-in');
   textWrapper.appendChild(currentEl);
+
+  // If only 1 text variation exists, keep static without running rotation loops
+  if (texts.length <= 1) {
+    return () => {
+      if (container) container.innerHTML = '';
+    };
+  }
 
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
@@ -139,11 +129,11 @@ export function initRotatingText(container, options = {}) {
       return;
     }
 
-    const outChars = outgoingEl.querySelectorAll(config.splitBy === 'words' ? '.rotating-text-word' : '.rotating-text-char');
-    const inChars = nextEl.querySelectorAll(config.splitBy === 'words' ? '.rotating-text-word' : '.rotating-text-char');
+    const outNodes = outgoingEl.querySelectorAll(config.splitBy === 'words' ? '.rotating-text-word' : '.rotating-text-char');
+    const inNodes = nextEl.querySelectorAll(config.splitBy === 'words' ? '.rotating-text-word' : '.rotating-text-char');
 
-    // Set initial state on new characters
-    gsap.set(inChars, {
+    // Set initial state on new incoming elements
+    gsap.set(inNodes, {
       y: config.initial.y,
       opacity: config.initial.opacity ?? 0
     });
@@ -160,32 +150,32 @@ export function initRotatingText(container, options = {}) {
       }
     });
 
-    // Animate out current characters
-    outChars.forEach((el, i) => {
+    // Animate out current elements cleanly
+    outNodes.forEach((el, i) => {
       masterTl.to(
         el,
         {
           y: config.exit.y,
           opacity: config.exit.opacity ?? 0,
-          duration: config.transition.duration || 0.4,
+          duration: config.transition.duration || 0.35,
           ease: 'power2.in'
         },
-        getStaggerDelay(i, outChars.length)
+        i * config.staggerDuration
       );
     });
 
-    // Animate in next characters slightly overlapping
-    const inStartDelay = Math.min(0.15, outChars.length * config.staggerDuration * 0.5);
-    inChars.forEach((el, i) => {
+    // Animate in next elements
+    const inStartDelay = Math.min(0.12, outNodes.length * config.staggerDuration);
+    inNodes.forEach((el, i) => {
       masterTl.to(
         el,
         {
           y: config.animate.y,
           opacity: config.animate.opacity ?? 1,
-          duration: config.transition.duration || 0.45,
-          ease: config.transition.ease || 'back.out(1.3)'
+          duration: config.transition.duration || 0.4,
+          ease: 'power2.out'
         },
-        inStartDelay + getStaggerDelay(i, inChars.length)
+        inStartDelay + i * config.staggerDuration
       );
     });
   }
@@ -224,7 +214,7 @@ export function initRotatingText(container, options = {}) {
 }
 
 /**
- * Auto-initialize all elements marked with data-rotating-text attribute
+ * Auto-initialize all elements marked with data-rotating-texts attribute
  */
 export function initAllRotatingTexts() {
   const elements = document.querySelectorAll('[data-rotating-texts]');
@@ -232,11 +222,13 @@ export function initAllRotatingTexts() {
     try {
       const rawTexts = el.getAttribute('data-rotating-texts');
       const texts = rawTexts ? JSON.parse(rawTexts) : [];
-      const staggerFrom = el.getAttribute('data-stagger-from') || 'last';
+      const staggerFrom = el.getAttribute('data-stagger-from') || 'first';
+      const splitBy = el.getAttribute('data-split-by') || 'words';
       const mainClassName = el.getAttribute('data-main-class') || '';
-      const interval = parseInt(el.getAttribute('data-interval') || '2200', 10);
+      const interval = parseInt(el.getAttribute('data-interval') || '2800', 10);
       initRotatingText(el, {
         texts,
+        splitBy,
         staggerFrom,
         mainClassName,
         rotationInterval: interval
