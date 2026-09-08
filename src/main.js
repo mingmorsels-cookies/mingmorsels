@@ -5,6 +5,7 @@
 import './style.css';
 import './FlowingMenu.css';
 import './TextType.css';
+import './RotatingText.css';
 
 import { eventBus, Events } from './controllers/EventBus.js';
 import { authController } from './controllers/AuthController.js';
@@ -17,6 +18,7 @@ import { initPairingQuiz, showPairingQuiz } from './PairingQuiz.js';
 import { initSocialGallery } from './SocialGallery.js';
 import { initDriftWall } from './DriftWall.js';
 import { initFlipText } from './FlipText.js';
+import { initRotatingText, initAllRotatingTexts } from './RotatingText.js';
 import { initNetworkMonitor, saveActiveSession, getSavedSession, showRecoveryBanner, SessionType } from './sessionState.js';
 
 import { openQuickAddModal, PRODUCT_BOX_CATALOG } from './controllers/QuickAddModal.js';
@@ -97,6 +99,9 @@ async function startApp() {
         together: false
       });
     }
+
+    // Initialize React Bits Inspired RotatingText animations for brand meaning
+    initAllRotatingTexts();
 
     // Stats Counter Animation
     const statsSection = document.getElementById('story-in-numbers');

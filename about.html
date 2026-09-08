@@ -344,6 +344,31 @@
       
       <p>Founded in Bengaluru with a passion for unyielding quality, mingmorsels set out to redefine the cookie and muffin landscape. We noticed that too many market treats relied on hydrogenated fats (dalda), artificial preservatives, chemical extenders, and excessive refined sugars. We knew connoisseurs deserved a purer, more luxurious alternative.</p>
       
+      <!-- What's in the Name: mingmorsels Etymology Card with RotatingText -->
+      <div class="brand-meaning-card" style="background: rgba(28, 21, 16, 0.92); border: 1.5px solid rgba(212, 175, 55, 0.4); color: #FFF; margin: 32px 0;">
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase; color: #D4AF37; margin-bottom: 8px;">
+          ✦ The Meaning Behind Our Name ✦
+        </div>
+        <div class="brand-meaning-flex">
+          <div class="meaning-block" style="background: rgba(0, 0, 0, 0.45); border-color: rgba(212, 175, 55, 0.35);">
+            <span class="meaning-block-title" style="color: #FFDF79;">ming (明)</span>
+            <span style="font-size: 13px; color: #D6C8B4; font-weight: 600;">means</span>
+            <span class="meaning-rotator-badge" data-rotating-texts='["Bright & Shine", "Pure Radiance", "Luminous Joy", "Golden Radiance"]' data-stagger-from="last" data-interval="2200"></span>
+          </div>
+          
+          <span class="meaning-plus" style="color: #D4AF37;">+</span>
+          
+          <div class="meaning-block" style="background: rgba(0, 0, 0, 0.45); border-color: rgba(212, 175, 55, 0.35);">
+            <span class="meaning-block-title" style="color: #FFDF79;">morsels</span>
+            <span style="font-size: 13px; color: #D6C8B4; font-weight: 600;">means</span>
+            <span class="meaning-rotator-badge" data-rotating-texts='["Mouthful of Food", "Artisanal Cookie Bites", "Pure Butter Treats", "Delectable Moments"]' data-stagger-from="last" data-interval="2400"></span>
+          </div>
+        </div>
+        <div class="meaning-tagline" style="color: #E2D5C3;">
+          "A bright, luminous mouthful of handcrafted bliss — crafting memorable moments in every bite."
+        </div>
+      </div>
+
       <!-- Vision & Mission Grid -->
       <div class="vision-mission-grid">
         <div class="vm-card">
@@ -411,5 +436,13 @@
     <p>&copy; 2026 Miora Delights Private Limited • mingmorsels. All rights reserved.</p>
   </footer>
 
+  <script type="module">
+    import { initAllRotatingTexts } from '/src/RotatingText.js';
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAllRotatingTexts);
+    } else {
+      initAllRotatingTexts();
+    }
+  </script>
 </body>
 </html>
