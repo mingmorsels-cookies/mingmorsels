@@ -735,7 +735,7 @@ const PRODUCT_MEDIA = {
       { src: '/almond/4.jpg', alt: 'Almond Rich Cookies Image 4' }
     ],
     video: {
-      src: 'https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-freshly-baked-cookies-43306-large.mp4',
+      src: '/almond/Sequence 04_3.mp4',
       poster: '/almond/1.jpg',
       title: 'Almond Rich Cookies Texture & Crunch'
     }
