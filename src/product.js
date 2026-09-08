@@ -865,12 +865,23 @@ function initProductGallery() {
     mainImage.style.display = 'none';
     videoContainer.style.display = 'flex';
 
-    if (mainVideo.src !== videoData.src) {
+    if (mainVideo.src !== videoData.src && !mainVideo.src.endsWith(videoData.src)) {
       mainVideo.src = videoData.src;
       if (videoData.poster) mainVideo.poster = videoData.poster;
     }
+    mainVideo.muted = true;
+    mainVideo.playsInline = true;
+    mainVideo.loop = true;
+
     try {
-      mainVideo.play().catch(() => {});
+      const playPromise = mainVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay fallback (e.g. if user interaction is needed)
+          mainVideo.muted = true;
+          mainVideo.play().catch(() => {});
+        });
+      }
     } catch (e) {}
 
     if (btnShowPhotos) btnShowPhotos.classList.remove('active');
@@ -905,12 +916,14 @@ function initProductGallery() {
     if (mainImageWrapper) mainImageWrapper.style.display = 'flex';
     if (images.length > 0) mainImage.src = images[0].src;
 
+    let videoThumbEl = null;
+
     // 1. Render Video Thumbnail first (if available) so user can see it right next to photos
     if (videoData) {
-      const videoThumb = document.createElement('div');
-      videoThumb.className = 'gallery-thumb gallery-thumb-video';
-      videoThumb.title = `Watch ${currentProduct.name} Video`;
-      videoThumb.innerHTML = `
+      videoThumbEl = document.createElement('div');
+      videoThumbEl.className = 'gallery-thumb gallery-thumb-video';
+      videoThumbEl.title = `Watch ${currentProduct.name} Video`;
+      videoThumbEl.innerHTML = `
         <div class="video-thumb-overlay">
           <span class="video-thumb-play-btn">▶</span>
           <span class="video-thumb-tag">Video</span>
@@ -918,11 +931,11 @@ function initProductGallery() {
         <img src="${videoData.poster || images[0]?.src || '/logo.png'}" alt="Video Thumbnail" />
       `;
 
-      videoThumb.addEventListener('click', function () {
+      videoThumbEl.addEventListener('click', function () {
         activateVideo(this);
       });
 
-      thumbsContainer.appendChild(videoThumb);
+      thumbsContainer.appendChild(videoThumbEl);
     }
 
     // 2. Render Photo Thumbnails
@@ -931,7 +944,7 @@ function initProductGallery() {
       img.src = imgObj.src;
       img.alt = imgObj.alt;
       img.className = 'gallery-thumb gallery-thumb-photo';
-      if (idx === 0) img.classList.add('active');
+      if (idx === 0 && currentProduct.id !== 'almond') img.classList.add('active');
 
       img.addEventListener('click', function () {
         activatePhoto(this.src, this);
@@ -941,6 +954,11 @@ function initProductGallery() {
     });
 
     thumbsContainer.style.display = 'flex';
+
+    // 3. Autoplay video immediately on Almond Cookies page
+    if (currentProduct.id === 'almond' && videoData && videoThumbEl) {
+      activateVideo(videoThumbEl);
+    }
   } else {
     // Hide everything if no images or video are defined
     if (mainImageWrapper) mainImageWrapper.style.display = 'none';

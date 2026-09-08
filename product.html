@@ -363,9 +363,9 @@
 
             <img id="product-main-image" src="" alt="Product Image" fetchpriority="high" decoding="async">
             
-            <!-- Video Container (plays in place of photos when selected) -->
+            <!-- Video Container (plays in place of photos when selected or on autoplay) -->
             <div id="product-main-video-container" class="product-main-video-container" style="display: none;">
-              <video id="product-main-video" controls playsinline preload="metadata" poster="">
+              <video id="product-main-video" controls playsinline loop muted autoplay preload="auto" poster="">
                 <source src="" type="video/mp4">
                 Your browser does not support HTML5 video.
               </video>
