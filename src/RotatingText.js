@@ -26,8 +26,7 @@ export function initRotatingText(container, options = {}) {
   };
 
   const rawTexts = Array.isArray(config.texts) && config.texts.length > 0 ? config.texts : ['Bright and Shine'];
-  // Deduplicate consecutive duplicate texts to prevent phantom loops
-  const texts = rawTexts.filter((t, i) => i === 0 || t !== rawTexts[i - 1]);
+  const texts = rawTexts;
   
   let currentIndex = 0;
   let isTransitioning = false;
@@ -96,18 +95,11 @@ export function initRotatingText(container, options = {}) {
   currentEl.classList.add('is-animating-in');
   textWrapper.appendChild(currentEl);
 
-  // If only 1 text variation exists, keep static without running rotation loops
-  if (texts.length <= 1) {
-    return () => {
-      if (container) container.innerHTML = '';
-    };
-  }
-
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
   // Transition to next text item
   function next() {
-    if (isTransitioning || isPaused || texts.length <= 1) return;
+    if (isTransitioning || isPaused) return;
     isTransitioning = true;
 
     const nextIndex = (currentIndex + 1) % texts.length;
