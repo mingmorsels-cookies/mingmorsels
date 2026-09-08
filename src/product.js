@@ -681,111 +681,268 @@ function getAvatarColor(index) {
 }
 
 // ----------------------------------------------------
-// 4. STANDALONE THREE.JS 3D PRODUCT VIEWER
+// 4. PRODUCT MEDIA GALLERY (PHOTOS & VIDEO PLAYBACK)
 // ----------------------------------------------------
 let scene, camera, renderer, productGroup;
 let isDragging = false;
-function initProductGallery() {
-  const mainImage = document.getElementById('product-main-image');
-  const thumbsContainer = document.querySelector('.product-thumbnails');
 
-  if (!mainImage || !thumbsContainer) return;
-
-  thumbsContainer.innerHTML = ''; // clear existing
-  let images = [];
-
-  if (currentProduct.id === 'orange') {
-    images = [
-      { src: '/orange-peel/1.jpg', alt: 'Orange Peel Image 1' },
-      { src: '/orange-peel/2.jpg', alt: 'Orange Peel Image 2' },
-      { src: '/orange-peel/3.jpg', alt: 'Orange Peel Image 3' },
-      { src: '/orange-peel/4.jpg', alt: 'Orange Peel Image 4' }
-    ];
-  } else if (currentProduct.id === 'oatsnuts') {
-    images = [
+const PRODUCT_MEDIA = {
+  orange: {
+    images: [
+      { src: '/orange-peel/1.jpg', alt: 'Orange Peel Cookies Image 1' },
+      { src: '/orange-peel/2.jpg', alt: 'Orange Peel Cookies Image 2' },
+      { src: '/orange-peel/3.jpg', alt: 'Orange Peel Cookies Image 3' },
+      { src: '/orange-peel/4.jpg', alt: 'Orange Peel Cookies Image 4' }
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-freshly-baked-cookies-43306-large.mp4',
+      poster: '/orange-peel/1.jpg',
+      title: 'Orange Peel Cookies Fresh Baking'
+    }
+  },
+  oatsnuts: {
+    images: [
       { src: '/oats-nuts/1.jpg', alt: 'Oats Nuts Cookies Image 1' },
       { src: '/oats-nuts/2.jpg', alt: 'Oats Nuts Cookies Image 2' },
       { src: '/oats-nuts/3.jpg', alt: 'Oats Nuts Cookies Image 3' },
       { src: '/oats-nuts/4.jpg', alt: 'Oats Nuts Cookies Image 4' }
-    ];
-  } else if (currentProduct.id === 'rose') {
-    images = [
-      { src: '/rose-petal/1.jpg', alt: 'Rose Petal Image 1' },
-      { src: '/rose-petal/2.jpg', alt: 'Rose Petal Image 2' },
-      { src: '/rose-petal/3.jpg', alt: 'Rose Petal Image 3' },
-      { src: '/rose-petal/4.jpg', alt: 'Rose Petal Image 4' },
-      { src: '/rose-petal/5.jpg', alt: 'Rose Petal Image 5' }
-    ];
-  } else if (currentProduct.id === 'almond') {
-    images = [
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-baking-cookies-in-the-oven-43309-large.mp4',
+      poster: '/oats-nuts/1.jpg',
+      title: 'Oats & Nuts Cookies Artisanal Process'
+    }
+  },
+  rose: {
+    images: [
+      { src: '/rose-petal/1.jpg', alt: 'Rose Petal Cookies Image 1' },
+      { src: '/rose-petal/2.jpg', alt: 'Rose Petal Cookies Image 2' },
+      { src: '/rose-petal/3.jpg', alt: 'Rose Petal Cookies Image 3' },
+      { src: '/rose-petal/4.jpg', alt: 'Rose Petal Cookies Image 4' },
+      { src: '/rose-petal/5.jpg', alt: 'Rose Petal Cookies Image 5' }
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-baker-arranging-cookies-on-a-tray-43308-large.mp4',
+      poster: '/rose-petal/1.jpg',
+      title: 'Rose Petal Cookies Presentation'
+    }
+  },
+  almond: {
+    images: [
       { src: '/almond/1.jpg', alt: 'Almond Rich Cookies Image 1' },
       { src: '/almond/2.jpg', alt: 'Almond Rich Cookies Image 2' },
       { src: '/almond/3.jpg', alt: 'Almond Rich Cookies Image 3' },
       { src: '/almond/4.jpg', alt: 'Almond Rich Cookies Image 4' }
-    ];
-  } else if (currentProduct.id === 'chocochip') {
-    images = [
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-freshly-baked-cookies-43306-large.mp4',
+      poster: '/almond/1.jpg',
+      title: 'Almond Rich Cookies Texture & Crunch'
+    }
+  },
+  walnut: {
+    images: [
+      { src: '/Wallnut honey cookie.jpg', alt: 'Walnut Honey Cookies Image 1' },
+      { src: '/walnut_cookie_top_clean.png', alt: 'Walnut Honey Cookie Top View' }
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-baking-cookies-in-the-oven-43309-large.mp4',
+      poster: '/Wallnut honey cookie.jpg',
+      title: 'Walnut Honey Cookies Baking'
+    }
+  },
+  walnut_sf: {
+    images: [
+      { src: '/sugarfree_walnut_cookie.png', alt: 'Stevia Sugar-Free Walnut Cookies Image 1' },
+      { src: '/walnut_sf_cookie_top_clean.png', alt: 'Stevia Walnut Cookie Top View' }
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-baker-arranging-cookies-on-a-tray-43308-large.mp4',
+      poster: '/sugarfree_walnut_cookie.png',
+      title: 'Stevia Sugar-Free Walnut Cookies'
+    }
+  },
+  chocochip: {
+    images: [
       { src: '/img-chocochip.jpg', alt: 'Chocochip Muffin' },
       { src: '/box-chocochip-1.jpg', alt: 'Chocochip Snack Pack' },
       { src: '/box-chocochip-2.jpg', alt: 'Chocochip Box' }
-    ];
-  } else if (currentProduct.id === 'blackcurrant') {
-    images = [
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-freshly-baked-cookies-43306-large.mp4',
+      poster: '/img-chocochip.jpg',
+      title: 'Chocochip Gourmet Muffin'
+    }
+  },
+  blackcurrant: {
+    images: [
       { src: '/img-blackcurrant.jpg', alt: 'Blackcurrant Muffin' },
       { src: '/box-blackcurrant-1.jpg', alt: 'Blackcurrant Snack Pack' },
       { src: '/box-blackcurrant-2.jpg', alt: 'Blackcurrant Box' }
-    ];
-  } else if (currentProduct.id === 'pinacolada') {
-    images = [
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-baker-arranging-cookies-on-a-tray-43308-large.mp4',
+      poster: '/img-blackcurrant.jpg',
+      title: 'Blackcurrant Muffin Reveal'
+    }
+  },
+  pinacolada: {
+    images: [
       { src: '/img-pinacolada.jpg', alt: 'Pinacolada Muffin' },
       { src: '/box-pinacolada-1.jpg', alt: 'Pinacolada Snack Pack' },
       { src: '/box-pinacolada-2.jpg', alt: 'Pinacolada Box' }
-    ];
-  } else if (currentProduct.id === 'butterscotch') {
-    images = [
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-baking-cookies-in-the-oven-43309-large.mp4',
+      poster: '/img-pinacolada.jpg',
+      title: 'Pinacolada Exotic Muffin'
+    }
+  },
+  butterscotch: {
+    images: [
       { src: '/img-butterscotch.jpg', alt: 'Butterscotch Muffin' },
       { src: '/box-butterscotch-1.jpg', alt: 'Butterscotch Snack Pack' },
       { src: '/box-butterscotch-2.jpg', alt: 'Butterscotch Box' }
-    ];
-  } else if (currentProduct.id === 'strawberry') {
-    images = [
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-freshly-baked-cookies-43306-large.mp4',
+      poster: '/img-butterscotch.jpg',
+      title: 'Butterscotch Muffin'
+    }
+  },
+  strawberry: {
+    images: [
       { src: '/img-strawberry.jpg', alt: 'Strawberry Muffin' },
       { src: '/box-strawberry-1.jpg', alt: 'Strawberry Snack Pack' },
       { src: '/box-strawberry-2.jpg', alt: 'Strawberry Box' }
-    ];
-  } else {
-    // Fallback: no images defined yet
-    images = [];
+    ],
+    video: {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-baker-arranging-cookies-on-a-tray-43308-large.mp4',
+      poster: '/img-strawberry.jpg',
+      title: 'Strawberry Soft-Baked Muffin'
+    }
   }
+};
+
+function initProductGallery() {
+  const mainImage = document.getElementById('product-main-image');
+  const videoContainer = document.getElementById('product-main-video-container');
+  const mainVideo = document.getElementById('product-main-video');
+  const thumbsContainer = document.querySelector('.product-thumbnails');
+  const modeSwitcher = document.getElementById('media-mode-switch');
+  const btnShowPhotos = document.getElementById('btn-show-photos');
+  const btnShowVideo = document.getElementById('btn-show-video');
+
+  if (!mainImage || !thumbsContainer) return;
+
+  thumbsContainer.innerHTML = ''; // clear existing
+  const mediaData = PRODUCT_MEDIA[currentProduct.id] || { images: [], video: null };
+  const images = mediaData.images || [];
+  const videoData = mediaData.video || null;
 
   const mainImageWrapper = document.querySelector('.product-main-image-wrapper');
 
-  if (images.length > 0) {
-    if (mainImageWrapper) mainImageWrapper.style.display = 'block';
-    mainImage.src = images[0].src;
-
-    if (images.length > 1) {
-      images.forEach((imgObj, idx) => {
-        const img = document.createElement('img');
-        img.src = imgObj.src;
-        img.alt = imgObj.alt;
-        img.className = 'gallery-thumb';
-        if (idx === 0) img.classList.add('active');
-
-        img.addEventListener('click', function () {
-          document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-          mainImage.src = this.src;
-        });
-
-        thumbsContainer.appendChild(img);
-      });
-    } else {
-      // Hide the thumbnail container if there are no extra thumbnails
-      thumbsContainer.style.display = 'none';
+  // Helper: Switch to Photo View
+  function activatePhoto(imgSrc, targetThumb) {
+    if (mainVideo) {
+      try { mainVideo.pause(); } catch (e) {}
     }
+    if (videoContainer) videoContainer.style.display = 'none';
+    mainImage.style.display = 'block';
+    mainImage.src = imgSrc;
+
+    if (btnShowPhotos) btnShowPhotos.classList.add('active');
+    if (btnShowVideo) btnShowVideo.classList.remove('active');
+
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    if (targetThumb) targetThumb.classList.add('active');
+  }
+
+  // Helper: Switch to Video View (Plays in place of photos)
+  function activateVideo(targetThumb) {
+    if (!videoData || !mainVideo || !videoContainer) return;
+    
+    mainImage.style.display = 'none';
+    videoContainer.style.display = 'flex';
+
+    if (mainVideo.src !== videoData.src) {
+      mainVideo.src = videoData.src;
+      if (videoData.poster) mainVideo.poster = videoData.poster;
+    }
+    try {
+      mainVideo.play().catch(() => {});
+    } catch (e) {}
+
+    if (btnShowPhotos) btnShowPhotos.classList.remove('active');
+    if (btnShowVideo) btnShowVideo.classList.add('active');
+
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    if (targetThumb) targetThumb.classList.add('active');
+  }
+
+  // Setup Media Mode Switch Buttons
+  if (btnShowPhotos) {
+    btnShowPhotos.onclick = () => {
+      const firstImg = images[0]?.src || mainImage.src;
+      const firstThumb = thumbsContainer.querySelector('.gallery-thumb-photo');
+      activatePhoto(firstImg, firstThumb);
+    };
+  }
+
+  if (btnShowVideo && videoData) {
+    btnShowVideo.onclick = () => {
+      const videoThumb = thumbsContainer.querySelector('.gallery-thumb-video');
+      activateVideo(videoThumb);
+    };
+  }
+
+  // Show mode switch pill if both video and photos exist
+  if (modeSwitcher) {
+    modeSwitcher.style.display = (videoData && images.length > 0) ? 'inline-flex' : 'none';
+  }
+
+  if (images.length > 0 || videoData) {
+    if (mainImageWrapper) mainImageWrapper.style.display = 'flex';
+    if (images.length > 0) mainImage.src = images[0].src;
+
+    // 1. Render Video Thumbnail first (if available) so user can see it right next to photos
+    if (videoData) {
+      const videoThumb = document.createElement('div');
+      videoThumb.className = 'gallery-thumb gallery-thumb-video';
+      videoThumb.title = `Watch ${currentProduct.name} Video`;
+      videoThumb.innerHTML = `
+        <div class="video-thumb-overlay">
+          <span class="video-thumb-play-btn">▶</span>
+          <span class="video-thumb-tag">Video</span>
+        </div>
+        <img src="${videoData.poster || images[0]?.src || '/logo.png'}" alt="Video Thumbnail" />
+      `;
+
+      videoThumb.addEventListener('click', function () {
+        activateVideo(this);
+      });
+
+      thumbsContainer.appendChild(videoThumb);
+    }
+
+    // 2. Render Photo Thumbnails
+    images.forEach((imgObj, idx) => {
+      const img = document.createElement('img');
+      img.src = imgObj.src;
+      img.alt = imgObj.alt;
+      img.className = 'gallery-thumb gallery-thumb-photo';
+      if (idx === 0) img.classList.add('active');
+
+      img.addEventListener('click', function () {
+        activatePhoto(this.src, this);
+      });
+
+      thumbsContainer.appendChild(img);
+    });
+
+    thumbsContainer.style.display = 'flex';
   } else {
-    // Hide everything if no images are defined
+    // Hide everything if no images or video are defined
     if (mainImageWrapper) mainImageWrapper.style.display = 'none';
     thumbsContainer.style.display = 'none';
   }
