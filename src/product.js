@@ -695,9 +695,9 @@ const PRODUCT_MEDIA = {
       { src: '/orange-peel/4.jpg', alt: 'Orange Peel Cookies Image 4' }
     ],
     video: {
-      src: 'https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-freshly-baked-cookies-43306-large.mp4',
+      src: '/orange-peel/Sequence 02.mp4',
       poster: '/orange-peel/1.jpg',
-      title: 'Orange Peel Cookies Fresh Baking'
+      title: 'Orange Peel Cookies Artisanal Crafting'
     }
   },
   oatsnuts: {
@@ -708,7 +708,7 @@ const PRODUCT_MEDIA = {
       { src: '/oats-nuts/4.jpg', alt: 'Oats Nuts Cookies Image 4' }
     ],
     video: {
-      src: 'https://assets.mixkit.co/videos/preview/mixkit-baking-cookies-in-the-oven-43309-large.mp4',
+      src: '/oats-nuts/DSC01145_2.mp4',
       poster: '/oats-nuts/1.jpg',
       title: 'Oats & Nuts Cookies Artisanal Process'
     }
@@ -722,9 +722,9 @@ const PRODUCT_MEDIA = {
       { src: '/rose-petal/5.jpg', alt: 'Rose Petal Cookies Image 5' }
     ],
     video: {
-      src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-baker-arranging-cookies-on-a-tray-43308-large.mp4',
+      src: '/rose-petal/DSC01123.mp4',
       poster: '/rose-petal/1.jpg',
-      title: 'Rose Petal Cookies Presentation'
+      title: 'Rose Petal Cookies Floral Delight'
     }
   },
   almond: {
@@ -944,7 +944,7 @@ function initProductGallery() {
       img.src = imgObj.src;
       img.alt = imgObj.alt;
       img.className = 'gallery-thumb gallery-thumb-photo';
-      if (idx === 0 && currentProduct.id !== 'almond') img.classList.add('active');
+      if (idx === 0 && !videoData) img.classList.add('active');
 
       img.addEventListener('click', function () {
         activatePhoto(this.src, this);
@@ -955,8 +955,8 @@ function initProductGallery() {
 
     thumbsContainer.style.display = 'flex';
 
-    // 3. Autoplay video immediately on Almond Cookies page
-    if (currentProduct.id === 'almond' && videoData && videoThumbEl) {
+    // 3. Autoplay video immediately when user opens any cookie with a video
+    if (videoData && videoThumbEl) {
       activateVideo(videoThumbEl);
     }
   } else {
