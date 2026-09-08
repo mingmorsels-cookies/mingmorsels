@@ -13,14 +13,14 @@ export function initRotatingText(container, options = {}) {
     texts: ['Bright & Shine', 'Pure Radiance', 'Shining Joy'],
     mainClassName: '',
     splitLevelClassName: 'overflow-hidden',
-    staggerFrom: 'last', // 'first' | 'last' | 'center' | 'random'
-    staggerDuration: 0.025,
-    rotationInterval: 2200,
+    staggerFrom: 'first', // 'first' ensures left-to-right natural reading without dropping initial letters
+    staggerDuration: 0.018,
+    rotationInterval: 2400,
     splitBy: 'characters', // 'characters' | 'words'
     initial: { y: '100%', opacity: 0 },
     animate: { y: '0%', opacity: 1 },
     exit: { y: '-120%', opacity: 0 },
-    transition: { duration: 0.45, ease: 'back.out(1.3)' },
+    transition: { duration: 0.38, ease: 'back.out(1.2)' },
     loop: true,
     ...options
   };
