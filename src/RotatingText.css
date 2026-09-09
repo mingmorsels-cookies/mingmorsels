@@ -73,18 +73,42 @@
 .brand-meaning-pill {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 10px;
   background: linear-gradient(145deg, #FFFFFF 0%, #FFFDF9 50%, #FAF4EB 100%);
   border: 1.5px solid rgba(200, 150, 12, 0.35);
   border-radius: 100px;
-  padding: 6px 20px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
   box-shadow: 0 4px 16px rgba(61, 32, 0, 0.05), 0 1px 4px rgba(200, 150, 12, 0.08);
   font-family: var(--font-sans, system-ui, sans-serif);
   font-size: 13.5px;
   color: #2A1502;
-  white-space: nowrap;
-  flex-wrap: nowrap;
+  box-sizing: border-box;
+  max-width: 100%;
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.brand-meaning-part {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.brand-meaning-word {
+  font-weight: 800;
+  color: #2A1502;
+  font-size: 13px;
+  letter-spacing: -0.2px;
+}
+
+.brand-meaning-star {
+  color: #9E7412;
+  font-weight: 800;
+  font-size: 11px;
+  flex-shrink: 0;
+  opacity: 0.85;
 }
 
 .brand-meaning-pill:hover {
@@ -104,6 +128,8 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .brand-meaning-card::before {
@@ -197,5 +223,53 @@
   }
   .meaning-plus {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .brand-meaning-pill {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    padding: 8px 14px;
+    border-radius: 18px;
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .brand-meaning-part {
+    gap: 6px;
+  }
+
+  .brand-meaning-word {
+    font-size: 12px;
+  }
+
+  .meaning-rotator-badge {
+    padding: 3px 12px;
+    font-size: 11.5px;
+    min-height: 24px;
+    letter-spacing: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-meaning-pill {
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .brand-meaning-star {
+    display: none;
+  }
+
+  .brand-meaning-part {
+    width: 100%;
+    justify-content: space-between;
   }
 }
