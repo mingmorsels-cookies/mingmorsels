@@ -6,7 +6,7 @@ export const PRODUCT_CATALOG = {
   // Artisanal Cookies
   'almond': {
     id: 'almond',
-    name: 'Royal Almond Rich Cookies',
+    name: 'Almond Rich Cookie',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -16,7 +16,7 @@ export const PRODUCT_CATALOG = {
   },
   'almond_snack_2pcs': {
     id: 'almond_snack_2pcs',
-    name: 'Almond Rich Cookies (Twin Delights - 2 Pcs)',
+    name: 'Almond Rich Cookie (Twin Delights - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
@@ -26,7 +26,7 @@ export const PRODUCT_CATALOG = {
   },
   'almond_classic_8pcs': {
     id: 'almond_classic_8pcs',
-    name: 'Almond Rich Cookies (Classic Delights - 8 Pcs)',
+    name: 'Almond Rich Cookie (Classic Delights - 8 Pcs)',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -36,7 +36,7 @@ export const PRODUCT_CATALOG = {
   },
   'almond_family_12pcs': {
     id: 'almond_family_12pcs',
-    name: 'Almond Rich Cookies (Dozen Delights - 12 Pcs)',
+    name: 'Almond Rich Cookie (Dozen Delights - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
@@ -46,47 +46,47 @@ export const PRODUCT_CATALOG = {
   },
   'rose': {
     id: 'rose',
-    name: 'Damascus Rose Petal Cookie',
+    name: 'Rose Petal Cookie',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
     stock: 85,
     rating: 4.8,
-    description: 'Organic candied Damascus rose petals infused with pure cardamom and crushed pistachios.'
+    description: 'Candied Damascus rose petals infused with pure cardamom and crushed pistachios.'
   },
   'rose_snack_2pcs': {
     id: 'rose_snack_2pcs',
-    name: 'Rose Petal Cookies (Twin Delights - 2 Pcs)',
+    name: 'Rose Petal Cookie (Twin Delights - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
     stock: 150,
     rating: 4.8,
-    description: 'Pocket Twin Delights pack containing 2 artisanal Damascus rose petal cookies.'
+    description: 'Pocket Twin Delights pack containing 2 artisanal rose petal cookies.'
   },
   'rose_classic_8pcs': {
     id: 'rose_classic_8pcs',
-    name: 'Rose Petal Cookies (Classic Delights - 8 Pcs)',
+    name: 'Rose Petal Cookie (Classic Delights - 8 Pcs)',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
     stock: 85,
     rating: 4.9,
-    description: 'Standard brand box containing 8 freshly baked Damascus rose petal cookies.'
+    description: 'Standard brand box containing 8 freshly baked rose petal cookies.'
   },
   'rose_family_12pcs': {
     id: 'rose_family_12pcs',
-    name: 'Rose Petal Cookies (Dozen Delights - 12 Pcs)',
+    name: 'Rose Petal Cookie (Dozen Delights - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
     stock: 60,
     rating: 5.0,
-    description: 'Large Dozen Delights box containing 12 freshly baked Damascus rose petal cookies (300g).'
+    description: 'Large Dozen Delights box containing 12 freshly baked rose petal cookies (300g).'
   },
   'oatsnuts': {
     id: 'oatsnuts',
-    name: 'Oats & Nuts Cookies',
+    name: 'Oats Nuts Cookie',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -96,7 +96,7 @@ export const PRODUCT_CATALOG = {
   },
   'oatsnuts_snack_2pcs': {
     id: 'oatsnuts_snack_2pcs',
-    name: 'Oats & Nuts Cookies (Twin Delights - 2 Pcs)',
+    name: 'Oats Nuts Cookie (Twin Delights - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
@@ -106,7 +106,7 @@ export const PRODUCT_CATALOG = {
   },
   'oatsnuts_classic_8pcs': {
     id: 'oatsnuts_classic_8pcs',
-    name: 'Oats & Nuts Cookies (Classic Delights - 8 Pcs)',
+    name: 'Oats Nuts Cookie (Classic Delights - 8 Pcs)',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -116,7 +116,7 @@ export const PRODUCT_CATALOG = {
   },
   'oatsnuts_family_12pcs': {
     id: 'oatsnuts_family_12pcs',
-    name: 'Oats & Nuts Cookies (Dozen Delights - 12 Pcs)',
+    name: 'Oats Nuts Cookie (Dozen Delights - 12 Pcs)',
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
@@ -126,7 +126,7 @@ export const PRODUCT_CATALOG = {
   },
   'orange': {
     id: 'orange',
-    name: 'Orange Peel Cookies',
+    name: 'Orange Peel Cookie',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -136,7 +136,7 @@ export const PRODUCT_CATALOG = {
   },
   'orange_snack_2pcs': {
     id: 'orange_snack_2pcs',
-    name: 'Orange Peel Cookies (Twin Delights - 2 Pcs)',
+    name: 'Orange Peel Cookie (Twin Delights - 2 Pcs)',
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
@@ -146,7 +146,7 @@ export const PRODUCT_CATALOG = {
   },
   'orange_classic_8pcs': {
     id: 'orange_classic_8pcs',
-    name: 'Orange Peel Cookies (Classic Delights - 8 Pcs)',
+    name: 'Orange Peel Cookie (Classic Delights - 8 Pcs)',
     category: 'cookie',
     price: 140,
     unit: 'box (8 pcs)',
@@ -156,39 +156,49 @@ export const PRODUCT_CATALOG = {
   },
   'walnut': {
     id: 'walnut',
-    name: 'Kashmiri Walnut Fudge Cookie',
+    name: 'Walnut Cookies',
     category: 'cookie',
     price: 220,
     unit: 'box (6 pcs)',
     stock: 75,
     rating: 4.9,
-    description: 'Slow-roasted whole Kashmiri walnuts folded into dense fudge dark chocolate cookie dough.'
+    description: 'Slow-roasted whole California walnuts folded into buttery shortbread cookie dough.'
   },
   'walnut_sf': {
     id: 'walnut_sf',
-    name: 'Sugar-Free Walnut Delight Cookie',
+    name: 'Sugarfree Walnut Cookies',
     category: 'cookie',
     price: 240,
     unit: 'box (6 pcs)',
     stock: 50,
     rating: 4.9,
-    description: 'Diabetic-friendly sweetened with natural monkfruit extract, rich cocoa nibs, and walnuts.'
+    description: 'Diabetic-friendly sweetened with natural plant Stevia extract and California walnuts.'
   },
 
   // Artisanal Muffins
   'strawberry': {
     id: 'strawberry',
-    name: 'Wild Strawberry Glaze Muffin',
+    name: 'Strawberry Muffin',
     category: 'muffin',
     price: 150,
     unit: 'box (4 pcs)',
     stock: 40,
     rating: 4.8,
-    description: 'Fluffy whole-grain muffin crowned with homemade Mahabaleshwar wild strawberry compote.'
+    description: 'Fluffy whole-grain muffin crowned with homemade Mahabaleshwar strawberry compote.'
+  },
+  'pinacolada': {
+    id: 'pinacolada',
+    name: 'Pinacolada Muffin',
+    category: 'muffin',
+    price: 150,
+    unit: 'box (4 pcs)',
+    stock: 45,
+    rating: 4.8,
+    description: 'Tropical pineapple tidbits and toasted coconut flakes in moist butter sponge.'
   },
   'pineapple': {
     id: 'pineapple',
-    name: 'Golden Caramel Pineapple Muffin',
+    name: 'Pineapple Muffin',
     category: 'muffin',
     price: 150,
     unit: 'box (4 pcs)',
@@ -198,23 +208,43 @@ export const PRODUCT_CATALOG = {
   },
   'butterscotch': {
     id: 'butterscotch',
-    name: 'Smoked Butterscotch Praline Muffin',
+    name: 'Pineapple Muffin',
     category: 'muffin',
     price: 160,
     unit: 'box (4 pcs)',
     stock: 55,
     rating: 4.9,
-    description: 'Slow-cooked artisanal butterscotch chunks folded in velvety vanilla crumb with hazelnut praline.'
+    description: 'Artisanal pineapple and praline chunks folded in velvety vanilla crumb.'
   },
   'choco': {
     id: 'choco',
-    name: '70% Dark Belgian Lava Muffin',
+    name: 'Chocochip Muffin',
     category: 'muffin',
     price: 175,
     unit: 'box (4 pcs)',
     stock: 90,
     rating: 5.0,
-    description: 'Molten center filled with rich Belgian dark ganache and sprinkled with sea salt flakes.'
+    description: 'Rich dark cocoa sponge loaded with molten Belgian chocolate chips.'
+  },
+  'chocochip': {
+    id: 'chocochip',
+    name: 'Chocochip Muffin',
+    category: 'muffin',
+    price: 175,
+    unit: 'box (4 pcs)',
+    stock: 90,
+    rating: 5.0,
+    description: 'Rich dark cocoa sponge loaded with molten Belgian chocolate chips.'
+  },
+  'blackcurrant': {
+    id: 'blackcurrant',
+    name: 'Blackcurrant Muffin',
+    category: 'muffin',
+    price: 150,
+    unit: 'box (4 pcs)',
+    stock: 50,
+    rating: 4.85,
+    description: 'Whole wheat muffin bursting with tangy black currants and vanilla flavour.'
   },
 
   // Custom Gift Box Base Tiers

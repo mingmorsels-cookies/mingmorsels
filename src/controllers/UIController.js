@@ -10,17 +10,17 @@ import { initFlowingMenu } from '../FlowingMenu.js';
 import { createTextType } from '../TextType.js';
 
 export const COOKIE_DATA = {
-  almond: { name: "Almond Rich Cookies", description: "Roasted almonds, rich buttery crunch.", price: 180, link: "/product.html?id=almond", image: "/almond/1.jpg" },
-  rose: { name: "Rose Petal Cookies", description: "Infused with organic rose petals, delicate aroma.", price: 190, link: "/product.html?id=rose", image: "/rose-petal/1.jpg" },
-  oatsnuts: { name: "Oats Nuts Cookies", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 170, link: "/product.html?id=oatsnuts", image: "/oats-nuts/1.jpg" },
-  orange: { name: "Orange Peel Cookies", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 185, link: "/product.html?id=orange", image: "/orange-peel/1.jpg" },
+  almond: { name: "Almond Rich Cookie", description: "Roasted almonds, rich buttery crunch.", price: 180, link: "/product.html?id=almond", image: "/almond/1.jpg" },
+  rose: { name: "Rose Petal Cookie", description: "Infused with fragrant rose petals, delicate aroma.", price: 190, link: "/product.html?id=rose", image: "/rose-petal/1.jpg" },
+  oatsnuts: { name: "Oats Nuts Cookie", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 170, link: "/product.html?id=oatsnuts", image: "/oats-nuts/1.jpg" },
+  orange: { name: "Orange Peel Cookie", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 185, link: "/product.html?id=orange", image: "/orange-peel/1.jpg" },
   walnut: { name: "Walnut Cookies", description: "Rich crunchy California walnuts baked into buttery dough.", price: 210, link: "/product.html?id=walnut", image: "/sugarfree_walnut_cookie.png" },
-  walnut_sf: { name: "Sugar-Free Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 220, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
-  strawberry: { name: "Strawberry Muffins", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
-  pinacolada: { name: "Pinacolada Muffins", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 40, link: "/product.html?id=pinacolada", image: "/img-pinacolada.jpg" },
-  butterscotch: { name: "Butterscotch Muffins", description: "Caramelized cake base with crunchy butterscotch drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.jpg" },
-  chocochip: { name: "Chocochip Muffins", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.jpg" },
-  blackcurrant: { name: "Blackcurrant Muffins", description: "Tart and sweet blackcurrants baked into a soft muffin.", price: 40, link: "/product.html?id=blackcurrant", image: "/img-blackcurrant.jpg" }
+  walnut_sf: { name: "Sugarfree Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 220, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
+  strawberry: { name: "Strawberry Muffin", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
+  pinacolada: { name: "Pinacolada Muffin", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 40, link: "/product.html?id=pinacolada", image: "/img-pinacolada.jpg" },
+  butterscotch: { name: "Pineapple Muffin", description: "Caramelized cake base with crunchy toffee drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.jpg" },
+  chocochip: { name: "Chocochip Muffin", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.jpg" },
+  blackcurrant: { name: "Blackcurrant Muffin", description: "Tart and sweet blackcurrants baked into a soft muffin.", price: 40, link: "/product.html?id=blackcurrant", image: "/img-blackcurrant.jpg" }
 };
 
 export class UIController {
@@ -263,37 +263,37 @@ export class UIController {
     const items = [
       {
         link: '/product.html?id=almond',
-        text: 'Almond Rich Cookies',
+        text: 'Almond Rich Cookie',
         image: '/almond/1.jpg',
         highlights: ['Made with Real Almonds', 'Pure Butter Recipe', 'Rich Nutty Crunch', 'Perfect On-the-go Snack']
       },
       {
         link: '/product.html?id=rose',
-        text: 'Rose Petal Cookies',
+        text: 'Rose Petal Cookie',
         image: '/rose-petal/1.jpg',
         highlights: ['Infused with Real Rose Petals', 'Mild & Unique Flavour', 'Premium Tea-time Cookie', 'Captivating Flower Aroma']
       },
       {
         link: '/product.html?id=oatsnuts',
-        text: 'Oats & Nuts Cookies',
+        text: 'Oats Nuts Cookie',
         image: '/oats-nuts/1.jpg',
         highlights: ['Made with Real Oats', 'Made with Coconut Powder', 'Rich in Dry Fruits', 'Rich in Fibre']
       },
       {
         link: '/product.html?id=orange',
-        text: 'Orange Peel Cookies',
+        text: 'Orange Peel Cookie',
         image: '/orange-peel/1.jpg',
         highlights: ['Made with Real Orange Peels', 'Made with Tutti Frutti', 'Refreshing Citrus Flavour', 'Soft Baked for Better Texture']
       },
       {
         link: '/product.html?id=chocochip',
-        text: 'Chocochip Muffins',
+        text: 'Chocochip Muffin',
         image: '/img-chocochip.jpg',
         highlights: ['Pure Dark Chocolate', 'Melt-in-Mouth Soft Bake', '100% Cow Butter Recipe', 'Rich Chocolate Chips']
       },
       {
         link: '/product.html?id=butterscotch',
-        text: 'Butterscotch Muffins',
+        text: 'Pineapple Muffin',
         image: '/img-butterscotch.jpg',
         highlights: ['Caramelized Butterscotch Drops', 'Golden Soft-Baked Cake', 'Crunchy Toffee Bits', 'Handcrafted Recipe']
       }

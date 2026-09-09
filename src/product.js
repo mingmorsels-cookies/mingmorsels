@@ -8,10 +8,10 @@ import { authController } from './controllers/AuthController.js';
 const PRODUCTS_DATA = {
   almond: {
     id: 'almond',
-    name: 'Almond Rich Cookies',
-    category: 'Signature Cookie',
+    name: 'Almond Rich Cookie',
+    category: 'Nutty Indulgence',
     categoryLink: 'Cookies',
-    tagline: 'Crafted with whole roasted almonds — rich, buttery crunch with every single bite.',
+    tagline: 'Whole roasted California almonds & pure cow butter shortbread.',
     price: 140,
     rating: '5.0',
     reviewsCount: 128,
@@ -40,7 +40,7 @@ const PRODUCTS_DATA = {
   },
   rose: {
     id: 'rose',
-    name: 'Rose Petal Cookies',
+    name: 'Rose Petal Cookie',
     category: 'Floral Delicacy',
     categoryLink: 'Cookies',
     tagline: 'Infused with authentic Damascus rose petals and rich cow butter.',
@@ -70,7 +70,7 @@ const PRODUCTS_DATA = {
   },
   oatsnuts: {
     id: 'oatsnuts',
-    name: 'Oats & Nuts Cookies',
+    name: 'Oats Nuts Cookie',
     category: 'Wholesome Crunch',
     categoryLink: 'Cookies',
     tagline: 'Hearty rolled oats, walnuts, and chia seeds sweetened naturally with plant-based Stevia.',
@@ -101,7 +101,7 @@ const PRODUCTS_DATA = {
   },
   orange: {
     id: 'orange',
-    name: 'Orange Peel Cookies',
+    name: 'Orange Peel Cookie',
     category: 'Zesty Refreshment',
     categoryLink: 'Cookies',
     tagline: 'Sun-ripened orange zest fused with warm Ceylon cinnamon for a vibrant citrus crunch.',
@@ -162,7 +162,7 @@ const PRODUCTS_DATA = {
   },
   walnut_sf: {
     id: 'walnut_sf',
-    name: 'Sugar-Free Walnut Cookies',
+    name: 'Sugarfree Walnut Cookies',
     category: 'Diabetic Friendly',
     categoryLink: 'Cookies',
     tagline: '100% Sugar-Free. Whole roasted walnuts sweetened with natural Stevia & Erythritol.',
@@ -212,7 +212,7 @@ const PRODUCTS_DATA = {
   },
   pinacolada: {
     id: 'pinacolada',
-    name: 'Pinacolada Muffins',
+    name: 'Pinacolada Muffin',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.',
@@ -231,26 +231,26 @@ const PRODUCTS_DATA = {
   },
   butterscotch: {
     id: 'butterscotch',
-    name: 'Butterscotch Muffins',
+    name: 'Pineapple Muffin',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
-    tagline: 'Rich caramelized brown sugar sponge studded with crunchy butterscotch praline morsels.',
+    tagline: 'Rich caramelized brown sugar sponge studded with crunchy pineapple and praline morsels.',
     price: 40,
     rating: '4.96',
     reviewsCount: 156,
     badges: ['Caramel Praline', 'Rich Butter', 'Baker Special'],
-    desc: 'An indulgent dessert muffin. Slow-caramelized jaggery and brown sugar sponge filled with golden butterscotch crunch nuggets.',
+    desc: 'An indulgent dessert muffin. Slow-caramelized jaggery and brown sugar sponge filled with golden pineapple crunch nuggets.',
     type: 'muffin',
     color: 0xE76F51,
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
-    ingredients: 'House Butterscotch Praline, Caramelized Jaggery, Organic Butter, Milk, Wheat Sponge, Cinnamon.',
+    ingredients: 'House Pineapple Praline, Caramelized Jaggery, Organic Butter, Milk, Wheat Sponge, Cinnamon.',
     reviews: [
-      { name: 'Simran Gill', location: 'Chandigarh', rating: 5, text: 'The butterscotch crunch on top stays crispy! Incredible recipe.' }
+      { name: 'Simran Gill', location: 'Chandigarh', rating: 5, text: 'The crunch on top stays crispy! Incredible recipe.' }
     ]
   },
   chocochip: {
     id: 'chocochip',
-    name: 'Chocochip Muffins',
+    name: 'Chocochip Muffin',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips.',
@@ -270,7 +270,7 @@ const PRODUCTS_DATA = {
   },
   blackcurrant: {
     id: 'blackcurrant',
-    name: 'Black Currant Muffin',
+    name: 'Blackcurrant Muffin',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
@@ -1321,17 +1321,17 @@ function initCartSystem() {
 }
 
 const PRODUCT_NAMES = {
-  almond: 'Almond Rich Cookies',
-  rose: 'Rose Petal Cookies',
-  oatsnuts: 'Oats Nuts Cookies',
-  orange: 'Orange Peel Cookies',
+  almond: 'Almond Rich Cookie',
+  rose: 'Rose Petal Cookie',
+  oatsnuts: 'Oats Nuts Cookie',
+  orange: 'Orange Peel Cookie',
   walnut: 'Walnut Cookies',
-  walnut_sf: 'Sugar-Free Walnut Cookies',
+  walnut_sf: 'Sugarfree Walnut Cookies',
   strawberry: 'Strawberry Muffin',
-  pinacolada: 'Pinacolada Muffins',
-  butterscotch: 'Butterscotch Muffins',
-  chocochip: 'Chocochip Muffins',
-  blackcurrant: 'Black Currant Muffin'
+  pinacolada: 'Pinacolada Muffin',
+  butterscotch: 'Pineapple Muffin',
+  chocochip: 'Chocochip Muffin',
+  blackcurrant: 'Blackcurrant Muffin'
 };
 
 const PRODUCT_PRICES = {

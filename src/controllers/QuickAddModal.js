@@ -8,7 +8,7 @@ import { eventBus, Events } from './EventBus.js';
 export const PRODUCT_BOX_CATALOG = {
   almond: {
     id: 'almond',
-    name: 'Almond Rich Cookies',
+    name: 'Almond Rich Cookie',
     tagline: 'Whole roasted California almonds & plant-based Stevia',
     image: '/almond/1.jpg',
     unitName: 'Cookies',
@@ -42,8 +42,8 @@ export const PRODUCT_BOX_CATALOG = {
   },
   rose: {
     id: 'rose',
-    name: 'Rose Petal Cookies',
-    tagline: 'Organic Damask rose petals with pure cow butter',
+    name: 'Rose Petal Cookie',
+    tagline: 'Fragrant rose petals with pure cow butter',
     image: '/rose-petal/1.jpg',
     unitName: 'Cookies',
     boxes: [
@@ -52,7 +52,7 @@ export const PRODUCT_BOX_CATALOG = {
         name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
         price: 40,
-        desc: '2 Fragrant floral cookies infused with organic petals.',
+        desc: '2 Fragrant floral cookies infused with real rose petals.',
         img: '/rose-box-2pcs.jpg'
       },
       {
@@ -76,7 +76,7 @@ export const PRODUCT_BOX_CATALOG = {
   },
   oatsnuts: {
     id: 'oatsnuts',
-    name: 'Oats & Nuts Cookies',
+    name: 'Oats Nuts Cookie',
     tagline: 'Rolled oats, roasted almonds, pistachios & natural Stevia',
     image: '/oats-nuts/1.jpg',
     unitName: 'Cookies',
@@ -110,7 +110,7 @@ export const PRODUCT_BOX_CATALOG = {
   },
   orange: {
     id: 'orange',
-    name: 'Orange Peel Cookies',
+    name: 'Orange Peel Cookie',
     tagline: 'Zesty sun-dried orange peel with citrus butter',
     image: '/orange-peel/1.jpg',
     unitName: 'Cookies',
@@ -144,7 +144,7 @@ export const PRODUCT_BOX_CATALOG = {
   },
   walnut: {
     id: 'walnut',
-    name: 'California Walnut Cookies',
+    name: 'Walnut Cookies',
     tagline: 'Rich buttery dough loaded with roasted California walnuts',
     image: '/img-walnut.png',
     unitName: 'Cookies',
@@ -178,7 +178,7 @@ export const PRODUCT_BOX_CATALOG = {
   },
   walnut_sf: {
     id: 'walnut_sf',
-    name: 'Sugar-Free Walnut Cookies',
+    name: 'Sugarfree Walnut Cookies',
     tagline: '100% Zero Added Sugar, Stevia sweetened & keto-friendly',
     image: '/img-walnut-sf.png',
     unitName: 'Cookies',
@@ -230,7 +230,7 @@ export const PRODUCT_BOX_CATALOG = {
   },
   pinacolada: {
     id: 'pinacolada',
-    name: 'Pinacolada Muffins',
+    name: 'Pinacolada Muffin',
     tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes',
     image: '',
     unitName: 'Muffins',
@@ -248,8 +248,8 @@ export const PRODUCT_BOX_CATALOG = {
   },
   butterscotch: {
     id: 'butterscotch',
-    name: 'Butterscotch Muffins',
-    tagline: 'Caramel cake base stuffed with crunchy butterscotch drops',
+    name: 'Pineapple Muffin',
+    tagline: 'Caramel cake base stuffed with crunchy pineapple and praline drops',
     image: '',
     unitName: 'Muffins',
     boxes: [
@@ -266,7 +266,7 @@ export const PRODUCT_BOX_CATALOG = {
   },
   chocochip: {
     id: 'chocochip',
-    name: 'Chocochip Muffins',
+    name: 'Chocochip Muffin',
     tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips',
     image: '',
     unitName: 'Muffins',
@@ -284,7 +284,7 @@ export const PRODUCT_BOX_CATALOG = {
   },
   blackcurrant: {
     id: 'blackcurrant',
-    name: 'Black Currant Muffin',
+    name: 'Blackcurrant Muffin',
     tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
     image: '',
     unitName: 'Muffins',

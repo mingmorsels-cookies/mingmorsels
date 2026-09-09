@@ -92,7 +92,7 @@
         };
 
         const BOT_RESPONSES = {
-            all: { en: "Here is our complete handcrafted collection — <strong>6 Signature Artisan Cookies &amp; 5 Soft-Baked Muffins</strong>, baked fresh with 100% natural ingredients and gourmet flair:<br><br>🌰 <strong>Almond Rich Cookies</strong> — Slow-roasted California almonds in buttery golden dough<br>🌹 <strong>Rose Petal Cookies</strong> — Fragrant organic Damask rose petals with soothing cardamom<br>🌾 <strong>Oats &amp; Nuts Cookies</strong> — Wholesome rolled oats, walnuts, and seeds for natural sustained energy<br>🍊 <strong>Orange Peel Cookies</strong> — Zesty citrus refreshment paired with warm Ceylon cinnamon<br>🧠 <strong>California Walnut Cookies</strong> — Rich, buttery crunch packed with neuro-protective omega-3s<br>🍃 <strong>Stevia Zero-Sugar Walnut</strong> — 100% Sugar-free, diabetic-friendly, sweetened with natural Stevia<br>🍓 <strong>Strawberry Sponge Muffin</strong> — Real Mahabaleshwar strawberry coulis in a tender butter crumb<br>🍍 <strong>Pinacolada Sponge Muffin</strong> — Tropical pineapple tidbits &amp; toasted coconut flakes<br>🧈 <strong>Butterscotch Cashew Muffin</strong> — Warm caramelized brown butter with crunchy cashew bits<br>🍫 <strong>70% Belgian Dark Chocochip</strong> — Decadent single-origin dark cocoa with melting chips<br>🫐 <strong>Nordic Black Currant Muffin</strong> — Whole wheat atta muffin bursting with antioxidant-rich currants<br><br>Tap any flavour card below to pick your box size and add to cart! ✨" },
+            all: { en: "Here is our complete handcrafted collection — <strong>6 Signature Artisan Cookies &amp; 5 Soft-Baked Muffins</strong>, baked fresh with 100% natural ingredients and gourmet flair:<br><br>🌰 <strong>Almond Rich Cookie</strong> — Slow-roasted California almonds in buttery golden dough<br>🌹 <strong>Rose Petal Cookie</strong> — Fragrant Damascus rose petals with soothing cardamom<br>🌾 <strong>Oats Nuts Cookie</strong> — Wholesome rolled oats, walnuts, and seeds for natural sustained energy<br>🍊 <strong>Orange Peel Cookie</strong> — Zesty citrus refreshment paired with warm Ceylon cinnamon<br>🧠 <strong>Walnut Cookies</strong> — Rich, buttery crunch packed with neuro-protective omega-3s<br>🍃 <strong>Sugarfree Walnut Cookies</strong> — 100% Sugar-free, diabetic-friendly, sweetened with natural Stevia<br>🍓 <strong>Strawberry Muffin</strong> — Real Mahabaleshwar strawberry coulis in a tender butter crumb<br>🍍 <strong>Pinacolada Muffin</strong> — Tropical pineapple tidbits &amp; toasted coconut flakes<br>🧈 <strong>Pineapple Muffin</strong> — Warm caramelized brown butter with crunchy pineapple and praline bits<br>🍫 <strong>Chocochip Muffin</strong> — Decadent single-origin dark cocoa with melting chips<br>🫐 <strong>Blackcurrant Muffin</strong> — Whole wheat atta muffin bursting with antioxidant-rich currants<br><br>Tap any flavour card below to pick your box size and add to cart! ✨" },
             natural: { en: "At <strong>mingmorsels</strong>, we take purity and gourmet taste seriously:<br><br>✅ <strong>Zero Palm Oil</strong> — Baked only with 100% pure pasture butter, never palm oil or hydrogenated fats<br>✅ <strong>Zero Margarine</strong> — Clean, fresh baking with no margarine spreads<br>✅ <strong>No Harmful Oils</strong> — Absolutely no refined seed oils<br>✅ <strong>Natural Plant Stevia</strong> — Clean sweetness with zero sugar spikes<br>✅ <strong>Real Terroir Ingredients</strong> — Real Damask petals, California nuts, and whole spices 🌿" },
             hello: { en: "Hello and welcome to <strong>mingmorsels</strong>! 🍪✨<br><br>We craft 6 Signature Cookies &amp; 5 Soft-Baked Muffins with 100% pure butter and natural ingredients. How can I help you today?<br><br>• Ask about any cookie or muffin flavour<br>• Tell me your mood for a personalized pairing<br>• Inquire about custom gift boxes, box sizes, or nutrition facts 🎁" },
             fallback: { en: "I'd love to help you find the right treat! You can ask about any cookie or muffin, explore box sizes, or tap any flavour pill above! 🍪✨" }
@@ -135,7 +135,7 @@
 
         const COOKIES = {
             almond: { 
-                name: "Almond Rich Cookies", 
+                name: "Almond Rich Cookie", 
                 emoji: "🌰", 
                 img: "/almond/1.jpg", 
                 color: "#FFF3DC", 
@@ -151,7 +151,7 @@
                 ]
             },
             rose: { 
-                name: "Rose Petal & Cardamom Cookies", 
+                name: "Rose Petal Cookie", 
                 emoji: "🌹", 
                 img: "/rose-petal/1.jpg", 
                 color: "#FDE8E8", 
@@ -167,7 +167,7 @@
                 ]
             },
             oatsnuts: { 
-                name: "Oats & Nuts Cookies", 
+                name: "Oats Nuts Cookie", 
                 emoji: "🌾", 
                 img: "/oats-nuts/1.jpg", 
                 color: "#F5F0E8", 
@@ -183,7 +183,7 @@
                 ]
             },
             orange: { 
-                name: "Orange Peel Shortbread", 
+                name: "Orange Peel Cookie", 
                 emoji: "🍊", 
                 img: "/orange-peel/1.jpg", 
                 color: "#FFF0E0", 
@@ -199,7 +199,7 @@
                 ]
             },
             walnut: { 
-                name: "California Walnut Cookies", 
+                name: "Walnut Cookies", 
                 emoji: "🧠", 
                 img: "/img-walnut.png?v=2", 
                 color: "#F7EFE8", 
@@ -215,7 +215,7 @@
                 ]
             },
             walnut_sf: { 
-                name: "Sugar-Free Walnut Cookies", 
+                name: "Sugarfree Walnut Cookies", 
                 emoji: "🍃", 
                 img: "/img-walnut-sf.png?v=2", 
                 color: "#EBF5EB", 
@@ -267,15 +267,15 @@
                 ]
             },
             butterscotch: { 
-                name: "Butterscotch Cashew Muffin", 
+                name: "Pineapple Muffin", 
                 emoji: "🧈", 
                 img: "/img-butterscotch.jpg", 
                 color: "#FDF4E5", 
-                review: "Rich brown butter muffin base loaded with caramelized butterscotch crunch pearls and roasted Goan cashews. Comforting and delicious.", 
+                review: "Rich brown butter muffin base loaded with caramelized pineapple crunch pearls and roasted cashews. Comforting and delicious.", 
                 stars: 5, 
                 price: 150, 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g", Preservatives: "None" }, 
-                tags: ["Butterscotch Crunch", "Goan Cashews", "Zero Margarine"], 
+                tags: ["Pineapple Crunch", "Pure Butter", "Zero Margarine"], 
                 boxes: [
                     { id: 'butterscotch_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-butterscotch-1.jpg' },
                     { id: 'butterscotch_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-butterscotch-2.jpg', popular: true },
@@ -283,7 +283,7 @@
                 ]
             },
             chocochip: { 
-                name: "70% Dark Chocochip Muffin", 
+                name: "Chocochip Muffin", 
                 type: "muffin", 
                 emoji: "🍫", 
                 img: "/img-chocochip.jpg", 
@@ -301,7 +301,7 @@
                 ]
             },
             blackcurrant: { 
-                name: "Black Currant Atta Muffin", 
+                name: "Blackcurrant Muffin", 
                 type: "muffin", 
                 emoji: "🫐", 
                 img: "/img-blackcurrant.jpg", 

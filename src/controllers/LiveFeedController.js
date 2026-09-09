@@ -25,17 +25,17 @@ export class LiveFeedController {
     ];
 
     this.products = [
-      { name: "Rose Petal Cookies", img: "/rose-petal/1.jpg" },
-      { name: "Almond Rich Cookies", img: "/almond/1.jpg" },
+      { name: "Rose Petal Cookie", img: "/rose-petal/1.jpg" },
+      { name: "Almond Rich Cookie", img: "/almond/1.jpg" },
       { name: "Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
-      { name: "Sugar-Free Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
-      { name: "Strawberry Muffins", img: "/strawberry_muffin.png" },
-      { name: "Orange Peel Cookies", img: "/orange-peel/1.jpg" },
-      { name: "Chocochip Muffins", img: "/img-chocochip.jpg" },
-      { name: "Oats Nuts Cookies", img: "/oats-nuts/1.jpg" },
-      { name: "Butterscotch Muffins", img: "/img-butterscotch.jpg" },
-      { name: "Pinacolada Muffins", img: "/img-pinacolada.jpg" },
-      { name: "Blackcurrant Muffins", img: "/img-blackcurrant.jpg" }
+      { name: "Sugarfree Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
+      { name: "Strawberry Muffin", img: "/strawberry_muffin.png" },
+      { name: "Orange Peel Cookie", img: "/orange-peel/1.jpg" },
+      { name: "Chocochip Muffin", img: "/img-chocochip.jpg" },
+      { name: "Oats Nuts Cookie", img: "/oats-nuts/1.jpg" },
+      { name: "Pineapple Muffin", img: "/img-butterscotch.jpg" },
+      { name: "Pinacolada Muffin", img: "/img-pinacolada.jpg" },
+      { name: "Blackcurrant Muffin", img: "/img-blackcurrant.jpg" }
     ];
 
     this.timesAgo = ["Just now", "2m ago", "5m ago", "12m ago", "18m ago", "34m ago", "42m ago", "1h ago"];

@@ -4,12 +4,17 @@ import './PairingQuiz.css';
 let onAddToCartCallback = null;
 
 const PRODUCT_VECTORS = {
-  almond: { id: 'almond', name: 'Almond Rich Cookies', img: '/almond/1.jpg', price: 40, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
-  rose: { id: 'rose', name: 'Organic Rose Petal Cookie', img: '/rose-petal/1.jpg', price: 40, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
-  oatsnuts: { id: 'oatsnuts', name: 'Oats & Roasted Nuts Cookie', img: '/oats-nuts/1.jpg', price: 40, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
+  almond: { id: 'almond', name: 'Almond Rich Cookie', img: '/almond/1.jpg', price: 40, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  rose: { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/1.jpg', price: 40, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
+  oatsnuts: { id: 'oatsnuts', name: 'Oats Nuts Cookie', img: '/oats-nuts/1.jpg', price: 40, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
   orange: { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/1.jpg', price: 40, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
-  strawberry: { id: 'strawberry', name: 'Wild Strawberry Muffin', img: '/img-strawberry.jpg', price: 40, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
-  chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 40, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } }
+  walnut: { id: 'walnut', name: 'Walnut Cookies', img: '/sugarfree_walnut_cookie.png', price: 50, tags: ['nutty', 'omega-3', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  walnut_sf: { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '/sugarfree_walnut_cookie.png', price: 55, tags: ['sugar-free', 'keto', 'healthy'], vector: { sweet: 1, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  strawberry: { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.jpg', price: 40, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
+  chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 40, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } },
+  pinacolada: { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.jpg', price: 40, tags: ['tropical', 'pineapple', 'coconut'], vector: { sweet: 4, crunch: 2, nut: 1, fruit: 5, chocolate: 1 } },
+  blackcurrant: { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.jpg', price: 40, tags: ['whole-wheat', 'tangy', 'berry'], vector: { sweet: 3, crunch: 1, nut: 1, fruit: 4, chocolate: 1 } },
+  pineapple: { id: 'butterscotch', name: 'Pineapple Muffin', img: '/img-butterscotch.jpg', price: 40, tags: ['fruity', 'sponge', 'soft'], vector: { sweet: 4, crunch: 2, nut: 1, fruit: 5, chocolate: 1 } }
 };
 
 export function initPairingQuiz(onAddToCart) {
@@ -157,7 +162,7 @@ function computeAIMatch(drink, vibe) {
     reason = "Zesty sun-dried orange peel and berry notes create a bright, refreshing taste contrast.";
   } else {
     bestKey = 'rose';
-    reason = "Delicate organic rose petals infused with pure cow butter provide an elegant, aromatic tea pairing.";
+    reason = "Delicate rose petals infused with pure cow butter provide an elegant, aromatic tea pairing.";
   }
 
   const matchedProduct = PRODUCT_VECTORS[bestKey] || PRODUCT_VECTORS.almond;
