@@ -14,7 +14,7 @@ const PRODUCT_VECTORS = {
   chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 40, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } },
   pinacolada: { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.jpg', price: 40, tags: ['tropical', 'pineapple', 'coconut'], vector: { sweet: 4, crunch: 2, nut: 1, fruit: 5, chocolate: 1 } },
   blackcurrant: { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.jpg', price: 40, tags: ['whole-wheat', 'tangy', 'berry'], vector: { sweet: 3, crunch: 1, nut: 1, fruit: 4, chocolate: 1 } },
-  pineapple: { id: 'butterscotch', name: 'Pineapple Muffin', img: '/img-butterscotch.jpg', price: 40, tags: ['fruity', 'sponge', 'soft'], vector: { sweet: 4, crunch: 2, nut: 1, fruit: 5, chocolate: 1 } }
+  butterscotch: { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.jpg', price: 40, tags: ['caramel', 'crunch', 'sponge', 'sweet'], vector: { sweet: 4, crunch: 3, nut: 2, fruit: 1, chocolate: 1 } }
 };
 
 export function initPairingQuiz(onAddToCart) {

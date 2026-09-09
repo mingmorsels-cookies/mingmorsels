@@ -208,13 +208,13 @@ export const PRODUCT_CATALOG = {
   },
   'butterscotch': {
     id: 'butterscotch',
-    name: 'Pineapple Muffin',
+    name: 'Butterscotch Muffin',
     category: 'muffin',
     price: 160,
     unit: 'box (4 pcs)',
     stock: 55,
     rating: 4.9,
-    description: 'Artisanal pineapple and praline chunks folded in velvety vanilla crumb.'
+    description: 'Artisanal crunchy butterscotch toffee and praline chunks folded in velvety caramel crumb.'
   },
   'choco': {
     id: 'choco',

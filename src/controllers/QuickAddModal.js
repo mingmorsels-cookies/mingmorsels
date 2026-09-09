@@ -248,8 +248,8 @@ export const PRODUCT_BOX_CATALOG = {
   },
   butterscotch: {
     id: 'butterscotch',
-    name: 'Pineapple Muffin',
-    tagline: 'Caramel cake base stuffed with crunchy pineapple and praline drops',
+    name: 'Butterscotch Muffin',
+    tagline: 'Caramel cake base stuffed with crunchy toffee drops and butterscotch praline',
     image: '',
     unitName: 'Muffins',
     boxes: [

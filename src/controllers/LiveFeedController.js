@@ -33,7 +33,7 @@ export class LiveFeedController {
       { name: "Orange Peel Cookie", img: "/orange-peel/1.jpg" },
       { name: "Chocochip Muffin", img: "/img-chocochip.jpg" },
       { name: "Oats Nuts Cookie", img: "/oats-nuts/1.jpg" },
-      { name: "Pineapple Muffin", img: "/img-butterscotch.jpg" },
+      { name: "Butterscotch Muffin", img: "/img-butterscotch.jpg" },
       { name: "Pinacolada Muffin", img: "/img-pinacolada.jpg" },
       { name: "Blackcurrant Muffin", img: "/img-blackcurrant.jpg" }
     ];

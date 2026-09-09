@@ -10,7 +10,7 @@ const AVAILABLE_ITEMS = [
   { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '/sugarfree_walnut_cookie.png', price: 40, type: 'cookie' },
   { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.jpg', price: 40, type: 'muffin' },
   { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.jpg', price: 40, type: 'muffin' },
-  { id: 'butterscotch', name: 'Pineapple Muffin', img: '/img-butterscotch.jpg', price: 40, type: 'muffin' },
+  { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.jpg', price: 40, type: 'muffin' },
   { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 40, type: 'muffin' },
   { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.jpg', price: 40, type: 'muffin' }
 ];

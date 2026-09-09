@@ -231,15 +231,15 @@ const PRODUCTS_DATA = {
   },
   butterscotch: {
     id: 'butterscotch',
-    name: 'Pineapple Muffin',
+    name: 'Butterscotch Muffin',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
-    tagline: 'Rich caramelized brown sugar sponge studded with crunchy pineapple and praline morsels.',
+    tagline: 'Rich caramelized brown sugar sponge studded with crunchy butterscotch toffee and praline morsels.',
     price: 40,
     rating: '4.96',
     reviewsCount: 156,
     badges: ['Caramel Praline', 'Rich Butter', 'Baker Special'],
-    desc: 'An indulgent dessert muffin. Slow-caramelized jaggery and brown sugar sponge filled with golden pineapple crunch nuggets.',
+    desc: 'An indulgent dessert muffin. Slow-caramelized jaggery and brown sugar sponge filled with golden butterscotch crunch nuggets.',
     type: 'muffin',
     color: 0xE76F51,
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
@@ -1329,7 +1329,7 @@ const PRODUCT_NAMES = {
   walnut_sf: 'Sugarfree Walnut Cookies',
   strawberry: 'Strawberry Muffin',
   pinacolada: 'Pinacolada Muffin',
-  butterscotch: 'Pineapple Muffin',
+  butterscotch: 'Butterscotch Muffin',
   chocochip: 'Chocochip Muffin',
   blackcurrant: 'Blackcurrant Muffin'
 };

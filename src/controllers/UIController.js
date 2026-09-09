@@ -18,7 +18,7 @@ export const COOKIE_DATA = {
   walnut_sf: { name: "Sugarfree Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 220, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
   strawberry: { name: "Strawberry Muffin", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
   pinacolada: { name: "Pinacolada Muffin", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 40, link: "/product.html?id=pinacolada", image: "/img-pinacolada.jpg" },
-  butterscotch: { name: "Pineapple Muffin", description: "Caramelized cake base with crunchy toffee drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.jpg" },
+  butterscotch: { name: "Butterscotch Muffin", description: "Caramelized cake base with crunchy toffee drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.jpg" },
   chocochip: { name: "Chocochip Muffin", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.jpg" },
   blackcurrant: { name: "Blackcurrant Muffin", description: "Tart and sweet blackcurrants baked into a soft muffin.", price: 40, link: "/product.html?id=blackcurrant", image: "/img-blackcurrant.jpg" }
 };
@@ -293,7 +293,7 @@ export class UIController {
       },
       {
         link: '/product.html?id=butterscotch',
-        text: 'Pineapple Muffin',
+        text: 'Butterscotch Muffin',
         image: '/img-butterscotch.jpg',
         highlights: ['Caramelized Butterscotch Drops', 'Golden Soft-Baked Cake', 'Crunchy Toffee Bits', 'Handcrafted Recipe']
       }
