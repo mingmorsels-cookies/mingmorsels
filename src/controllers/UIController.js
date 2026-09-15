@@ -10,12 +10,12 @@ import { initFlowingMenu } from '../FlowingMenu.js';
 import { createTextType } from '../TextType.js';
 
 export const COOKIE_DATA = {
-  almond: { name: "Almond Rich Cookie", description: "Roasted almonds, rich buttery crunch.", price: 180, link: "/product.html?id=almond", image: "/almond/1.jpg" },
-  rose: { name: "Rose Petal Cookie", description: "Infused with fragrant rose petals, delicate aroma.", price: 190, link: "/product.html?id=rose", image: "/rose-petal/1.jpg" },
-  oatsnuts: { name: "Oats Nuts Cookie", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 170, link: "/product.html?id=oatsnuts", image: "/oats-nuts/1.jpg" },
-  orange: { name: "Orange Peel Cookie", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 185, link: "/product.html?id=orange", image: "/orange-peel/1.jpg" },
-  walnut: { name: "Walnut Cookies", description: "Rich crunchy California walnuts baked into buttery dough.", price: 210, link: "/product.html?id=walnut", image: "/sugarfree_walnut_cookie.png" },
-  walnut_sf: { name: "Sugarfree Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 220, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
+  almond: { name: "Almond Rich Cookie", description: "Roasted almonds, rich buttery crunch.", price: 40, link: "/product.html?id=almond", image: "/almond/1.jpg" },
+  rose: { name: "Rose Petal Cookie", description: "Infused with fragrant rose petals, delicate aroma.", price: 40, link: "/product.html?id=rose", image: "/rose-petal/1.jpg" },
+  oatsnuts: { name: "Oats Nuts Cookie", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 40, link: "/product.html?id=oatsnuts", image: "/oats-nuts/1.jpg" },
+  orange: { name: "Orange Peel Cookie", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 40, link: "/product.html?id=orange", image: "/orange-peel/1.jpg" },
+  walnut: { name: "Walnut Cookies", description: "Rich crunchy roasted walnuts baked into buttery dough.", price: 40, link: "/product.html?id=walnut", image: "/sugarfree_walnut_cookie.png" },
+  walnut_sf: { name: "Sugarfree Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 40, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
   strawberry: { name: "Strawberry Muffin", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
   pinacolada: { name: "Pinacolada Muffin", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 40, link: "/product.html?id=pinacolada", image: "/img-pinacolada.jpg" },
   butterscotch: { name: "Butterscotch Muffin", description: "Caramelized cake base with crunchy toffee drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.jpg" },
@@ -438,15 +438,31 @@ export class UIController {
       if (!resultsList) return;
       const q = query.trim().toLowerCase();
       const entries = Object.entries(COOKIE_DATA);
-      const matches = q === '' 
-        ? entries.slice(0, 6) 
-        : entries.filter(([k, item]) => 
-            k.toLowerCase().includes(q) ||
-            (item.name && item.name.toLowerCase().includes(q)) ||
-            (item.description && item.description.toLowerCase().includes(q))
-          );
+      const isReviewQuery = q.includes('review') || q.includes('rating') || q.includes('feedback') || q.includes('rate');
 
-      if (matches.length === 0) {
+      let matches = [];
+      if (isReviewQuery) {
+        const cleanProductQuery = q.replace(/reviews?|feedback|ratings?|rate|write|add/g, '').trim();
+        if (cleanProductQuery === '') {
+          matches = entries;
+        } else {
+          matches = entries.filter(([k, item]) => 
+            k.toLowerCase().includes(cleanProductQuery) ||
+            (item.name && item.name.toLowerCase().includes(cleanProductQuery))
+          );
+          if (matches.length === 0) matches = entries;
+        }
+      } else if (q === '') {
+        matches = entries.slice(0, 6);
+      } else {
+        matches = entries.filter(([k, item]) => 
+          k.toLowerCase().includes(q) ||
+          (item.name && item.name.toLowerCase().includes(q)) ||
+          (item.description && item.description.toLowerCase().includes(q))
+        );
+      }
+
+      if (matches.length === 0 && !isReviewQuery) {
         resultsList.innerHTML = `
           <div style="text-align:center; padding: 30px; color: rgba(250,246,240,0.6);">
             <p>No confectionery items found matching "${query}".</p>
@@ -455,7 +471,25 @@ export class UIController {
         return;
       }
 
-      resultsList.innerHTML = matches.map(([id, item]) => `
+      let html = '';
+
+      if (isReviewQuery) {
+        const topReviewTarget = matches.length > 0 ? matches[0][0] : 'almond';
+        html += `
+          <div class="search-review-banner" data-target-id="${topReviewTarget}" style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px; margin-bottom:12px; background:linear-gradient(135deg, rgba(212,175,55,0.18) 0%, rgba(184,134,11,0.25) 100%); border-radius:12px; border:1px solid rgba(212,175,55,0.5); cursor:pointer; box-shadow:0 4px 15px rgba(212,175,55,0.15);">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <div style="width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg, #FFE082, #D4AF37); display:flex; align-items:center; justify-content:center; font-size:20px; color:#1A0E08; flex-shrink:0;">✍️</div>
+              <div style="text-align:left;">
+                <h4 style="margin:0; font-size:15px; color:#FAF6F0; font-weight:700;">Add / Write a Customer Review</h4>
+                <p style="margin:3px 0 0; font-size:12px; color:rgba(250,246,240,0.8);">Click to rate and review our handcrafted treats</p>
+              </div>
+            </div>
+            <button class="btn-search-review" style="background:linear-gradient(135deg, #FFE082, #D4AF37); color:#1A0E08; border:none; padding:8px 16px; border-radius:8px; font-weight:800; font-size:12px; cursor:pointer; white-space:nowrap;">Write Review →</button>
+          </div>
+        `;
+      }
+
+      html += matches.map(([id, item]) => `
         <div class="search-result-item" data-id="${id}" style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; margin-bottom:8px; background:rgba(250,246,240,0.06); border-radius:10px; border:1px solid rgba(200,150,12,0.2); cursor:pointer;">
           <div style="display:flex; align-items:center; gap:14px;">
             <img src="${item.image || '/almond/1.jpg'}" alt="${item.name}" style="width:48px; height:48px; border-radius:8px; object-fit:cover;" onerror="this.src='/almond/1.jpg'" />
@@ -465,9 +499,32 @@ export class UIController {
               <span style="font-size:13px; font-weight:700; color:#C8960C;">₹${item.price}</span>
             </div>
           </div>
-          <button class="btn-search-add" data-id="${id}" style="background:#C8960C; color:#1A0E08; border:none; padding:8px 14px; border-radius:6px; font-weight:700; font-size:12px; cursor:pointer;">+ Add</button>
+          <div style="display:flex; align-items:center; gap:8px;">
+            ${isReviewQuery ? `
+              <button class="btn-search-review-item" data-id="${id}" style="background:rgba(212,175,55,0.18); color:#FFE082; border:1px solid rgba(212,175,55,0.4); padding:7px 12px; border-radius:6px; font-weight:700; font-size:11.5px; cursor:pointer;">✍️ Review</button>
+            ` : ''}
+            <button class="btn-search-add" data-id="${id}" style="background:#C8960C; color:#1A0E08; border:none; padding:8px 14px; border-radius:6px; font-weight:700; font-size:12px; cursor:pointer;">+ Add</button>
+          </div>
         </div>
       `).join('');
+
+      resultsList.innerHTML = html;
+
+      const reviewBanner = resultsList.querySelector('.search-review-banner');
+      if (reviewBanner) {
+        reviewBanner.addEventListener('click', () => {
+          const targetId = reviewBanner.getAttribute('data-target-id') || 'almond';
+          window.location.href = `/product.html?id=${targetId}#reviews`;
+        });
+      }
+
+      resultsList.querySelectorAll('.btn-search-review-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const targetId = btn.getAttribute('data-id');
+          if (targetId) window.location.href = `/product.html?id=${targetId}#reviews`;
+        });
+      });
 
       resultsList.querySelectorAll('.btn-search-add').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -489,9 +546,15 @@ export class UIController {
 
       resultsList.querySelectorAll('.search-result-item').forEach(itemEl => {
         itemEl.addEventListener('click', (e) => {
-          if (e.target.closest('.btn-search-add')) return;
+          if (e.target.closest('.btn-search-add') || e.target.closest('.btn-search-review-item')) return;
           const targetId = itemEl.getAttribute('data-id');
-          if (targetId) window.location.href = `/product.html?id=${targetId}`;
+          if (targetId) {
+            if (isReviewQuery) {
+              window.location.href = `/product.html?id=${targetId}#reviews`;
+            } else {
+              window.location.href = `/product.html?id=${targetId}`;
+            }
+          }
         });
       });
     };

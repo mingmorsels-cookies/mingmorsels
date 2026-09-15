@@ -12,7 +12,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (8 pcs)',
     stock: 120,
     rating: 4.9,
-    description: 'Golden roasted California almonds embedded in browned butter shortbread with pure vanilla.'
+    description: 'Golden roasted whole almonds embedded in browned butter shortbread with pure vanilla.'
   },
   'almond_snack_2pcs': {
     id: 'almond_snack_2pcs',
@@ -52,7 +52,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (8 pcs)',
     stock: 85,
     rating: 4.8,
-    description: 'Candied Damascus rose petals infused with pure cardamom and crushed pistachios.'
+    description: 'Candied dried rose petals infused with pure cardamom and crushed pistachios.'
   },
   'rose_snack_2pcs': {
     id: 'rose_snack_2pcs',
@@ -92,7 +92,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (8 pcs)',
     stock: 95,
     rating: 4.95,
-    description: 'Rolled oats, California walnuts, chia seeds, and plant-based Stevia with pista-elaichi crunch.'
+    description: 'Rolled oats, crunchy walnuts, chia seeds, and plant-based Stevia with pista-elaichi crunch.'
   },
   'oatsnuts_snack_2pcs': {
     id: 'oatsnuts_snack_2pcs',
@@ -132,7 +132,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (8 pcs)',
     stock: 90,
     rating: 4.88,
-    description: 'Sun-ripened orange zest fused with warm Ceylon cinnamon for a vibrant citrus crunch.'
+    description: 'Sun-ripened orange zest fused with warm cinnamon for a vibrant citrus crunch.'
   },
   'orange_snack_2pcs': {
     id: 'orange_snack_2pcs',
@@ -158,21 +158,81 @@ export const PRODUCT_CATALOG = {
     id: 'walnut',
     name: 'Walnut Cookies',
     category: 'cookie',
-    price: 220,
-    unit: 'box (6 pcs)',
+    price: 140,
+    unit: 'box (8 pcs)',
     stock: 75,
     rating: 4.9,
-    description: 'Slow-roasted whole California walnuts folded into buttery shortbread cookie dough.'
+    description: 'Slow-roasted whole crunchy walnuts folded into buttery shortbread cookie dough.'
+  },
+  'walnut_snack_2pcs': {
+    id: 'walnut_snack_2pcs',
+    name: 'Walnut Cookies (Twin Delights - 2 Pcs)',
+    category: 'cookie',
+    price: 40,
+    unit: 'pack (2 pcs)',
+    stock: 150,
+    rating: 5.0,
+    description: 'Pocket Twin Delights pack containing 2 artisanal roasted walnut cookies.'
+  },
+  'walnut_classic_8pcs': {
+    id: 'walnut_classic_8pcs',
+    name: 'Walnut Cookies (Classic Delights - 8 Pcs)',
+    category: 'cookie',
+    price: 140,
+    unit: 'box (8 pcs)',
+    stock: 75,
+    rating: 5.0,
+    description: 'Standard brand box containing 8 freshly baked roasted walnut cookies.'
+  },
+  'walnut_family_12pcs': {
+    id: 'walnut_family_12pcs',
+    name: 'Walnut Cookies (Dozen Delights - 12 Pcs)',
+    category: 'cookie',
+    price: 360,
+    unit: 'box (12 pcs)',
+    stock: 60,
+    rating: 5.0,
+    description: 'Large Dozen Delights box containing 12 freshly baked roasted walnut cookies (300g).'
   },
   'walnut_sf': {
     id: 'walnut_sf',
     name: 'Sugarfree Walnut Cookies',
     category: 'cookie',
-    price: 240,
-    unit: 'box (6 pcs)',
+    price: 140,
+    unit: 'box (8 pcs)',
     stock: 50,
     rating: 4.9,
-    description: 'Diabetic-friendly sweetened with natural plant Stevia extract and California walnuts.'
+    description: 'Diabetic-friendly sweetened with natural plant Stevia extract and roasted walnuts.'
+  },
+  'walnut_sf_snack_2pcs': {
+    id: 'walnut_sf_snack_2pcs',
+    name: 'Sugarfree Walnut Cookies (Twin Delights - 2 Pcs)',
+    category: 'cookie',
+    price: 40,
+    unit: 'pack (2 pcs)',
+    stock: 150,
+    rating: 5.0,
+    description: 'Pocket Twin Delights pack containing 2 sugar-free walnut cookies.'
+  },
+  'walnut_sf_classic_8pcs': {
+    id: 'walnut_sf_classic_8pcs',
+    name: 'Sugarfree Walnut Cookies (Classic Delights - 8 Pcs)',
+    category: 'cookie',
+    price: 140,
+    unit: 'box (8 pcs)',
+    stock: 50,
+    rating: 5.0,
+    description: 'Standard brand box containing 8 freshly baked sugar-free walnut cookies.'
+  },
+  'walnut_sf_family_12pcs': {
+    id: 'walnut_sf_family_12pcs',
+    name: 'Sugarfree Walnut Cookies (Dozen Delights - 12 Pcs)',
+    category: 'cookie',
+    price: 360,
+    unit: 'box (12 pcs)',
+    stock: 40,
+    rating: 5.0,
+    description: 'Large Dozen Delights box containing 12 freshly baked sugar-free walnut cookies (300g).'
   },
 
   // Artisanal Muffins
@@ -184,7 +244,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (4 pcs)',
     stock: 40,
     rating: 4.8,
-    description: 'Fluffy whole-grain muffin crowned with homemade Mahabaleshwar strawberry compote.'
+    description: 'Fluffy whole-grain muffin crowned with homemade fresh strawberry compote.'
   },
   'pinacolada': {
     id: 'pinacolada',
@@ -224,7 +284,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (4 pcs)',
     stock: 90,
     rating: 5.0,
-    description: 'Rich dark cocoa sponge loaded with molten Belgian chocolate chips.'
+    description: 'Rich dark cocoa sponge loaded with molten dark chocolate chips.'
   },
   'chocochip': {
     id: 'chocochip',
@@ -234,7 +294,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (4 pcs)',
     stock: 90,
     rating: 5.0,
-    description: 'Rich dark cocoa sponge loaded with molten Belgian chocolate chips.'
+    description: 'Rich dark cocoa sponge loaded with molten dark chocolate chips.'
   },
   'blackcurrant': {
     id: 'blackcurrant',

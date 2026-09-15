@@ -35,7 +35,7 @@ const BOX_OPTIONS = {
     hasDryFruits: true,
     allowsMuffins: false,
     capacityText: 'Holds 4 Cookies + Premium Dry Fruits',
-    fullDesc: 'Exquisite blush floral keepsake gift box with gold-foil accents. Fits 4 artisanal cookies and includes a gourmet pouch of California roasted dry fruits.'
+    fullDesc: 'Exquisite blush floral keepsake gift box with gold-foil accents. Fits 4 artisanal cookies and includes a gourmet pouch of roasted dry fruits.'
   }
 };
 

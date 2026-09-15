@@ -92,8 +92,8 @@
         };
 
         const BOT_RESPONSES = {
-            all: { en: "Here is our complete handcrafted collection — <strong>6 Signature Artisan Cookies &amp; 5 Soft-Baked Muffins</strong>, baked fresh with 100% natural ingredients and gourmet flair:<br><br>🌰 <strong>Almond Rich Cookie</strong> — Slow-roasted California almonds in buttery golden dough<br>🌹 <strong>Rose Petal Cookie</strong> — Fragrant Damascus rose petals with soothing cardamom<br>🌾 <strong>Oats Nuts Cookie</strong> — Wholesome rolled oats, walnuts, and seeds for natural sustained energy<br>🍊 <strong>Orange Peel Cookie</strong> — Zesty citrus refreshment paired with warm Ceylon cinnamon<br>🧠 <strong>Walnut Cookies</strong> — Rich, buttery crunch packed with neuro-protective omega-3s<br>🍃 <strong>Sugarfree Walnut Cookies</strong> — 100% Sugar-free, diabetic-friendly, sweetened with natural Stevia<br>🍓 <strong>Strawberry Muffin</strong> — Real Mahabaleshwar strawberry coulis in a tender butter crumb<br>🍍 <strong>Pinacolada Muffin</strong> — Tropical pineapple tidbits &amp; toasted coconut flakes<br>🧈 <strong>Butterscotch Muffin</strong> — Warm caramelized brown butter with crunchy toffee drops and butterscotch praline<br>🍫 <strong>Chocochip Muffin</strong> — Decadent single-origin dark cocoa with melting chips<br>🫐 <strong>Blackcurrant Muffin</strong> — Whole wheat atta muffin bursting with antioxidant-rich currants<br><br>Tap any flavour card below to pick your box size and add to cart! ✨" },
-            natural: { en: "At <strong>mingmorsels</strong>, we take purity and gourmet taste seriously:<br><br>✅ <strong>Zero Palm Oil</strong> — Baked only with 100% pure pasture butter, never palm oil or hydrogenated fats<br>✅ <strong>Zero Margarine</strong> — Clean, fresh baking with no margarine spreads<br>✅ <strong>No Harmful Oils</strong> — Absolutely no refined seed oils<br>✅ <strong>Natural Plant Stevia</strong> — Clean sweetness with zero sugar spikes<br>✅ <strong>Real Terroir Ingredients</strong> — Real Damask petals, California nuts, and whole spices 🌿" },
+            all: { en: "Here is our complete handcrafted collection — <strong>6 Signature Artisan Cookies &amp; 5 Soft-Baked Muffins</strong>, baked fresh with 100% natural ingredients and gourmet flair:<br><br>🌰 <strong>Almond Rich Cookie</strong> — Slow-roasted whole almonds in buttery golden dough<br>🌹 <strong>Rose Petal Cookie</strong> — Fragrant dried rose petals with soothing cardamom<br>🌾 <strong>Oats Nuts Cookie</strong> — Wholesome rolled oats, walnuts, and seeds for natural sustained energy<br>🍊 <strong>Orange Peel Cookie</strong> — Zesty citrus refreshment paired with warm cinnamon<br>🧠 <strong>Walnut Cookies</strong> — Rich, buttery crunch packed with neuro-protective omega-3s<br>🍃 <strong>Sugarfree Walnut Cookies</strong> — 100% Sugar-free, diabetic-friendly, sweetened with natural Stevia<br>🍓 <strong>Strawberry Muffin</strong> — Real farm strawberry coulis in a tender butter crumb<br>🍍 <strong>Pinacolada Muffin</strong> — Tropical pineapple tidbits &amp; toasted coconut flakes<br>🧈 <strong>Butterscotch Muffin</strong> — Warm caramelized brown butter with crunchy toffee drops and butterscotch praline<br>🍫 <strong>Chocochip Muffin</strong> — Decadent single-origin dark cocoa with melting chips<br>🫐 <strong>Blackcurrant Muffin</strong> — Whole wheat atta muffin bursting with antioxidant-rich currants<br><br>Tap any flavour card below to pick your box size and add to cart! ✨" },
+            natural: { en: "At <strong>mingmorsels</strong>, we take purity and gourmet taste seriously:<br><br>✅ <strong>Zero Palm Oil</strong> — Baked only with 100% pure pasture butter, never palm oil or hydrogenated fats<br>✅ <strong>Zero Margarine</strong> — Clean, fresh baking with no margarine spreads<br>✅ <strong>No Harmful Oils</strong> — Absolutely no refined seed oils<br>✅ <strong>Natural Plant Stevia</strong> — Clean sweetness with zero sugar spikes<br>✅ <strong>Real Artisan Ingredients</strong> — Real dried rose petals, roasted nuts, and whole spices 🌿" },
             hello: { en: "Hello and welcome to <strong>mingmorsels</strong>! 🍪✨<br><br>We craft 6 Signature Cookies &amp; 5 Soft-Baked Muffins with 100% pure butter and natural ingredients. How can I help you today?<br><br>• Ask about any cookie or muffin flavour<br>• Tell me your mood for a personalized pairing<br>• Inquire about custom gift boxes, box sizes, or nutrition facts 🎁" },
             fallback: { en: "I'd love to help you find the right treat! You can ask about any cookie or muffin, explore box sizes, or tap any flavour pill above! 🍪✨" }
         };
@@ -139,9 +139,11 @@
                 emoji: "🌰", 
                 img: "/almond/1.jpg", 
                 color: "#FFF3DC", 
-                review: "A classic gourmet favourite. Loaded with whole slow-roasted California almonds, 100% pasture-churned cow butter, and natural Stevia. Crisp and golden on the outside with a melt-in-the-mouth buttery finish.", 
+                review: "A classic gourmet favourite. Loaded with whole slow-roasted almonds, 100% pasture-churned cow butter, and natural Stevia. Crisp and golden on the outside with a melt-in-the-mouth buttery finish.", 
+                rating: 5.0,
+                reviewsCount: 128,
                 stars: 5, 
-                price: 180, 
+                price: 140, 
                 nutrition: { Calories: "72.7 kcal", Carbs: "5.1g", Protein: "1.51g", Fat: "5.14g", "Saturated Fat": "3g", "Trans Fat": "0g", Sugar: "3.24g", Sodium: "89.6mg", Potassium: "397.2mg", Preservatives: "None" }, 
                 tags: ["Nutrient Dense", "Pasture Butter", "Zero Palm Oil", "Stevia Sweetened"],
                 boxes: [
@@ -155,11 +157,13 @@
                 emoji: "🌹", 
                 img: "/rose-petal/1.jpg", 
                 color: "#FDE8E8", 
-                review: "Pure floral elegance in every bite. Infused with natural Damask rose petals (Rosa damascena) and aromatic green Malabar cardamom seeds for a soothing, regal teatime treat.", 
+                review: "Pure floral elegance in every bite. Infused with natural dried rose petals and aromatic green cardamom seeds for a soothing, regal teatime treat.", 
+                rating: 4.9,
+                reviewsCount: 96,
                 stars: 5, 
-                price: 190, 
+                price: 140, 
                 nutrition: { Calories: "135 kcal", Carbs: "15g", Protein: "3g", Fat: "6g", Sugar: "5g", Fibre: "1.2g", Sodium: "30mg", Preservatives: "None" }, 
-                tags: ["Damask Rose", "Aromatic", "Low GI", "Handcrafted"],
+                tags: ["Rose Petals", "Aromatic", "Low GI", "Handcrafted"],
                 boxes: [
                     { id: 'rose_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/rose-box-2pcs.jpg' },
                     { id: 'rose_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/rose-box-8pcs.jpg', popular: true },
@@ -171,9 +175,11 @@
                 emoji: "🌾", 
                 img: "/oats-nuts/1.jpg", 
                 color: "#F5F0E8", 
-                review: "Packed with wholesome rolled oats, crunchy California walnuts, golden flaxseeds, and natural Stevia. Rich in healthy beta-glucan fibre to provide clean, sustained energy throughout the day.", 
+                review: "Packed with wholesome rolled oats, crunchy walnuts, golden flaxseeds, and natural Stevia. Rich in healthy beta-glucan fibre to provide clean, sustained energy throughout the day.", 
+                rating: 4.8,
+                reviewsCount: 142,
                 stars: 5, 
-                price: 170, 
+                price: 140, 
                 nutrition: { Calories: "148 kcal", Carbs: "18g", Protein: "5g", Fat: "6.5g", Sugar: "4g", Fibre: "3.2g", Sodium: "52mg", Preservatives: "None" }, 
                 tags: ["High Fibre", "Rolled Oats", "Omega-3", "Clean Energy"],
                 boxes: [
@@ -187,11 +193,13 @@
                 emoji: "🍊", 
                 img: "/orange-peel/1.jpg", 
                 color: "#FFF0E0", 
-                review: "A refreshing citrus twist on traditional butter shortbread. Imbued with cold-pressed Valencia orange peel oils and Ceylon true cinnamon for a zesty, uplifting flavor profile.", 
+                review: "A refreshing citrus twist on traditional butter shortbread. Imbued with cold-pressed orange peel oils and warm cinnamon for a zesty, uplifting flavor profile.", 
+                rating: 4.5,
+                reviewsCount: 84,
                 stars: 5, 
-                price: 185, 
+                price: 140, 
                 nutrition: { Calories: "138 kcal", Carbs: "16g", Protein: "3.2g", Fat: "6.2g", Sugar: "5.5g", Fibre: "1.4g", Sodium: "35mg", Preservatives: "None" }, 
-                tags: ["Valencia Orange", "Ceylon Cinnamon", "Zesty Shortbread", "Zero Dalda"],
+                tags: ["Orange Zest", "Warm Cinnamon", "Zesty Shortbread", "Zero Dalda"],
                 boxes: [
                     { id: 'orange_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/orange-box-2pcs.jpg' },
                     { id: 'orange_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/orange-box-8pcs.jpg', popular: true },
@@ -203,15 +211,17 @@
                 emoji: "🧠", 
                 img: "/img-walnut.png?v=2", 
                 color: "#F7EFE8", 
-                review: "Generously packed with whole California walnuts in golden butter dough. Delivers a satisfying crunch with natural neuro-protective omega-3 healthy fats, sweetened with plant-based Stevia.", 
+                review: "Generously packed with whole roasted walnuts in golden butter dough. Delivers a satisfying crunch with natural neuro-protective omega-3 healthy fats, sweetened with plant-based Stevia.", 
+                rating: 4.5,
+                reviewsCount: 110,
                 stars: 5, 
-                price: 210, 
+                price: 140, 
                 nutrition: { Calories: "145 kcal", Carbs: "14g", Protein: "4.2g", Fat: "8.5g", Sugar: "4.5g", Fibre: "2.1g", Sodium: "38mg", Preservatives: "None" }, 
-                tags: ["California Walnuts", "Omega-3 Rich", "Nut Rich", "Zero Trans-Fats"],
+                tags: ["Roasted Walnuts", "Omega-3 Rich", "Nut Rich", "Zero Trans-Fats"],
                 boxes: [
-                    { id: 'walnut_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 50, img: '/box-classic.jpg' },
-                    { id: 'walnut_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 210, img: '/box-lush.jpg', popular: true },
-                    { id: 'walnut_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 420, img: '/box-extra.jpg' }
+                    { id: 'walnut_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/box-classic.jpg' },
+                    { id: 'walnut_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/box-lush.jpg', popular: true },
+                    { id: 'walnut_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/box-extra.jpg' }
                 ]
             },
             walnut_sf: { 
@@ -219,15 +229,17 @@
                 emoji: "🍃", 
                 img: "/img-walnut-sf.png?v=2", 
                 color: "#EBF5EB", 
-                review: "100% Zero Added Sugar! Sweetened exclusively with natural plant Stevia extract and filled with roasted California walnuts. Guilt-free, diabetic-friendly, and keto-compliant.", 
+                review: "100% Zero Added Sugar! Sweetened exclusively with natural plant Stevia extract and filled with roasted crunchy walnuts. Guilt-free, diabetic-friendly, and keto-compliant.", 
+                rating: 4.5,
+                reviewsCount: 88,
                 stars: 5, 
-                price: 220, 
+                price: 140, 
                 nutrition: { Calories: "128 kcal", Carbs: "9g", Protein: "4.8g", Fat: "8.2g", Sugar: "0g", Fibre: "3.5g", Sodium: "32mg", Preservatives: "None" }, 
                 tags: ["100% Sugar Free", "Natural Stevia", "Diabetic Friendly", "Keto Approved"],
                 boxes: [
-                    { id: 'walnut_sf_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 55, img: '/box-classic.jpg' },
-                    { id: 'walnut_sf_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 220, img: '/box-lush.jpg', popular: true },
-                    { id: 'walnut_sf_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 440, img: '/box-extra.jpg' }
+                    { id: 'walnut_sf_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/box-classic.jpg' },
+                    { id: 'walnut_sf_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/box-lush.jpg', popular: true },
+                    { id: 'walnut_sf_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/box-extra.jpg' }
                 ]
             },
             strawberry: { 
@@ -237,15 +249,16 @@
                 img: "/img-strawberry.jpg", 
                 color: "#FCEEEE", 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" },
-                review: "A soft, moist sponge muffin infused with real Mahabaleshwar strawberry compote and crowned with a buttery streusel crumble topping.", 
+                review: "A soft, moist sponge muffin infused with real farm strawberry compote and crowned with a buttery streusel crumble topping.", 
                 ingredients: "Fresh Strawberry Compote, Whole Wheat Flour, Unsalted Pasture Butter, Pure Vanilla, Stevia.", 
-                price: 140, 
+                rating: 4.8,
+                reviewsCount: 130,
+                stars: 5,
+                price: 40, 
                 popular: false,
                 tags: ["Real Fruit", "Crumble Top", "Pasture Butter"],
                 boxes: [
-                    { id: 'strawberry_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 70, img: '/box-strawberry-1.jpg' },
-                    { id: 'strawberry_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 140, img: '/box-strawberry-2.jpg', popular: true },
-                    { id: 'strawberry_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 210, img: '/box-strawberry-2.jpg' }
+                    { id: 'strawberry_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-strawberry.jpg', popular: true }
                 ]
             },
             pinacolada: { 
@@ -257,13 +270,14 @@
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" }, 
                 review: "A tropical vacation for your palate. Juicy pineapple tidbits and toasted coconut flakes baked into a light, tender vanilla sponge.", 
                 ingredients: "Golden Pineapple Tidbits, Toasted Coconut Flakes, Pure Cow Butter, Stevia, Whole Flour.", 
-                price: 135, 
+                rating: 4.5,
+                reviewsCount: 78,
+                stars: 5,
+                price: 40, 
                 popular: false, 
                 tags: ["Tropical Pineapple", "Toasted Coconut", "Moist Sponge"], 
                 boxes: [
-                    { id: 'pinacolada_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-pinacolada-1.jpg' },
-                    { id: 'pinacolada_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-pinacolada-2.jpg', popular: true },
-                    { id: 'pinacolada_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 225, img: '/box-pinacolada-2.jpg' }
+                    { id: 'pinacolada_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-pinacolada.jpg', popular: true }
                 ]
             },
             butterscotch: { 
@@ -272,14 +286,14 @@
                 img: "/img-butterscotch.jpg", 
                 color: "#FDF4E5", 
                 review: "Rich brown butter muffin base loaded with crunchy butterscotch toffee pearls and roasted cashews. Comforting and delicious.", 
+                rating: 4.5,
+                reviewsCount: 156,
                 stars: 5, 
-                price: 150, 
+                price: 40, 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g", Preservatives: "None" }, 
                 tags: ["Butterscotch Toffee", "Pure Butter", "Zero Margarine"], 
                 boxes: [
-                    { id: 'butterscotch_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-butterscotch-1.jpg' },
-                    { id: 'butterscotch_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-butterscotch-2.jpg', popular: true },
-                    { id: 'butterscotch_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 225, img: '/box-butterscotch-2.jpg' }
+                    { id: 'butterscotch_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-butterscotch.jpg', popular: true }
                 ]
             },
             chocochip: { 
@@ -289,15 +303,16 @@
                 img: "/img-chocochip.jpg", 
                 color: "#F5ECE6", 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "6.13g" }, 
-                review: "For true chocolate connoisseurs. Rich single-origin 70% dark Belgian cocoa sponge packed with bittersweet chocolate chips that melt when warmed.", 
-                ingredients: "70% Belgian Dark Chocolate, Dutch Alkalized Cocoa, Pasture Butter, Stevia, Whole Wheat.", 
-                price: 150, 
+                review: "For true chocolate connoisseurs. Rich single-origin 70% dark cocoa sponge packed with bittersweet dark chocolate chips that melt when warmed.", 
+                ingredients: "70% Dark Chocolate, Pure Cocoa Powder, Pasture Butter, Stevia, Whole Wheat.", 
+                rating: 5.0,
+                reviewsCount: 210,
+                stars: 5,
+                price: 40, 
                 popular: true, 
-                tags: ["70% Belgian Chocolate", "Melted Chips", "Decadent"], 
+                tags: ["70% Dark Chocolate", "Melted Chips", "Decadent"], 
                 boxes: [
-                    { id: 'chocochip_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 80, img: '/box-chocochip-1.jpg' },
-                    { id: 'chocochip_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 140, img: '/box-chocochip-2.jpg', popular: true },
-                    { id: 'chocochip_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 240, img: '/box-chocochip-2.jpg' }
+                    { id: 'chocochip_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-chocochip.jpg', popular: true }
                 ]
             },
             blackcurrant: { 
@@ -309,13 +324,14 @@
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g" }, 
                 review: "Wholesome stone-ground atta muffin bursting with tangy black currants rich in natural antioxidants. A harmonious balance of sweet and tart.", 
                 ingredients: "Stone-Ground Whole Wheat Atta, Black Currant Extract, Natural Stevia, Cultured Butter.", 
-                price: 150, 
+                rating: 4.8,
+                reviewsCount: 95,
+                stars: 5,
+                price: 40, 
                 popular: false, 
                 tags: ["Whole Wheat Atta", "Antioxidant Rich", "Zero Palm Oil"], 
                 boxes: [
-                    { id: 'blackcurrant_single_2pcs', name: 'Twin Delights', count: '2 Muffins', price: 75, img: '/box-blackcurrant-1.jpg' },
-                    { id: 'blackcurrant_box_4pcs', name: 'Classic Delights', count: '4 Muffins', price: 150, img: '/box-blackcurrant-2.jpg', popular: true },
-                    { id: 'blackcurrant_party_6pcs', name: 'Dozen Delights', count: '6 Muffins', price: 225, img: '/box-blackcurrant-2.jpg' }
+                    { id: 'blackcurrant_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-blackcurrant.jpg', popular: true }
                 ]
             }
         };
@@ -365,34 +381,68 @@
             return d && d[lang] ? d[lang] : (d && d['en'] ? d['en'] : null);
         }
 
+        function getProductStars(ratingVal) {
+            const val = parseFloat(ratingVal || 5.0);
+            const full = Math.floor(val);
+            const hasHalf = (val % 1) >= 0.4;
+            return '★'.repeat(full) + (hasHalf ? '★' : '') + '☆'.repeat(5 - full - (hasHalf ? 1 : 0));
+        }
+
         function renderCookieCard(key) {
             const c = COOKIES[key];
-            const stars = '★'.repeat(c.stars) + '☆'.repeat(5 - c.stars);
-            const nutHTML = Object.entries(c.nutrition).map(([k, v]) => `<div class="nut-item"><div class="nut-val">${v}</div><div class="nut-key">${k}</div></div>`).join('');
-            const tagsHTML = c.tags.map(t => `<span class="badge-natural">${t}</span>`).join(' ');
-            const imgHTML = c.img ? `<img class="cookie-card-img" src="${c.img}" alt="${c.name}" onerror="this.style.display='none'">` : `<div class="cookie-card-img-placeholder" style="background:${c.color}">${c.emoji}</div>`;
+            if (!c) return '';
+            const ratingNum = c.rating ? parseFloat(c.rating).toFixed(1) : "5.0";
+            const stars = getProductStars(c.rating);
+            
+            // Extract top 4 key nutrients for compact display
+            const nutEntries = Object.entries(c.nutrition || {}).slice(0, 4);
+            const nutHTML = nutEntries.map(([k, v]) => `
+                <div style="background:var(--warm); border-radius:6px; padding:4px 6px; text-align:center;">
+                    <div style="font-size:11px; font-weight:700; color:var(--brown); font-family:'Playfair Display',serif;">${v}</div>
+                    <div style="font-size:9px; color:var(--muted); margin-top:1px;">${k}</div>
+                </div>
+            `).join('');
+
+            const tagsHTML = (c.tags || []).slice(0, 3).map(t => `<span class="badge-natural" style="margin-top:0; font-size:9px; padding:2px 6px;">${t}</span>`).join(' ');
+            const imgHTML = c.img ? `<img class="cookie-card-img" src="${c.img}" alt="${c.name}" style="height:110px; width:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">` : `<div class="cookie-card-img-placeholder" style="background:${c.color}; height:90px; font-size:36px;">${c.emoji}</div>`;
             const uid = 'card-' + key + '-' + Date.now();
 
+            // Short summary (1 concise sentence)
+            const shortReview = c.review ? c.review.split('.')[0] + '.' : '';
+
             const boxesHTML = Array.isArray(c.boxes) ? `
-                <div style="margin-top:12px; background:rgba(61,32,0,0.04); border-radius:12px; padding:10px 12px; border:1px solid rgba(61,32,0,0.08);">
-                    <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:#8C533E; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-                        <span>📦 Available Box Sizes &amp; Pricing:</span>
-                        <span style="color:#2E6B1A; font-size:10px; font-weight:600;">Brand Packaging</span>
+                <div style="margin-top:8px; background:rgba(61,32,0,0.03); border-radius:10px; padding:7px 8px; border:1px solid rgba(61,32,0,0.06);">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; color:#8C533E; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+                        <span>📦 Box Sizes &amp; Prices</span>
                     </div>
-                    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+                    <div style="display:grid; grid-template-columns:repeat(${c.boxes.length > 1 ? 3 : 1}, 1fr); gap:6px;">
                         ${c.boxes.map(b => `
-                            <div style="background:#FFF; border:1.5px solid ${b.popular ? '#C6960C' : '#E8DFD5'}; border-radius:8px; padding:8px 6px; text-align:center; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 5px rgba(0,0,0,0.03);">
-                                <div style="font-size:11.5px; font-weight:700; color:#3D2000; line-height:1.2;">${b.name}</div>
-                                <div style="font-size:10px; color:#5B2C6F; font-weight:600; margin:2px 0;">${b.count}</div>
-                                <div style="font-size:13px; font-weight:800; color:#C6960C; margin:3px 0 6px;">₹${b.price}</div>
-                                <button onclick="addChatbotBoxToCart('${b.id}', '${c.name.replace(/'/g, "\\'")}', '${b.name}', ${b.price}, '${b.img || c.img}')" style="background:linear-gradient(135deg, #C6960C 0%, #A67C00 100%); color:#FFF; border:none; border-radius:6px; padding:4px 6px; font-size:10px; font-weight:700; cursor:pointer; width:100%;">+ Add</button>
+                            <div style="background:#FFF; border:1.5px solid ${b.popular ? '#C6960C' : '#E8DFD5'}; border-radius:7px; padding:5px 4px; text-align:center; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                                <div style="font-size:10.5px; font-weight:700; color:#3D2000; line-height:1.2;">${b.name}</div>
+                                <div style="font-size:9px; color:#5B2C6F; font-weight:600; margin:1px 0;">${b.count}</div>
+                                <div style="font-size:11.5px; font-weight:800; color:#C6960C; margin:2px 0 4px;">₹${b.price}</div>
+                                <button onclick="addChatbotBoxToCart('${b.id}', '${c.name.replace(/'/g, "\\'")}', '${b.name}', ${b.price}, '${b.img || c.img}')" style="background:linear-gradient(135deg, #C6960C 0%, #A67C00 100%); color:#FFF; border:none; border-radius:5px; padding:3px 4px; font-size:9.5px; font-weight:700; cursor:pointer; width:100%;">+ Add</button>
                             </div>
                         `).join('')}
                     </div>
                 </div>
             ` : '';
 
-            return `<div class="cookie-card" id="${uid}">${imgHTML}<div class="cookie-card-body"><div class="stars">${stars} (5.0)</div><div class="cookie-card-name">${c.emoji} ${c.name}</div><div class="cookie-card-review">${c.review}</div><div class="nutrition-grid">${nutHTML}</div>${boxesHTML}<div style="margin-top:8px">${tagsHTML}</div></div><div class="card-share-bar"><button class="card-share-btn card-btn-download" onclick="downloadCookieCard('${key}','${uid}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Card</button><button class="card-share-btn card-btn-share" id="sharebtn-${uid}" onclick="shareCookieCard('${key}','${uid}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share</button></div></div>`;
+            return `
+                <div class="cookie-card" id="${uid}" style="max-width:320px; margin:6px auto 0;">
+                    ${imgHTML}
+                    <div class="cookie-card-body" style="padding:10px 12px;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+                            <div class="cookie-card-name" style="font-size:13.5px; margin-bottom:0; line-height:1.2;">${c.emoji} ${c.name}</div>
+                            <div class="stars" style="font-size:11px; margin-bottom:0; white-space:nowrap; margin-left:6px;">${stars} (${ratingNum})</div>
+                        </div>
+                        <div class="cookie-card-review" style="font-size:11px; line-height:1.35; margin-bottom:6px; color:var(--muted);">${shortReview}</div>
+                        <div style="display:grid; grid-template-columns:repeat(${nutEntries.length || 1}, 1fr); gap:4px; margin-bottom:6px;">${nutHTML}</div>
+                        ${boxesHTML}
+                        <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px;">${tagsHTML}</div>
+                    </div>
+                </div>
+            `;
         }
 
         function addChatbotBoxToCart(boxId, productName, boxName, price, image) {
@@ -417,8 +467,8 @@
         const MOOD_INTROS = {
             happy: { en: "Feeling happy and energized! Here are our crisp, uplifting treats to keep that good vibe going: ✨🎉", hi: "खुश और ऊर्जावान! आपके आनंद को बढ़ाने के लिए हमारी विशेष कुकीज़: ✨🎉", kn: "ಹರ್ಷದಾಯಕ ಮನಸ್ಥಿತಿ! ನಿಮ್ಮ ಸಂತೋಷವನ್ನು ಹೆಚ್ಚಿಸಲು ನಮ್ಮ ವಿಶೇಷ ಆಯ್ಕೆ: ✨🎉", ta: "மகிழ்ச்சியான தருணம்! உங்கள் உற்சாகத்தை கூட்ட எங்களின் தேர்வு: ✨🎉", te: "ఆనందకరమైన సమయం! మీ ఉత్సాహాన్ని రెట్టింపు చేసే అద్భుత రుచులు: ✨🎉", fr: "De bonne humeur! Voici nos créations gourmandes pour vous: ✨🎉", ar: "مزاج مبتهج ورائع! إليك أشهى الحلويات لتكمل يومك: ✨🎉", ml: "സന്തോഷകരമായ സമയം! ✨🎉" },
             tired: { en: "Feeling low on energy? These nutrient-packed oats and roasted nuts give you clean, sustained stamina: ⚡", hi: "थकान महसूस हो रही है? ये पौष्टिक ओट्स और मेवे आपको नई ताजगी देंगे! ⚡", kn: "ಆಯಾಸವೇ? ನೈಸರ್ಗಿಕ ಶಕ್ತಿ ನೀಡುವ ವಿಶಿಷ್ಟ ಕುಕಿಗಳು: ⚡", ta: "சோர்வாக உணர்கிறீர்களா? உடனடி இயற்கை புத்துணர்ச்சிக்கு: ⚡", te: "అలసటగా ఉందా? సహజ శక్తిని అందించే రుచులు: ⚡", fr: "Besoin d'énergie? Retrouvez votre vitalité naturelle: ⚡", ar: "هل تشعر بالإجهاد؟ إليك ما يجدد طاقتك الحيوية: ⚡", ml: "ഊർജ്ജം വീണ്ടെടുക്കാൻ: ⚡" },
-            romantic: { en: "In a sweet and romantic mood? Our delicate Damask rose petals and rich 70% dark Belgian chocochip are made for sharing: 🌹💕", hi: "रोमांटिक और मीठा माहौल! गुलाब और डार्क चॉकलेट का यह स्वादिष्ट सम्मिश्रण: 🌹💕", kn: "ರೊಮ್ಯಾಂಟಿಕ್ ಕ್ಷಣಗಳು! ಗುಲಾಬಿ ಹಾಗೂ ಡಾರ್ಕ್ ಚಾಕೊಲೇಟ್ ಸಂಗಮ: 🌹💕", ta: "காதல் ததும்பும் நேரம்! ரோஜா மற்றும் சாக்லேட் சுவைகள்: 🌹💕", te: "రొమాంటిక్ క్షణాలు! గులాబీ మరియు డార్క్ చాక్లెట్ రుచులు: 🌹💕", fr: "Humeur romantique et gourmande: 🌹💕", ar: "لحظات رومانسية مميزة ولذيذة: 🌹💕", ml: "റൊമാന്റിക് അനുഭൂതി: 🌹💕" },
-            stressed: { en: "Take a deep breath — these buttery California walnut cookies bring calm, comfort, and brain-boosting omega-3s: 🧘🤍", hi: "तनाव से राहत! अखरोट और शुद्ध मक्खन की यह शांतिदायक मिठास: 🧘🤍", kn: "ಮನಸ್ಸಿನ ಶಾಂತಿಗೆ! ಒಮೆಗಾ-3 ಸಮೃದ್ಧ ವಾಲ್ನಟ್ ಕುಕಿಗಳು: 🧘🤍", ta: "மன அமைதிக்கு! ஒமேகா-3 நிறைந்த வால்நட் தேர்வு: 🧘🤍", te: "ప్రశాంతత కోసం! ఒమేగా-3 సమృద్ధ వాల్నట్ రుచులు: 🧘🤍", fr: "Prenez une pause apaisante et réconfortante: 🧘🤍", ar: "لاستعادة السكينة والهدوء: 🧘🤍", ml: "മനസ്സിന് ശാന്തി നൽകാൻ: 🧘🤍" },
+            romantic: { en: "In a sweet and romantic mood? Our delicate rose petals and rich 70% dark chocochip are made for sharing: 🌹💕", hi: "रोमांटिक और मीठा माहौल! गुलाब और डार्क चॉकलेट का यह स्वादिष्ट सम्मिश्रण: 🌹💕", kn: "ರೊಮ್ಯಾಂಟಿಕ್ ಕ್ಷಣಗಳು! ಗುಲಾಬಿ ಹಾಗೂ ಡಾರ್ಕ್ ಚಾಕೊಲೇಟ್ ಸಂಗಮ: 🌹💕", ta: "காதல் ததும்பும் நேரம்! ரோஜா மற்றும் சாக்லேட் சுவைகள்: 🌹💕", te: "రొమాంటిక్ క్షణాలు! గులాబీ మరియు డార్క్ చాక్లెట్ రుచులు: 🌹💕", fr: "Humeur romantique et gourmande: 🌹💕", ar: "لحظات رومانسية مميزة ولذيذة: 🌹💕", ml: "റൊമാന്റിക് അനുഭൂതി: 🌹💕" },
+            stressed: { en: "Take a deep breath — these buttery walnut cookies bring calm, comfort, and brain-boosting omega-3s: 🧘🤍", hi: "तनाव से राहत! अखरोट और शुद्ध मक्खन की यह शांतिदायक मिठास: 🧘🤍", kn: "ಮನಸ್ಸಿನ ಶಾಂತಿಗೆ! ಒಮೆಗಾ-3 ಸಮೃದ್ಧ ವಾಲ್ನಟ್ ಕುಕಿಗಳು: 🧘🤍", ta: "மன அமைதிக்கு! ஒமேகா-3 நிறைந்த வால்நட் தேர்வு: 🧘🤍", te: "ప్రశాంతత కోసం! ఒమేగా-3 సమృద్ధ వాల్నట్ రుచులు: 🧘🤍", fr: "Prenez une pause apaisante et réconfortante: 🧘🤍", ar: "لاستعادة السكينة والهدوء: 🧘🤍", ml: "മനസ്സിന് ശാന്തി നൽകാൻ: 🧘🤍" },
             health: { en: "Looking for healthy & guilt-free indulgence? 100% Sugar-free, sweetened with pure plant Stevia: 🥗🌿", hi: "स्वास्थ्य और शुद्धता! 100% बिना चीनी, प्राकृतिक स्टीविया युक्त: 🥗🌿", kn: "ಆರೋಗ್ಯಕ್ಕೆ ಆದ್ಯತೆ! ಸಕ್ಕರೆ ರಹಿತ ಶುದ್ಧ ಸ್ಟೀವಿಯಾ ಕುಕಿಗಳು: 🥗🌿", ta: "ஆரோக்கியத்திற்கான அற்புதம்! சர்க்கரை இல்லாத ஸ்டீவியா குக்கிகள்: 🥗🌿", te: "ఆరోగ్యకరమైన ఎంపిక! చక్కెర రహిత స్టీవియా రుచులు: 🥗🌿", fr: "Gourmandise saine et sans sucre ajouté: 🥗🌿", ar: "حلويات صحية ولذيذة خالية من السكر: 🥗🌿", ml: "ആരോഗ്യകരമായ തിരഞ്ഞെടുപ്പ്: 🥗🌿" },
             festive: { en: "Ready to celebrate! Our most popular luxury gift boxes and bestselling cookie assortments: 🎉✨", hi: "उत्सव और पार्टी! उपहार और दावतों के लिए हमारा सर्वश्रेष्ठ संग्रह: 🎉✨", kn: "ಸಂಭ್ರಮದ ಕ್ಷಣಗಳು! ಉಡುಗೊರೆಗಾಗಿ ಅತ್ಯುತ್ತಮ ಆಯ್ಕೆ: 🎉✨", ta: "கொண்டாட்ட தருணங்கள்! பரிசளிக்க சிறந்த தேர்வுகள்: 🎉✨", te: "ఉత్సవ సంబరాలు! గిఫ్ట్ కోసం అద్భుతమైన రుచులు: 🎉✨", fr: "Célébrez avec nos coffrets cadeaux festifs: 🎉✨", ar: "احتفل بأرقى علب الهدايا الفاخرة: 🎉✨", ml: "ഉത്സവാഘോഷങ്ങൾ: 🎉✨" },
             sad: { en: "Sending you warmth and comfort 🤗 A warm cup of tea paired with rich chocolate chip and butterscotch will brighten your day:", hi: "मन को सांत्वना देने वाली हमारी सबसे स्वादिष्ट और आरामदायक कुकीज़: 🤗", kn: "ಮನಸ್ಸಿಗೆ ಆಹ್ಲಾದ ನೀಡುವ ವಿಶಿಷ್ಟ ಕುಕಿಗಳು: 🤗", ta: "மனதை இதமாக்கும் சுவைகள்: 🤗", te: "మనసుకు హాయినిచ్చే రుచులు: 🤗", fr: "Un réconfort chaleureux et gourmand: 🤗", ar: "نرسل لك الدفء والسعادة مع أشهى الشوكولاتة: 🤗", ml: "ആശ്വാസം നൽകുന്നവ: 🤗" }
@@ -612,7 +662,7 @@
             // AI Intent Recognition: Smart Recommendation
             if (/recommend|suggest|which one|best seller|favorite|popular|top|pairing/.test(q)) {
                 return {
-                    text: `✨ <strong>Sommelier's Bestseller Recommendation</strong><br>Our #1 most-loved pairing is <strong>Almond Rich Cookies</strong> (buttery &amp; nutty crunch) paired with our <strong>70% Belgian Dark Chocochip Muffin</strong>!<br><br>Want a personalized flavour match? <button onclick="window.top.document.getElementById('btn-open-flavor-quiz')?.click()" style="background:linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%); border:none; color:#120E0B; padding:8px 16px; border-radius:8px; font-weight:800; cursor:pointer;">Take AI Flavour Quiz</button>`,
+                    text: `✨ <strong>Sommelier's Bestseller Recommendation</strong><br>Our #1 most-loved pairing is <strong>Almond Rich Cookies</strong> (buttery &amp; nutty crunch) paired with our <strong>70% Dark Chocochip Muffin</strong>!<br><br>Want a personalized flavour match? <button onclick="window.top.document.getElementById('btn-open-flavor-quiz')?.click()" style="background:linear-gradient(135deg, #FFDF79 0%, #D4AF37 50%, #996515 100%); border:none; color:#120E0B; padding:8px 16px; border-radius:8px; font-weight:800; cursor:pointer;">Take AI Flavour Quiz</button>`,
                     card: 'almond'
                 };
             }
@@ -1157,6 +1207,24 @@
             window.open('https://wa.me/918884102020?text=' + text, '_blank');
         }
 
+        function goToProductPage(key) {
+            const k = String(key || 'almond').trim().toLowerCase();
+            const targetUrl = `/product.html?id=${encodeURIComponent(k)}`;
+            try {
+                if (window.top && window.top !== window) {
+                    window.top.location.href = targetUrl;
+                    return;
+                }
+                if (window.parent && window.parent !== window) {
+                    window.parent.location.href = targetUrl;
+                    return;
+                }
+            } catch (e) {
+                console.warn('Navigation fallback:', e);
+            }
+            window.location.href = targetUrl;
+        }
+
         let cart = [];
         let favorites = [];
         let reviews = {};
@@ -1277,11 +1345,7 @@
                 const isFav = favorites.includes(key);
                 const localImg = LOCAL_IMAGES[key] || c.img;
                 const imgHTML = localImg ? `<img class="grid-card-img" src="${localImg}" alt="${c.name}" loading="lazy" onerror="this.onerror=null; this.src='${c.img || ''}'; if(!this.src) this.parentNode.innerHTML='<div class=\\'grid-card-img-placeholder\\' style=\\'background:${c.color}\\'>${c.emoji}</div>';">` : `<div class="grid-card-img-placeholder" style="background:${c.color}">${c.emoji}</div>`;
-                const itemReviews = reviews[key] || [];
-                const customSum = itemReviews.reduce((sum, r) => sum + r.rating, 0);
-                const avg = itemReviews.length > 0 ? (customSum / itemReviews.length).toFixed(1) : "5.0";
-                const stars = '★'.repeat(Math.round(parseFloat(avg))) + '☆'.repeat(5 - Math.round(parseFloat(avg)));
-                return `<div class="grid-card" onclick="trackCookieView('${key}')"><div class="grid-card-img-wrapper" onclick="openQuickView('${key}'); event.stopPropagation();">${imgHTML}<button class="grid-card-heart ${isFav ? 'active' : ''}" onclick="toggleFavorite('${key}', this); event.stopPropagation();" title="Save Favorite"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="grid-card-price-badge">₹${price} / pack</div></div><div class="grid-card-body" onclick="openQuickView('${key}'); event.stopPropagation();"><div class="grid-card-name">${c.emoji} ${c.name}</div><div class="grid-card-stars">${stars} (${avg})</div><div class="grid-card-review">${c.review}</div><div class="grid-card-footer"><button class="grid-card-btn grid-btn-details" onclick="openQuickView('${key}'); event.stopPropagation();">Info</button><button class="grid-card-btn grid-btn-cart" onclick="openChatbotBoxModal('${key}'); event.stopPropagation();">+ Add</button></div></div></div>`;
+                return `<div class="grid-card" onclick="goToProductPage('${key}')"><div class="grid-card-img-wrapper" onclick="goToProductPage('${key}'); event.stopPropagation();">${imgHTML}<button class="grid-card-heart ${isFav ? 'active' : ''}" onclick="toggleFavorite('${key}', this); event.stopPropagation();" title="Save Favorite"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button></div><div class="grid-card-body" onclick="goToProductPage('${key}'); event.stopPropagation();"><div class="grid-card-name">${c.emoji} ${c.name}</div><div class="grid-card-stars">${stars} (${ratingNum})</div><div class="grid-card-review">${c.review}</div><div class="grid-card-footer"><button class="grid-card-btn grid-btn-details" onclick="goToProductPage('${key}'); event.stopPropagation();">Info</button><button class="grid-card-btn grid-btn-cart" onclick="openChatbotBoxModal('${key}'); event.stopPropagation();">+ Add</button></div></div></div>`;
             }).join('');
 
         }
@@ -1571,20 +1635,18 @@
         }
 
         function openQuickView(key) {
-            currentQVKey = key; currentQVTab = "nut"; selectedQVRating = 5;
-            const c = COOKIES[key]; const price = COOKIE_PRICES[key] || 150;
-            document.getElementById('qvName').textContent = c.name;
-            document.getElementById('qvPrice').textContent = `₹${price} / pack`;
-            document.getElementById('qvReview').textContent = c.review;
-            const imgArea = document.getElementById('qvImageArea');
-            const localImg = LOCAL_IMAGES[key] || c.img;
-            if (localImg) { imgArea.innerHTML = `<img class="qv-hero-img" src="${localImg}" alt="${c.name}" onerror="this.onerror=null; this.src='${c.img || ''}'; if(!this.src) this.parentNode.innerHTML='<div class=\\'qv-hero-placeholder\\' style=\\'background:${c.color}\\'>${c.emoji}</div>';">`; }
-            else { imgArea.innerHTML = `<div class="qv-hero-placeholder" style="background:${c.color}">${c.emoji}</div>`; }
-            document.getElementById('quickViewModalOverlay').classList.add('open');
-            switchQVTab('nut'); drawQVQRCode(key);
+            goToProductPage(key);
         }
 
-        function closeQuickView() { document.getElementById('quickViewModalOverlay').classList.remove('open'); }
+        function closeQuickView() { 
+            const overlay = document.getElementById('quickViewModalOverlay');
+            if (overlay) {
+                overlay.classList.remove('open');
+                overlay.style.display = 'none';
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+            }
+        }
         function handleQuickViewOverlayClick(e) { if (e.target === document.getElementById('quickViewModalOverlay')) closeQuickView(); }
 
         function switchQVTab(tab) {
@@ -1747,7 +1809,8 @@
 
         function buildOffscreenCard(key) {
             const c = COOKIES[key];
-            const stars = '★'.repeat(c.stars) + '☆'.repeat(5 - c.stars);
+            const ratingNum = c.rating ? parseFloat(c.rating).toFixed(1) : "5.0";
+            const stars = getProductStars(c.rating);
             const nutRows = Object.entries(c.nutrition).map(([k, v]) =>
                 `<div style="background:#F5ECD7;border-radius:8px;padding:8px 6px;text-align:center;flex:1;min-width:0">
             <div style="font-size:13px;font-weight:700;color:#3D2000;font-family:Georgia,serif">${v}</div>
@@ -1765,7 +1828,7 @@
     <div style="width:400px;background:#FDF8F2;font-family:'DM Sans',Arial,sans-serif;border-radius:20px;overflow:hidden;border:1px solid #E8D5B0;box-shadow:0 8px 40px rgba(0,0,0,0.12)">
         ${imgSection}
         <div style="padding:18px 18px 14px">
-            <div style="color:#C8960C;font-size:15px;margin-bottom:4px">${stars} (5.0)</div>
+            <div style="color:#C8960C;font-size:15px;margin-bottom:4px">${stars} (${ratingNum})</div>
             <div style="font-family:Georgia,serif;font-size:20px;color:#3D2000;margin-bottom:8px">${c.emoji} ${c.name}</div>
             <div style="font-size:12px;color:#8B6840;line-height:1.6;margin-bottom:14px">${c.review}</div>
             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">${nutRows}</div>

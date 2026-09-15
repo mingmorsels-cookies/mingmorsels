@@ -144,14 +144,198 @@
       transform: translateY(-1px);
     }
 
-    /* Empty Blog Canvas */
+    /* Blog Video Showcase with Luxury Mandala Border */
     .blog-empty-canvas {
       flex: 1;
-      min-height: 65vh;
-      max-width: 1200px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 40px 24px;
+      padding: 44px 20px 80px;
       width: 100%;
+      position: relative;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .blog-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #7A5308;
+      background: linear-gradient(135deg, #FFF6DD 0%, #FDF0CA 100%);
+      border: 1px solid rgba(200, 150, 12, 0.35);
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 10px rgba(200, 150, 12, 0.12);
+    }
+    .blog-title {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4.5vw, 44px);
+      font-weight: 800;
+      color: var(--brown);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .blog-subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Mandala Section Divider */
+    .mandala-crest-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 20px auto 36px;
+      max-width: 520px;
+      width: 100%;
+    }
+    .mandala-crest-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200, 150, 12, 0.6), transparent);
+    }
+    .mandala-crest-svg {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+    }
+
+    /* Outer Luxury Mandala Card Container */
+    .mandala-card-outer {
+      position: relative;
+      background: #FFFFFF;
+      border-radius: 28px;
+      padding: 12px;
+      box-shadow: 
+        0 20px 60px rgba(44, 24, 0, 0.08),
+        0 4px 18px rgba(200, 150, 12, 0.12);
+      border: 1.5px solid rgba(212, 175, 55, 0.4);
+      background-clip: padding-box;
+      max-width: 940px;
+      margin: 0 auto;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+    }
+    .mandala-card-outer:hover {
+      box-shadow: 
+        0 26px 70px rgba(44, 24, 0, 0.12),
+        0 8px 30px rgba(200, 150, 12, 0.22);
+      border-color: rgba(212, 175, 55, 0.7);
+      transform: translateY(-2px);
+    }
+
+    /* Inner Double-Line Mandala Pattern Border */
+    .mandala-card-inner {
+      position: relative;
+      border: 1px solid rgba(200, 150, 12, 0.45);
+      border-radius: 20px;
+      padding: 24px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FCFAF7 100%);
+      overflow: hidden;
+    }
+
+    /* Subtle Mandala Background Watermark */
+    .mandala-bg-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 480px;
+      height: 480px;
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 4 Mandala Corner SVG Ornaments */
+    .mandala-corner {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      pointer-events: none;
+      z-index: 2;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+    .mandala-tl { top: -2px; left: -2px; }
+    .mandala-tr { top: -2px; right: -2px; transform: scaleX(-1); }
+    .mandala-bl { bottom: -2px; left: -2px; transform: scaleY(-1); }
+    .mandala-br { bottom: -2px; right: -2px; transform: scale(-1); }
+
+    .mandala-card-outer:hover .mandala-corner {
+      filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
+    }
+
+    /* Video Frame Styling */
+    .mandala-video-box {
+      position: relative;
+      z-index: 1;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0D0907;
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.15);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mandala-video-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+
+    /* Content Area below Video */
+    .mandala-video-info {
+      position: relative;
+      z-index: 1;
+      padding: 24px 12px 10px;
+      text-align: left;
+    }
+    .mandala-meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #8C5D08;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+    .mandala-meta-badge .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #C8960C;
+    }
+    .mandala-video-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .mandala-video-desc {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.65;
     }
 
     /* Footer */
@@ -180,6 +364,12 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-cta { padding: 7px 14px; font-size: 12px; }
+      .blog-empty-canvas { padding: 28px 14px 50px; }
+      .mandala-card-outer { padding: 8px; border-radius: 20px; }
+      .mandala-card-inner { padding: 14px 12px; border-radius: 14px; }
+      .mandala-corner { width: 60px; height: 60px; }
+      .mandala-video-title { font-size: 19px; }
+      .mandala-video-desc { font-size: 13.5px; }
     }
   </style>
 </head>
@@ -211,9 +401,174 @@
     <a href="/#products" class="nav-cta">Order Fresh &rarr;</a>
   </nav>
 
-  <!-- Empty Canvas for User's Future Videos and Photos -->
+  <!-- Blog & Stories Content -->
   <main class="blog-empty-canvas" id="blog-content">
-    <!-- Blank section ready for videos, reels, and photos -->
+    <div class="blog-header">
+      <span class="blog-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C5D08" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Our Stories
+      </span>
+      <h1 class="blog-title">STORIES FROM THE OVEN</h1>
+      <p class="blog-subtitle">Behind-the-scenes moments, artisanal craft, and the sweetness of every handcrafted bite.</p>
+
+      <!-- Royal Mandala Divider -->
+      <div class="mandala-crest-divider">
+        <div class="mandala-crest-line"></div>
+        <svg class="mandala-crest-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#D4AF37" stroke-width="1" stroke-dasharray="2 2"/>
+          <circle cx="30" cy="30" r="22" stroke="#AA771C" stroke-width="0.8"/>
+          <circle cx="30" cy="30" r="14" stroke="#D4AF37" stroke-width="1.2"/>
+          <circle cx="30" cy="30" r="5" fill="#D4AF37"/>
+          <!-- Mandala 8 Petals -->
+          <path d="M30,8 Q34,19 30,22 Q26,19 30,8 Z" fill="#D4AF37" fill-opacity="0.8"/>
+          <path d="M30,52 Q34,41 30,38 Q26,41 30,52 Z" fill="#D4AF37" fill-opacity="0.8"/>
+          <path d="M8,30 Q19,34 22,30 Q19,26 8,30 Z" fill="#D4AF37" fill-opacity="0.8"/>
+          <path d="M52,30 Q41,34 38,30 Q41,26 52,30 Z" fill="#D4AF37" fill-opacity="0.8"/>
+          <path d="M14.4,14.4 Q23.5,21.5 24.3,24.3 Q21.5,23.5 14.4,14.4 Z" fill="#AA771C" fill-opacity="0.7"/>
+          <path d="M45.6,45.6 Q36.5,38.5 35.7,35.7 Q38.5,36.5 45.6,45.6 Z" fill="#AA771C" fill-opacity="0.7"/>
+          <path d="M45.6,14.4 Q38.5,23.5 35.7,24.3 Q36.5,21.5 45.6,14.4 Z" fill="#AA771C" fill-opacity="0.7"/>
+          <path d="M14.4,45.6 Q21.5,36.5 24.3,35.7 Q23.5,38.5 14.4,45.6 Z" fill="#AA771C" fill-opacity="0.7"/>
+        </svg>
+        <div class="mandala-crest-line"></div>
+      </div>
+    </div>
+
+    <!-- Luxury Mandala Frame Card -->
+    <article class="mandala-card-outer">
+      <!-- 4 Ornate Mandala Corner SVGs -->
+      <svg class="mandala-corner mandala-tl" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldCornerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E5C158"/>
+            <stop offset="50%" stop-color="#C8960C"/>
+            <stop offset="100%" stop-color="#8C5D08"/>
+          </linearGradient>
+        </defs>
+        <circle cx="0" cy="0" r="92" stroke="url(#goldCornerGrad)" stroke-width="0.75" stroke-dasharray="2 3"/>
+        <circle cx="0" cy="0" r="80" stroke="url(#goldCornerGrad)" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="66" stroke="url(#goldCornerGrad)" stroke-width="0.8"/>
+        <circle cx="0" cy="0" r="50" stroke="url(#goldCornerGrad)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="34" stroke="url(#goldCornerGrad)" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="16" fill="url(#goldCornerGrad)" fill-opacity="0.2" stroke="url(#goldCornerGrad)" stroke-width="1"/>
+        <!-- Radial Petals & Arcs -->
+        <path d="M0,16 Q10,24 0,34 Q-10,24 0,16" fill="url(#goldCornerGrad)" fill-opacity="0.4"/>
+        <path d="M16,0 Q24,10 34,0 Q24,-10 16,0" fill="url(#goldCornerGrad)" fill-opacity="0.4"/>
+        <path d="M11,11 C26,32 42,42 56,56 C42,42 32,26 11,11 Z" fill="url(#goldCornerGrad)" fill-opacity="0.35" stroke="url(#goldCornerGrad)" stroke-width="0.8"/>
+        <path d="M0,50 Q20,60 38,38 Q60,20 50,0" stroke="url(#goldCornerGrad)" stroke-width="1" fill="none"/>
+        <path d="M0,66 Q26,76 48,48 Q76,26 66,0" stroke="url(#goldCornerGrad)" stroke-width="0.9" fill="none"/>
+        <path d="M0,80 Q32,92 58,58 Q92,32 80,0" stroke="url(#goldCornerGrad)" stroke-width="1" fill="none"/>
+        <!-- Beaded Accents -->
+        <circle cx="80" cy="0" r="2.2" fill="url(#goldCornerGrad)"/>
+        <circle cx="77.2" cy="20.7" r="1.6" fill="url(#goldCornerGrad)"/>
+        <circle cx="69.3" cy="40" r="1.8" fill="url(#goldCornerGrad)"/>
+        <circle cx="56.5" cy="56.5" r="2.5" fill="url(#goldCornerGrad)"/>
+        <circle cx="40" cy="69.3" r="1.8" fill="url(#goldCornerGrad)"/>
+        <circle cx="20.7" cy="77.2" r="1.6" fill="url(#goldCornerGrad)"/>
+        <circle cx="0" cy="80" r="2.2" fill="url(#goldCornerGrad)"/>
+      </svg>
+
+      <svg class="mandala-corner mandala-tr" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <use href="#goldCornerGrad"/>
+        <circle cx="0" cy="0" r="92" stroke="#C8960C" stroke-width="0.75" stroke-dasharray="2 3"/>
+        <circle cx="0" cy="0" r="80" stroke="#C8960C" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="66" stroke="#C8960C" stroke-width="0.8"/>
+        <circle cx="0" cy="0" r="50" stroke="#C8960C" stroke-width="1"/>
+        <circle cx="0" cy="0" r="34" stroke="#C8960C" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="16" fill="#C8960C" fill-opacity="0.2" stroke="#C8960C" stroke-width="1"/>
+        <path d="M0,16 Q10,24 0,34 Q-10,24 0,16" fill="#C8960C" fill-opacity="0.4"/>
+        <path d="M16,0 Q24,10 34,0 Q24,-10 16,0" fill="#C8960C" fill-opacity="0.4"/>
+        <path d="M11,11 C26,32 42,42 56,56 C42,42 32,26 11,11 Z" fill="#C8960C" fill-opacity="0.35" stroke="#C8960C" stroke-width="0.8"/>
+        <path d="M0,50 Q20,60 38,38 Q60,20 50,0" stroke="#C8960C" stroke-width="1" fill="none"/>
+        <path d="M0,66 Q26,76 48,48 Q76,26 66,0" stroke="#C8960C" stroke-width="0.9" fill="none"/>
+        <path d="M0,80 Q32,92 58,58 Q92,32 80,0" stroke="#C8960C" stroke-width="1" fill="none"/>
+        <circle cx="80" cy="0" r="2.2" fill="#C8960C"/>
+        <circle cx="77.2" cy="20.7" r="1.6" fill="#C8960C"/>
+        <circle cx="69.3" cy="40" r="1.8" fill="#C8960C"/>
+        <circle cx="56.5" cy="56.5" r="2.5" fill="#C8960C"/>
+        <circle cx="40" cy="69.3" r="1.8" fill="#C8960C"/>
+        <circle cx="20.7" cy="77.2" r="1.6" fill="#C8960C"/>
+        <circle cx="0" cy="80" r="2.2" fill="#C8960C"/>
+      </svg>
+
+      <svg class="mandala-corner mandala-bl" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="0" cy="0" r="92" stroke="#C8960C" stroke-width="0.75" stroke-dasharray="2 3"/>
+        <circle cx="0" cy="0" r="80" stroke="#C8960C" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="66" stroke="#C8960C" stroke-width="0.8"/>
+        <circle cx="0" cy="0" r="50" stroke="#C8960C" stroke-width="1"/>
+        <circle cx="0" cy="0" r="34" stroke="#C8960C" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="16" fill="#C8960C" fill-opacity="0.2" stroke="#C8960C" stroke-width="1"/>
+        <path d="M0,16 Q10,24 0,34 Q-10,24 0,16" fill="#C8960C" fill-opacity="0.4"/>
+        <path d="M16,0 Q24,10 34,0 Q24,-10 16,0" fill="#C8960C" fill-opacity="0.4"/>
+        <path d="M11,11 C26,32 42,42 56,56 C42,42 32,26 11,11 Z" fill="#C8960C" fill-opacity="0.35" stroke="#C8960C" stroke-width="0.8"/>
+        <path d="M0,50 Q20,60 38,38 Q60,20 50,0" stroke="#C8960C" stroke-width="1" fill="none"/>
+        <path d="M0,66 Q26,76 48,48 Q76,26 66,0" stroke="#C8960C" stroke-width="0.9" fill="none"/>
+        <path d="M0,80 Q32,92 58,58 Q92,32 80,0" stroke="#C8960C" stroke-width="1" fill="none"/>
+        <circle cx="80" cy="0" r="2.2" fill="#C8960C"/>
+        <circle cx="77.2" cy="20.7" r="1.6" fill="#C8960C"/>
+        <circle cx="69.3" cy="40" r="1.8" fill="#C8960C"/>
+        <circle cx="56.5" cy="56.5" r="2.5" fill="#C8960C"/>
+        <circle cx="40" cy="69.3" r="1.8" fill="#C8960C"/>
+        <circle cx="20.7" cy="77.2" r="1.6" fill="#C8960C"/>
+        <circle cx="0" cy="80" r="2.2" fill="#C8960C"/>
+      </svg>
+
+      <svg class="mandala-corner mandala-br" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="0" cy="0" r="92" stroke="#C8960C" stroke-width="0.75" stroke-dasharray="2 3"/>
+        <circle cx="0" cy="0" r="80" stroke="#C8960C" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="66" stroke="#C8960C" stroke-width="0.8"/>
+        <circle cx="0" cy="0" r="50" stroke="#C8960C" stroke-width="1"/>
+        <circle cx="0" cy="0" r="34" stroke="#C8960C" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="16" fill="#C8960C" fill-opacity="0.2" stroke="#C8960C" stroke-width="1"/>
+        <path d="M0,16 Q10,24 0,34 Q-10,24 0,16" fill="#C8960C" fill-opacity="0.4"/>
+        <path d="M16,0 Q24,10 34,0 Q24,-10 16,0" fill="#C8960C" fill-opacity="0.4"/>
+        <path d="M11,11 C26,32 42,42 56,56 C42,42 32,26 11,11 Z" fill="#C8960C" fill-opacity="0.35" stroke="#C8960C" stroke-width="0.8"/>
+        <path d="M0,50 Q20,60 38,38 Q60,20 50,0" stroke="#C8960C" stroke-width="1" fill="none"/>
+        <path d="M0,66 Q26,76 48,48 Q76,26 66,0" stroke="#C8960C" stroke-width="0.9" fill="none"/>
+        <path d="M0,80 Q32,92 58,58 Q92,32 80,0" stroke="#C8960C" stroke-width="1" fill="none"/>
+        <circle cx="80" cy="0" r="2.2" fill="#C8960C"/>
+        <circle cx="77.2" cy="20.7" r="1.6" fill="#C8960C"/>
+        <circle cx="69.3" cy="40" r="1.8" fill="#C8960C"/>
+        <circle cx="56.5" cy="56.5" r="2.5" fill="#C8960C"/>
+        <circle cx="40" cy="69.3" r="1.8" fill="#C8960C"/>
+        <circle cx="20.7" cy="77.2" r="1.6" fill="#C8960C"/>
+        <circle cx="0" cy="80" r="2.2" fill="#C8960C"/>
+      </svg>
+
+      <!-- Inner Content Container -->
+      <div class="mandala-card-inner">
+        <!-- Background Mandala Rosette Watermark -->
+        <svg class="mandala-bg-watermark" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="96" stroke="#AA771C" stroke-width="1" stroke-dasharray="3 3"/>
+          <circle cx="100" cy="100" r="80" stroke="#D4AF37" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="60" stroke="#AA771C" stroke-width="1"/>
+          <circle cx="100" cy="100" r="40" stroke="#D4AF37" stroke-width="1.2"/>
+          <circle cx="100" cy="100" r="20" stroke="#AA771C" stroke-width="1.5"/>
+          <path d="M100,20 Q112,60 100,80 Q88,60 100,20 Z" fill="#D4AF37"/>
+          <path d="M100,180 Q112,140 100,120 Q88,140 100,180 Z" fill="#D4AF37"/>
+          <path d="M20,100 Q60,112 80,100 Q60,88 20,100 Z" fill="#D4AF37"/>
+          <path d="M180,100 Q140,112 120,100 Q140,88 180,100 Z" fill="#D4AF37"/>
+        </svg>
+
+        <!-- Video Player Box -->
+        <div class="mandala-video-box">
+          <video controls playsinline preload="metadata" poster="/logo.png">
+            <source src="/blog1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Video Information Description -->
+        <div class="mandala-video-info">
+          <div class="mandala-meta-badge">
+            <span>✨ Artisanal Story</span>
+            <span class="dot"></span>
+            <span>mingmorsels Bengaluru</span>
+          </div>
+          <h2 class="mandala-video-title">Handcrafting Confectionery Magic</h2>
+          <p class="mandala-video-desc">Take a look inside our baking atelier where pure ingredients, timeless recipes, and artisan passion come together to create your favorite cookies and muffins.</p>
+        </div>
+      </div>
+    </article>
   </main>
 
   <!-- Footer -->

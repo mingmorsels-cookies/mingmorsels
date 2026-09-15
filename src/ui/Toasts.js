@@ -4,8 +4,8 @@
 
 const RECENT_PURCHASES = [
   { name: 'Priya S.', location: 'Indiranagar, Bengaluru', item: 'Royal Roasted Almond Box', time: '2 mins ago' },
-  { name: 'Vikram M.', location: 'Koramangala, Bengaluru', item: 'Damascus Rose Petal Box', time: '4 mins ago' },
-  { name: 'Ananya R.', location: 'Whitefield, Bengaluru', item: '70% Dark Belgian Lava Muffin', time: '6 mins ago' },
+  { name: 'Vikram M.', location: 'Koramangala, Bengaluru', item: 'Rose Petal Cookie Box', time: '4 mins ago' },
+  { name: 'Ananya R.', location: 'Whitefield, Bengaluru', item: '70% Dark Choco Lava Muffin', time: '6 mins ago' },
   { name: 'Rohan D.', location: 'HSR Layout, Bengaluru', item: 'Bespoke Connoisseur Box (6 Flavors)', time: '8 mins ago' },
   { name: 'Kavita N.', location: 'Jayanagar, Bengaluru', item: 'Sugar-Free Walnut Delight Box', time: '11 mins ago' }
 ];

@@ -8,20 +8,29 @@ export class LiveFeedController {
   constructor() {
     this.eventSource = null;
     this.popupEl = null;
-    this.profileIdx = 0;
-    this.prodIdx = 0;
+    this.lastProfileIdx = -1;
+    this.lastProdIdx = -1;
+    this.timerId = null;
 
     this.customerProfiles = [
-      { name: "Sourav H.M.", location: "Bengaluru, KA" },
       { name: "Ananya R.", location: "Indiranagar, BLR" },
       { name: "Rohan M.", location: "Koramangala, BLR" },
-      { name: "Priya S.", location: "Whitefield, BLR" },
-      { name: "Vikram K.", location: "Mumbai, MH" },
-      { name: "Meera D.", location: "New Delhi, DL" },
+      { name: "Pooja S.", location: "Whitefield, BLR" },
+      { name: "Vikram K.", location: "Bandra, Mumbai" },
+      { name: "Meera D.", location: "Vasant Kunj, Delhi" },
       { name: "Aditya N.", location: "HSR Layout, BLR" },
       { name: "Sneha P.", location: "Jayanagar, BLR" },
-      { name: "Tarun V.", location: "Hyderabad, TS" },
-      { name: "Kavya B.", location: "Chennai, TN" }
+      { name: "Tarun V.", location: "Banjara Hills, HYD" },
+      { name: "Kavya B.", location: "Anna Nagar, Chennai" },
+      { name: "Siddharth J.", location: "Sadashivanagar, BLR" },
+      { name: "Deepika S.", location: "Salt Lake, Kolkata" },
+      { name: "Arjun M.", location: "Gokulam, Mysuru" },
+      { name: "Neha K.", location: "Koregaon Park, Pune" },
+      { name: "Rahul B.", location: "JP Nagar, BLR" },
+      { name: "Priya V.", location: "Malleshwaram, BLR" },
+      { name: "Nikhil T.", location: "Bellandur, BLR" },
+      { name: "Shreya G.", location: "Jubilee Hills, HYD" },
+      { name: "Gaurav S.", location: "Powai, Mumbai" }
     ];
 
     this.products = [
@@ -43,7 +52,7 @@ export class LiveFeedController {
 
   init() {
     this.buildPopupDOM();
-    this.startSimulationInterval();
+    this.scheduleNextPopup(Math.floor(Math.random() * 4000) + 4000); // 4-8s initial delay
     this.connectLiveSSE();
   }
 
@@ -59,14 +68,14 @@ export class LiveFeedController {
         </div>
         <div class="live-purchase-content">
           <div class="live-purchase-header">
-            <span id="live-purchase-name">Sourav</span>
-            <span id="live-purchase-loc" class="live-purchase-loc">from Mysuru, KA</span>
+            <span id="live-purchase-name">Customer</span>
+            <span id="live-purchase-loc" class="live-purchase-loc">from Bengaluru</span>
           </div>
           <div class="live-purchase-text">
-            just bought <strong id="live-purchase-item">Rose Petal Cookies</strong>
+            just bought <strong id="live-purchase-item">Rose Petal Cookie</strong>
           </div>
           <div class="live-purchase-time">
-            <span class="live-purchase-dot"></span> <span id="live-purchase-time-text">Verified Purchase · 2m ago</span>
+            <span class="live-purchase-dot"></span> <span id="live-purchase-time-text">Verified Purchase · Just now</span>
           </div>
         </div>
         <button id="live-purchase-close" class="live-purchase-close" aria-label="Close">&times;</button>
@@ -79,15 +88,30 @@ export class LiveFeedController {
     }
   }
 
+  getRandomProfile() {
+    let idx = Math.floor(Math.random() * this.customerProfiles.length);
+    if (idx === this.lastProfileIdx && this.customerProfiles.length > 1) {
+      idx = (idx + 1) % this.customerProfiles.length;
+    }
+    this.lastProfileIdx = idx;
+    return this.customerProfiles[idx];
+  }
+
+  getRandomProduct() {
+    let idx = Math.floor(Math.random() * this.products.length);
+    if (idx === this.lastProdIdx && this.products.length > 1) {
+      idx = (idx + 1) % this.products.length;
+    }
+    this.lastProdIdx = idx;
+    return this.products[idx];
+  }
+
   triggerPopup(customData = null) {
     if (!this.popupEl) return;
 
-    const profile = customData?.profile || this.customerProfiles[this.profileIdx % this.customerProfiles.length];
-    const prod = customData?.product || this.products[this.prodIdx % this.products.length];
+    const profile = customData?.profile || this.getRandomProfile();
+    const prod = customData?.product || this.getRandomProduct();
     const timeAgo = customData?.timeAgo || this.timesAgo[Math.floor(Math.random() * this.timesAgo.length)];
-
-    this.profileIdx++;
-    this.prodIdx++;
 
     const nameEl = document.getElementById('live-purchase-name');
     const locEl = document.getElementById('live-purchase-loc');
@@ -105,12 +129,17 @@ export class LiveFeedController {
 
     setTimeout(() => {
       this.popupEl.classList.remove('show');
-    }, 7000);
+    }, 6500);
   }
 
-  startSimulationInterval() {
-    setTimeout(() => this.triggerPopup(), 5000);
-    setInterval(() => this.triggerPopup(), 3 * 60 * 1000);
+  scheduleNextPopup(delayMs) {
+    if (this.timerId) clearTimeout(this.timerId);
+    this.timerId = setTimeout(() => {
+      this.triggerPopup();
+      // Next popup after 45s - 85s
+      const nextDelay = Math.floor(Math.random() * 40000) + 45000;
+      this.scheduleNextPopup(nextDelay);
+    }, delayMs);
   }
 
   connectLiveSSE() {
@@ -122,7 +151,7 @@ export class LiveFeedController {
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'NEW_ORDER') {
-            const firstItem = data.order?.items?.[0] || { name: 'Artisanal Cookies', image: '/rose-petal/1.jpg' };
+            const firstItem = data.order?.items?.[0] || { name: 'Rose Petal Cookie', image: '/rose-petal/1.jpg' };
             this.triggerPopup({
               profile: { name: data.order?.user_name || 'Connoisseur', location: 'Bengaluru, KA' },
               product: { name: firstItem.name, img: firstItem.image || '/rose-petal/1.jpg' },
@@ -137,3 +166,4 @@ export class LiveFeedController {
 }
 
 export const liveFeedController = new LiveFeedController();
+

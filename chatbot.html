@@ -2642,9 +2642,10 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 600;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 999999;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.25s;
@@ -2655,8 +2656,9 @@
         }
 
         .modal-overlay.open {
-            opacity: 1;
-            pointer-events: auto;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            display: flex !important;
         }
 
         .qv-modal {
@@ -3322,7 +3324,7 @@
                     <div class="carousel-text">
                         <div class="carousel-tag">Artisan Bestseller 🌰</div>
                         <div class="carousel-title">Royal Roasted Almond</div>
-                        <div class="carousel-sub">Slow-roasted California almonds in golden pasture butter dough. Perfect with coffee or tea!</div>
+                        <div class="carousel-sub">Slow-roasted whole almonds in golden pasture butter dough. Perfect with coffee or tea!</div>
                     </div>
                     <img src="/almond/1.jpg" class="carousel-img" alt="Almond Rich Cookies" loading="lazy">
                 </div>
@@ -3330,7 +3332,7 @@
                     <div class="carousel-text">
                         <div class="carousel-tag">Healthy Delights 🌿</div>
                         <div class="carousel-title">Sugar-Free Walnut Omega-3</div>
-                        <div class="carousel-sub">Rich California walnuts sweetened naturally with Stevia. Diabetic friendly with 0g added sugar.</div>
+                        <div class="carousel-sub">Rich roasted walnuts sweetened naturally with Stevia. Diabetic friendly with 0g added sugar.</div>
                     </div>
                     <img src="/img-walnut-sf.png?v=2" class="carousel-img" alt="Sugar-Free Walnut" loading="lazy">
                 </div>

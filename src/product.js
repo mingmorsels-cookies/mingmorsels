@@ -11,12 +11,12 @@ const PRODUCTS_DATA = {
     name: 'Almond Rich Cookie',
     category: 'Nutty Indulgence',
     categoryLink: 'Cookies',
-    tagline: 'Whole roasted California almonds & pure cow butter shortbread.',
+    tagline: 'Whole roasted almonds & pure cow butter shortbread.',
     price: 140,
     rating: '5.0',
     reviewsCount: 128,
-    badges: ['Nut Rich', 'Plant-Based Stevia', 'Zero Palm Oil'],
-    desc: 'A timeless classic reimagined. Crafted with whole roasted premium California almonds, organic cow butter, and natural plant-based Stevia. Crumbly on the outside, meltingly soft on the inside with a nutty aroma.',
+    badges: ['Recommended ★', 'Nut Rich', 'Plant-Based Stevia'],
+    desc: 'A timeless classic reimagined. Crafted with whole roasted premium almonds, organic cow butter, and natural plant-based Stevia. Crumbly on the outside, meltingly soft on the inside with a nutty aroma.',
     type: 'cookie',
     color: 0xD4A373,
     nutrition: {
@@ -33,9 +33,9 @@ const PRODUCTS_DATA = {
     },
     ingredients: 'Whole Roasted Almonds, Unbleached Wheat Flour, Pure Cow Butter, Natural Stevia Extract, Cardamom Extract, Sea Salt.',
     reviews: [
-      { name: 'Ananya Roy', location: 'Bengaluru', rating: 5, text: 'Absolutely heavenly! The buttery crunch and generous almond bits make these my favorite morning pairing with chai.' },
-      { name: 'Rohan Mehta', location: 'Indiranagar', rating: 5, text: 'Freshly baked perfection! You can taste the natural Stevia and butter instead of sickly sweet sugar.' },
-      { name: 'Priya Sharma', location: 'Koramangala', rating: 5, text: 'The texture is incredible — crisp on the edges and soft in the middle. Packaging was spotless and fresh.' }
+      { name: 'Tejas', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '🤯 Mind Blowing', text: 'I went over to my friend\'s place for evening tea and had one of these Almond cookies. Honestly, I was mind blown by that flavour! The roasted whole almonds paired with real cow butter create a jaw-dropping texture that melts in the mouth. I immediately ordered 4 boxes for my family.' },
+      { name: 'Pritam Roy', location: 'Whitefield, Bengaluru', rating: 5, sentiment: '👌 Chef\'s Kiss', text: 'I am usually very skeptical about packaged confectionery because of cheap palm oil, but mingmorsels Almond Rich tastes like it came fresh out of an artisan bakery oven. Generous whole almond crunch with subtle cardamom warmth. Outstanding quality!' },
+      { name: 'Ananya', location: 'Koramangala, Bengaluru', rating: 5, sentiment: '😍 Loved It', text: 'Served these at our family get-together and they were the first sweet box to get completely wiped out. Crisp edges, buttery soft center, and zero artificial sweetness. Hands down the best almond shortbread in Bengaluru.' }
     ]
   },
   rose: {
@@ -43,12 +43,12 @@ const PRODUCTS_DATA = {
     name: 'Rose Petal Cookie',
     category: 'Floral Delicacy',
     categoryLink: 'Cookies',
-    tagline: 'Infused with authentic Damascus rose petals and rich cow butter.',
+    tagline: 'Infused with authentic dried rose petals and rich cow butter.',
     price: 140,
-    rating: '4.98',
+    rating: '4.9',
     reviewsCount: 96,
-    badges: ['Real Rose Petals', 'Floral Infusion', 'Eggless'],
-    desc: 'An exquisite sensory journey. Made with naturally dried organic Damascus rose petals, cardamom essence, and 100% cow butter. Delicately floral and irresistibly crumbly.',
+    badges: ['Recommended ★', 'Real Rose Petals', '100% Pure Veg'],
+    desc: 'An exquisite sensory journey. Made with naturally dried organic rose petals, cardamom essence, and 100% cow butter. Delicately floral and irresistibly crumbly.',
     type: 'cookie',
     color: 0xE8A598,
     nutrition: {
@@ -63,9 +63,11 @@ const PRODUCTS_DATA = {
       potassium: '143.2mg',
       fibre: '1.2g'
     },
-    ingredients: 'Damascus Rose Petals, Cardamom Pods, Unbleached Flour, Pure Cow Butter, Cane Sugar, Rose Water Extract.',
+    ingredients: 'Dried Rose Petals, Cardamom Pods, Unbleached Flour, Pure Cow Butter, Cane Sugar, Rose Water Extract.',
     reviews: [
-      { name: 'Dr. Meera N.', location: 'Chennai', rating: 5, text: 'The subtle rose aroma is simply therapeutic. Perfect with evening green tea!' }
+      { name: 'Sourav H.M.', location: 'Koramangala, Bengaluru', rating: 5, sentiment: '✨ Fantastic', text: 'I went to my friend\'s wedding reception last month where they had these Rose Petal cookies in the dessert lounge. I tried one out of curiosity—I am not even much of a sweet person, but it was absolutely fantastic and fabulous! The real organic rose aroma and cardamom crunch were exquisite.' },
+      { name: 'Preetham', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '👑 Royal Quality', text: 'Gifted a box to my mother for her anniversary and she couldn\'t stop praising the authentic rose essence. Unlike artificial syrups, you can literally see and taste the real dried rose petals baked into rich cow butter shortbread.' },
+      { name: 'Kavita Reddy', location: 'HSR Layout, Bengaluru', rating: 5, sentiment: '🌟 Pure Bliss', text: 'Paired with Kashmiri Kahwa on a rainy afternoon, this cookie is pure poetry. Subtle, floral, luxurious, and not overly sweet. Every single bite feels royal, comforting, and memorable.' }
     ]
   },
   oatsnuts: {
@@ -75,10 +77,10 @@ const PRODUCTS_DATA = {
     categoryLink: 'Cookies',
     tagline: 'Hearty rolled oats, walnuts, and chia seeds sweetened naturally with plant-based Stevia.',
     price: 140,
-    rating: '4.95',
+    rating: '4.8',
     reviewsCount: 142,
     badges: ['High Fibre', 'Rolled Oats', 'Superfood Nutrients'],
-    desc: 'Packed with nutrient-dense rolled oats, California walnuts, flaxseeds, and natural Stevia. Perfect for a clean pre-workout boost or high-fibre mid-day snack.',
+    desc: 'Packed with nutrient-dense rolled oats, crunchy walnuts, flaxseeds, and natural Stevia. Perfect for a clean pre-workout boost or high-fibre mid-day snack.',
     type: 'cookie',
     color: 0xC59B6C,
     nutrition: {
@@ -93,10 +95,11 @@ const PRODUCTS_DATA = {
       potassium: '367.5mg',
       fibre: '2.4g'
     },
-    ingredients: 'Rolled Oats, California Walnuts, Chia Seeds, Natural Stevia Extract, Organic Butter, Cinnamon Spice.',
+    ingredients: 'Rolled Oats, Crispy Walnuts, Chia Seeds, Natural Stevia Extract, Organic Butter, Cinnamon Spice.',
     reviews: [
-      { name: 'Siddharth V.', location: 'HSR Layout', rating: 5, text: 'My daily morning coffee companion. Filling, wholesome, and delicious without the guilt.' },
-      { name: 'Neha Kapoor', location: 'Mumbai', rating: 5, text: 'Love the high fibre crunch. Tastes real and clean!' }
+      { name: 'Rahul ', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '💪 Clean Fuel', text: 'As someone who hits the gym early every morning, finding a clean snack without junk refined sugar was tough. My trainer recommended these Oats Nuts cookies—crunchy rolled oats, roasted walnuts, and chia seeds sweetened naturally. Sustained energy without any sugar crash!' },
+      { name: 'Pooja ', location: 'Jayanagar, Bengaluru', rating: 5, sentiment: '😍 Loved It', text: 'My kids usually avoid healthy oat biscuits, but they devoured these with a glass of warm milk after school. The nutty walnut texture and gentle cinnamon warmth make it feel like a gourmet bakery treat.' },
+      { name: 'Aditya ', location: 'Malleshwaram, Bengaluru', rating: 5, sentiment: '✨ Fantastic', text: 'Best mid-day work companion at our tech office. Wholesome, rich in fiber, and the hearty crunch of roasted seeds keeps you full for hours. Top notch recipe!' }
     ]
   },
   orange: {
@@ -104,12 +107,12 @@ const PRODUCTS_DATA = {
     name: 'Orange Peel Cookie',
     category: 'Zesty Refreshment',
     categoryLink: 'Cookies',
-    tagline: 'Sun-ripened orange zest fused with warm Ceylon cinnamon for a vibrant citrus crunch.',
+    tagline: 'Sun-ripened orange zest fused with warm ground cinnamon for a vibrant citrus crunch.',
     price: 140,
-    rating: '4.88',
+    rating: '4.5',
     reviewsCount: 84,
-    badges: ['Citrus Zest', 'Ceylon Cinnamon', 'Fresh Baked'],
-    desc: 'Bursting with natural citrus oils from cold-pressed orange peel and Ceylon cinnamon. A refreshing twist on traditional shortbread.',
+    badges: ['Citrus Zest', 'Warm Cinnamon', 'Fresh Baked'],
+    desc: 'Bursting with natural citrus oils from cold-pressed orange peel and warm cinnamon. A refreshing twist on traditional shortbread.',
     type: 'cookie',
     color: 0xE07A5F,
     nutrition: {
@@ -124,10 +127,11 @@ const PRODUCTS_DATA = {
       potassium: '60.5mg',
       fibre: '1.4g'
     },
-    ingredients: 'Fresh Orange Zest, Ceylon Cinnamon, Whole Grain Flour, Butter, Natural Stevia, Vanilla Bean.',
+    ingredients: 'Fresh Orange Zest, Ground Cinnamon, Whole Grain Flour, Butter, Natural Stevia, Vanilla Bean.',
     reviews: [
-      { name: 'Arjun Das', location: 'Hyderabad', rating: 5, text: 'The citrus aroma is wonderful! So fresh and crisp.' },
-      { name: 'Sneha Patel', location: 'Pune', rating: 5, text: 'Unique flavor combination. My kids enjoyed it immensely.' }
+      { name: 'Vikram Joshi', location: 'Sadashivanagar, Bengaluru', rating: 5, sentiment: '🍊 Zesty Perfection', text: 'Brought a box to our weekend book club meeting and everyone fell in love. The zesty burst from cold-pressed orange peel cuts right through the rich butteriness, with just the right touch of warm cinnamon. Remarkably refreshing!' },
+      { name: 'Sneha ', location: 'MG Road, Bengaluru', rating: 5, sentiment: '🤯 Mind Blowing', text: 'I was skeptical about citrus in shortbread until my colleague offered me one during coffee break. Wow! It’s vibrant, aromatic, and has that golden crumbly texture that pairs beautifully with dark espresso.' },
+      { name: 'Deepak', location: 'Electronic City, Bengaluru', rating: 4, sentiment: '👍 Recommended', text: 'Crisp, aromatic, and distinctly high-end. You can tell they use genuine sun-ripened orange zest rather than artificial flavoring essence. Reordering regularly now.' }
     ]
   },
   walnut: {
@@ -135,12 +139,12 @@ const PRODUCTS_DATA = {
     name: 'Walnut Cookies',
     category: 'Nutrient Rich',
     categoryLink: 'Cookies',
-    tagline: 'Loaded with whole California walnut halves & buttery brown sugar crunch.',
-    price: 210,
-    rating: '5.0',
+    tagline: 'Loaded with whole roasted walnut halves & buttery brown sugar crunch.',
+    price: 140,
+    rating: '4.5',
     reviewsCount: 110,
     badges: ['Brain Food', 'Omega-3 Rich', 'Zero Palm Oil'],
-    desc: 'Rich, hearty, and packed with crunchy California walnut halves, brown sugar, and organic cow butter. High in Omega-3 fatty acids and natural brain nutrients.',
+    desc: 'Rich, hearty, and packed with crunchy whole walnut halves, brown sugar, and organic cow butter. High in Omega-3 fatty acids and natural brain nutrients.',
     type: 'cookie',
     color: 0x966035,
     nutrition: {
@@ -155,9 +159,11 @@ const PRODUCTS_DATA = {
       potassium: '345.8mg',
       fibre: '2.4g'
     },
-    ingredients: 'California Walnut Halves, Unbleached Wheat Flour, Pure Cow Butter, Natural Stevia, Vanilla Bean Extract.',
+    ingredients: 'Whole Roasted Walnut Halves, Unbleached Wheat Flour, Pure Cow Butter, Natural Stevia, Vanilla Bean Extract.',
     reviews: [
-      { name: 'Siddharth Rao', location: 'Mumbai', rating: 5, text: 'The walnut crunch is out of this world! Melt in the mouth buttery texture with whole walnuts.' }
+      { name: 'Rohan', location: 'Basavanagudi, Bengaluru', rating: 5, sentiment: '🤤 Jaw Dropping', text: 'Went to my cousin’s housewarming party where they served these Walnut cookies with fresh filter coffee. The deep caramelized brown sugar flavor combined with chunky roasted walnut halves is an absolute triumph. Truly melt-in-mouth.' },
+      { name: 'Shreya', location: 'Richmond Town, Bengaluru', rating: 5, sentiment: '👑 Royal Quality', text: 'Huge whole walnut pieces in every single bite. The buttery crumb structure holds together beautifully without crumbling into powder in the box. Unbeatable luxury quality.' },
+      { name: 'Karthik Sundaram', location: 'JP Nagar, Bengaluru', rating: 4, sentiment: '👌 Chef\'s Kiss', text: 'Ordered for my grandfather who loves traditional walnut bakes. He mentioned it reminded him of old heritage bakery shortbread from the 80s—pure butter, rich walnuts, and zero palm oil.' }
     ]
   },
   walnut_sf: {
@@ -166,11 +172,11 @@ const PRODUCTS_DATA = {
     category: 'Diabetic Friendly',
     categoryLink: 'Cookies',
     tagline: '100% Sugar-Free. Whole roasted walnuts sweetened with natural Stevia & Erythritol.',
-    price: 220,
-    rating: '4.98',
+    price: 140,
+    rating: '4.5',
     reviewsCount: 88,
     badges: ['Sugar-Free', 'Keto Friendly', 'Guilt-Free'],
-    desc: 'Delightfully guilt-free! Crafted specifically for health-conscious and diabetic cookie lovers. Loaded with roasted California walnuts, almond flour, and sweetened naturally with zero-calorie Stevia.',
+    desc: 'Delightfully guilt-free! Crafted specifically for health-conscious and diabetic cookie lovers. Loaded with roasted crunchy walnuts, almond flour, and sweetened naturally with zero-calorie Stevia.',
     type: 'cookie',
     color: 0x825028,
     nutrition: {
@@ -185,9 +191,11 @@ const PRODUCTS_DATA = {
       potassium: '310.6mg',
       fibre: '3.8g'
     },
-    ingredients: 'California Walnuts, Almond Meal, Pure Butter, Stevia Leaf Extract, Erythritol, Sea Salt.',
+    ingredients: 'Roasted Walnuts, Almond Meal, Pure Butter, Stevia Leaf Extract, Erythritol, Sea Salt.',
     reviews: [
-      { name: 'Dr. Meera Iyer', location: 'Bengaluru', rating: 5, text: 'Finally a sugar-free cookie that tastes truly authentic! Perfect for diabetic cravings without spike.' }
+      { name: 'Dr. Sanjay Hegde', location: 'Lavelle Road, Bengaluru', rating: 5, sentiment: '🌟 Pure Bliss', text: 'As a diabetic who misses festive confectionery, this cookie is a genuine blessing. Made with real almond flour, roasted crunchy walnuts, and natural Stevia without causing any blood glucose spikes. Tastes rich, authentic, and buttery!' },
+      { name: 'Preeti', location: 'Koramangala, Bengaluru', rating: 5, sentiment: '✨ Fantastic', text: 'I am on a strict low-carb diet and finding treats that don\'t taste like artificial chemicals is nearly impossible. These sugarfree walnut cookies have an incredible crumbly bite and zero lingering aftertaste. Highly recommended!' },
+      { name: 'Amitabh', location: 'Indiranagar, Bengaluru', rating: 4, sentiment: '😍 Loved It', text: 'Ordered 3 boxes for my parents. They were amazed that something 100% sugar-free could taste this decadent and nutty. The whole walnut pieces are top-grade quality.' }
     ]
   },
   strawberry: {
@@ -195,9 +203,9 @@ const PRODUCTS_DATA = {
     name: 'Strawberry Muffin',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
-    tagline: 'Delicate vanilla sponge infused with fresh Mahabaleshwar strawberries',
+    tagline: 'Delicate vanilla sponge infused with fresh farm strawberries',
     price: 40,
-    rating: '4.95',
+    rating: '4.8',
     reviewsCount: 130,
     badges: ['Real Fruit', 'Farm Fresh', 'Crumble Top'],
     desc: 'Soft, moist cake loaded with real strawberry compote and topped with a buttery streusel crumble.',
@@ -206,8 +214,9 @@ const PRODUCTS_DATA = {
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
     ingredients: 'Fresh Strawberry Compote, Organic Wheat Flour, Unsalted Butter, Pure Vanilla, Brown Sugar.',
     reviews: [
-      { name: 'Megha Nair', location: 'Pune', rating: 5, text: 'Tastes like real strawberries! Best muffin I have had in a long time.' },
-      { name: 'Vikram Joshi', location: 'Delhi', rating: 5, text: 'Ordered a 6-pack for tea party, everyone asked where I got them.' }
+      { name: 'Shashank', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '👌 Chef\'s Kiss', text: 'Picked up a box of Strawberry muffins for our Sunday family brunch. The moist vanilla crumb is generously loaded with genuine farm fresh strawberry compote rather than artificial jam. The buttery streusel crumble on top is chef\'s kiss!' },
+      { name: 'Sharma', location: 'Whitefield, Bengaluru', rating: 5, sentiment: '🤤 Jaw Dropping', text: 'Warmed it up in the microwave for 15 seconds as suggested on the box—the fresh strawberry aroma that filled our kitchen was unbelievable. Soft, spongy, and melt-in-the-mouth delicious.' },
+      { name: 'Varun ', location: 'HSR Layout, Bengaluru', rating: 5, sentiment: '😍 Loved It', text: 'My daughter took these for her school birthday celebration and all the teachers and kids were asking where we ordered from. Truly fresh bakery quality with real fruit bits!' }
     ]
   },
   pinacolada: {
@@ -217,7 +226,7 @@ const PRODUCTS_DATA = {
     categoryLink: 'Muffins',
     tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.',
     price: 40,
-    rating: '4.89',
+    rating: '4.5',
     reviewsCount: 78,
     badges: ['Tropical Fruit', 'Golden Sponge', 'Toasted Coconut'],
     desc: 'Transport your palate to the tropics. Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.',
@@ -226,7 +235,9 @@ const PRODUCTS_DATA = {
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
     ingredients: 'Golden Pineapple Cubes, Toasted Coconut Flakes, Pure Cow Milk, Whole Flour, Natural Stevia, Vanilla.',
     reviews: [
-      { name: 'Rajesh Kumar', location: 'Kochi', rating: 5, text: 'Tangy and sweet pineapple flavor balance is spot on!' }
+      { name: 'Sanika', location: 'Koramangala, Bengaluru', rating: 5, sentiment: '🌴 Tropical Bliss', text: 'Tried this Pinacolada muffin at a friend’s rooftop barbecue party and it was an instant mood lifter! The juicy golden pineapple chunks and toasted coconut flakes throughout the butter sponge feel like a tropical holiday in every bite.' },
+      { name: 'Darshini', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '✨ Fantastic', text: 'Unique tropical concept executed to perfection. The pineapple tang balances the rich buttery sponge so nicely without being overly sugary. Pairs phenomenally with an iced latte.' },
+      { name: 'Karthik Nambiar', location: 'JP Nagar, Bengaluru', rating: 4, sentiment: '👌 Chef\'s Kiss', text: 'Soft, pillowy texture with golden roasted coconut aromas. You can tell it\'s baked with pure cow milk and premium butter instead of industrial vegetable shortening.' }
     ]
   },
   butterscotch: {
@@ -236,7 +247,7 @@ const PRODUCTS_DATA = {
     categoryLink: 'Muffins',
     tagline: 'Rich caramelized brown sugar sponge studded with crunchy butterscotch toffee and praline morsels.',
     price: 40,
-    rating: '4.96',
+    rating: '4.5',
     reviewsCount: 156,
     badges: ['Caramel Praline', 'Rich Butter', 'Baker Special'],
     desc: 'An indulgent dessert muffin. Slow-caramelized jaggery and brown sugar sponge filled with golden butterscotch crunch nuggets.',
@@ -245,7 +256,9 @@ const PRODUCTS_DATA = {
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
     ingredients: 'House Pineapple Praline, Caramelized Jaggery, Organic Butter, Milk, Wheat Sponge, Cinnamon.',
     reviews: [
-      { name: 'Simran Gill', location: 'Chandigarh', rating: 5, text: 'The crunch on top stays crispy! Incredible recipe.' }
+      { name: 'Sowmya', location: 'Malleshwaram, Bengaluru', rating: 5, sentiment: '🤯 Mind Blowing', text: 'I usually find butterscotch flavors artificial in regular bakeries, but mingmorsels uses real slow-caramelized jaggery and crunchy praline toffee bits. The caramel notes are deep, nutty, and lingering. Absolutely fabulous!' },
+      { name: 'Deshmukh', location: 'Jayanagar, Bengaluru', rating: 5, sentiment: '😍 Loved It', text: 'Ordered a batch for our office project launch. The crunchy praline nuggets on top stayed delightfully crispy even after delivery. My entire team was raving about it!' },
+      { name: 'Vikram ', location: 'Sadashivanagar, Bengaluru', rating: 4, sentiment: '✨ Fantastic', text: 'Super moist center with golden butterscotch crunch in every single bite. Perfectly sweet and rich without feeling heavy. My go-to evening tea companion now.' }
     ]
   },
   chocochip: {
@@ -253,19 +266,20 @@ const PRODUCTS_DATA = {
     name: 'Chocochip Muffin',
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
-    tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips.',
+    tagline: 'Decadent 70% dark cocoa sponge loaded with molten dark chocolate chips.',
     price: 40,
-    rating: '4.98',
+    rating: '5.0',
     reviewsCount: 210,
-    badges: ['70% Dark Cocoa', 'Belgian Choco', 'Molten Center'],
-    desc: 'For true chocolate lovers. Rich 70% single-origin dark cocoa sponge packed with generous Belgian chocolate chips that melt when warmed.',
+    badges: ['Recommended ★', '70% Dark Cocoa', 'Dark Choco'],
+    desc: 'For true chocolate lovers. Rich 70% single-origin dark cocoa sponge packed with generous dark chocolate chips that melt when warmed.',
     type: 'muffin',
     color: 0x4A2E2B,
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '6.13g' },
-    ingredients: '70% Dark Belgian Chocolate, Dutch Cocoa Powder, Organic Butter, Raw Sugar, Whole Milk.',
+    ingredients: '70% Dark Chocolate Chips, Pure Cocoa Powder, Organic Butter, Raw Sugar, Whole Milk.',
     reviews: [
-      { name: 'Aakash Verma', location: 'Bengaluru', rating: 5, text: 'Warm this up for 10 seconds in microwave... pure molten chocolate bliss!' },
-      { name: 'Tara Bose', location: 'Kolkata', rating: 5, text: 'Rich dark chocolate taste without being overly sugary. Highest quality.' }
+      { name: 'Sourav H.M.', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '🤤 Jaw Dropping', text: 'A friend brought over a box of these Chocochip muffins during movie night. We warmed them in the oven for 20 seconds and the 70% dark chocolate chips melted into a warm molten lava center. It was jaw dropping—pure chocolate ecstasy!' },
+      { name: 'Preetham.R', location: 'Whitefield, Bengaluru', rating: 5, sentiment: '👑 Royal Quality', text: 'Rich dark cocoa sponge with generous gourmet chocolate chunks throughout—not just a few on top like ordinary bakery muffins. High-end confectionery at its absolute finest.' },
+      { name: 'Prashanth.K', location: 'Koramangala, Bengaluru', rating: 5, sentiment: '🤯 Mind Blowing', text: 'If you love intense, decadent dark chocolate that isn\'t cloying or sickly sweet, this is the gold standard. Incredibly soft crumb and pure chocolate richness.' }
     ]
   },
   blackcurrant: {
@@ -275,7 +289,7 @@ const PRODUCTS_DATA = {
     categoryLink: 'Muffins',
     tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
     price: 40,
-    rating: '4.85',
+    rating: '4.8',
     reviewsCount: 95,
     badges: ['Whole Wheat', 'Tangy Currants', 'No Margarine'],
     desc: 'A delicious whole wheat muffin bursting with tangy black currants. A perfect balance of sweetness and tartness.',
@@ -284,8 +298,9 @@ const PRODUCTS_DATA = {
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
     ingredients: 'Whole Wheat Flour (Atta), Milk Solids, Sugar, Seed Oil, Black Currant Pulp, Whole Black Raisins, Vanilla Flavour.',
     reviews: [
-      { name: 'Priya K', location: 'Mumbai', rating: 5, text: 'Love the tangy bursts of black currant in every bite.' },
-      { name: 'Arjun S', location: 'Chennai', rating: 5, text: 'Great whole wheat option! Not too sweet.' }
+      { name: 'Varun.R', location: 'HSR Layout, Bengaluru', rating: 5, sentiment: '🍇 Zesty Delight', text: 'Loved the balance of tangy black currant pulp with whole wheat atta sponge. It feels wholesome and fulfilling while giving that delightful berry tartness in every bite. Outstanding healthy dessert!' },
+      { name: 'Vinod', location: 'Sadashivanagar, Bengaluru', rating: 5, sentiment: '😍 Loved It', text: 'Ordered for an evening tea gathering with friends. The whole black raisins and tangy currant pockets inside the soft vanilla crumb were universally loved. Zero oily residue!' },
+      { name: 'Siddharth', location: 'Whitefield, Bengaluru', rating: 5, sentiment: '✨ Fantastic', text: 'Great to see a bakery use 100% whole wheat flour without making the muffin dense. Fluffy, moist, and bursting with zesty blackcurrant flavor. Highly recommended!' }
     ]
   }
 };
@@ -420,6 +435,72 @@ const COOKIE_BOX_OPTIONS = {
       img: '/oats-box-12pcs.jpg',
       badge: '12 Cookies · 300g'
     }
+  ],
+  walnut: [
+    {
+      id: 'walnut_snack_2pcs',
+      name: 'Twin Delights',
+      cookieCount: 2,
+      countLabel: 'Up to 2 Cookies',
+      price: 40,
+      unit: '/ pack (2 freshly baked cookies)',
+      img: '/box-classic.jpg',
+      badge: '2 Cookies'
+    },
+    {
+      id: 'walnut_classic_8pcs',
+      name: 'Classic Delights',
+      cookieCount: 8,
+      countLabel: 'Up to 8 Cookies',
+      price: 140,
+      unit: '/ box (8 freshly baked pieces)',
+      img: '/box-lush.jpg',
+      badge: '8 Cookies · Popular',
+      default: true
+    },
+    {
+      id: 'walnut_family_12pcs',
+      name: 'Dozen Delights',
+      cookieCount: 12,
+      countLabel: 'Up to 12 Cookies',
+      price: 360,
+      unit: '/ box (12 freshly baked pieces · 300g)',
+      img: '/box-extra.jpg',
+      badge: '12 Cookies · 300g'
+    }
+  ],
+  walnut_sf: [
+    {
+      id: 'walnut_sf_snack_2pcs',
+      name: 'Twin Delights',
+      cookieCount: 2,
+      countLabel: 'Up to 2 Cookies',
+      price: 40,
+      unit: '/ pack (2 freshly baked cookies)',
+      img: '/box-classic.jpg',
+      badge: '2 Cookies · Sugar-Free'
+    },
+    {
+      id: 'walnut_sf_classic_8pcs',
+      name: 'Classic Delights',
+      cookieCount: 8,
+      countLabel: 'Up to 8 Cookies',
+      price: 140,
+      unit: '/ box (8 freshly baked pieces)',
+      img: '/box-lush.jpg',
+      badge: '8 Cookies · Popular',
+      default: true
+    },
+    {
+      id: 'walnut_sf_family_12pcs',
+      name: 'Dozen Delights',
+      cookieCount: 12,
+      countLabel: 'Up to 12 Cookies',
+      price: 360,
+      unit: '/ box (12 freshly baked pieces · 300g)',
+      img: '/box-extra.jpg',
+      badge: '12 Cookies · 300g'
+    }
   ]
 };
 
@@ -483,6 +564,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ----------------------------------------------------
+// 2B. STAR RATING HELPER
+// ----------------------------------------------------
+export function renderStars(rating) {
+  const num = parseFloat(rating);
+  let starsHtml = '';
+  for (let i = 1; i <= 5; i++) {
+    if (num >= i) {
+      starsHtml += '★';
+    } else if (num >= i - 0.5) {
+      if (num >= i - 0.2) {
+        starsHtml += '<span class="star-80">★</span>';
+      } else {
+        starsHtml += '<span class="star-half">★</span>';
+      }
+    } else {
+      starsHtml += '<span class="star-empty">★</span>';
+    }
+  }
+  return starsHtml;
+}
+
+// ----------------------------------------------------
 // 3. DOM POPULATION FUNCTION
 // ----------------------------------------------------
 function renderProductDetails() {
@@ -503,7 +606,7 @@ function renderProductDetails() {
   document.getElementById('p-category').textContent = p.category;
   document.getElementById('p-title').textContent = p.name;
   document.getElementById('p-tagline').textContent = p.tagline;
-  document.getElementById('p-stars').textContent = '★'.repeat(Math.round(parseFloat(p.rating)));
+  document.getElementById('p-stars').innerHTML = renderStars(p.rating);
   document.getElementById('p-rating').textContent = `${p.rating} (${p.reviewsCount} Verified Reviews)`;
   document.getElementById('p-price').textContent = p.price;
 
@@ -579,6 +682,26 @@ function renderProductDetails() {
     .catch(() => { });
 }
 
+function getSentimentBadgeStyle(sentiment = '') {
+  const s = sentiment.toLowerCase();
+  if (s.includes('mind blow') || s.includes('jaw drop')) {
+    return 'background: rgba(231, 76, 60, 0.12); color: #C0392B; border: 1px solid rgba(231, 76, 60, 0.35);';
+  }
+  if (s.includes('fantastic') || s.includes('fabulous') || s.includes('magic')) {
+    return 'background: rgba(142, 68, 173, 0.12); color: #8E44AD; border: 1px solid rgba(142, 68, 173, 0.35);';
+  }
+  if (s.includes('royal') || s.includes('artisan') || s.includes('chef') || s.includes('gold')) {
+    return 'background: rgba(212, 175, 55, 0.18); color: #8A6006; border: 1px solid rgba(212, 175, 55, 0.45);';
+  }
+  if (s.includes('bliss') || s.includes('tropical') || s.includes('zesty') || s.includes('delight')) {
+    return 'background: rgba(230, 126, 34, 0.12); color: #D35400; border: 1px solid rgba(230, 126, 34, 0.35);';
+  }
+  if (s.includes('fuel') || s.includes('clean') || s.includes('loved') || s.includes('recommended')) {
+    return 'background: rgba(46, 204, 113, 0.12); color: #27AE60; border: 1px solid rgba(46, 204, 113, 0.35);';
+  }
+  return 'background: rgba(52, 152, 219, 0.12); color: #2980B9; border: 1px solid rgba(52, 152, 219, 0.35);';
+}
+
 function renderProductReviewsList(p) {
   const reviewsContainer = document.getElementById('p-reviews-list');
   if (reviewsContainer && p.reviews && p.reviews.length > 0) {
@@ -588,7 +711,10 @@ function renderProductReviewsList(p) {
           <div class="review-author">
             <div class="avatar-circle" style="background: ${getAvatarColor(idx)};">${(r.name || 'C').charAt(0)}</div>
             <div>
-              <h5 style="display:flex; align-items:center; gap:8px;">${r.name} <span class="badge" style="font-size:10px; padding:2px 8px; background:rgba(46,204,113,0.12); color:#2ECC71; border:1px solid rgba(46,204,113,0.3);">${r.sentiment || '😍 Loved It'}</span></h5>
+              <h5 style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span>${r.name}</span>
+                <span class="badge" style="font-size:10.5px; padding:3px 10px; border-radius:50px; font-weight:700; letter-spacing:0.3px; ${getSentimentBadgeStyle(r.sentiment || '😍 Loved It')}">${r.sentiment || '😍 Loved It'}</span>
+              </h5>
               <span class="review-date">${r.location || 'Bengaluru'} • Verified Buyer</span>
             </div>
           </div>
@@ -611,11 +737,13 @@ function initReviewSubmission() {
     const nameInput = document.getElementById('review-name');
     const locInput = document.getElementById('review-location');
     const ratingInput = document.getElementById('review-rating');
+    const sentimentInput = document.getElementById('review-sentiment');
     const textInput = document.getElementById('review-text');
 
     const name = nameInput ? nameInput.value.trim() : '';
     const location = locInput && locInput.value.trim() ? locInput.value.trim() : 'Bengaluru';
     const rating = ratingInput ? parseInt(ratingInput.value, 10) : 5;
+    const sentiment = sentimentInput && sentimentInput.value.trim() ? sentimentInput.value.trim() : '😍 Loved It';
     const text = textInput ? textInput.value.trim() : '';
 
     if (!name || !text) {
@@ -637,6 +765,7 @@ function initReviewSubmission() {
           name,
           location,
           rating,
+          sentiment,
           text
         })
       });
@@ -649,7 +778,7 @@ function initReviewSubmission() {
           feedbackBox.style.border = '1px solid rgba(46, 204, 113, 0.35)';
           feedbackBox.style.color = '#27ae60';
           const safeName = String(name).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-          feedbackBox.innerHTML = `✨ <strong>Thank you, ${safeName}!</strong> Your review has been submitted for moderation and will appear live once approved by our confectionery artisans.`;
+          feedbackBox.innerHTML = `✨ <strong>Thank you, ${safeName}!</strong> Your review means more to us than you know. Thank you for making our moments matter.`;
           form.reset();
         } else {
           feedbackBox.style.background = 'rgba(231, 76, 60, 0.12)';
@@ -769,9 +898,9 @@ const PRODUCT_MEDIA = {
       { src: '/box-chocochip-2.jpg', alt: 'Chocochip Box' }
     ],
     video: {
-      src: 'https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-freshly-baked-cookies-43306-large.mp4',
+      src: '/muffins/chocochip.mp4',
       poster: '/img-chocochip.jpg',
-      title: 'Chocochip Gourmet Muffin'
+      title: 'Chocochip Gourmet Muffin Slow-Baked'
     }
   },
   blackcurrant: {
@@ -845,7 +974,7 @@ function initProductGallery() {
   // Helper: Switch to Photo View
   function activatePhoto(imgSrc, targetThumb) {
     if (mainVideo) {
-      try { mainVideo.pause(); } catch (e) {}
+      try { mainVideo.pause(); } catch (e) { }
     }
     if (videoContainer) videoContainer.style.display = 'none';
     mainImage.style.display = 'block';
@@ -861,7 +990,7 @@ function initProductGallery() {
   // Helper: Switch to Video View (Plays in place of photos)
   function activateVideo(targetThumb) {
     if (!videoData || !mainVideo || !videoContainer) return;
-    
+
     mainImage.style.display = 'none';
     videoContainer.style.display = 'flex';
 
@@ -879,10 +1008,10 @@ function initProductGallery() {
         playPromise.catch(() => {
           // Autoplay fallback (e.g. if user interaction is needed)
           mainVideo.muted = true;
-          mainVideo.play().catch(() => {});
+          mainVideo.play().catch(() => { });
         });
       }
-    } catch (e) {}
+    } catch (e) { }
 
     if (btnShowPhotos) btnShowPhotos.classList.remove('active');
     if (btnShowVideo) btnShowVideo.classList.add('active');
@@ -1137,12 +1266,12 @@ function openProductBoxLightbox(boxKey) {
     img.src = '/oats-box-12pcs.jpg';
     img.alt = 'Oats & Nuts Cookies - Dozen Delights (Up to 12 Cookies · 300g)';
     if (title) title.textContent = 'Oats & Nuts Cookies — Dozen Delights (Up to 12 Cookies · 300g)';
-    if (desc) desc.textContent = 'Large luxury Dozen Delights pack (Net Weight: 300g) baked with nutrient-rich rolled oats, California walnuts, and natural plant-based Stevia.';
+    if (desc) desc.textContent = 'Large luxury Dozen Delights pack (Net Weight: 300g) baked with nutrient-rich rolled oats, roasted walnuts, and natural plant-based Stevia.';
   } else if (boxKey === 'lush') {
     img.src = '/box-lush.jpg';
     img.alt = 'Lush Luxury Box';
     if (title) title.textContent = 'Lush Luxury Box (+₹130 extra)';
-    if (desc) desc.textContent = 'Exquisite blush floral keepsake gift box with gold-foil accents. Fits 4 artisanal cookies and includes a gourmet pouch of California roasted dry fruits.';
+    if (desc) desc.textContent = 'Exquisite blush floral keepsake gift box with gold-foil accents. Fits 4 artisanal cookies and includes a gourmet pouch of roasted dry fruits.';
   } else {
     img.src = '/box-classic.jpg';
     img.alt = 'Signature Treat Box';

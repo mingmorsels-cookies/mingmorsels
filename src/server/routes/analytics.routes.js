@@ -165,7 +165,7 @@ router.get('/analytics/demand-forecast', (req, res) => {
     const forecast = days.map((day, idx) => ({
       day,
       predictedBoxes: Math.floor(120 + Math.sin(idx) * 45 + Math.random() * 20),
-      topFlavor: ['Royal Roasted Almond', 'Damascus Rose Petal', 'Dark Belgian Lava Muffin'][idx % 3],
+      topFlavor: ['Royal Roasted Almond', 'Rose Petal Delight', 'Dark Choco Lava Muffin'][idx % 3],
       recommendedBakingBatchKg: Math.floor(18 + Math.random() * 8)
     }));
 

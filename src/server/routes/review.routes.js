@@ -21,6 +21,7 @@ const reviewSchema = z.object({
   email: z.string().email().optional().or(z.literal('')),
   location: z.string().max(60).optional().default('Bengaluru'),
   rating: z.number().int().min(1).max(5).default(5),
+  sentiment: z.string().max(60).optional(),
   text: z.string().min(3, 'Feedback must be at least 3 characters').max(1000)
 });
 
@@ -34,10 +35,12 @@ function analyzeSentiment(text = '', rating = 5) {
   positive.forEach(w => { if (lower.includes(w)) score++; });
   negative.forEach(w => { if (lower.includes(w)) score--; });
 
-  if (rating >= 5 && score >= 0) return '😍 LOVED IT';
-  if (rating >= 4 || score > 0) return '🌟 VERIFIED CONNOISSEUR';
-  if (score < 0 || rating <= 2) return '💬 VERIFIED FEEDBACK';
-  return '👍 RECOMMENDED';
+  if (lower.includes('mind blow') || lower.includes('jaw drop')) return '🤯 Mind Blowing';
+  if (lower.includes('fantastic') || lower.includes('fabulous')) return '✨ Fantastic';
+  if (rating >= 5 && score >= 0) return '😍 Loved It';
+  if (rating >= 4 || score > 0) return '🌟 Verified Connoisseur';
+  if (score < 0 || rating <= 2) return '💬 Verified Feedback';
+  return '👍 Recommended';
 }
 
 /**
@@ -53,8 +56,8 @@ router.post('/reviews/submit', async (req, res) => {
       });
     }
 
-    const { productId, name, email, location, rating, text } = parsed.data;
-    const sentiment = analyzeSentiment(text, rating);
+    const { productId, name, email, location, rating, text, sentiment: customSentiment } = parsed.data;
+    const sentiment = customSentiment && customSentiment.trim() ? customSentiment.trim() : analyzeSentiment(text, rating);
 
     const review = await createReviewRecord({
       productId,
@@ -69,7 +72,7 @@ router.post('/reviews/submit', async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'Thank you for your review! It has been submitted for moderation and will appear once verified by our team.',
+      message: 'Your review means more to us than you know. Thank you for making our moments matter.',
       review
     });
   } catch (error) {

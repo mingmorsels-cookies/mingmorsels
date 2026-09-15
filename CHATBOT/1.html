@@ -3775,12 +3775,35 @@
 
         function renderCookieCard(key) {
             const c = COOKIES[key];
-            const stars = '★'.repeat(c.stars) + '☆'.repeat(5 - c.stars);
-            const nutHTML = Object.entries(c.nutrition).map(([k, v]) => `<div class="nut-item"><div class="nut-val">${v}</div><div class="nut-key">${k}</div></div>`).join('');
-            const tagsHTML = c.tags.map(t => `<span class="badge-natural">${t}</span>`).join(' ');
-            const imgHTML = c.img ? `<img class="cookie-card-img" src="${c.img}" alt="${c.name}" onerror="this.style.display='none'">` : `<div class="cookie-card-img-placeholder" style="background:${c.color}">${c.emoji}</div>`;
+            if (!c) return '';
+            const ratingNum = c.rating ? parseFloat(c.rating).toFixed(1) : "5.0";
+            const stars = getProductStars ? getProductStars(c.rating) : '★★★★★';
+            const nutEntries = Object.entries(c.nutrition || {}).slice(0, 4);
+            const nutHTML = nutEntries.map(([k, v]) => `
+                <div style="background:var(--warm); border-radius:6px; padding:4px 6px; text-align:center;">
+                    <div style="font-size:11px; font-weight:700; color:var(--brown); font-family:'Playfair Display',serif;">${v}</div>
+                    <div style="font-size:9px; color:var(--muted); margin-top:1px;">${k}</div>
+                </div>
+            `).join('');
+            const tagsHTML = (c.tags || []).slice(0, 3).map(t => `<span class="badge-natural" style="margin-top:0; font-size:9px; padding:2px 6px;">${t}</span>`).join(' ');
+            const imgHTML = c.img ? `<img class="cookie-card-img" src="${c.img}" alt="${c.name}" style="height:110px; width:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">` : `<div class="cookie-card-img-placeholder" style="background:${c.color}; height:90px; font-size:36px;">${c.emoji}</div>`;
             const uid = 'card-' + key + '-' + Date.now();
-            return `<div class="cookie-card" id="${uid}">${imgHTML}<div class="cookie-card-body"><div class="stars">${stars} (5.0)</div><div class="cookie-card-name">${c.emoji} ${c.name}</div><div class="cookie-card-review">${c.review}</div><div class="nutrition-grid">${nutHTML}</div><div style="margin-top:8px">${tagsHTML}</div></div><div class="card-share-bar"><button class="card-share-btn card-btn-download" onclick="downloadCookieCard('${key}','${uid}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Card</button><button class="card-share-btn card-btn-share" id="sharebtn-${uid}" onclick="shareCookieCard('${key}','${uid}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share</button></div></div>`;
+            const shortReview = c.review ? c.review.split('.')[0] + '.' : '';
+
+            return `
+                <div class="cookie-card" id="${uid}" style="max-width:320px; margin:6px auto 0;">
+                    ${imgHTML}
+                    <div class="cookie-card-body" style="padding:10px 12px;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+                            <div class="cookie-card-name" style="font-size:13.5px; margin-bottom:0; line-height:1.2;">${c.emoji} ${c.name}</div>
+                            <div class="stars" style="font-size:11px; margin-bottom:0; white-space:nowrap; margin-left:6px;">${stars} (${ratingNum})</div>
+                        </div>
+                        <div class="cookie-card-review" style="font-size:11px; line-height:1.35; margin-bottom:6px; color:var(--muted);">${shortReview}</div>
+                        <div style="display:grid; grid-template-columns:repeat(${nutEntries.length || 1}, 1fr); gap:4px; margin-bottom:6px;">${nutHTML}</div>
+                        <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px;">${tagsHTML}</div>
+                    </div>
+                </div>
+            `;
         }
 
         const MOOD_INTROS = {
@@ -4470,17 +4493,13 @@
             });
             if (matches.length === 0) { grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--muted); font-size:12.5px;">🍪 No matching cookies found. try broadening your tags!</div>`; return; }
             grid.innerHTML = matches.map(([key, c]) => {
-                const price = COOKIE_PRICES[key] || 150;
                 const isFav = favorites.includes(key);
                 const localImg = LOCAL_IMAGES[key] || c.img;
                 const imgHTML = localImg ? `<img class="grid-card-img" src="${localImg}" alt="${c.name}" loading="lazy" onerror="this.onerror=null; this.src='${c.img || ''}'; if(!this.src) this.parentNode.innerHTML='<div class=\\'grid-card-img-placeholder\\' style=\\'background:${c.color}\\'>${c.emoji}</div>';">` : `<div class="grid-card-img-placeholder" style="background:${c.color}">${c.emoji}</div>`;
-                const itemReviews = reviews[key] || [];
-                const customSum = itemReviews.reduce((sum, r) => sum + r.rating, 0);
-                const avg = itemReviews.length > 0 ? (customSum / itemReviews.length).toFixed(1) : "5.0";
-                const stars = '★'.repeat(Math.round(parseFloat(avg))) + '☆'.repeat(5 - Math.round(parseFloat(avg)));
-                return `<div class="grid-card" onclick="trackCookieView('${key}')"><div class="grid-card-img-wrapper" onclick="openQuickView('${key}'); event.stopPropagation();">${imgHTML}<button class="grid-card-heart ${isFav ? 'active' : ''}" onclick="toggleFavorite('${key}', this); event.stopPropagation();" title="Save Favorite"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button><div class="grid-card-price-badge">₹${price} / pack</div></div><div class="grid-card-body" onclick="openQuickView('${key}'); event.stopPropagation();"><div class="grid-card-name">${c.emoji} ${c.name}</div><div class="grid-card-stars">${stars} (${avg})</div><div class="grid-card-review">${c.review}</div><div class="grid-card-footer"><button class="grid-card-btn grid-btn-details" onclick="openQuickView('${key}'); event.stopPropagation();">Info</button><button class="grid-card-btn grid-btn-cart" onclick="addCookieToCart('${key}'); event.stopPropagation();">+ Add</button></div></div></div>`;
+                const ratingNum = c.rating ? parseFloat(c.rating).toFixed(1) : "5.0";
+                const stars = typeof getProductStars === 'function' ? getProductStars(c.rating) : '★★★★★';
+                return `<div class="grid-card" onclick="goToProductPage('${key}')"><div class="grid-card-img-wrapper" onclick="goToProductPage('${key}'); event.stopPropagation();">${imgHTML}<button class="grid-card-heart ${isFav ? 'active' : ''}" onclick="toggleFavorite('${key}', this); event.stopPropagation();" title="Save Favorite"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button></div><div class="grid-card-body" onclick="goToProductPage('${key}'); event.stopPropagation();"><div class="grid-card-name">${c.emoji} ${c.name}</div><div class="grid-card-stars">${stars} (${ratingNum})</div><div class="grid-card-review">${c.review}</div><div class="grid-card-footer"><button class="grid-card-btn grid-btn-details" onclick="goToProductPage('${key}'); event.stopPropagation();">Info</button><button class="grid-card-btn grid-btn-cart" onclick="addCookieToCart('${key}'); event.stopPropagation();">+ Add</button></div></div></div>`;
             }).join('');
-
         }
 
 
@@ -4551,18 +4570,26 @@
             window.open('https://wa.me/918884102020?text=' + waText, '_blank');
         }
 
+        function goToProductPage(key) {
+            const k = String(key || 'almond').trim().toLowerCase();
+            const targetUrl = `/product.html?id=${encodeURIComponent(k)}`;
+            try {
+                if (window.top && window.top !== window) {
+                    window.top.location.href = targetUrl;
+                    return;
+                }
+                if (window.parent && window.parent !== window) {
+                    window.parent.location.href = targetUrl;
+                    return;
+                }
+            } catch (e) {
+                console.warn('Navigation fallback:', e);
+            }
+            window.location.href = targetUrl;
+        }
+
         function openQuickView(key) {
-            currentQVKey = key; currentQVTab = "nut"; selectedQVRating = 5;
-            const c = COOKIES[key]; const price = COOKIE_PRICES[key] || 150;
-            document.getElementById('qvName').textContent = c.name;
-            document.getElementById('qvPrice').textContent = `₹${price} / pack`;
-            document.getElementById('qvReview').textContent = c.review;
-            const imgArea = document.getElementById('qvImageArea');
-            const localImg = LOCAL_IMAGES[key] || c.img;
-            if (localImg) { imgArea.innerHTML = `<img class="qv-hero-img" src="${localImg}" alt="${c.name}" onerror="this.onerror=null; this.src='${c.img || ''}'; if(!this.src) this.parentNode.innerHTML='<div class=\\'qv-hero-placeholder\\' style=\\'background:${c.color}\\'>${c.emoji}</div>';">`; }
-            else { imgArea.innerHTML = `<div class="qv-hero-placeholder" style="background:${c.color}">${c.emoji}</div>`; }
-            document.getElementById('quickViewModalOverlay').classList.add('open');
-            switchQVTab('nut'); drawQVQRCode(key);
+            goToProductPage(key);
         }
 
         function closeQuickView() { document.getElementById('quickViewModalOverlay').classList.remove('open'); }

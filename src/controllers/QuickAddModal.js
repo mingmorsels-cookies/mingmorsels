@@ -9,7 +9,7 @@ export const PRODUCT_BOX_CATALOG = {
   almond: {
     id: 'almond',
     name: 'Almond Rich Cookie',
-    tagline: 'Whole roasted California almonds & plant-based Stevia',
+    tagline: 'Whole roasted almonds & plant-based Stevia',
     image: '/almond/1.jpg',
     unitName: 'Cookies',
     boxes: [
@@ -145,7 +145,7 @@ export const PRODUCT_BOX_CATALOG = {
   walnut: {
     id: 'walnut',
     name: 'Walnut Cookies',
-    tagline: 'Rich buttery dough loaded with roasted California walnuts',
+    tagline: 'Rich buttery dough loaded with roasted whole walnuts',
     image: '/img-walnut.png',
     unitName: 'Cookies',
     boxes: [
@@ -153,7 +153,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'walnut_snack_2pcs',
         name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
-        price: 50,
+        price: 40,
         desc: '2 Nutty Omega-3 rich whole walnut cookies.',
         img: '/box-classic.jpg'
       },
@@ -161,7 +161,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'walnut_classic_8pcs',
         name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
-        price: 210,
+        price: 140,
         desc: '8 Premium roasted walnut cookies in signature gold box.',
         img: '/box-lush.jpg',
         popular: true
@@ -170,8 +170,8 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'walnut_family_12pcs',
         name: 'Dozen Delights',
         countLabel: 'Up to 12 Cookies',
-        price: 420,
-        desc: '12 Rich California walnut cookies for connoisseurs.',
+        price: 360,
+        desc: '12 Rich roasted walnut cookies for connoisseurs.',
         img: '/box-extra.jpg'
       }
     ]
@@ -187,7 +187,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'walnut_sf_snack_2pcs',
         name: 'Twin Delights',
         countLabel: 'Up to 2 Cookies',
-        price: 55,
+        price: 40,
         desc: '2 Zero-sugar guilt-free whole walnut cookies.',
         img: '/box-classic.jpg'
       },
@@ -195,7 +195,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'walnut_sf_classic_8pcs',
         name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
-        price: 220,
+        price: 140,
         desc: '8 Guilt-free diabetic-friendly treats in fresh box.',
         img: '/box-lush.jpg',
         popular: true
@@ -204,7 +204,7 @@ export const PRODUCT_BOX_CATALOG = {
         id: 'walnut_sf_family_12pcs',
         name: 'Dozen Delights',
         countLabel: 'Up to 12 Cookies',
-        price: 440,
+        price: 360,
         desc: '12 Keto-friendly walnut cookies in luxury collection box.',
         img: '/box-extra.jpg'
       }
@@ -213,7 +213,7 @@ export const PRODUCT_BOX_CATALOG = {
   strawberry: {
     id: 'strawberry',
     name: 'Strawberry Muffin',
-    tagline: 'Delicate vanilla sponge infused with fresh Mahabaleshwar strawberries',
+    tagline: 'Delicate vanilla sponge infused with fresh farm strawberries',
     image: '',
     unitName: 'Muffins',
     boxes: [
@@ -267,7 +267,7 @@ export const PRODUCT_BOX_CATALOG = {
   chocochip: {
     id: 'chocochip',
     name: 'Chocochip Muffin',
-    tagline: 'Decadent 70% dark cocoa sponge loaded with molten Belgian chocolate chips',
+    tagline: 'Decadent 70% dark cocoa sponge loaded with molten dark chocolate chips',
     image: '',
     unitName: 'Muffins',
     boxes: [
