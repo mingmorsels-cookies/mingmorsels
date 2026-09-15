@@ -4625,13 +4625,34 @@
 
         function setQVSurveyRating(val) { selectedQVRating = val; document.querySelectorAll('#qvStarsPicker span').forEach((s, idx) => s.classList.toggle('active', idx < val)); }
 
-        function submitQVCookieReview() {
+        async function submitQVCookieReview() {
             const name = document.getElementById('qvReviewAuthorInput').value.trim();
             const comment = document.getElementById('qvReviewCommentInput').value.trim();
             if (!name || !comment) { alert("Please provide both your name and review feedback!"); return; }
             if (!reviews[currentQVKey]) reviews[currentQVKey] = [];
             reviews[currentQVKey].push({ name, rating: selectedQVRating, comment, date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) });
-            saveStoreState(); populateQVReviews(); updateBoutiqueGrid(); showToast("✓ Review submitted successfully!");
+            saveStoreState(); 
+            populateQVReviews(); 
+            updateBoutiqueGrid(); 
+
+            // Sync with backend API to store in database and notify admin portal
+            try {
+                await fetch('/api/reviews/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId: currentQVKey || 'almond',
+                        name: name,
+                        rating: selectedQVRating || 5,
+                        text: comment,
+                        location: 'Bengaluru'
+                    })
+                });
+            } catch (syncErr) {
+                console.warn('Backend review sync notice:', syncErr);
+            }
+
+            showToast("✓ Review submitted successfully!");
         }
 
         function addQVCookieToCart() { addCookieToCart(currentQVKey); closeQuickView(); }

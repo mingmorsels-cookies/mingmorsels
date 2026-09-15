@@ -1249,8 +1249,13 @@
         tab.classList.add('active');
         const targetId = `pane-${tab.getAttribute('data-tab')}`;
         document.getElementById(targetId)?.classList.add('active');
-        if (tab.getAttribute('data-tab') === 'audit') {
+        const tabName = tab.getAttribute('data-tab');
+        if (tabName === 'reviews') {
+          fetchAdminReviews();
+        } else if (tabName === 'audit') {
           fetchAuditLogs();
+        } else if (tabName === 'orders') {
+          fetchOrders();
         }
       });
     });
@@ -1378,6 +1383,13 @@
           } catch (err) {}
           showAdminNewOrderToast(orderData);
           fetchOrders();
+          fetchAdminNotifications();
+          fetchAuditLogs();
+        });
+
+        adminEventSource.addEventListener('new_review', (e) => {
+          console.log('📝 [Admin SSE] new_review received:', e.data);
+          fetchAdminReviews();
           fetchAdminNotifications();
           fetchAuditLogs();
         });

@@ -231,6 +231,24 @@ export async function initPostgresTables() {
       );
       CREATE INDEX IF NOT EXISTS idx_audit_logs_timestamp ON audit_logs(timestamp DESC);
       CREATE INDEX IF NOT EXISTS idx_audit_logs_admin_user ON audit_logs(admin_user);
+
+      CREATE TABLE IF NOT EXISTS reviews (
+        id VARCHAR(100) PRIMARY KEY,
+        product_id VARCHAR(100) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255),
+        location VARCHAR(255),
+        rating INT NOT NULL DEFAULT 5,
+        text TEXT NOT NULL,
+        sentiment VARCHAR(100) DEFAULT 'Loved It',
+        verified BOOLEAN DEFAULT TRUE,
+        status VARCHAR(50) DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        moderated_at TIMESTAMP
+      );
+      CREATE INDEX IF NOT EXISTS idx_reviews_product_id ON reviews(product_id);
+      CREATE INDEX IF NOT EXISTS idx_reviews_status ON reviews(status);
+      CREATE INDEX IF NOT EXISTS idx_reviews_created_at ON reviews(created_at DESC);
     `);
     client.release();
     console.log('✅ PostgreSQL Schema, Tables & Indexes verified successfully.');
@@ -998,21 +1016,62 @@ export async function purgeAllOrders() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function createReviewRecord({ productId, name, email = '', location = 'Bengaluru', rating = 5, text = '', sentiment = 'Loved It', verified = true }) {
+  const id = `rev_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
+  const cleanProductId = String(productId || 'rose').toLowerCase().trim();
+  const cleanName = String(name || 'Connoisseur').trim();
+  const cleanEmail = String(email || '').trim().toLowerCase();
+  const cleanLocation = String(location || 'Bengaluru').trim();
+  const numRating = Math.max(1, Math.min(5, Number(rating) || 5));
+  const cleanText = String(text || '').trim();
+  const cleanSentiment = sentiment || 'Loved It';
+  const isVerified = Boolean(verified);
+  const status = 'pending';
+  const createdAt = new Date().toISOString();
+
+  if (pgPool) {
+    try {
+      const res = await pgPool.query(
+        `INSERT INTO reviews (id, product_id, name, email, location, rating, text, sentiment, verified, status, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+         RETURNING *`,
+        [id, cleanProductId, cleanName, cleanEmail, cleanLocation, numRating, cleanText, cleanSentiment, isVerified, status, createdAt]
+      );
+      if (res.rows[0]) {
+        const r = res.rows[0];
+        return {
+          id: r.id,
+          productId: r.product_id,
+          name: r.name,
+          email: r.email,
+          location: r.location,
+          rating: Number(r.rating),
+          text: r.text,
+          sentiment: r.sentiment,
+          verified: r.verified,
+          status: r.status,
+          createdAt: r.created_at
+        };
+      }
+    } catch (e) {
+      console.warn('PostgreSQL review insert fallback to local store:', e.message);
+    }
+  }
+
   const store = await readLocalStoreAsync();
   if (!store.reviews) store.reviews = [];
 
   const reviewEntry = {
-    id: `rev_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
-    productId: String(productId || 'rose').toLowerCase().trim(),
-    name: String(name || 'Connoisseur').trim(),
-    email: String(email || '').trim().toLowerCase(),
-    location: String(location || 'Bengaluru').trim(),
-    rating: Math.max(1, Math.min(5, Number(rating) || 5)),
-    text: String(text || '').trim(),
-    sentiment: sentiment || 'Loved It',
-    verified: Boolean(verified),
-    status: 'pending', // 'pending' | 'approved' | 'rejected'
-    createdAt: new Date().toISOString()
+    id,
+    productId: cleanProductId,
+    name: cleanName,
+    email: cleanEmail,
+    location: cleanLocation,
+    rating: numRating,
+    text: cleanText,
+    sentiment: cleanSentiment,
+    verified: isVerified,
+    status, // 'pending' | 'approved' | 'rejected'
+    createdAt
   };
 
   store.reviews.unshift(reviewEntry);
@@ -1021,6 +1080,34 @@ export async function createReviewRecord({ productId, name, email = '', location
 }
 
 export async function getApprovedReviews(productId) {
+  if (pgPool) {
+    try {
+      let query = `SELECT * FROM reviews WHERE status = 'approved'`;
+      const params = [];
+      if (productId) {
+        query += ` AND (product_id = $1 OR product_id LIKE $2)`;
+        params.push(String(productId).toLowerCase().trim(), `%${String(productId).toLowerCase().trim()}%`);
+      }
+      query += ` ORDER BY created_at DESC`;
+      const res = await pgPool.query(query, params);
+      return res.rows.map(r => ({
+        id: r.id,
+        productId: r.product_id,
+        name: r.name,
+        email: r.email,
+        location: r.location,
+        rating: Number(r.rating),
+        text: r.text,
+        sentiment: r.sentiment,
+        verified: r.verified,
+        status: r.status,
+        createdAt: r.created_at
+      }));
+    } catch (e) {
+      console.warn('PostgreSQL getApprovedReviews fallback:', e.message);
+    }
+  }
+
   const store = await readLocalStoreAsync();
   const all = store.reviews || [];
   if (!productId) {
@@ -1031,25 +1118,86 @@ export async function getApprovedReviews(productId) {
 }
 
 export async function getAllReviewsAdmin() {
+  if (pgPool) {
+    try {
+      const res = await pgPool.query(`SELECT * FROM reviews ORDER BY created_at DESC`);
+      return res.rows.map(r => ({
+        id: r.id,
+        productId: r.product_id,
+        name: r.name,
+        email: r.email,
+        location: r.location,
+        rating: Number(r.rating),
+        text: r.text,
+        sentiment: r.sentiment,
+        verified: r.verified,
+        status: r.status,
+        createdAt: r.created_at,
+        moderatedAt: r.moderated_at
+      }));
+    } catch (e) {
+      console.warn('PostgreSQL getAllReviewsAdmin fallback:', e.message);
+    }
+  }
+
   const store = await readLocalStoreAsync();
   return store.reviews || [];
 }
 
 export async function updateReviewStatus(reviewId, status) {
+  const validStatus = ['pending', 'approved', 'rejected'].includes(status) ? status : 'approved';
+  const moderatedAt = new Date().toISOString();
+
+  if (pgPool) {
+    try {
+      const res = await pgPool.query(
+        `UPDATE reviews SET status = $1, moderated_at = $2 WHERE id = $3 RETURNING *`,
+        [validStatus, moderatedAt, reviewId]
+      );
+      if (res.rows[0]) {
+        const r = res.rows[0];
+        return {
+          id: r.id,
+          productId: r.product_id,
+          name: r.name,
+          email: r.email,
+          location: r.location,
+          rating: Number(r.rating),
+          text: r.text,
+          sentiment: r.sentiment,
+          verified: r.verified,
+          status: r.status,
+          createdAt: r.created_at,
+          moderatedAt: r.moderated_at
+        };
+      }
+    } catch (e) {
+      console.warn('PostgreSQL updateReviewStatus fallback:', e.message);
+    }
+  }
+
   const store = await readLocalStoreAsync();
   if (!store.reviews) store.reviews = [];
-  const validStatus = ['pending', 'approved', 'rejected'].includes(status) ? status : 'approved';
 
   const review = store.reviews.find(r => r.id === reviewId);
   if (!review) return null;
 
   review.status = validStatus;
-  review.moderatedAt = new Date().toISOString();
+  review.moderatedAt = moderatedAt;
   await writeLocalStoreAsync(store);
   return review;
 }
 
 export async function deleteReviewRecord(reviewId) {
+  if (pgPool) {
+    try {
+      const res = await pgPool.query(`DELETE FROM reviews WHERE id = $1`, [reviewId]);
+      if (res.rowCount > 0) return true;
+    } catch (e) {
+      console.warn('PostgreSQL deleteReviewRecord fallback:', e.message);
+    }
+  }
+
   const store = await readLocalStoreAsync();
   if (!store.reviews) return false;
   const initialLen = store.reviews.length;

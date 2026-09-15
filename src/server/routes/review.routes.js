@@ -10,8 +10,10 @@ import {
   getApprovedReviews,
   getAllReviewsAdmin,
   updateReviewStatus,
-  deleteReviewRecord
+  deleteReviewRecord,
+  saveAdminNotification
 } from '../../../db.js';
+import { eventStreamService } from '../services/EventStreamService.js';
 
 const router = Router();
 
@@ -69,6 +71,19 @@ router.post('/reviews/submit', async (req, res) => {
       sentiment,
       verified: true
     });
+
+    // Notify admin via in-app alerts and real-time SSE stream
+    try {
+      await saveAdminNotification({
+        title: 'New Customer Review',
+        message: `${review.name} left a ${review.rating}★ review for ${review.productId}: "${review.text.slice(0, 70)}..."`,
+        type: 'REVIEW',
+        target_id: review.id
+      });
+      eventStreamService.broadcastNewReview(review);
+    } catch (notifErr) {
+      console.warn('Admin review notification warning:', notifErr.message);
+    }
 
     res.status(201).json({
       success: true,

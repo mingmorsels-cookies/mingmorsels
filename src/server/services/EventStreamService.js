@@ -131,6 +131,20 @@ class EventStreamService extends EventEmitter {
       }
     });
   }
+
+  /**
+   * Broadcasts a new customer review submission to all admin dashboard clients.
+   */
+  broadcastNewReview(review) {
+    if (!review) return;
+    this.adminClients.forEach(res => {
+      try {
+        res.write(`event: new_review\ndata: ${JSON.stringify(review)}\n\n`);
+      } catch (err) {
+        this.adminClients.delete(res);
+      }
+    });
+  }
 }
 
 export const eventStreamService = new EventStreamService();
