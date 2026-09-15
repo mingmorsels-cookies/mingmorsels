@@ -143,12 +143,12 @@
                 rating: 5.0,
                 reviewsCount: 128,
                 stars: 5, 
-                price: 140, 
+                price: 150, 
                 nutrition: { Calories: "72.7 kcal", Carbs: "5.1g", Protein: "1.51g", Fat: "5.14g", "Saturated Fat": "3g", "Trans Fat": "0g", Sugar: "3.24g", Sodium: "89.6mg", Potassium: "397.2mg", Preservatives: "None" }, 
                 tags: ["Nutrient Dense", "Pasture Butter", "Zero Palm Oil", "Stevia Sweetened"],
                 boxes: [
                     { id: 'almond_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/almond-box-2pcs.png?v=2' },
-                    { id: 'almond_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/almond-box-8pcs.jpg', popular: true },
+                    { id: 'almond_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 150, img: '/almond-box-8pcs.jpg', popular: true },
                     { id: 'almond_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/almond-box-12pcs.png?v=2' }
                 ]
             },
@@ -161,12 +161,12 @@
                 rating: 4.9,
                 reviewsCount: 96,
                 stars: 5, 
-                price: 140, 
+                price: 150, 
                 nutrition: { Calories: "135 kcal", Carbs: "15g", Protein: "3g", Fat: "6g", Sugar: "5g", Fibre: "1.2g", Sodium: "30mg", Preservatives: "None" }, 
                 tags: ["Rose Petals", "Aromatic", "Low GI", "Handcrafted"],
                 boxes: [
                     { id: 'rose_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/rose-box-2pcs.jpg' },
-                    { id: 'rose_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/rose-box-8pcs.jpg', popular: true },
+                    { id: 'rose_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 150, img: '/rose-box-8pcs.jpg', popular: true },
                     { id: 'rose_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/rose-box-12pcs.png?v=2' }
                 ]
             },
@@ -179,12 +179,12 @@
                 rating: 4.8,
                 reviewsCount: 142,
                 stars: 5, 
-                price: 140, 
+                price: 150, 
                 nutrition: { Calories: "148 kcal", Carbs: "18g", Protein: "5g", Fat: "6.5g", Sugar: "4g", Fibre: "3.2g", Sodium: "52mg", Preservatives: "None" }, 
                 tags: ["High Fibre", "Rolled Oats", "Omega-3", "Clean Energy"],
                 boxes: [
                     { id: 'oatsnuts_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/oats-box-2pcs.jpg' },
-                    { id: 'oatsnuts_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/oats-box-8pcs.jpg', popular: true },
+                    { id: 'oatsnuts_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 150, img: '/oats-box-8pcs.jpg', popular: true },
                     { id: 'oatsnuts_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/oats-box-12pcs.jpg' }
                 ]
             },
@@ -197,12 +197,12 @@
                 rating: 4.5,
                 reviewsCount: 84,
                 stars: 5, 
-                price: 140, 
+                price: 150, 
                 nutrition: { Calories: "138 kcal", Carbs: "16g", Protein: "3.2g", Fat: "6.2g", Sugar: "5.5g", Fibre: "1.4g", Sodium: "35mg", Preservatives: "None" }, 
                 tags: ["Orange Zest", "Warm Cinnamon", "Zesty Shortbread", "Zero Dalda"],
                 boxes: [
                     { id: 'orange_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/orange-box-2pcs.jpg' },
-                    { id: 'orange_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/orange-box-8pcs.jpg', popular: true },
+                    { id: 'orange_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 150, img: '/orange-box-8pcs.jpg', popular: true },
                     { id: 'orange_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/box-classic.jpg' }
                 ]
             },
@@ -215,12 +215,12 @@
                 rating: 4.5,
                 reviewsCount: 110,
                 stars: 5, 
-                price: 140, 
+                price: 150, 
                 nutrition: { Calories: "145 kcal", Carbs: "14g", Protein: "4.2g", Fat: "8.5g", Sugar: "4.5g", Fibre: "2.1g", Sodium: "38mg", Preservatives: "None" }, 
                 tags: ["Roasted Walnuts", "Omega-3 Rich", "Nut Rich", "Zero Trans-Fats"],
                 boxes: [
                     { id: 'walnut_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/box-classic.jpg' },
-                    { id: 'walnut_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/box-lush.jpg', popular: true },
+                    { id: 'walnut_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 150, img: '/box-lush.jpg', popular: true },
                     { id: 'walnut_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/box-extra.jpg' }
                 ]
             },
@@ -233,12 +233,12 @@
                 rating: 4.5,
                 reviewsCount: 88,
                 stars: 5, 
-                price: 140, 
+                price: 150, 
                 nutrition: { Calories: "128 kcal", Carbs: "9g", Protein: "4.8g", Fat: "8.2g", Sugar: "0g", Fibre: "3.5g", Sodium: "32mg", Preservatives: "None" }, 
                 tags: ["100% Sugar Free", "Natural Stevia", "Diabetic Friendly", "Keto Approved"],
                 boxes: [
                     { id: 'walnut_sf_snack_2pcs', name: 'Twin Delights', count: '2 Cookies', price: 40, img: '/box-classic.jpg' },
-                    { id: 'walnut_sf_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 140, img: '/box-lush.jpg', popular: true },
+                    { id: 'walnut_sf_classic_8pcs', name: 'Classic Delights', count: '8 Cookies', price: 150, img: '/box-lush.jpg', popular: true },
                     { id: 'walnut_sf_family_12pcs', name: 'Dozen Delights', count: '12 Cookies', price: 360, img: '/box-extra.jpg' }
                 ]
             },
@@ -254,11 +254,11 @@
                 rating: 4.8,
                 reviewsCount: 130,
                 stars: 5,
-                price: 40, 
+                price: 45, 
                 popular: false,
                 tags: ["Real Fruit", "Crumble Top", "Pasture Butter"],
                 boxes: [
-                    { id: 'strawberry_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-strawberry.jpg', popular: true }
+                    { id: 'strawberry_single', name: 'Single Muffin', count: '1 Muffin', price: 45, img: '/img-strawberry.jpg', popular: true }
                 ]
             },
             pinacolada: { 
@@ -273,11 +273,11 @@
                 rating: 4.5,
                 reviewsCount: 78,
                 stars: 5,
-                price: 40, 
+                price: 45, 
                 popular: false, 
                 tags: ["Tropical Pineapple", "Toasted Coconut", "Moist Sponge"], 
                 boxes: [
-                    { id: 'pinacolada_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-pinacolada.jpg', popular: true }
+                    { id: 'pinacolada_single', name: 'Single Muffin', count: '1 Muffin', price: 45, img: '/img-pinacolada.jpg', popular: true }
                 ]
             },
             butterscotch: { 
@@ -289,11 +289,11 @@
                 rating: 4.5,
                 reviewsCount: 156,
                 stars: 5, 
-                price: 40, 
+                price: 45, 
                 nutrition: { Calories: "320 kcal", Carbs: "45g", Protein: "5.07g", Fat: "13.47g", Sugar: "26.86g", Fibre: "7.13g", Preservatives: "None" }, 
                 tags: ["Butterscotch Toffee", "Pure Butter", "Zero Margarine"], 
                 boxes: [
-                    { id: 'butterscotch_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-butterscotch.jpg', popular: true }
+                    { id: 'butterscotch_single', name: 'Single Muffin', count: '1 Muffin', price: 45, img: '/img-butterscotch.jpg', popular: true }
                 ]
             },
             chocochip: { 
@@ -308,11 +308,11 @@
                 rating: 5.0,
                 reviewsCount: 210,
                 stars: 5,
-                price: 40, 
+                price: 45, 
                 popular: true, 
                 tags: ["70% Dark Chocolate", "Melted Chips", "Decadent"], 
                 boxes: [
-                    { id: 'chocochip_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-chocochip.jpg', popular: true }
+                    { id: 'chocochip_single', name: 'Single Muffin', count: '1 Muffin', price: 45, img: '/img-chocochip.jpg', popular: true }
                 ]
             },
             blackcurrant: { 
@@ -327,11 +327,11 @@
                 rating: 4.8,
                 reviewsCount: 95,
                 stars: 5,
-                price: 40, 
+                price: 45, 
                 popular: false, 
                 tags: ["Whole Wheat Atta", "Antioxidant Rich", "Zero Palm Oil"], 
                 boxes: [
-                    { id: 'blackcurrant_single', name: 'Single Muffin', count: '1 Muffin', price: 40, img: '/img-blackcurrant.jpg', popular: true }
+                    { id: 'blackcurrant_single', name: 'Single Muffin', count: '1 Muffin', price: 45, img: '/img-blackcurrant.jpg', popular: true }
                 ]
             }
         };
@@ -646,7 +646,7 @@
             // AI Intent Recognition: Box Options & Packaging Sizes
             if (/box option|box options|box size|box sizes|different box|packaging option|pack size|snack pack|classic box|classic delights|family pack|dozen delight|dozen delights|twin delight|twin delights|how many cookies|how many pieces|box choices/.test(q)) {
                 return {
-                    text: `📦 <strong>Available Box Sizes &amp; Packaging Choices</strong><br><br>Every flavour is freshly baked and packed in airtight gold-foil packaging across 3 distinct sizes:<br><br>• <strong>Twin Delights (2 Pieces)</strong>: Perfect for personal snacking &amp; quick cravings (from ₹40).<br>• <strong>Classic Delights (8 Cookies / 4 Muffins)</strong>: Our #1 Bestseller — ideal for teatime sharing &amp; family dessert (from ₹140).<br>• <strong>Dozen Delights (12 Cookies / 6 Muffins)</strong>: Premium presentation box for parties and celebrations (from ₹210).<br><br>Tap on any flavour card below to pick your box size and add to cart! ✦`,
+                    text: `📦 <strong>Available Box Sizes &amp; Packaging Choices</strong><br><br>Every flavour is freshly baked and packed in airtight gold-foil packaging across 3 distinct sizes:<br><br>• <strong>Twin Delights (2 Pieces)</strong>: Perfect for personal snacking &amp; quick cravings (from ₹40).<br>• <strong>Classic Delights (8 Cookies / 4 Muffins)</strong>: Our #1 Bestseller — ideal for teatime sharing &amp; family dessert (from ₹150).<br>• <strong>Dozen Delights (12 Cookies / 6 Muffins)</strong>: Premium presentation box for parties and celebrations (from ₹210).<br><br>Tap on any flavour card below to pick your box size and add to cart! ✦`,
                     cards: ['almond', 'walnut_sf', 'rose'].map(k => renderCookieCard(k)).join('')
                 };
             }
@@ -1502,7 +1502,7 @@
 
         function updateChatbotBoxFooter() {
             const product = COOKIES[cbSelectedProductKey] || COOKIES.almond;
-            const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || { price: 140 };
+            const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || { price: 150 };
             const total = box.price * cbQuantity;
 
             const qtyDisp = document.getElementById('cb-qa-qty-display');
@@ -1526,7 +1526,7 @@
 
         function confirmChatbotBoxAddToCart() {
             const product = COOKIES[cbSelectedProductKey] || COOKIES.almond;
-            const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || (product.boxes && product.boxes[0]) || { id: cbSelectedProductKey, name: 'Classic Delights', price: 140, count: '8 Cookies' };
+            const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || (product.boxes && product.boxes[0]) || { id: cbSelectedProductKey, name: 'Classic Delights', price: 150, count: '8 Cookies' };
 
             // 1. Add to parent website CartStore if in iframe
             if (window.top && window.top.cartStore) {

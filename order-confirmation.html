@@ -1116,7 +1116,7 @@
       const isPickup = deliveryMode === 'pickup' || (order?.shipping_address && order.shipping_address.includes('Store Pickup:'));
       const pickupPin = order?.pickup_pin && !order.pickup_pin.includes('•') ? order.pickup_pin : (urlParams.get('pin') || localStorage.getItem('ming_morsels_pickup_pin') || '4892');
       const shippingAddress = order?.shipping_address && !order.shipping_address.includes('*') ? order.shipping_address : (localAddress || 'Express Bengaluru Delivery');
-      const totalAmount = order?.total_amount || urlParams.get('total') || 140;
+      const totalAmount = order?.total_amount || urlParams.get('total') || 150;
       const isSundayOrder = (new Date(order?.created_at || Date.now()).getDay() === 0);
 
       // Greet Customer with Luxury Personal Touch

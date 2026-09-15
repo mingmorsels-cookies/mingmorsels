@@ -12,7 +12,7 @@ const PRODUCTS_DATA = {
     category: 'Nutty Indulgence',
     categoryLink: 'Cookies',
     tagline: 'Whole roasted almonds & pure cow butter shortbread.',
-    price: 140,
+    price: 150,
     rating: '5.0',
     reviewsCount: 128,
     badges: ['Recommended ★', 'Nut Rich', 'Plant-Based Stevia'],
@@ -44,7 +44,7 @@ const PRODUCTS_DATA = {
     category: 'Floral Delicacy',
     categoryLink: 'Cookies',
     tagline: 'Infused with authentic dried rose petals and rich cow butter.',
-    price: 140,
+    price: 150,
     rating: '4.9',
     reviewsCount: 96,
     badges: ['Recommended ★', 'Real Rose Petals', '100% Pure Veg'],
@@ -76,7 +76,7 @@ const PRODUCTS_DATA = {
     category: 'Wholesome Crunch',
     categoryLink: 'Cookies',
     tagline: 'Hearty rolled oats, walnuts, and chia seeds sweetened naturally with plant-based Stevia.',
-    price: 140,
+    price: 150,
     rating: '4.8',
     reviewsCount: 142,
     badges: ['High Fibre', 'Rolled Oats', 'Superfood Nutrients'],
@@ -108,7 +108,7 @@ const PRODUCTS_DATA = {
     category: 'Zesty Refreshment',
     categoryLink: 'Cookies',
     tagline: 'Sun-ripened orange zest fused with warm ground cinnamon for a vibrant citrus crunch.',
-    price: 140,
+    price: 150,
     rating: '4.5',
     reviewsCount: 84,
     badges: ['Citrus Zest', 'Warm Cinnamon', 'Fresh Baked'],
@@ -140,7 +140,7 @@ const PRODUCTS_DATA = {
     category: 'Nutrient Rich',
     categoryLink: 'Cookies',
     tagline: 'Loaded with whole roasted walnut halves & buttery brown sugar crunch.',
-    price: 140,
+    price: 150,
     rating: '4.5',
     reviewsCount: 110,
     badges: ['Brain Food', 'Omega-3 Rich', 'Zero Palm Oil'],
@@ -172,7 +172,7 @@ const PRODUCTS_DATA = {
     category: 'Diabetic Friendly',
     categoryLink: 'Cookies',
     tagline: '100% Sugar-Free. Whole roasted walnuts sweetened with natural Stevia & Erythritol.',
-    price: 140,
+    price: 150,
     rating: '4.5',
     reviewsCount: 88,
     badges: ['Sugar-Free', 'Keto Friendly', 'Guilt-Free'],
@@ -204,7 +204,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Delicate vanilla sponge infused with fresh farm strawberries',
-    price: 40,
+    price: 45,
     rating: '4.8',
     reviewsCount: 130,
     badges: ['Real Fruit', 'Farm Fresh', 'Crumble Top'],
@@ -225,7 +225,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Juicy golden pineapple tidbits embedded in vanilla butter sponge, crowned with toasted coconut flakes.',
-    price: 40,
+    price: 45,
     rating: '4.5',
     reviewsCount: 78,
     badges: ['Tropical Fruit', 'Golden Sponge', 'Toasted Coconut'],
@@ -246,7 +246,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Rich caramelized brown sugar sponge studded with crunchy butterscotch toffee and praline morsels.',
-    price: 40,
+    price: 45,
     rating: '4.5',
     reviewsCount: 156,
     badges: ['Caramel Praline', 'Rich Butter', 'Baker Special'],
@@ -267,7 +267,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Decadent 70% dark cocoa sponge loaded with molten dark chocolate chips.',
-    price: 40,
+    price: 45,
     rating: '5.0',
     reviewsCount: 210,
     badges: ['Recommended ★', '70% Dark Cocoa', 'Dark Choco'],
@@ -288,7 +288,7 @@ const PRODUCTS_DATA = {
     category: 'Handcrafted Muffin',
     categoryLink: 'Muffins',
     tagline: 'Whole wheat sponge bursting with tangy black currants and vanilla flavour',
-    price: 40,
+    price: 45,
     rating: '4.8',
     reviewsCount: 95,
     badges: ['Whole Wheat', 'Tangy Currants', 'No Margarine'],
@@ -330,7 +330,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 140,
+      price: 150,
       unit: '/ box (8 freshly baked pieces)',
       img: '/rose-box-8pcs.jpg',
       badge: '8 Cookies · Popular',
@@ -363,7 +363,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 140,
+      price: 150,
       unit: '/ box (8 freshly baked pieces)',
       img: '/almond-box-8pcs.jpg',
       badge: '8 Cookies · Popular',
@@ -396,7 +396,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 140,
+      price: 150,
       unit: '/ box (8 freshly baked pieces)',
       img: '/orange-box-8pcs.jpg',
       badge: '8 Cookies · Popular',
@@ -419,7 +419,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 140,
+      price: 150,
       unit: '/ box (8 freshly baked pieces)',
       img: '/oats-box-8pcs.jpg',
       badge: '8 Cookies · Popular',
@@ -452,7 +452,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 140,
+      price: 150,
       unit: '/ box (8 freshly baked pieces)',
       img: '/box-lush.jpg',
       badge: '8 Cookies · Popular',
@@ -485,7 +485,7 @@ const COOKIE_BOX_OPTIONS = {
       name: 'Classic Delights',
       cookieCount: 8,
       countLabel: 'Up to 8 Cookies',
-      price: 140,
+      price: 150,
       unit: '/ box (8 freshly baked pieces)',
       img: '/box-lush.jpg',
       badge: '8 Cookies · Popular',
@@ -1183,7 +1183,7 @@ function updatePriceDisplay() {
   else if (selectedPackaging === 'lush') { boxExtra = 130; boxCapacity = 4; }
 
   const boxOptions = COOKIE_BOX_OPTIONS[currentProduct.id];
-  const basePrice = (boxOptions && selectedBoxOption) ? selectedBoxOption.price : (currentProduct.price || 140);
+  const basePrice = (boxOptions && selectedBoxOption) ? selectedBoxOption.price : (currentProduct.price || 150);
 
   const itemCountPerUnit = (currentProduct.type === 'muffin') ? 1 : (selectedBoxOption ? (selectedBoxOption.cookieCount || 1) : 1);
   const totalItems = selectedQuantity * itemCountPerUnit;
@@ -1517,7 +1517,7 @@ function addToCart(product, qty) {
   let cartItemId = product.id;
   let cartItemName = product.name;
   let cartItemImg = `/img-${product.id}.png`;
-  let unitPrice = Number(product.price || 140);
+  let unitPrice = Number(product.price || 150);
   let itemCountPerUnit = product.type === 'muffin' ? 1 : 1;
 
   const boxOptions = COOKIE_BOX_OPTIONS[product.id];

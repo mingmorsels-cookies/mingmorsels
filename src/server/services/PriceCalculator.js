@@ -45,7 +45,7 @@ export class PriceCalculator {
       }
 
       // Handle custom gift box products or fallback
-      let unitPrice = catalogEntry ? catalogEntry.price : (Number(item.price) > 0 ? Number(item.price) : 140);
+      let unitPrice = catalogEntry ? catalogEntry.price : (Number(item.price) > 0 ? Number(item.price) : 150);
       let productName = item.name || (catalogEntry ? catalogEntry.name : 'Artisanal Baked Delight');
 
       const packagingRate = PACKAGING_RATES[packagingKey] || 0;

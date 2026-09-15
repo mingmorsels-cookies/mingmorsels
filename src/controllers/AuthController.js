@@ -673,7 +673,7 @@ export class AuthController {
         <div style="margin-bottom: 16px;">
           ${cart.map(item => {
             const qty = Math.max(1, parseInt(item.quantity ?? item.qty ?? 1, 10) || 1);
-            const price = Number(item.price || item.customPrice || 140) || 140;
+            const price = Number(item.price || item.customPrice || 150) || 150;
             const itemTotal = price * qty;
             total += itemTotal;
             const name = item.name || item.customName || 'Artisanal Cookie Box';
