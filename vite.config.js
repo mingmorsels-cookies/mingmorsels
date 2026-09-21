@@ -4,7 +4,7 @@ import { resolve } from 'path';
 export default defineConfig({
   css: {
     transformer: 'postcss',
-    minify: 'esbuild'
+    minify: 'lightningcss'
   },
   server: {
     proxy: {
@@ -19,7 +19,7 @@ export default defineConfig({
     exclude: ['**/node_modules/**', '**/dist/**', 'tests/e2e.test.js']
   },
   build: {
-    cssMinify: false,
+    cssMinify: 'lightningcss',
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),

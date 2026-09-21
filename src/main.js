@@ -22,7 +22,6 @@ import { initRotatingText, initAllRotatingTexts } from './RotatingText.js';
 import { initNetworkMonitor, saveActiveSession, getSavedSession, showRecoveryBanner, SessionType } from './sessionState.js';
 
 import { openQuickAddModal, PRODUCT_BOX_CATALOG } from './controllers/QuickAddModal.js';
-import { init3DEnvironment } from './controllers/ThreeController.js';
 
 // Prevent browser scroll restoration miscalculations & start at Hero
 if (typeof history !== 'undefined' && 'scrollRestoration' in history) {
@@ -45,9 +44,10 @@ async function startApp() {
   // 1. Initialize UI Controller & Preloader first
   uiController.init();
 
-  // 2. Initialize Three.js WebGL engine immediately on Desktop & Tablet (> 768px)
+  // 2. Initialize Three.js WebGL engine dynamically on Desktop & Tablet (> 768px)
   if (window.innerWidth > 768) {
     try {
+      const { init3DEnvironment } = await import('./controllers/ThreeController.js');
       threeControllerInstance = init3DEnvironment();
       uiController.setThreeController(threeControllerInstance);
     } catch (err) {
