@@ -15,8 +15,8 @@ const PRODUCTS_DATA = {
     price: 150,
     rating: '5.0',
     reviewsCount: 128,
-    badges: ['Recommended ★', 'Nut Rich', 'Plant-Based Stevia'],
-    desc: 'A timeless classic reimagined. Crafted with whole roasted premium almonds, organic cow butter, and natural plant-based Stevia. Crumbly on the outside, meltingly soft on the inside with a nutty aroma.',
+    badges: ['Bestseller ★', 'Nut Rich', 'Plant-Based Stevia'],
+    desc: 'A timeless classic reimagined. Crafted with whole roasted premium almonds, pure cow butter, and natural plant-based Stevia. Crumbly on the outside, meltingly soft on the inside with a nutty aroma.',
     type: 'cookie',
     color: 0xD4A373,
     nutrition: {
@@ -47,8 +47,8 @@ const PRODUCTS_DATA = {
     price: 150,
     rating: '4.9',
     reviewsCount: 96,
-    badges: ['Recommended ★', 'Real Rose Petals', '100% Pure Veg'],
-    desc: 'An exquisite sensory journey. Made with naturally dried organic rose petals, cardamom essence, and 100% cow butter. Delicately floral and irresistibly crumbly.',
+    badges: ['Bestseller ★', 'Real Rose Petals', '100% Pure Veg'],
+    desc: 'An exquisite sensory journey. Made with naturally dried authentic rose petals, cardamom essence, and 100% cow butter. Delicately floral and irresistibly crumbly.',
     type: 'cookie',
     color: 0xE8A598,
     nutrition: {
@@ -65,7 +65,7 @@ const PRODUCTS_DATA = {
     },
     ingredients: 'Dried Rose Petals, Cardamom Pods, Unbleached Flour, Pure Cow Butter, Cane Sugar, Rose Water Extract.',
     reviews: [
-      { name: 'Sourav H.M.', location: 'Koramangala, Bengaluru', rating: 5, sentiment: '✨ Fantastic', text: 'I went to my friend\'s wedding reception last month where they had these Rose Petal cookies in the dessert lounge. I tried one out of curiosity—I am not even much of a sweet person, but it was absolutely fantastic and fabulous! The real organic rose aroma and cardamom crunch were exquisite.' },
+      { name: 'Sourav H.M.', location: 'Koramangala, Bengaluru', rating: 5, sentiment: '✨ Fantastic', text: 'I went to my friend\'s wedding reception last month where they had these Rose Petal cookies in the dessert lounge. I tried one out of curiosity—I am not even much of a sweet person, but it was absolutely fantastic and fabulous! The real authentic rose aroma and cardamom crunch were exquisite.' },
       { name: 'Preetham', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '👑 Royal Quality', text: 'Gifted a box to my mother for her anniversary and she couldn\'t stop praising the authentic rose essence. Unlike artificial syrups, you can literally see and taste the real dried rose petals baked into rich cow butter shortbread.' },
       { name: 'Kavita Reddy', location: 'HSR Layout, Bengaluru', rating: 5, sentiment: '🌟 Pure Bliss', text: 'Paired with Kashmiri Kahwa on a rainy afternoon, this cookie is pure poetry. Subtle, floral, luxurious, and not overly sweet. Every single bite feels royal, comforting, and memorable.' }
     ]
@@ -95,7 +95,7 @@ const PRODUCTS_DATA = {
       potassium: '367.5mg',
       fibre: '2.4g'
     },
-    ingredients: 'Rolled Oats, Crispy Walnuts, Chia Seeds, Natural Stevia Extract, Organic Butter, Cinnamon Spice.',
+    ingredients: 'Rolled Oats, Crispy Walnuts, Chia Seeds, Natural Stevia Extract, Pure Butter, Cinnamon Spice.',
     reviews: [
       { name: 'Rahul ', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '💪 Clean Fuel', text: 'As someone who hits the gym early every morning, finding a clean snack without junk refined sugar was tough. My trainer recommended these Oats Nuts cookies—crunchy rolled oats, roasted walnuts, and chia seeds sweetened naturally. Sustained energy without any sugar crash!' },
       { name: 'Pooja ', location: 'Jayanagar, Bengaluru', rating: 5, sentiment: '😍 Loved It', text: 'My kids usually avoid healthy oat biscuits, but they devoured these with a glass of warm milk after school. The nutty walnut texture and gentle cinnamon warmth make it feel like a gourmet bakery treat.' },
@@ -144,7 +144,7 @@ const PRODUCTS_DATA = {
     rating: '4.5',
     reviewsCount: 110,
     badges: ['Brain Food', 'Omega-3 Rich', 'Zero Palm Oil'],
-    desc: 'Rich, hearty, and packed with crunchy whole walnut halves, brown sugar, and organic cow butter. High in Omega-3 fatty acids and natural brain nutrients.',
+    desc: 'Rich, hearty, and packed with crunchy whole walnut halves, brown sugar, and pure cow butter. High in Omega-3 fatty acids and natural brain nutrients.',
     type: 'cookie',
     color: 0x966035,
     nutrition: {
@@ -169,14 +169,14 @@ const PRODUCTS_DATA = {
   walnut_sf: {
     id: 'walnut_sf',
     name: 'Sugarfree Walnut Cookies',
-    category: 'Diabetic Friendly',
+    category: 'Sugar Free',
     categoryLink: 'Cookies',
     tagline: '100% Sugar-Free. Whole roasted walnuts sweetened with natural Stevia & Erythritol.',
     price: 150,
     rating: '4.5',
     reviewsCount: 88,
     badges: ['Sugar-Free', 'Keto Friendly', 'Guilt-Free'],
-    desc: 'Delightfully guilt-free! Crafted specifically for health-conscious and diabetic cookie lovers. Loaded with roasted crunchy walnuts, almond flour, and sweetened naturally with zero-calorie Stevia.',
+    desc: 'Delightfully guilt-free! Crafted specifically for health-conscious cookie lovers. Loaded with roasted crunchy walnuts, almond flour, and sweetened naturally with zero-calorie Stevia.',
     type: 'cookie',
     color: 0x825028,
     nutrition: {
@@ -193,7 +193,7 @@ const PRODUCTS_DATA = {
     },
     ingredients: 'Roasted Walnuts, Almond Meal, Pure Butter, Stevia Leaf Extract, Erythritol, Sea Salt.',
     reviews: [
-      { name: 'Dr. Sanjay Hegde', location: 'Lavelle Road, Bengaluru', rating: 5, sentiment: '🌟 Pure Bliss', text: 'As a diabetic who misses festive confectionery, this cookie is a genuine blessing. Made with real almond flour, roasted crunchy walnuts, and natural Stevia without causing any blood glucose spikes. Tastes rich, authentic, and buttery!' },
+      { name: 'Dr. Sanjay Hegde', location: 'Lavelle Road, Bengaluru', rating: 5, sentiment: '🌟 Pure Bliss', text: 'As someone mindful of sugar intake who misses festive confectionery, this cookie is a genuine blessing. Made with real almond flour, roasted crunchy walnuts, and natural Stevia with zero added sugar. Tastes rich, authentic, and buttery!' },
       { name: 'Preeti', location: 'Koramangala, Bengaluru', rating: 5, sentiment: '✨ Fantastic', text: 'I am on a strict low-carb diet and finding treats that don\'t taste like artificial chemicals is nearly impossible. These sugarfree walnut cookies have an incredible crumbly bite and zero lingering aftertaste. Highly recommended!' },
       { name: 'Amitabh', location: 'Indiranagar, Bengaluru', rating: 4, sentiment: '😍 Loved It', text: 'Ordered 3 boxes for my parents. They were amazed that something 100% sugar-free could taste this decadent and nutty. The whole walnut pieces are top-grade quality.' }
     ]
@@ -212,7 +212,7 @@ const PRODUCTS_DATA = {
     type: 'muffin',
     color: 0xE2858E,
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
-    ingredients: 'Fresh Strawberry Compote, Organic Wheat Flour, Unsalted Butter, Pure Vanilla, Brown Sugar.',
+    ingredients: 'Fresh Strawberry Compote, Finest Wheat Flour, Unsalted Butter, Pure Vanilla, Brown Sugar.',
     reviews: [
       { name: 'Shashank', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '👌 Chef\'s Kiss', text: 'Picked up a box of Strawberry muffins for our Sunday family brunch. The moist vanilla crumb is generously loaded with genuine farm fresh strawberry compote rather than artificial jam. The buttery streusel crumble on top is chef\'s kiss!' },
       { name: 'Sharma', location: 'Whitefield, Bengaluru', rating: 5, sentiment: '🤤 Jaw Dropping', text: 'Warmed it up in the microwave for 15 seconds as suggested on the box—the fresh strawberry aroma that filled our kitchen was unbelievable. Soft, spongy, and melt-in-the-mouth delicious.' },
@@ -254,7 +254,7 @@ const PRODUCTS_DATA = {
     type: 'muffin',
     color: 0xE76F51,
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '7.13g' },
-    ingredients: 'House Pineapple Praline, Caramelized Jaggery, Organic Butter, Milk, Wheat Sponge, Cinnamon.',
+    ingredients: 'House Pineapple Praline, Caramelized Jaggery, Pure Butter, Milk, Wheat Sponge, Cinnamon.',
     reviews: [
       { name: 'Sowmya', location: 'Malleshwaram, Bengaluru', rating: 5, sentiment: '🤯 Mind Blowing', text: 'I usually find butterscotch flavors artificial in regular bakeries, but mingmorsels uses real slow-caramelized jaggery and crunchy praline toffee bits. The caramel notes are deep, nutty, and lingering. Absolutely fabulous!' },
       { name: 'Deshmukh', location: 'Jayanagar, Bengaluru', rating: 5, sentiment: '😍 Loved It', text: 'Ordered a batch for our office project launch. The crunchy praline nuggets on top stayed delightfully crispy even after delivery. My entire team was raving about it!' },
@@ -270,12 +270,12 @@ const PRODUCTS_DATA = {
     price: 45,
     rating: '5.0',
     reviewsCount: 210,
-    badges: ['Recommended ★', '70% Dark Cocoa', 'Dark Choco'],
+    badges: ['Bestseller ★', '70% Dark Cocoa', 'Dark Choco'],
     desc: 'For true chocolate lovers. Rich 70% single-origin dark cocoa sponge packed with generous dark chocolate chips that melt when warmed.',
     type: 'muffin',
     color: 0x4A2E2B,
     nutrition: { cal: 320, carbs: '45g', protein: '5.07g', fat: '13.47g', sugar: '26.86g', fibre: '6.13g' },
-    ingredients: '70% Dark Chocolate Chips, Pure Cocoa Powder, Organic Butter, Raw Sugar, Whole Milk.',
+    ingredients: '70% Dark Chocolate Chips, Pure Cocoa Powder, Pure Butter, Raw Sugar, Whole Milk.',
     reviews: [
       { name: 'Sourav H.M.', location: 'Indiranagar, Bengaluru', rating: 5, sentiment: '🤤 Jaw Dropping', text: 'A friend brought over a box of these Chocochip muffins during movie night. We warmed them in the oven for 20 seconds and the 70% dark chocolate chips melted into a warm molten lava center. It was jaw dropping—pure chocolate ecstasy!' },
       { name: 'Preetham.R', location: 'Whitefield, Bengaluru', rating: 5, sentiment: '👑 Royal Quality', text: 'Rich dark cocoa sponge with generous gourmet chocolate chunks throughout—not just a few on top like ordinary bakery muffins. High-end confectionery at its absolute finest.' },
@@ -322,7 +322,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 2 Cookies',
       price: 40,
       unit: '/ pack (2 freshly baked cookies)',
-      img: '/rose-box-2pcs.jpg',
+      img: '/rose-box-2pcs.webp',
       badge: '2 Cookies'
     },
     {
@@ -332,7 +332,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 8 Cookies',
       price: 150,
       unit: '/ box (8 freshly baked pieces)',
-      img: '/rose-box-8pcs.jpg',
+      img: '/rose-box-8pcs.webp',
       badge: '8 Cookies · Popular',
       default: true
     },
@@ -343,7 +343,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 12 Cookies',
       price: 360,
       unit: '/ box (12 freshly baked pieces · 300g)',
-      img: '/rose-box-12pcs.png?v=2',
+      img: '/rose-box-12pcs.webp?v=2',
       badge: '12 Cookies · 300g'
     }
   ],
@@ -355,7 +355,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 2 Cookies',
       price: 40,
       unit: '/ pack (2 freshly baked cookies)',
-      img: '/almond-box-2pcs.png?v=2',
+      img: '/almond-box-2pcs.webp?v=2',
       badge: '2 Cookies'
     },
     {
@@ -365,7 +365,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 8 Cookies',
       price: 150,
       unit: '/ box (8 freshly baked pieces)',
-      img: '/almond-box-8pcs.jpg',
+      img: '/almond-box-8pcs.webp',
       badge: '8 Cookies · Popular',
       default: true
     },
@@ -376,7 +376,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 12 Cookies',
       price: 360,
       unit: '/ box (12 freshly baked pieces · 300g)',
-      img: '/almond-box-12pcs.png?v=2',
+      img: '/almond-box-12pcs.webp?v=2',
       badge: '12 Cookies · 300g'
     }
   ],
@@ -388,7 +388,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 2 Cookies',
       price: 40,
       unit: '/ pack (2 freshly baked cookies)',
-      img: '/orange-box-2pcs.jpg',
+      img: '/orange-box-2pcs.webp',
       badge: '2 Cookies · Soft & Chewy'
     },
     {
@@ -398,7 +398,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 8 Cookies',
       price: 150,
       unit: '/ box (8 freshly baked pieces)',
-      img: '/orange-box-8pcs.jpg',
+      img: '/orange-box-8pcs.webp',
       badge: '8 Cookies · Popular',
       default: true
     }
@@ -411,7 +411,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 2 Cookies',
       price: 40,
       unit: '/ pack (2 freshly baked cookies)',
-      img: '/oats-box-2pcs.jpg',
+      img: '/oats-box-2pcs.webp',
       badge: '2 Cookies · Immunity'
     },
     {
@@ -421,7 +421,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 8 Cookies',
       price: 150,
       unit: '/ box (8 freshly baked pieces)',
-      img: '/oats-box-8pcs.jpg',
+      img: '/oats-box-8pcs.webp',
       badge: '8 Cookies · Popular',
       default: true
     },
@@ -432,7 +432,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 12 Cookies',
       price: 360,
       unit: '/ box (12 freshly baked pieces · 300g)',
-      img: '/oats-box-12pcs.jpg',
+      img: '/oats-box-12pcs.webp',
       badge: '12 Cookies · 300g'
     }
   ],
@@ -444,7 +444,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 2 Cookies',
       price: 40,
       unit: '/ pack (2 freshly baked cookies)',
-      img: '/box-classic.jpg',
+      img: '/box-classic.webp',
       badge: '2 Cookies'
     },
     {
@@ -454,7 +454,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 8 Cookies',
       price: 150,
       unit: '/ box (8 freshly baked pieces)',
-      img: '/box-lush.jpg',
+      img: '/box-lush.webp',
       badge: '8 Cookies · Popular',
       default: true
     },
@@ -465,7 +465,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 12 Cookies',
       price: 360,
       unit: '/ box (12 freshly baked pieces · 300g)',
-      img: '/box-extra.jpg',
+      img: '/box-extra.webp',
       badge: '12 Cookies · 300g'
     }
   ],
@@ -477,7 +477,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 2 Cookies',
       price: 40,
       unit: '/ pack (2 freshly baked cookies)',
-      img: '/box-classic.jpg',
+      img: '/box-classic.webp',
       badge: '2 Cookies · Sugar-Free'
     },
     {
@@ -487,7 +487,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 8 Cookies',
       price: 150,
       unit: '/ box (8 freshly baked pieces)',
-      img: '/box-lush.jpg',
+      img: '/box-lush.webp',
       badge: '8 Cookies · Popular',
       default: true
     },
@@ -498,7 +498,7 @@ const COOKIE_BOX_OPTIONS = {
       countLabel: 'Up to 12 Cookies',
       price: 360,
       unit: '/ box (12 freshly baked pieces · 300g)',
-      img: '/box-extra.jpg',
+      img: '/box-extra.webp',
       badge: '12 Cookies · 300g'
     }
   ]
@@ -634,6 +634,19 @@ function renderProductDetails() {
   const badgesContainer = document.getElementById('p-badges');
   if (badgesContainer) {
     badgesContainer.innerHTML = p.badges.map(b => `<span class="badge">${b}</span>`).join('');
+  }
+
+  // Top Verified Review Spotlight near Buy button
+  const spotlightAuthor = document.getElementById('spotlight-author');
+  const spotlightText = document.getElementById('spotlight-text');
+  if (p.reviews && p.reviews.length > 0) {
+    const topReview = p.reviews[0];
+    if (spotlightAuthor) {
+      spotlightAuthor.textContent = `${topReview.name ? topReview.name + ' • ' : ''}${topReview.location || 'Verified Buyer'}`;
+    }
+    if (spotlightText) {
+      spotlightText.textContent = `"${topReview.text}"`;
+    }
   }
 
 
@@ -818,136 +831,122 @@ let isDragging = false;
 const PRODUCT_MEDIA = {
   orange: {
     images: [
-      { src: '/orange-peel/1.jpg', alt: 'Orange Peel Cookies Image 1' },
-      { src: '/orange-peel/2.jpg', alt: 'Orange Peel Cookies Image 2' },
-      { src: '/orange-peel/3.jpg', alt: 'Orange Peel Cookies Image 3' },
-      { src: '/orange-peel/4.jpg', alt: 'Orange Peel Cookies Image 4' }
+      { src: '/orange-peel/1.webp', alt: 'Orange Peel Cookies Image 1' },
+      { src: '/orange-peel/2.webp', alt: 'Orange Peel Cookies Image 2' },
+      { src: '/orange-peel/3.webp', alt: 'Orange Peel Cookies Image 3' },
+      { src: '/orange-peel/4.webp', alt: 'Orange Peel Cookies Image 4' }
     ],
     video: {
       src: '/orange-peel/Sequence 02.mp4',
-      poster: '/orange-peel/1.jpg',
+      poster: '/orange-peel/1.webp',
       title: 'Orange Peel Cookies Artisanal Crafting'
     }
   },
   oatsnuts: {
     images: [
-      { src: '/oats-nuts/1.jpg', alt: 'Oats Nuts Cookies Image 1' },
-      { src: '/oats-nuts/2.jpg', alt: 'Oats Nuts Cookies Image 2' },
-      { src: '/oats-nuts/3.jpg', alt: 'Oats Nuts Cookies Image 3' },
-      { src: '/oats-nuts/4.jpg', alt: 'Oats Nuts Cookies Image 4' }
+      { src: '/oats-nuts/1.webp', alt: 'Oats Nuts Cookies Image 1' },
+      { src: '/oats-nuts/2.webp', alt: 'Oats Nuts Cookies Image 2' },
+      { src: '/oats-nuts/3.webp', alt: 'Oats Nuts Cookies Image 3' },
+      { src: '/oats-nuts/4.webp', alt: 'Oats Nuts Cookies Image 4' }
     ],
     video: {
       src: '/oats-nuts/DSC01145_2.mp4',
-      poster: '/oats-nuts/1.jpg',
+      poster: '/oats-nuts/1.webp',
       title: 'Oats & Nuts Cookies Artisanal Process'
     }
   },
   rose: {
     images: [
-      { src: '/rose-petal/1.jpg', alt: 'Rose Petal Cookies Image 1' },
-      { src: '/rose-petal/2.jpg', alt: 'Rose Petal Cookies Image 2' },
-      { src: '/rose-petal/3.jpg', alt: 'Rose Petal Cookies Image 3' },
-      { src: '/rose-petal/4.jpg', alt: 'Rose Petal Cookies Image 4' },
-      { src: '/rose-petal/5.jpg', alt: 'Rose Petal Cookies Image 5' }
+      { src: '/rose-petal/1.webp', alt: 'Rose Petal Cookies Image 1' },
+      { src: '/rose-petal/2.webp', alt: 'Rose Petal Cookies Image 2' },
+      { src: '/rose-petal/3.webp', alt: 'Rose Petal Cookies Image 3' },
+      { src: '/rose-petal/4.webp', alt: 'Rose Petal Cookies Image 4' },
+      { src: '/rose-petal/5.webp', alt: 'Rose Petal Cookies Image 5' }
     ],
     video: {
       src: '/rose-petal/DSC01123.mp4',
-      poster: '/rose-petal/1.jpg',
+      poster: '/rose-petal/1.webp',
       title: 'Rose Petal Cookies Floral Delight'
     }
   },
   almond: {
     images: [
-      { src: '/almond/1.jpg', alt: 'Almond Rich Cookies Image 1' },
-      { src: '/almond/2.jpg', alt: 'Almond Rich Cookies Image 2' },
-      { src: '/almond/3.jpg', alt: 'Almond Rich Cookies Image 3' },
-      { src: '/almond/4.jpg', alt: 'Almond Rich Cookies Image 4' }
+      { src: '/almond/1.webp', alt: 'Almond Rich Cookies Image 1' },
+      { src: '/almond/2.webp', alt: 'Almond Rich Cookies Image 2' },
+      { src: '/almond/3.webp', alt: 'Almond Rich Cookies Image 3' },
+      { src: '/almond/4.webp', alt: 'Almond Rich Cookies Image 4' }
     ],
     video: {
       src: '/almond/Sequence 04_3.mp4',
-      poster: '/almond/1.jpg',
+      poster: '/almond/1.webp',
       title: 'Almond Rich Cookies Texture & Crunch'
     }
   },
   walnut: {
-    images: [
-      { src: '/Wallnut honey cookie.jpg', alt: 'Walnut Honey Cookies Image 1' },
-      { src: '/walnut_cookie_top_clean.png', alt: 'Walnut Honey Cookie Top View' }
-    ],
-    video: {
-      src: 'https://assets.mixkit.co/videos/preview/mixkit-baking-cookies-in-the-oven-43309-large.mp4',
-      poster: '/Wallnut honey cookie.jpg',
-      title: 'Walnut Honey Cookies Baking'
-    }
+    images: [],
+    video: null
   },
   walnut_sf: {
-    images: [
-      { src: '/sugarfree_walnut_cookie.png', alt: 'Stevia Sugar-Free Walnut Cookies Image 1' },
-      { src: '/walnut_sf_cookie_top_clean.png', alt: 'Stevia Walnut Cookie Top View' }
-    ],
-    video: {
-      src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-baker-arranging-cookies-on-a-tray-43308-large.mp4',
-      poster: '/sugarfree_walnut_cookie.png',
-      title: 'Stevia Sugar-Free Walnut Cookies'
-    }
+    images: [],
+    video: null
   },
   chocochip: {
     images: [
-      { src: '/img-chocochip.jpg', alt: 'Chocochip Muffin' },
-      { src: '/box-chocochip-1.jpg', alt: 'Chocochip Snack Pack' },
-      { src: '/box-chocochip-2.jpg', alt: 'Chocochip Box' }
+      { src: '/img-chocochip.webp', alt: 'Chocochip Muffin' },
+      { src: '/box-chocochip-1.webp', alt: 'Chocochip Snack Pack' },
+      { src: '/box-chocochip-2.webp', alt: 'Chocochip Box' }
     ],
     video: {
       src: '/muffins/chocochip.mp4',
-      poster: '/img-chocochip.jpg',
+      poster: '/img-chocochip.webp',
       title: 'Chocochip Gourmet Muffin Slow-Baked'
     }
   },
   blackcurrant: {
     images: [
-      { src: '/img-blackcurrant.jpg', alt: 'Blackcurrant Muffin' },
-      { src: '/box-blackcurrant-1.jpg', alt: 'Blackcurrant Snack Pack' },
-      { src: '/box-blackcurrant-2.jpg', alt: 'Blackcurrant Box' }
+      { src: '/img-blackcurrant.webp', alt: 'Blackcurrant Muffin' },
+      { src: '/box-blackcurrant-1.webp', alt: 'Blackcurrant Snack Pack' },
+      { src: '/box-blackcurrant-2.webp', alt: 'Blackcurrant Box' }
     ],
     video: {
       src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-baker-arranging-cookies-on-a-tray-43308-large.mp4',
-      poster: '/img-blackcurrant.jpg',
+      poster: '/img-blackcurrant.webp',
       title: 'Blackcurrant Muffin Reveal'
     }
   },
   pinacolada: {
     images: [
-      { src: '/img-pinacolada.jpg', alt: 'Pinacolada Muffin' },
-      { src: '/box-pinacolada-1.jpg', alt: 'Pinacolada Snack Pack' },
-      { src: '/box-pinacolada-2.jpg', alt: 'Pinacolada Box' }
+      { src: '/img-pinacolada.webp', alt: 'Pinacolada Muffin' },
+      { src: '/box-pinacolada-1.webp', alt: 'Pinacolada Snack Pack' },
+      { src: '/box-pinacolada-2.webp', alt: 'Pinacolada Box' }
     ],
     video: {
       src: 'https://assets.mixkit.co/videos/preview/mixkit-baking-cookies-in-the-oven-43309-large.mp4',
-      poster: '/img-pinacolada.jpg',
+      poster: '/img-pinacolada.webp',
       title: 'Pinacolada Exotic Muffin'
     }
   },
   butterscotch: {
     images: [
-      { src: '/img-butterscotch.jpg', alt: 'Butterscotch Muffin' },
-      { src: '/box-butterscotch-1.jpg', alt: 'Butterscotch Snack Pack' },
-      { src: '/box-butterscotch-2.jpg', alt: 'Butterscotch Box' }
+      { src: '/img-butterscotch.webp', alt: 'Butterscotch Muffin' },
+      { src: '/box-butterscotch-1.webp', alt: 'Butterscotch Snack Pack' },
+      { src: '/box-butterscotch-2.webp', alt: 'Butterscotch Box' }
     ],
     video: {
       src: 'https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-freshly-baked-cookies-43306-large.mp4',
-      poster: '/img-butterscotch.jpg',
+      poster: '/img-butterscotch.webp',
       title: 'Butterscotch Muffin'
     }
   },
   strawberry: {
     images: [
-      { src: '/img-strawberry.jpg', alt: 'Strawberry Muffin' },
-      { src: '/box-strawberry-1.jpg', alt: 'Strawberry Snack Pack' },
-      { src: '/box-strawberry-2.jpg', alt: 'Strawberry Box' }
+      { src: '/img-strawberry.webp', alt: 'Strawberry Muffin' },
+      { src: '/box-strawberry-1.webp', alt: 'Strawberry Snack Pack' },
+      { src: '/box-strawberry-2.webp', alt: 'Strawberry Box' }
     ],
     video: {
       src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-baker-arranging-cookies-on-a-tray-43308-large.mp4',
-      poster: '/img-strawberry.jpg',
+      poster: '/img-strawberry.webp',
       title: 'Strawberry Soft-Baked Muffin'
     }
   }
@@ -1057,7 +1056,7 @@ function initProductGallery() {
           <span class="video-thumb-play-btn">▶</span>
           <span class="video-thumb-tag">Video</span>
         </div>
-        <img src="${videoData.poster || images[0]?.src || '/logo.png'}" alt="Video Thumbnail" />
+        <img src="${videoData.poster || images[0]?.src || '/logo.webp'}" alt="Video Thumbnail" />
       `;
 
       videoThumbEl.addEventListener('click', function () {
@@ -1091,6 +1090,7 @@ function initProductGallery() {
   } else {
     // Hide everything if no images or video are defined
     if (mainImageWrapper) mainImageWrapper.style.display = 'none';
+    if (mainImage) mainImage.src = '';
     thumbsContainer.style.display = 'none';
   }
 }
@@ -1213,67 +1213,67 @@ function openProductBoxLightbox(boxKey) {
   if (!modal || !img) return;
 
   if (boxKey === 'snack_2pcs' || boxKey === 'rose_snack_2pcs') {
-    img.src = '/rose-box-2pcs.jpg';
+    img.src = '/rose-box-2pcs.webp';
     img.alt = 'Rose Petal Cookies - Twin Delights (Up to 2 Cookies)';
     if (title) title.textContent = 'Rose Petal Cookies — Twin Delights (Up to 2 Cookies)';
     if (desc) desc.textContent = 'Compact pocket-sized pink packaging designed for fresh tea-time indulgence. Holds up to 2 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'classic_8pcs' || boxKey === 'rose_classic_8pcs') {
-    img.src = '/rose-box-8pcs.jpg';
+    img.src = '/rose-box-8pcs.webp';
     img.alt = 'Rose Petal Cookies - Classic Delights (Up to 8 Cookies)';
     if (title) title.textContent = 'Rose Petal Cookies — Classic Delights (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with signature rose artwork and nutritional facts. Holds up to 8 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'family_12pcs' || boxKey === 'rose_family_12pcs') {
-    img.src = '/rose-box-12pcs.png?v=2';
+    img.src = '/rose-box-12pcs.webp?v=2';
     img.alt = 'Rose Petal Cookies - Dozen Delights (Up to 12 Cookies · 300g)';
     if (title) title.textContent = 'Rose Petal Cookies — Dozen Delights (Up to 12 Cookies · 300g)';
     if (desc) desc.textContent = 'Large rectangular party box (Net Weight: 300g) with protective seals. Holds up to 12 freshly baked Rose Petal Cookies.';
   } else if (boxKey === 'almond_snack_2pcs') {
-    img.src = '/almond-box-2pcs.png?v=2';
+    img.src = '/almond-box-2pcs.webp?v=2';
     img.alt = 'Almond Rich Cookies - Twin Delights (Up to 2 Cookies)';
     if (title) title.textContent = 'Almond Rich Cookies — Twin Delights (Up to 2 Cookies)';
     if (desc) desc.textContent = 'Pocket Twin Delights pack with rich roasted almonds artwork, source of dietary fiber. Holds up to 2 freshly baked almond cookies.';
   } else if (boxKey === 'almond_classic_8pcs') {
-    img.src = '/almond-box-8pcs.jpg';
+    img.src = '/almond-box-8pcs.webp';
     img.alt = 'Almond Rich Cookies - Classic Delights (Up to 8 Cookies)';
     if (title) title.textContent = 'Almond Rich Cookies — Classic Delights (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with crunchy almond meets soft butter guarantee (no margarine). Holds up to 8 freshly baked almond cookies.';
   } else if (boxKey === 'almond_family_12pcs') {
-    img.src = '/almond-box-12pcs.png?v=2';
+    img.src = '/almond-box-12pcs.webp?v=2';
     img.alt = 'Almond Rich Cookies - Dozen Delights (Up to 12 Cookies · 300g)';
     if (title) title.textContent = 'Almond Rich Cookies — Dozen Delights (Up to 12 Cookies · 300g)';
     if (desc) desc.textContent = 'Large festive party box with genuine cow butter & roasted almond recipe. Holds up to 12 freshly baked almond cookies.';
   } else if (boxKey === 'orange_snack_2pcs') {
-    img.src = '/orange-box-2pcs.jpg';
+    img.src = '/orange-box-2pcs.webp';
     img.alt = 'Orange Peel Cookies - Twin Delights (Up to 2 Cookies)';
     if (title) title.textContent = 'Orange Peel Cookies — Twin Delights (Up to 2 Cookies)';
     if (desc) desc.textContent = 'Pocket Twin Delights pack with soft & chewy cookies made with sun-ripened orange peel and Vitamin C. Holds up to 2 freshly baked cookies.';
   } else if (boxKey === 'orange_classic_8pcs') {
-    img.src = '/orange-box-8pcs.jpg';
+    img.src = '/orange-box-8pcs.webp';
     img.alt = 'Orange Peel Cookies - Classic Delights (Up to 8 Cookies)';
     if (title) title.textContent = 'Orange Peel Cookies — Classic Delights (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box crafted with the zest of real orange peel (No Margarine) and Vitamin C. Holds up to 8 freshly baked cookies.';
   } else if (boxKey === 'oatsnuts_snack_2pcs') {
-    img.src = '/oats-box-2pcs.jpg';
+    img.src = '/oats-box-2pcs.webp';
     img.alt = 'Oats & Nuts Cookies - Twin Delights (Up to 2 Cookies)';
     if (title) title.textContent = 'Oats & Nuts Cookies — Twin Delights (Up to 2 Cookies)';
     if (desc) desc.textContent = 'Pocket Twin Delights pack featuring superhero cookie mascot — naturally nut powered immunity booster with rolled oats and pista-elaichi.';
   } else if (boxKey === 'oatsnuts_classic_8pcs') {
-    img.src = '/oats-box-8pcs.jpg';
+    img.src = '/oats-box-8pcs.webp';
     img.alt = 'Oats & Nuts Cookies - Classic Delights (Up to 8 Cookies)';
     if (title) title.textContent = 'Oats & Nuts Cookies — Classic Delights (Up to 8 Cookies)';
     if (desc) desc.textContent = 'Standard authentic bakery box with delightfully flavourful pista-elaichi combo, immunity booster goodness, and zero margarine.';
   } else if (boxKey === 'oatsnuts_family_12pcs') {
-    img.src = '/oats-box-12pcs.jpg';
+    img.src = '/oats-box-12pcs.webp';
     img.alt = 'Oats & Nuts Cookies - Dozen Delights (Up to 12 Cookies · 300g)';
     if (title) title.textContent = 'Oats & Nuts Cookies — Dozen Delights (Up to 12 Cookies · 300g)';
     if (desc) desc.textContent = 'Large luxury Dozen Delights pack (Net Weight: 300g) baked with nutrient-rich rolled oats, roasted walnuts, and natural plant-based Stevia.';
   } else if (boxKey === 'lush') {
-    img.src = '/box-lush.jpg';
+    img.src = '/box-lush.webp';
     img.alt = 'Lush Luxury Box';
     if (title) title.textContent = 'Lush Luxury Box (+₹130 extra)';
     if (desc) desc.textContent = 'Exquisite blush floral keepsake gift box with gold-foil accents. Fits 4 artisanal cookies and includes a gourmet pouch of roasted dry fruits.';
   } else {
-    img.src = '/box-classic.jpg';
+    img.src = '/box-classic.webp';
     img.alt = 'Signature Treat Box';
     if (title) title.textContent = 'Signature Treat Box (+₹15 extra)';
     if (desc) desc.textContent = 'Artisanal gable handle box in signature orange & cream design with secure easy-carry fold. Holds up to 10 fresh bakery treats.';
@@ -1506,12 +1506,12 @@ function addToCart(product, qty) {
     boxExtra = 15;
     boxCapacity = 10;
     boxName = 'Signature Treat Box (+₹15)';
-    boxImg = '/box-classic.jpg';
+    boxImg = '/box-classic.webp';
   } else if (selectedPackaging === 'lush') {
     boxExtra = 130;
     boxCapacity = 4;
     boxName = 'Lush Luxury Box (+₹130)';
-    boxImg = '/box-lush.jpg';
+    boxImg = '/box-lush.webp';
   }
 
   let cartItemId = product.id;
@@ -1606,17 +1606,17 @@ function renderCartDrawerBody() {
   }
 
   const PRODUCT_IMAGE_MAP = {
-    almond: '/almond/1.jpg',
-    rose: '/rose-petal/1.jpg',
-    oatsnuts: '/oats-nuts/1.jpg',
-    orange: '/orange-peel/1.jpg',
-    walnut: '/sugarfree_walnut_cookie.png',
-    walnut_sf: '/sugarfree_walnut_cookie.png',
-    strawberry: '/img-strawberry.jpg',
-    pinacolada: '/img-pinacolada.jpg',
-    butterscotch: '/img-butterscotch.jpg',
-    chocochip: '/img-chocochip.jpg',
-    blackcurrant: '/img-blackcurrant.jpg'
+    almond: '/almond/1.webp',
+    rose: '/rose-petal/1.webp',
+    oatsnuts: '/oats-nuts/1.webp',
+    orange: '/orange-peel/1.webp',
+    walnut: '',
+    walnut_sf: '',
+    strawberry: '/img-strawberry.webp',
+    pinacolada: '/img-pinacolada.webp',
+    butterscotch: '/img-butterscotch.webp',
+    chocochip: '/img-chocochip.webp',
+    blackcurrant: '/img-blackcurrant.webp'
   };
 
   let subtotal = 0;
@@ -1638,7 +1638,7 @@ function renderCartDrawerBody() {
 
     subtotal += lineTotal;
     const baseKey = String(item.productId || item.id || '').split('_')[0].toLowerCase();
-    const imgSrc = item.image || item.img || PRODUCT_IMAGE_MAP[baseKey] || '/almond/1.jpg';
+    const imgSrc = item.image || item.img || PRODUCT_IMAGE_MAP[baseKey] || '/almond/1.webp';
 
     let priceDetailsHTML = `₹${price} × ${qty}`;
     if (boxesNeeded > 0) {
@@ -1650,7 +1650,7 @@ function renderCartDrawerBody() {
       <div class="cart-item-row" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06);">
         <div style="display: flex; align-items: center; gap: 12px;">
           <div style="width: 48px; height: 48px; min-width: 48px; border-radius: 8px; overflow: hidden; background: #FFFDF9; border: 1px solid rgba(61, 32, 0, 0.10); display: flex; align-items: center; justify-content: center;">
-            <img src="${imgSrc}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/almond/1.jpg'" />
+            <img src="${imgSrc}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/almond/1.webp'" />
           </div>
           <div class="cart-item-info">
             <h5 style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #3D2000;">${item.name}</h5>
@@ -2222,7 +2222,7 @@ async function handleRazorpayProductCheckout() {
       currency: "INR",
       name: "mingmorsels",
       description: "Artisanal Confectionery - Fresh Daily Batch",
-      image: "/logo.png?v=2",
+      image: "/logo.webp?v=2",
       prefill: {
         name: details.name || 'Guest Customer',
         email: details.email || 'customer@mingmorsels.com',
@@ -2398,15 +2398,15 @@ function initLivePurchaseNotifications() {
   ];
 
   const products = [
-    { name: 'Almond Rich Cookies', img: '/almond/1.jpg' },
-    { name: 'Rose Petal Cookies', img: '/rose-petal/1.jpg' },
-    { name: 'Oats & Nuts Cookies', img: '/img-oats.png?v=2' },
-    { name: 'Orange Peel Cookies', img: '/img-orange.png?v=2' },
-    { name: 'Strawberry Muffin', img: '/img-strawberry.jpg' },
-    { name: 'Pinacolada Muffins', img: '/img-pinacolada.jpg' },
-    { name: 'Butterscotch Muffins', img: '/img-butterscotch.jpg' },
-    { name: 'Chocochip Muffins', img: '/img-chocochip.jpg' },
-    { name: 'Black Currant Muffin', img: '/img-blackcurrant.jpg' }
+    { name: 'Almond Rich Cookies', img: '/almond/1.webp' },
+    { name: 'Rose Petal Cookies', img: '/rose-petal/1.webp' },
+    { name: 'Oats & Nuts Cookies', img: '/img-oats.webp?v=2' },
+    { name: 'Orange Peel Cookies', img: '/img-orange.webp?v=2' },
+    { name: 'Strawberry Muffin', img: '/img-strawberry.webp' },
+    { name: 'Pinacolada Muffins', img: '/img-pinacolada.webp' },
+    { name: 'Butterscotch Muffins', img: '/img-butterscotch.webp' },
+    { name: 'Chocochip Muffins', img: '/img-chocochip.webp' },
+    { name: 'Black Currant Muffin', img: '/img-blackcurrant.webp' }
   ];
 
   const timesAgo = ['Just now', '1 min ago', '2 mins ago', '3 mins ago'];
@@ -2422,7 +2422,7 @@ function initLivePurchaseNotifications() {
     popupEl.innerHTML = `
       <div class="live-purchase-accent"></div>
       <div class="live-purchase-img-wrap">
-        <img id="live-purchase-img" src="/rose-petal/1.jpg" alt="Product" />
+        <img id="live-purchase-img" src="/rose-petal/1.webp" alt="Product" />
       </div>
       <div class="live-purchase-content">
         <div class="live-purchase-header">

@@ -10,7 +10,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'almond',
     name: 'Almond Rich Cookie',
     tagline: 'Whole roasted almonds & plant-based Stevia',
-    image: '/almond/1.jpg',
+    image: '/almond/1.webp',
     unitName: 'Cookies',
     boxes: [
       {
@@ -19,7 +19,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Freshly baked whole-almond cookies.',
-        img: '/almond-box-2pcs.png'
+        img: '/almond-box-2pcs.webp'
       },
       {
         id: 'almond_classic_8pcs',
@@ -27,7 +27,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 8 Cookies',
         price: 150,
         desc: '8 Artisanal cookies in signature gold box.',
-        img: '/almond-box-8pcs.jpg',
+        img: '/almond-box-8pcs.webp',
         popular: true
       },
       {
@@ -36,7 +36,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Generous pieces in keepsake collection box.',
-        img: '/almond-box-12pcs.png'
+        img: '/almond-box-12pcs.webp'
       }
     ]
   },
@@ -44,7 +44,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'rose',
     name: 'Rose Petal Cookie',
     tagline: 'Fragrant rose petals with pure cow butter',
-    image: '/rose-petal/1.jpg',
+    image: '/rose-petal/1.webp',
     unitName: 'Cookies',
     boxes: [
       {
@@ -53,7 +53,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Fragrant floral cookies infused with real rose petals.',
-        img: '/rose-box-2pcs.jpg'
+        img: '/rose-box-2pcs.webp'
       },
       {
         id: 'rose_classic_8pcs',
@@ -61,7 +61,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 8 Cookies',
         price: 150,
         desc: '8 Handcrafted floral treats in signature bakery box.',
-        img: '/rose-box-8pcs.jpg',
+        img: '/rose-box-8pcs.webp',
         popular: true
       },
       {
@@ -70,7 +70,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Fragrant rose cookies in our luxury packaging.',
-        img: '/rose-box-12pcs.png'
+        img: '/rose-box-12pcs.webp'
       }
     ]
   },
@@ -78,7 +78,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'oatsnuts',
     name: 'Oats Nuts Cookie',
     tagline: 'Rolled oats, roasted almonds, pistachios & natural Stevia',
-    image: '/oats-nuts/1.jpg',
+    image: '/oats-nuts/1.webp',
     unitName: 'Cookies',
     boxes: [
       {
@@ -87,7 +87,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Crunchy high-fibre cookies packed with nuts.',
-        img: '/oats-box-2pcs.jpg'
+        img: '/oats-box-2pcs.webp'
       },
       {
         id: 'oatsnuts_classic_8pcs',
@@ -95,7 +95,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 8 Cookies',
         price: 150,
         desc: '8 Wholesome energy-dense cookies in classic box.',
-        img: '/oats-box-8pcs.jpg',
+        img: '/oats-box-8pcs.webp',
         popular: true
       },
       {
@@ -104,7 +104,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Nutritious cookies in luxury presentation box.',
-        img: '/oats-box-12pcs.jpg'
+        img: '/oats-box-12pcs.webp'
       }
     ]
   },
@@ -112,7 +112,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'orange',
     name: 'Orange Peel Cookie',
     tagline: 'Zesty sun-dried orange peel with citrus butter',
-    image: '/orange-peel/1.jpg',
+    image: '/orange-peel/1.webp',
     unitName: 'Cookies',
     boxes: [
       {
@@ -121,7 +121,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Zesty citrus cookies with refreshing orange zest.',
-        img: '/orange-box-2pcs.jpg'
+        img: '/orange-box-2pcs.webp'
       },
       {
         id: 'orange_classic_8pcs',
@@ -129,7 +129,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 8 Cookies',
         price: 150,
         desc: '8 Orange peel treats in signature gift box.',
-        img: '/orange-box-8pcs.jpg',
+        img: '/orange-box-8pcs.webp',
         popular: true
       },
       {
@@ -138,7 +138,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Refreshing citrus cookies in dozen feast box.',
-        img: '/box-classic.jpg'
+        img: '/box-classic.webp'
       }
     ]
   },
@@ -146,7 +146,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'walnut',
     name: 'Walnut Cookies',
     tagline: 'Rich buttery dough loaded with roasted whole walnuts',
-    image: '/img-walnut.png',
+    image: '/img-walnut.webp',
     unitName: 'Cookies',
     boxes: [
       {
@@ -155,7 +155,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Nutty Omega-3 rich whole walnut cookies.',
-        img: '/box-classic.jpg'
+        img: '/box-classic.webp'
       },
       {
         id: 'walnut_classic_8pcs',
@@ -163,7 +163,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 8 Cookies',
         price: 150,
         desc: '8 Premium roasted walnut cookies in signature gold box.',
-        img: '/box-lush.jpg',
+        img: '/box-lush.webp',
         popular: true
       },
       {
@@ -172,7 +172,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Rich roasted walnut cookies for connoisseurs.',
-        img: '/box-extra.jpg'
+        img: '/box-extra.webp'
       }
     ]
   },
@@ -180,7 +180,7 @@ export const PRODUCT_BOX_CATALOG = {
     id: 'walnut_sf',
     name: 'Sugarfree Walnut Cookies',
     tagline: '100% Zero Added Sugar, Stevia sweetened & keto-friendly',
-    image: '/img-walnut-sf.png',
+    image: '/img-walnut-sf.webp',
     unitName: 'Cookies',
     boxes: [
       {
@@ -189,15 +189,15 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 2 Cookies',
         price: 40,
         desc: '2 Zero-sugar guilt-free whole walnut cookies.',
-        img: '/box-classic.jpg'
+        img: '/box-classic.webp'
       },
       {
         id: 'walnut_sf_classic_8pcs',
         name: 'Classic Delights',
         countLabel: 'Up to 8 Cookies',
         price: 150,
-        desc: '8 Guilt-free diabetic-friendly treats in fresh box.',
-        img: '/box-lush.jpg',
+        desc: '8 Guilt-free zero-sugar treats in fresh box.',
+        img: '/box-lush.webp',
         popular: true
       },
       {
@@ -206,7 +206,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: 'Up to 12 Cookies',
         price: 360,
         desc: '12 Keto-friendly walnut cookies in luxury collection box.',
-        img: '/box-extra.jpg'
+        img: '/box-extra.webp'
       }
     ]
   },
@@ -223,7 +223,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: '1 Muffin',
         price: 45,
         desc: 'Freshly baked delicious single muffin.',
-        img: '/img-strawberry.jpg',
+        img: '/img-strawberry.webp',
         popular: true
       }
     ]
@@ -241,7 +241,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: '1 Muffin',
         price: 45,
         desc: 'Freshly baked delicious single muffin.',
-        img: '/img-pinacolada.jpg',
+        img: '/img-pinacolada.webp',
         popular: true
       }
     ]
@@ -259,7 +259,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: '1 Muffin',
         price: 45,
         desc: 'Freshly baked delicious single muffin.',
-        img: '/img-butterscotch.jpg',
+        img: '/img-butterscotch.webp',
         popular: true
       }
     ]
@@ -277,7 +277,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: '1 Muffin',
         price: 45,
         desc: 'Freshly baked delicious single muffin.',
-        img: '/img-chocochip.jpg',
+        img: '/img-chocochip.webp',
         popular: true
       }
     ]
@@ -295,7 +295,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: '1 Muffin',
         price: 45,
         desc: 'Freshly baked delicious single muffin.',
-        img: '/img-blackcurrant.jpg',
+        img: '/img-blackcurrant.webp',
         popular: true
       }
     ]
@@ -400,13 +400,23 @@ export function initQuickAddModal() {
       <div style="
         background: #F6F1EA;
         border-top: 1px solid rgba(61,32,0,0.08);
-        padding: 18px 24px;
+        padding: 14px 24px 18px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 16px;
         flex-wrap: wrap;
       ">
+        <!-- Social Proof Rating Row -->
+        <div style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; margin-bottom: 4px; border-bottom: 1px dashed rgba(61,32,0,0.12);">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="color: #C6960C; font-size: 13px;">★★★★★</span>
+            <span style="font-size: 12px; font-weight: 700; color: #3D2000;">5.0 / 5.0 Rating</span>
+            <span style="font-size: 11px; color: #705840;">(Verified Customer Reviews)</span>
+          </div>
+          <span style="font-size: 11px; color: #27AE60; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">✓ Freshly Baked to Order</span>
+        </div>
+
         <!-- Quantity Stepper -->
         <div style="display: flex; align-items: center; gap: 10px;">
           <span id="qa-qty-label" style="font-size: 13.5px; font-weight: 600; color: #3D2000;">Boxes:</span>
@@ -425,19 +435,20 @@ export function initQuickAddModal() {
           </div>
 
           <button id="qa-btn-add-basket" style="
-            padding: 13px 24px;
-            background: linear-gradient(135deg, #C6960C 0%, #A67C00 100%);
-            color: #FFF;
-            border: none;
-            border-radius: 12px;
+            padding: 13px 26px;
+            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 50%, #B8860B 100%);
+            color: #1A0E08;
+            border: 1px solid rgba(255, 240, 180, 0.6);
+            border-radius: 14px;
             font-size: 15px;
-            font-weight: 700;
+            font-weight: 800;
+            letter-spacing: 0.3px;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(198,150,12,0.35);
+            box-shadow: 0 6px 22px rgba(212, 175, 55, 0.45);
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
           ">
             <span>🛒 Add to Cookie Basket →</span>
           </button>

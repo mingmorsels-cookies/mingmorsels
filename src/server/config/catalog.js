@@ -202,7 +202,7 @@ export const PRODUCT_CATALOG = {
     unit: 'box (8 pcs)',
     stock: 50,
     rating: 4.9,
-    description: 'Diabetic-friendly sweetened with natural plant Stevia extract and roasted walnuts.'
+    description: '100% Sugar-free, sweetened with natural plant Stevia extract and roasted walnuts.'
   },
   'walnut_sf_snack_2pcs': {
     id: 'walnut_sf_snack_2pcs',

@@ -514,7 +514,7 @@ export class CheckoutController {
         currency: "INR",
         name: "mingmorsels",
         description: "Artisanal Confectionery - Fresh Daily Batch",
-        image: "/logo.png",
+        image: "/logo.webp",
         prefill: {
           name: name,
           email: email,

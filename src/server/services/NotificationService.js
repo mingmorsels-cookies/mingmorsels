@@ -75,7 +75,7 @@ export class NotificationService {
             <table style="width: 100%; border-collapse: collapse; border: none;">
               <tr>
                 <td style="width: 95px; vertical-align: middle; padding-right: 16px;">
-                  <img src="https://web-production-b66e7.up.railway.app/logo.png?v=2" alt="mingmorsels" width="85" height="52" style="height: 52px; width: auto; max-width: 85px; object-fit: contain; display: block;" />
+                  <img src="https://web-production-b66e7.up.railway.app/logo.webp?v=2" alt="mingmorsels" width="85" height="52" style="height: 52px; width: auto; max-width: 85px; object-fit: contain; display: block;" />
                 </td>
                 <td style="vertical-align: middle;">
                   <h1 style="margin: 0 0 4px 0; font-family: 'Times New Roman', Times, Georgia, serif; font-size: 22px; font-weight: 800; color: #3D2000; letter-spacing: 0.8px; text-transform: uppercase;">MIORA DELIGHTS PRIVATE LIMITED</h1>

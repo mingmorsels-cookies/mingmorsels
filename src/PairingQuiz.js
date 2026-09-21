@@ -4,17 +4,17 @@ import './PairingQuiz.css';
 let onAddToCartCallback = null;
 
 const PRODUCT_VECTORS = {
-  almond: { id: 'almond', name: 'Almond Rich Cookie', img: '/almond/1.jpg', price: 40, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
-  rose: { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/1.jpg', price: 40, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
-  oatsnuts: { id: 'oatsnuts', name: 'Oats Nuts Cookie', img: '/oats-nuts/1.jpg', price: 40, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
-  orange: { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/1.jpg', price: 40, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
-  walnut: { id: 'walnut', name: 'Walnut Cookies', img: '/sugarfree_walnut_cookie.png', price: 50, tags: ['nutty', 'omega-3', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
-  walnut_sf: { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '/sugarfree_walnut_cookie.png', price: 55, tags: ['sugar-free', 'keto', 'healthy'], vector: { sweet: 1, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
-  strawberry: { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.jpg', price: 40, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
-  chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 40, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } },
-  pinacolada: { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.jpg', price: 40, tags: ['tropical', 'pineapple', 'coconut'], vector: { sweet: 4, crunch: 2, nut: 1, fruit: 5, chocolate: 1 } },
-  blackcurrant: { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.jpg', price: 40, tags: ['whole-wheat', 'tangy', 'berry'], vector: { sweet: 3, crunch: 1, nut: 1, fruit: 4, chocolate: 1 } },
-  butterscotch: { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.jpg', price: 40, tags: ['caramel', 'crunch', 'sponge', 'sweet'], vector: { sweet: 4, crunch: 3, nut: 2, fruit: 1, chocolate: 1 } }
+  almond: { id: 'almond', name: 'Almond Rich Cookie', img: '/almond/1.webp', price: 40, tags: ['nutty', 'crunchy', 'coffee', 'high-protein'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  rose: { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/1.webp', price: 40, tags: ['aromatic', 'floral', 'tea', 'delicate'], vector: { sweet: 3, crunch: 3, nut: 2, fruit: 2, chocolate: 1 } },
+  oatsnuts: { id: 'oatsnuts', name: 'Oats Nuts Cookie', img: '/oats-nuts/1.webp', price: 40, tags: ['high-fibre', 'wholesome', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 4, fruit: 1, chocolate: 2 } },
+  orange: { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/1.webp', price: 40, tags: ['citrus', 'refreshing', 'juice', 'fruity'], vector: { sweet: 3, crunch: 4, nut: 1, fruit: 5, chocolate: 1 } },
+  walnut: { id: 'walnut', name: 'Walnut Cookies', img: '', price: 50, tags: ['nutty', 'omega-3', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  walnut_sf: { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '', price: 55, tags: ['sugar-free', 'keto', 'healthy'], vector: { sweet: 1, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
+  strawberry: { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.webp', price: 40, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
+  chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.webp', price: 40, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } },
+  pinacolada: { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.webp', price: 40, tags: ['tropical', 'pineapple', 'coconut'], vector: { sweet: 4, crunch: 2, nut: 1, fruit: 5, chocolate: 1 } },
+  blackcurrant: { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.webp', price: 40, tags: ['whole-wheat', 'tangy', 'berry'], vector: { sweet: 3, crunch: 1, nut: 1, fruit: 4, chocolate: 1 } },
+  butterscotch: { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.webp', price: 40, tags: ['caramel', 'crunch', 'sponge', 'sweet'], vector: { sweet: 4, crunch: 3, nut: 2, fruit: 1, chocolate: 1 } }
 };
 
 export function initPairingQuiz(onAddToCart) {
@@ -90,7 +90,7 @@ function injectQuizHTML() {
           </div>
 
           <div class="quiz-result-box">
-            <img id="quiz-result-img" src="/img-oats.png" alt="Recommendation" class="result-img" onerror="this.src='/almond/1.jpg'" />
+            <img id="quiz-result-img" src="/img-oats.webp" alt="Recommendation" class="result-img" onerror="this.src='/almond/1.webp'" />
             <h3 id="quiz-result-title" class="result-title">Almond Rich Cookies</h3>
             <p id="quiz-result-reason" class="result-reason" style="font-size: 13px; color: #A39282; margin: 10px 0 16px;"></p>
             <button id="btn-quiz-add-cart" class="btn-add-box-cart">Add to Cart</button>

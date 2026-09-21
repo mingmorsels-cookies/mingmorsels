@@ -10,7 +10,7 @@ const REVIEWS_DATA = [
     initials: "AS",
     avatarBg: "linear-gradient(135deg, #C6960C, #E5B21D)",
     text: "Unboxing the 6-pack Rose & Almond box... the aroma of roasted nuts and fresh butter hit me instantly! Crisp and melt-in-mouth.",
-    img: "/rose-petal/1.jpg",
+    img: "/rose-petal/1.webp",
     tag: "🌹 Rose Cookies Box",
     stars: "★★★★★"
   },
@@ -20,7 +20,7 @@ const REVIEWS_DATA = [
     initials: "RM",
     avatarBg: "linear-gradient(135deg, #8C532B, #D4A373)",
     text: "The Chocochip Muffins with my morning espresso is absolute perfection. Soft, moist, and zero artificial junk or palm oil!",
-    img: "/img-chocochip.jpg?v=2",
+    img: "/img-chocochip.webp?v=2",
     tag: "🍫 Chocochip Muffins",
     stars: "★★★★★"
   },
@@ -30,7 +30,7 @@ const REVIEWS_DATA = [
     initials: "PN",
     avatarBg: "linear-gradient(135deg, #2E7D32, #66BB6A)",
     text: "As a fitness coach, finding 100% pure cow butter and oats cookies with zero refined sugar is rare. mingmorsels nailed the recipe!",
-    img: "/oats-nuts/1.jpg",
+    img: "/oats-nuts/1.webp",
     tag: "🌾 Oats Cookies Box",
     stars: "★★★★★"
   },
@@ -40,7 +40,7 @@ const REVIEWS_DATA = [
     initials: "VS",
     avatarBg: "linear-gradient(135deg, #1565C0, #42A5F5)",
     text: "Ordered for our anniversary gift box. The custom gold ribbon greeting card and luxury sleeve was such a classy touch!",
-    img: "/unboxing_lush.jpg",
+    img: "/unboxing_lush.webp",
     tag: "🎁 Lush Gift Box",
     stars: "★★★★★"
   },
@@ -50,7 +50,7 @@ const REVIEWS_DATA = [
     initials: "SK",
     avatarBg: "linear-gradient(135deg, #E91E63, #FF4081)",
     text: "Delivered within 3 hours in Indiranagar! The vacuum seal keeps the cookies crisp like they were just pulled out of the stone oven.",
-    img: "/almond/1.jpg",
+    img: "/almond/1.webp",
     tag: "🍪 Almond Rich Cookies",
     stars: "★★★★★"
   },
@@ -60,7 +60,7 @@ const REVIEWS_DATA = [
     initials: "DV",
     avatarBg: "linear-gradient(135deg, #673AB7, #9C27B0)",
     text: "We ordered 80 gift hampers for our corporate festive gifting. Every client called to compliment the authentic artisanal crunch!",
-    img: "/unboxing_gable.jpg",
+    img: "/unboxing_gable.webp",
     tag: "✨ Gable Festive Pack",
     stars: "★★★★★"
   },
@@ -70,7 +70,7 @@ const REVIEWS_DATA = [
     initials: "MK",
     avatarBg: "linear-gradient(135deg, #FF6F00, #FFA000)",
     text: "The Orange Peel cookies have the most uplifting citrus zest notes. Pair it with Earl Grey tea for the ultimate evening treat.",
-    img: "/orange-peel/1.jpg",
+    img: "/orange-peel/1.webp",
     tag: "🍊 Orange Peel Delight",
     stars: "★★★★★"
   },
@@ -79,9 +79,9 @@ const REVIEWS_DATA = [
     handle: "@arjun_foodie",
     initials: "AR",
     avatarBg: "linear-gradient(135deg, #4E342E, #8D6E63)",
-    text: "Sugarfree Walnut Cookies are a blessing for my diabetic parents. Real pure Stevia sweetness with zero artificial aftertaste.",
-    img: "/sugarfree_walnut_cookie.png?v=2",
-    tag: "🌿 Sugar-Free Walnut",
+    text: "Sugarfree Walnut Cookies are a blessing for health-conscious indulgence. Real pure Stevia sweetness with zero artificial aftertaste.",
+    img: "/unboxing_extra.jpg",
+    tag: "🌿 Sugar-Free Delight",
     stars: "★★★★★"
   },
   {
@@ -90,7 +90,7 @@ const REVIEWS_DATA = [
     initials: "TD",
     avatarBg: "linear-gradient(135deg, #D81B60, #F06292)",
     text: "Bought 50 mini hampers for our wedding return favors in Bengaluru. Beautiful packaging and everyone praised the quality!",
-    img: "/unboxing_lush.jpg",
+    img: "/unboxing_lush.webp",
     tag: "💍 Wedding Favours",
     stars: "★★★★★"
   }

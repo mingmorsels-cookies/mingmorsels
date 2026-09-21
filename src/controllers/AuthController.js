@@ -681,7 +681,7 @@ export class AuthController {
             return `
               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(61, 32, 0, 0.08);">
                 <div style="display: flex; align-items: center; gap: 12px;">
-                  <img src="${img}" alt="${name}" onerror="this.src='/img-almond.png'" style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(61, 32, 0, 0.1);" />
+                  <img src="${img}" alt="${name}" onerror="this.src='/img-almond.webp'" style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(61, 32, 0, 0.1);" />
                   <div>
                     <div style="font-weight: 700; font-size: 13.5px; color: #3D2000;">${name}</div>
                     <div style="font-size: 11.5px; color: var(--color-text-muted);">

@@ -289,7 +289,7 @@ export class InvoiceService {
       <table class="letterhead-table">
         <tr>
           <td style="width: 95px; vertical-align: middle; padding-right: 16px;">
-            <img src="/logo.png?v=2" alt="mingmorsels" style="height: 56px; width: auto; max-width: 90px; object-fit: contain; display: block;" onerror="this.src='https://web-production-b66e7.up.railway.app/logo.png?v=2'" />
+            <img src="/logo.webp?v=2" alt="mingmorsels" style="height: 56px; width: auto; max-width: 90px; object-fit: contain; display: block;" onerror="this.src='https://web-production-b66e7.up.railway.app/logo.webp?v=2'" />
           </td>
           <td style="vertical-align: middle;">
             <h1 class="brand-title">MIORA DELIGHTS PRIVATE LIMITED</h1>

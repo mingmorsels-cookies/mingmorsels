@@ -564,8 +564,8 @@ export class ThreeController {
 
   buildAlmondCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
-    const topTex = textureLoader.load('/almond_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
+    const topTex = textureLoader.load('/almond_cookie_top_clean.webp');
+    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.webp');
     const sideTex = this.createBakedCrumbTexture('#dab47c', '#b08148');
 
     const geometry = this.createArtisanalCookieGeometry({
@@ -607,8 +607,8 @@ export class ThreeController {
 
   buildRoseCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
-    const topTex = textureLoader.load('/rose_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/rose_cookie_bottom_clean.png');
+    const topTex = textureLoader.load('/rose_cookie_top_clean.webp');
+    const bottomTex = textureLoader.load('/rose_cookie_bottom_clean.webp');
     const sideTex = this.createBakedCrumbTexture('#dab47c', '#b08148');
 
     const geometry = this.createArtisanalCookieGeometry({
@@ -701,8 +701,8 @@ export class ThreeController {
 
   buildOatsNutsCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
-    const topTex = textureLoader.load('/oatsnuts_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/oatsnuts_cookie_bottom_clean.png');
+    const topTex = textureLoader.load('/oatsnuts_cookie_top_clean.webp');
+    const bottomTex = textureLoader.load('/oatsnuts_cookie_bottom_clean.webp');
     const sideTex = this.createBakedCrumbTexture('#dab47c', '#b08148');
 
     const geometry = this.createArtisanalCookieGeometry({
@@ -805,8 +805,8 @@ export class ThreeController {
 
   buildOrangeCookieModel(group) {
     const textureLoader = new THREE.TextureLoader();
-    const topTex = textureLoader.load('/orange_cookie_top_clean.png');
-    const bottomTex = textureLoader.load('/orange_cookie_bottom_clean.png');
+    const topTex = textureLoader.load('/orange_cookie_top_clean.webp');
+    const bottomTex = textureLoader.load('/orange_cookie_bottom_clean.webp');
     const sideTex = this.createBakedCrumbTexture('#dab47c', '#b08148');
 
     const geometry = this.createArtisanalCookieGeometry({
@@ -848,9 +848,9 @@ export class ThreeController {
 
   buildWalnutCookieModel(id, group) {
     const textureLoader = new THREE.TextureLoader();
-    const topPath = id === 'walnut_sf' ? '/walnut_sf_cookie_top_clean.png' : '/walnut_cookie_top_clean.png';
+    const topPath = id === 'walnut_sf' ? '/walnut_sf_cookie_top_clean.webp' : '/walnut_cookie_top_clean.webp';
     const topTex = textureLoader.load(topPath);
-    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.png');
+    const bottomTex = textureLoader.load('/almond_cookie_bottom_clean.webp');
     const sideTex = this.createBakedCrumbTexture('#dab47c', '#b08148');
 
     const geometry = this.createArtisanalCookieGeometry({
@@ -919,7 +919,7 @@ export class ThreeController {
     // Custom Texture-Mapped Model for Choco Muffin
     if (id === 'chocochip') {
       const textureLoader = new THREE.TextureLoader();
-      const chocoTex = textureLoader.load('/choco_muffin_texture.png');
+      const chocoTex = textureLoader.load('/choco_muffin_texture.webp');
       chocoTex.wrapS = THREE.RepeatWrapping;
       chocoTex.wrapT = THREE.RepeatWrapping;
       chocoTex.repeat.set(2, 2);

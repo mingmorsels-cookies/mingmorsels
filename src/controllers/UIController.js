@@ -10,17 +10,17 @@ import { initFlowingMenu } from '../FlowingMenu.js';
 import { createTextType } from '../TextType.js';
 
 export const COOKIE_DATA = {
-  almond: { name: "Almond Rich Cookie", description: "Roasted almonds, rich buttery crunch.", price: 40, link: "/product.html?id=almond", image: "/almond/1.jpg" },
-  rose: { name: "Rose Petal Cookie", description: "Infused with fragrant rose petals, delicate aroma.", price: 40, link: "/product.html?id=rose", image: "/rose-petal/1.jpg" },
-  oatsnuts: { name: "Oats Nuts Cookie", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 40, link: "/product.html?id=oatsnuts", image: "/oats-nuts/1.jpg" },
-  orange: { name: "Orange Peel Cookie", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 40, link: "/product.html?id=orange", image: "/orange-peel/1.jpg" },
-  walnut: { name: "Walnut Cookies", description: "Rich crunchy roasted walnuts baked into buttery dough.", price: 40, link: "/product.html?id=walnut", image: "/sugarfree_walnut_cookie.png" },
-  walnut_sf: { name: "Sugarfree Walnut Cookies", description: "Zero added sugar, organic stevia & loaded roasted walnuts.", price: 40, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.png" },
-  strawberry: { name: "Strawberry Muffin", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.png" },
-  pinacolada: { name: "Pinacolada Muffin", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 40, link: "/product.html?id=pinacolada", image: "/img-pinacolada.jpg" },
-  butterscotch: { name: "Butterscotch Muffin", description: "Caramelized cake base with crunchy toffee drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.jpg" },
-  chocochip: { name: "Chocochip Muffin", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.jpg" },
-  blackcurrant: { name: "Blackcurrant Muffin", description: "Tart and sweet blackcurrants baked into a soft muffin.", price: 40, link: "/product.html?id=blackcurrant", image: "/img-blackcurrant.jpg" }
+  almond: { name: "Almond Rich Cookie", description: "Roasted almonds, rich buttery crunch.", price: 40, link: "/product.html?id=almond", image: "/almond/1.webp" },
+  rose: { name: "Rose Petal Cookie", description: "Infused with fragrant rose petals, delicate aroma.", price: 40, link: "/product.html?id=rose", image: "/rose-petal/1.webp" },
+  oatsnuts: { name: "Oats Nuts Cookie", description: "Rolled oats, mixed crunch nuts, healthy fiber.", price: 40, link: "/product.html?id=oatsnuts", image: "/oats-nuts/1.webp" },
+  orange: { name: "Orange Peel Cookie", description: "Citrus zesty refreshing flavor, sun-dried orange peel.", price: 40, link: "/product.html?id=orange", image: "/orange-peel/1.webp" },
+  walnut: { name: "Walnut Cookies", description: "Rich crunchy roasted walnuts baked into buttery dough.", price: 40, link: "/product.html?id=walnut", image: "/sugarfree_walnut_cookie.webp" },
+  walnut_sf: { name: "Sugarfree Walnut Cookies", description: "Zero added sugar, natural stevia & loaded roasted walnuts.", price: 40, link: "/product.html?id=walnut_sf", image: "/sugarfree_walnut_cookie.webp" },
+  strawberry: { name: "Strawberry Muffin", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.webp" },
+  pinacolada: { name: "Pinacolada Muffin", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 40, link: "/product.html?id=pinacolada", image: "/img-pinacolada.webp" },
+  butterscotch: { name: "Butterscotch Muffin", description: "Caramelized cake base with crunchy toffee drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.webp" },
+  chocochip: { name: "Chocochip Muffin", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.webp" },
+  blackcurrant: { name: "Blackcurrant Muffin", description: "Tart and sweet blackcurrants baked into a soft muffin.", price: 40, link: "/product.html?id=blackcurrant", image: "/img-blackcurrant.webp" }
 };
 
 export class UIController {
@@ -212,12 +212,16 @@ export class UIController {
     const closeBtn = document.getElementById('btn-close-mobile-nav');
 
     const openDrawer = () => {
+      drawer?.removeAttribute('inert');
+      drawer?.setAttribute('aria-hidden', 'false');
       drawer?.classList.add('active');
       backdrop?.classList.add('active');
       document.body.style.overflow = 'hidden';
     };
 
     const closeDrawer = () => {
+      drawer?.setAttribute('inert', '');
+      drawer?.setAttribute('aria-hidden', 'true');
       drawer?.classList.remove('active');
       backdrop?.classList.remove('active');
       document.body.style.overflow = '';
@@ -264,37 +268,37 @@ export class UIController {
       {
         link: '/product.html?id=almond',
         text: 'Almond Rich Cookie',
-        image: '/almond/1.jpg',
+        image: '/almond/1.webp',
         highlights: ['Made with Real Almonds', 'Pure Butter Recipe', 'Rich Nutty Crunch', 'Perfect On-the-go Snack']
       },
       {
         link: '/product.html?id=rose',
         text: 'Rose Petal Cookie',
-        image: '/rose-petal/1.jpg',
+        image: '/rose-petal/1.webp',
         highlights: ['Infused with Real Rose Petals', 'Mild & Unique Flavour', 'Premium Tea-time Cookie', 'Captivating Flower Aroma']
       },
       {
         link: '/product.html?id=oatsnuts',
         text: 'Oats Nuts Cookie',
-        image: '/oats-nuts/1.jpg',
+        image: '/oats-nuts/1.webp',
         highlights: ['Made with Real Oats', 'Made with Coconut Powder', 'Rich in Dry Fruits', 'Rich in Fibre']
       },
       {
         link: '/product.html?id=orange',
         text: 'Orange Peel Cookie',
-        image: '/orange-peel/1.jpg',
+        image: '/orange-peel/1.webp',
         highlights: ['Made with Real Orange Peels', 'Made with Tutti Frutti', 'Refreshing Citrus Flavour', 'Soft Baked for Better Texture']
       },
       {
         link: '/product.html?id=chocochip',
         text: 'Chocochip Muffin',
-        image: '/img-chocochip.jpg',
+        image: '/img-chocochip.webp',
         highlights: ['Pure Dark Chocolate', 'Melt-in-Mouth Soft Bake', '100% Cow Butter Recipe', 'Rich Chocolate Chips']
       },
       {
         link: '/product.html?id=butterscotch',
         text: 'Butterscotch Muffin',
-        image: '/img-butterscotch.jpg',
+        image: '/img-butterscotch.webp',
         highlights: ['Caramelized Butterscotch Drops', 'Golden Soft-Baked Cake', 'Crunchy Toffee Bits', 'Handcrafted Recipe']
       }
     ];
@@ -492,7 +496,7 @@ export class UIController {
       html += matches.map(([id, item]) => `
         <div class="search-result-item" data-id="${id}" style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; margin-bottom:8px; background:rgba(250,246,240,0.06); border-radius:10px; border:1px solid rgba(200,150,12,0.2); cursor:pointer;">
           <div style="display:flex; align-items:center; gap:14px;">
-            <img src="${item.image || '/almond/1.jpg'}" alt="${item.name}" style="width:48px; height:48px; border-radius:8px; object-fit:cover;" onerror="this.src='/almond/1.jpg'" />
+            <img src="${item.image || '/almond/1.webp'}" alt="${item.name}" style="width:48px; height:48px; border-radius:8px; object-fit:cover;" onerror="this.src='/almond/1.webp'" />
             <div style="text-align:left;">
               <h4 style="margin:0; font-size:15px; color:#FAF6F0;">${item.name}</h4>
               <p style="margin:2px 0 0; font-size:12px; color:rgba(250,246,240,0.6);">${item.description}</p>
@@ -775,7 +779,7 @@ export class UIController {
           row.style.cssText = 'display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #EADCCB;';
           row.innerHTML = `
             <div class="cart-item-thumb" style="width:48px; height:48px; border-radius:8px; overflow:hidden; background:#FFF; flex-shrink:0;">
-              <img src="${item.image || '/almond/1.jpg'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/almond/1.jpg'" />
+              <img src="${item.image || '/almond/1.webp'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/almond/1.webp'" />
             </div>
             <div class="cart-item-detail" style="flex:1; margin:0 12px; text-align:left;">
               <h4 class="cart-item-title" style="margin:0; font-size:13px; font-weight:700; color:#3D2000;">${item.name}</h4>
@@ -805,7 +809,7 @@ export class UIController {
               ${recommendations.map(rec => `
                 <div class="ai-rec-chip">
                   <div class="ai-rec-chip-img">
-                    <img src="${rec.image}" alt="${rec.name}" onerror="this.src='/almond/1.jpg'" />
+                    <img src="${rec.image}" alt="${rec.name}" onerror="this.src='/almond/1.webp'" />
                   </div>
                   <div class="ai-rec-chip-info">
                     <span class="ai-rec-chip-name">${rec.name}</span>

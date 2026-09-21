@@ -34,17 +34,17 @@ export class LiveFeedController {
     ];
 
     this.products = [
-      { name: "Rose Petal Cookie", img: "/rose-petal/1.jpg" },
-      { name: "Almond Rich Cookie", img: "/almond/1.jpg" },
-      { name: "Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
-      { name: "Sugarfree Walnut Cookies", img: "/sugarfree_walnut_cookie.png" },
-      { name: "Strawberry Muffin", img: "/strawberry_muffin.png" },
-      { name: "Orange Peel Cookie", img: "/orange-peel/1.jpg" },
-      { name: "Chocochip Muffin", img: "/img-chocochip.jpg" },
-      { name: "Oats Nuts Cookie", img: "/oats-nuts/1.jpg" },
-      { name: "Butterscotch Muffin", img: "/img-butterscotch.jpg" },
-      { name: "Pinacolada Muffin", img: "/img-pinacolada.jpg" },
-      { name: "Blackcurrant Muffin", img: "/img-blackcurrant.jpg" }
+      { name: "Rose Petal Cookie", img: "/rose-petal/1.webp" },
+      { name: "Almond Rich Cookie", img: "/almond/1.webp" },
+      { name: "Walnut Cookies", img: "/sugarfree_walnut_cookie.webp" },
+      { name: "Sugarfree Walnut Cookies", img: "/sugarfree_walnut_cookie.webp" },
+      { name: "Strawberry Muffin", img: "/strawberry_muffin.webp" },
+      { name: "Orange Peel Cookie", img: "/orange-peel/1.webp" },
+      { name: "Chocochip Muffin", img: "/img-chocochip.webp" },
+      { name: "Oats Nuts Cookie", img: "/oats-nuts/1.webp" },
+      { name: "Butterscotch Muffin", img: "/img-butterscotch.webp" },
+      { name: "Pinacolada Muffin", img: "/img-pinacolada.webp" },
+      { name: "Blackcurrant Muffin", img: "/img-blackcurrant.webp" }
     ];
 
     this.timesAgo = ["Just now", "2m ago", "5m ago", "12m ago", "18m ago", "34m ago", "42m ago", "1h ago"];
@@ -64,7 +64,7 @@ export class LiveFeedController {
       this.popupEl.innerHTML = `
         <div class="live-purchase-accent"></div>
         <div class="live-purchase-img-wrap">
-          <img id="live-purchase-img" src="/rose-petal/1.jpg" alt="Product" />
+          <img id="live-purchase-img" src="/rose-petal/1.webp" alt="Product" />
         </div>
         <div class="live-purchase-content">
           <div class="live-purchase-header">
@@ -151,10 +151,10 @@ export class LiveFeedController {
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'NEW_ORDER') {
-            const firstItem = data.order?.items?.[0] || { name: 'Rose Petal Cookie', image: '/rose-petal/1.jpg' };
+            const firstItem = data.order?.items?.[0] || { name: 'Rose Petal Cookie', image: '/rose-petal/1.webp' };
             this.triggerPopup({
               profile: { name: data.order?.user_name || 'Connoisseur', location: 'Bengaluru, KA' },
-              product: { name: firstItem.name, img: firstItem.image || '/rose-petal/1.jpg' },
+              product: { name: firstItem.name, img: firstItem.image || '/rose-petal/1.webp' },
               timeAgo: 'Just now'
             });
             eventBus.emit(Events.ORDER_LIVE_UPDATE, data.order);

@@ -2,24 +2,24 @@
 import './GiftBoxBuilder.css';
 
 const AVAILABLE_ITEMS = [
-  { id: 'almond', name: 'Almond Rich Cookie', img: '/almond/1.jpg', price: 40, type: 'cookie' },
-  { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/1.jpg', price: 40, type: 'cookie' },
-  { id: 'oatsnuts', name: 'Oats Nuts Cookie', img: '/oats-nuts/1.jpg', price: 40, type: 'cookie' },
-  { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/1.jpg', price: 40, type: 'cookie' },
-  { id: 'walnut', name: 'Walnut Cookies', img: '/sugarfree_walnut_cookie.png', price: 40, type: 'cookie' },
-  { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '/sugarfree_walnut_cookie.png', price: 40, type: 'cookie' },
-  { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.jpg', price: 40, type: 'muffin' },
-  { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.jpg', price: 40, type: 'muffin' },
-  { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.jpg', price: 40, type: 'muffin' },
-  { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.jpg', price: 40, type: 'muffin' },
-  { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.jpg', price: 40, type: 'muffin' }
+  { id: 'almond', name: 'Almond Rich Cookie', img: '/almond/1.webp', price: 40, type: 'cookie' },
+  { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/1.webp', price: 40, type: 'cookie' },
+  { id: 'oatsnuts', name: 'Oats Nuts Cookie', img: '/oats-nuts/1.webp', price: 40, type: 'cookie' },
+  { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/1.webp', price: 40, type: 'cookie' },
+  { id: 'walnut', name: 'Walnut Cookies', img: '', price: 40, type: 'cookie' },
+  { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '', price: 40, type: 'cookie' },
+  { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.webp', price: 40, type: 'muffin' },
+  { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.webp', price: 40, type: 'muffin' },
+  { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.webp', price: 40, type: 'muffin' },
+  { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.webp', price: 40, type: 'muffin' },
+  { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.webp', price: 40, type: 'muffin' }
 ];
 
 const BOX_OPTIONS = {
   classic: {
     id: 'classic',
     name: 'Signature Treat Box',
-    img: '/box-classic.jpg',
+    img: '/box-classic.webp',
     extraPrice: 15,
     maxSlots: 10,
     allowsMuffins: true,
@@ -29,7 +29,7 @@ const BOX_OPTIONS = {
   lush: {
     id: 'lush',
     name: 'Lush Luxury Box',
-    img: '/box-lush.jpg',
+    img: '/box-lush.webp',
     extraPrice: 130,
     maxSlots: 4,
     hasDryFruits: true,
@@ -65,7 +65,7 @@ function injectModalHTML() {
         <div class="box-type-cards-selector">
           <div class="box-type-card active" data-box-type="classic" id="box-card-classic">
             <div class="box-type-img-wrapper" data-box="classic">
-              <img src="/box-classic.jpg" alt="Signature Treat Box" class="box-type-img" />
+              <img src="/box-classic.webp" alt="Signature Treat Box" class="box-type-img" />
               <button type="button" class="btn-view-full-box" data-preview-box="classic" title="Click to see full box photo">🔍 View Full Box</button>
             </div>
             <span class="box-type-title">Signature Treat Box</span>
@@ -75,7 +75,7 @@ function injectModalHTML() {
 
           <div class="box-type-card" data-box-type="lush" id="box-card-lush">
             <div class="box-type-img-wrapper" data-box="lush">
-              <img src="/box-lush.jpg" alt="Lush Luxury Box" class="box-type-img" />
+              <img src="/box-lush.webp" alt="Lush Luxury Box" class="box-type-img" />
               <button type="button" class="btn-view-full-box" data-preview-box="lush" title="Click to see full box photo">🔍 View Full Box</button>
             </div>
             <span class="box-type-title">Lush Luxury Box</span>

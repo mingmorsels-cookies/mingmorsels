@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Artisanal Cookies &amp; Gourmet Muffins Menu | Buy Online | mingmorsels Bengaluru</title>
   <meta name="description" content="Shop handcrafted luxury cookies &amp; gourmet muffins online. 100% pure cow butter, plant-based Stevia, zero refined sugar, no margarine. Twin, Classic, &amp; Dozen packs with same-day express delivery in Bengaluru." />
-  <meta name="keywords" content="buy cookies online bangalore, pure cow butter cookies, roasted almond cookies, rose petal cookies, stevia sugar free cookies, dark chocochip cookies, gourmet muffins bangalore, pure veg cookies online, cookie gift box bangalore, diabetic cookies bangalore" />
+  <meta name="keywords" content="buy cookies online bangalore, pure cow butter cookies, roasted almond cookies, rose petal cookies, stevia sugar free cookies, dark chocochip cookies, gourmet muffins bangalore, pure veg cookies online, cookie gift box bangalore, sugar free cookies bangalore" />
   <meta name="author" content="Miora Delights Private Limited" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
@@ -50,7 +50,7 @@
           "https://www.mingmorsels.com/box-lush.jpg",
           "https://www.mingmorsels.com/box-extra.jpg"
         ],
-        "description": "Handcrafted luxury cookies & soft-baked muffins made with 100% pure cow butter, organic botanicals, and zero margarine. Baked fresh daily in Bengaluru.",
+        "description": "Handcrafted luxury cookies & soft-baked muffins made with 100% pure cow butter, natural botanicals, and zero margarine. Baked fresh daily in Bengaluru.",
         "sku": "MM-ARTISANAL-COLLECTION",
         "brand": {
           "@type": "Brand",
@@ -365,7 +365,7 @@
             
             <!-- Video Container (plays in place of photos when selected or on autoplay) -->
             <div id="product-main-video-container" class="product-main-video-container" style="display: none;">
-              <video id="product-main-video" controls playsinline loop muted autoplay preload="auto" poster="">
+              <video id="product-main-video" controls playsinline loop muted preload="none" poster="">
                 <source src="" type="video/mp4">
                 Your browser does not support HTML5 video.
               </video>
@@ -375,15 +375,15 @@
               (function() {
                 var p = new URLSearchParams(window.location.search).get('id');
                 var m = {
-                  'orange': '/orange-peel/1.jpg',
-                  'oatsnuts': '/oats-nuts/1.jpg',
-                  'rose': '/rose-petal/1.jpg',
-                  'almond': '/almond/1.jpg',
-                  'chocochip': '/img-chocochip.jpg',
-                  'blackcurrant': '/img-blackcurrant.jpg',
-                  'pinacolada': '/img-pinacolada.jpg',
-                  'butterscotch': '/img-butterscotch.jpg',
-                  'strawberry': '/img-strawberry.jpg'
+                  'orange': '/orange-peel/1.webp',
+                  'oatsnuts': '/oats-nuts/1.webp',
+                  'rose': '/rose-petal/1.webp',
+                  'almond': '/almond/1.webp',
+                  'chocochip': '/img-chocochip.webp',
+                  'blackcurrant': '/img-blackcurrant.webp',
+                  'pinacolada': '/img-pinacolada.webp',
+                  'butterscotch': '/img-butterscotch.webp',
+                  'strawberry': '/img-strawberry.webp'
                 };
                 if (p && m[p]) { document.getElementById('product-main-image').src = m[p]; }
               })();
@@ -423,11 +423,11 @@
           <p class="p-tagline" id="p-tagline">Crafted with whole roasted almonds — rich, buttery crunch with every
             single bite.</p>
 
-          <div class="p-rating-bar">
+          <a href="#reviews" class="p-rating-bar" title="Click to view Customer Reviews" style="text-decoration: none; cursor: pointer; display: inline-flex;">
             <div class="stars-gold" id="p-stars">★★★★★</div>
             <span class="rating-text" id="p-rating">5.0 (128 Reviews)</span>
             <span class="badge-verified">Verified Recipe</span>
-          </div>
+          </a>
 
           <div class="p-price-card">
             <div class="price-amount-group">
@@ -445,7 +445,7 @@
           </div>
 
           <p class="p-short-desc" id="p-desc">
-            A timeless classic reimagined. Crafted with whole roasted premium almonds, organic butter, and plant-based Stevia.
+            A timeless classic reimagined. Crafted with whole roasted premium almonds, pure cow butter, and plant-based Stevia.
             Crumbly on the outside, meltingly soft on the inside.
           </p>
 
@@ -456,7 +456,7 @@
             <div class="packaging-cards-grid">
               <div class="packaging-card" data-box="classic" id="pkg-card-classic">
                 <div class="pkg-img-wrapper">
-                  <img src="/box-classic.jpg" alt="Signature Treat Box" class="pkg-card-img"  loading="lazy" />
+                  <img src="/box-classic.webp" alt="Signature Treat Box" class="pkg-card-img" width="120" height="75" loading="lazy" decoding="async" />
                   <button type="button" class="btn-pkg-zoom" data-box-preview="classic" title="Click to view full photo">🔍 View Full Box</button>
                 </div>
                 <div class="pkg-card-info">
@@ -468,7 +468,7 @@
 
               <div class="packaging-card" data-box="lush" id="pkg-card-lush">
                 <div class="pkg-img-wrapper">
-                  <img src="/box-lush.jpg" alt="Lush Luxury Box" class="pkg-card-img"  loading="lazy" />
+                  <img src="/box-lush.webp" alt="Lush Luxury Box" class="pkg-card-img" width="120" height="75" loading="lazy" decoding="async" />
                   <button type="button" class="btn-pkg-zoom" data-box-preview="lush" title="Click to view full photo">🔍 View Full Box</button>
                 </div>
                 <div class="pkg-card-info">
@@ -518,92 +518,33 @@
             <span>Order & Customise on WhatsApp</span>
           </a>
 
+          <!-- Verified Buyer Review Spotlight right below Buy / WhatsApp button -->
+          <div class="product-spotlight-review" id="p-spotlight-review" style="margin-top: 14px; padding: 14px 16px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; backdrop-filter: blur(8px);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #D4AF37; font-size: 13px; letter-spacing: 1px;">★★★★★</span>
+                <span id="spotlight-author" style="font-size: 12px; font-weight: 700; color: #FFFFFF;">Indiranagar, Bengaluru</span>
+              </div>
+              <span style="font-size: 11px; color: #4EBE73; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Verified Buyer
+              </span>
+            </div>
+            <p id="spotlight-text" style="font-size: 12.5px; line-height: 1.45; color: rgba(255, 255, 255, 0.85); margin: 0; font-style: italic;">
+              "I went over to my friend's place for evening tea and had one of these cookies. Honestly, mind blown by that flavour! Ordered 4 boxes immediately."
+            </p>
+            <div style="margin-top: 8px;">
+              <a href="#reviews" style="font-size: 11.5px; color: #D4AF37; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                Read all verified customer reviews & ratings ↓
+              </a>
+            </div>
+          </div>
+
 
         </div>
       </div>
     </section>
 
-    <!-- Nutritional Breakdown Section -->
-    <section class="product-nutrition-section">
-      <div class="nutrition-container">
-        <div class="section-heading-center">
-          <span class="sub-tag">Mindful Nutrition</span>
-          <h2>Nutritional Profile per Serving</h2>
-          <p>Every bite is balanced for natural energy, low glycemic impact, and wholesome indulgence.</p>
-        </div>
-
-        <div class="p-nut-grid">
-
-          <div class="nut-card">
-            <span class="nut-card-val" id="p-nut-carbs">7.01g</span>
-            <span class="nut-card-lbl">Carbohydrates</span>
-            <span class="nut-sub">Slow release</span>
-          </div>
-          <div class="nut-card">
-            <span class="nut-card-val" id="p-nut-protein">1.04g</span>
-            <span class="nut-card-lbl">Protein</span>
-            <span class="nut-sub">Plant & nut based</span>
-          </div>
-          <div class="nut-card">
-            <span class="nut-card-val" id="p-nut-fat">3.9g</span>
-            <span class="nut-card-lbl">Total Fat</span>
-            <span class="nut-sub">Pure cow butter</span>
-          </div>
-          <div class="nut-card">
-            <span class="nut-card-val" id="p-nut-satfat">2.8g</span>
-            <span class="nut-card-lbl">Saturated Fat</span>
-            <span class="nut-sub">Dairy lipids</span>
-          </div>
-          <div class="nut-card">
-            <span class="nut-card-val" id="p-nut-transfat">0g</span>
-            <span class="nut-card-lbl">Trans Fat</span>
-            <span class="nut-sub">Zero Palm Oil</span>
-          </div>
-          <div class="nut-card">
-            <span class="nut-card-val" id="p-nut-sugar">3.24g</span>
-            <span class="nut-card-lbl">Total Sugar</span>
-            <span class="nut-sub">Plant-Based Stevia</span>
-          </div>
-          <div class="nut-card">
-            <span class="nut-card-val" id="p-nut-sodium">139.4mg</span>
-            <span class="nut-card-lbl">Sodium</span>
-            <span class="nut-sub">Natural salts</span>
-          </div>
-          <div class="nut-card">
-            <span class="nut-card-val" id="p-nut-potassium">268.4mg</span>
-            <span class="nut-card-lbl">Potassium</span>
-            <span class="nut-sub">Electrolyte</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Baker's Notes & Ingredients Section -->
-    <section class="product-story-section">
-      <div class="story-content-box">
-        <span class="sub-tag">Artisanal Crafting</span>
-        <h2>The Baker's Story & Ingredients</h2>
-        <div class="story-grid">
-          <div class="story-block">
-            <h4>🌱 Organic Sourcing</h4>
-            <p>We source whole roasted almonds, natural plant-based Stevia extract, and unbleached
-              whole wheat flour.</p>
-          </div>
-          <div class="story-block">
-            <h4>🧈 Zero Palm Oil & Zero Margarine</h4>
-            <p>Strictly 100% pure unsalted cow butter. No hydrogenated fats, no margarine, and no
-              synthetic aromas.</p>
-          </div>
-          <div class="story-block">
-            <h4>🔥 Small-Batch Baking</h4>
-            <p>Baked fresh every morning in temperature-controlled stone ovens to lock in natural nut oils and buttery
-              crunch.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Customer Reviews Section -->
+    <!-- Customer Reviews Section (Directly after Buy Section) -->
     <section class="product-reviews-section" id="reviews">
       <div class="reviews-container">
         <div class="section-heading-center">
@@ -730,6 +671,86 @@
             <div id="review-form-feedback" style="display: none; margin: 10px 0; padding: 12px; border-radius: 10px; font-size: 13px; line-height: 1.4;"></div>
             <button type="submit" class="btn-submit-review" id="btn-submit-review-action">Submit Verified Review</button>
           </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nutritional Breakdown Section -->
+    <section class="product-nutrition-section">
+      <div class="nutrition-container">
+        <div class="section-heading-center">
+          <span class="sub-tag">Mindful Nutrition</span>
+          <h2>Nutritional Profile per Serving</h2>
+          <p>Every bite is balanced for natural energy, clean wholesome ingredients, and pure indulgence.</p>
+        </div>
+
+        <div class="p-nut-grid">
+
+          <div class="nut-card">
+            <span class="nut-card-val" id="p-nut-carbs">7.01g</span>
+            <span class="nut-card-lbl">Carbohydrates</span>
+            <span class="nut-sub">Slow release</span>
+          </div>
+          <div class="nut-card">
+            <span class="nut-card-val" id="p-nut-protein">1.04g</span>
+            <span class="nut-card-lbl">Protein</span>
+            <span class="nut-sub">Plant & nut based</span>
+          </div>
+          <div class="nut-card">
+            <span class="nut-card-val" id="p-nut-fat">3.9g</span>
+            <span class="nut-card-lbl">Total Fat</span>
+            <span class="nut-sub">Pure cow butter</span>
+          </div>
+          <div class="nut-card">
+            <span class="nut-card-val" id="p-nut-satfat">2.8g</span>
+            <span class="nut-card-lbl">Saturated Fat</span>
+            <span class="nut-sub">Dairy lipids</span>
+          </div>
+          <div class="nut-card">
+            <span class="nut-card-val" id="p-nut-transfat">0g</span>
+            <span class="nut-card-lbl">Trans Fat</span>
+            <span class="nut-sub">Zero Palm Oil</span>
+          </div>
+          <div class="nut-card">
+            <span class="nut-card-val" id="p-nut-sugar">3.24g</span>
+            <span class="nut-card-lbl">Total Sugar</span>
+            <span class="nut-sub">Plant-Based Stevia</span>
+          </div>
+          <div class="nut-card">
+            <span class="nut-card-val" id="p-nut-sodium">139.4mg</span>
+            <span class="nut-card-lbl">Sodium</span>
+            <span class="nut-sub">Natural salts</span>
+          </div>
+          <div class="nut-card">
+            <span class="nut-card-val" id="p-nut-potassium">268.4mg</span>
+            <span class="nut-card-lbl">Potassium</span>
+            <span class="nut-sub">Electrolyte</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Baker's Notes & Ingredients Section -->
+    <section class="product-story-section">
+      <div class="story-content-box">
+        <span class="sub-tag">Artisanal Crafting</span>
+        <h2>The Baker's Story & Ingredients</h2>
+        <div class="story-grid">
+          <div class="story-block">
+            <h4>🌱 Natural Sourcing</h4>
+            <p>We source whole roasted almonds, natural plant-based Stevia extract, and unbleached
+              whole wheat flour.</p>
+          </div>
+          <div class="story-block">
+            <h4>🧈 Zero Palm Oil & Zero Margarine</h4>
+            <p>Strictly 100% pure unsalted cow butter. No hydrogenated fats, no margarine, and no
+              synthetic aromas.</p>
+          </div>
+          <div class="story-block">
+            <h4>🔥 Small-Batch Baking</h4>
+            <p>Baked fresh every morning in temperature-controlled stone ovens to lock in natural nut oils and buttery
+              crunch.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -877,7 +898,7 @@
           <span id="cart-p-grand-total" style="color: #C8960C;">₹0</span>
         </div>
       </div>
-      <button id="btn-cart-razorpay" class="btn-cart-razorpay" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #C6960C 0%, #A67C00 100%); color: #FFF; border: none; border-radius: 12px; font-weight: 600; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(198,150,12,0.3);">
+      <button id="btn-cart-razorpay" class="btn-cart-razorpay">
         <span>Pay & Checkout (Razorpay / UPI / Cards)</span>
       </button>
     </div>

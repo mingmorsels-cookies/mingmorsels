@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
@@ -14,7 +14,7 @@
   <meta name="description"
     content="Buy luxury artisanal cookies &amp; gourmet muffins online at mingmorsels Bengaluru. Handcrafted daily with 100% pure cow butter, natural plant Stevia, zero refined sugar &amp; no margarine. Same-day express delivery &amp; store pickup.">
   <meta name="keywords"
-    content="artisanal cookies bangalore, buy cookies online india, pure cow butter cookies, plant based stevia cookies, sugar free cookies bangalore, 100% Pure Veg cookies online, luxury cookie gifting hampers, corporate gift boxes bangalore, gourmet bakery nayandahalli, wedding favors bangalore, diabetic friendly cookies, fresh baked muffins bangalore, no margarine cookies, healthy dry fruit cookies">
+    content="artisanal cookies bangalore, buy cookies online india, pure cow butter cookies, plant based stevia cookies, sugar free cookies bangalore, 100% Pure Veg cookies online, luxury cookie gifting hampers, corporate gift boxes bangalore, gourmet bakery nayandahalli, wedding favors bangalore, sugar free cookies, fresh baked muffins bangalore, no margarine cookies, healthy dry fruit cookies">
   <meta name="author" content="Miora Delights Private Limited">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
@@ -50,13 +50,6 @@
   <!-- Resource Hints for Core Web Vitals Performance -->
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
   <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
-
-  <!-- Preload Critical Modal Images & 3D Textures to Prevent Loading Delay -->
-  <link rel="preload" as="image" href="/almond_cookie_top_clean.png">
-  <link rel="preload" as="image" href="/almond_cookie_bottom_clean.png">
-  <link rel="preload" as="image" href="/box-classic.jpg">
-  <link rel="preload" as="image" href="/box-lush.jpg">
-  <link rel="preload" as="image" href="/box-extra.jpg">
 
   <!-- Razorpay Official Checkout SDK -->
   <script defer src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -163,10 +156,10 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Are mingmorsels cookies sugar-free and suitable for diabetics?",
+            "name": "Are mingmorsels cookies 100% sugar-free?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes! Our Stevia Zero-Sugar Walnut Cookies are 100% sugar-free, crafted with natural plant-derived Stevia extract with zero glycemic spikes, making them diabetic-friendly and wholesome."
+              "text": "Yes! Our Stevia Zero-Sugar Walnut Cookies are 100% sugar-free, crafted with natural plant-derived Stevia extract with zero added sugar, making them guilt-free and wholesome."
             }
           },
           {
@@ -253,7 +246,7 @@
               "@type": "Product",
               "name": "Rose Petal Cookies",
               "image": "https://www.mingmorsels.com/rose-petal/1.jpg",
-              "description": "Fragrant organic Damask rose petals baked into crumbly 100% pure cow butter dough with aromatic green cardamom.",
+              "description": "Fragrant Damask rose petals baked into crumbly 100% pure cow butter dough with aromatic green cardamom.",
               "sku": "MM-ROSE-35G",
               "brand": { "@id": "https://www.mingmorsels.com/#organization" },
               "offers": {
@@ -437,7 +430,7 @@
               "@type": "Product",
               "name": "Sugar-Free Walnut Cookies",
               "image": "https://www.mingmorsels.com/img-walnut-sf.png?v=2",
-              "description": "100% Sugar-free, diabetic-friendly cookies sweetened naturally with plant Stevia and loaded with crunchy roasted walnuts.",
+              "description": "100% Sugar-free, guilt-free cookies sweetened naturally with plant Stevia and loaded with crunchy roasted walnuts.",
               "sku": "MM-WALNUT-SF-35G",
               "brand": { "@id": "https://www.mingmorsels.com/#organization" },
               "offers": {
@@ -1002,7 +995,7 @@
   </header>
 
   <!-- Mobile Navigation Slide-Over Drawer -->
-  <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
+  <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true" inert>
     <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
     <div class="mobile-nav-content">
       <div class="mobile-nav-header">
@@ -1083,7 +1076,7 @@
         <div class="hero-text-column">
           <div class="hero-subtag-pill">
             <span class="sparkle-icon">✨</span>
-            <span>100% ORGANIC • BAKED FRESH DAILY</span>
+            <span>100% NATURAL • BAKED FRESH DAILY</span>
           </div>
 
           <h2 class="hero-title">
@@ -1150,7 +1143,7 @@
         <!-- Right side dedicated visual column for 3D Cookie -->
         <div class="hero-visual-column">
           <div class="hero-3d-ring-backdrop"></div>
-          <img src="/almond/1.jpg" alt="Almond Cookie" class="mobile-hero-img" />
+          <img src="/almond/1.webp" alt="Almond Cookie" class="mobile-hero-img" width="300" height="300" fetchpriority="high" decoding="async" />
         </div>
       </div>
     </section>
@@ -1179,13 +1172,13 @@
         <div class="products-grid">
           <!-- Rose Card -->
           <div class="product-card" id="card-rose" data-target="rose" data-tags="all pure-veg">
-            <div class="card-cookie-placeholder"><img src="/rose-petal/1.jpg" alt="Rose Petal Cookie"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/rose-petal/1.webp" alt="Rose Petal Cookie"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
-              <span class="card-recommended-ribbon"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Recommended</span>
+              <span class="card-recommended-ribbon"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Bestseller</span>
               <div class="card-stars">★★★★<span class="star-90">★</span> <span class="card-rating">(4.9)</span></div>
               <h3 class="card-title">Rose Petal Cookies</h3>
-              <p class="card-review">"Infused with organic rose petals, these are delicate, aromatic, and perfect for
+              <p class="card-review">"Infused with natural rose petals, these are delicate, aromatic, and perfect for
                 moments of indulgence."</p>
               <div class="card-badges">
                 <span class="badge">Aromatic</span>
@@ -1201,10 +1194,10 @@
 
           <!-- Almond Card -->
           <div class="product-card" id="card-almond" data-target="almond" data-tags="all nut-rich gluten-aware pure-veg">
-            <div class="card-cookie-placeholder"><img src="/almond/1.jpg" alt="Almond Cookie"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/almond/1.webp" alt="Almond Cookie"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
-              <span class="card-recommended-ribbon"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Recommended</span>
+              <span class="card-recommended-ribbon"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Bestseller</span>
               <div class="card-stars">★★★★★ <span class="card-rating">(5.0)</span></div>
               <h3 class="card-title">Almond Rich Cookies</h3>
               <p class="card-review">"Crafted with whole roasted almonds — rich, buttery crunch with every bite."</p>
@@ -1223,8 +1216,8 @@
           <!-- Oats Nuts Card -->
           <div class="product-card" id="card-oatsnuts" data-target="oatsnuts"
             data-tags="all high-fibre nut-rich pure-veg">
-            <div class="card-cookie-placeholder"><img src="/oats-nuts/1.jpg" alt="Oats Nuts Cookie"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/oats-nuts/1.webp" alt="Oats Nuts Cookie"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
               <div class="card-stars">★★★★<span class="star-80">★</span> <span class="card-rating">(4.8)</span></div>
               <h3 class="card-title">Oats Nuts Cookies</h3>
@@ -1244,8 +1237,8 @@
 
           <!-- Orange Card -->
           <div class="product-card" id="card-orange" data-target="orange" data-tags="all fruity pure-veg">
-            <div class="card-cookie-placeholder"><img src="/orange-peel/1.jpg" alt="Orange Peel Cookie"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/orange-peel/1.webp" alt="Orange Peel Cookie"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
               <div class="card-stars">★★★★<span class="star-half">★</span> <span class="card-rating">(4.5)</span></div>
               <h3 class="card-title">Orange Peel Cookies</h3>
@@ -1265,8 +1258,8 @@
 
           <!-- Walnut Card -->
           <div class="product-card" id="card-walnut" data-target="walnut" data-tags="all nut-rich pure-veg">
-            <div class="card-cookie-placeholder"><img src="/img-walnut.png?v=2" alt="Walnut Cookie"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/img-walnut.webp" alt="Walnut Cookie"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
               <div class="card-stars">★★★★<span class="star-half">★</span> <span class="card-rating">(4.5)</span></div>
               <h3 class="card-title">Walnut Cookies</h3>
@@ -1287,16 +1280,16 @@
           <!-- Sugar-Free Walnut Card -->
           <div class="product-card" id="card-walnut_sf" data-target="walnut_sf"
             data-tags="all nut-rich pure-veg gluten-aware">
-            <div class="card-cookie-placeholder"><img src="/img-walnut-sf.png?v=2" alt="Sugar-Free Walnut Cookie"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/img-walnut-sf.webp" alt="Sugar-Free Walnut Cookie"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
               <div class="card-stars">★★★★<span class="star-half">★</span> <span class="card-rating">(4.5)</span></div>
               <h3 class="card-title">Sugar-Free Walnut Cookies</h3>
               <p class="card-review">"100% Sugar-Free guiltless luxury! Whole roasted walnuts sweetened naturally
                 with Stevia."</p>
               <div class="card-badges">
-                <span class="badge">Sugar-Free</span>
-                <span class="badge">Keto Friendly</span>
+                <span class="badge">Zero Sugar</span>
+                <span class="badge">Guiltless Indulgence</span>
               </div>
               <div class="card-actions">
                 <a href="/product.html?id=walnut_sf" class="btn-card-action btn-view-details"
@@ -1321,8 +1314,8 @@
         <div class="products-grid" id="muffins-grid">
           <!-- Strawberry Muffin Card -->
           <div class="product-card" id="card-strawberry" data-target="strawberry" data-tags="all fruity pure-veg">
-            <div class="card-cookie-placeholder"><img src="/img-strawberry.jpg" alt="Strawberry Muffin"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/img-strawberry.webp" alt="Strawberry Muffin"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
               <div class="card-stars">★★★★<span class="star-80">★</span> <span class="card-rating">(4.8)</span></div>
               <h3 class="card-title">Strawberry Muffins</h3>
@@ -1341,8 +1334,8 @@
           </div>
           <!-- Pinacolada Muffin Card -->
           <div class="product-card" id="card-pinacolada" data-target="pinacolada" data-tags="all fruity pure-veg">
-            <div class="card-cookie-placeholder"><img src="/img-pinacolada.jpg" alt="Pinacolada Muffin"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/img-pinacolada.webp" alt="Pinacolada Muffin"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
               <div class="card-stars">★★★★<span class="star-half">★</span> <span class="card-rating">(4.5)</span></div>
               <h3 class="card-title">Pinacolada Muffins</h3>
@@ -1361,8 +1354,8 @@
           </div>
           <!-- Butterscotch Muffin Card -->
           <div class="product-card" id="card-butterscotch" data-target="butterscotch" data-tags="all pure-veg">
-            <div class="card-cookie-placeholder"><img src="/img-butterscotch.jpg" alt="Butterscotch Muffin"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/img-butterscotch.webp" alt="Butterscotch Muffin"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
               <div class="card-stars">★★★★<span class="star-half">★</span> <span class="card-rating">(4.5)</span></div>
               <h3 class="card-title">Butterscotch Muffins</h3>
@@ -1381,10 +1374,10 @@
           </div>
           <!-- Chocochip Muffin Card -->
           <div class="product-card" id="card-chocochip" data-target="chocochip" data-tags="all pure-veg">
-            <div class="card-cookie-placeholder"><img src="/img-chocochip.jpg" alt="Chocochip Muffin"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/img-chocochip.webp" alt="Chocochip Muffin"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
-              <span class="card-recommended-ribbon"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Recommended</span>
+              <span class="card-recommended-ribbon"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Bestseller</span>
               <div class="card-stars">★★★★★ <span class="card-rating">(5.0)</span></div>
               <h3 class="card-title">Chocochip Muffins</h3>
               <p class="card-review">"Deep double chocolate fudge muffin loaded with melted dark chocolate chunks."</p>
@@ -1401,8 +1394,8 @@
           </div>
           <!-- Black Currant Muffin Card -->
           <div class="product-card" id="card-blackcurrant" data-target="blackcurrant" data-tags="all fruity pure-veg">
-            <div class="card-cookie-placeholder"><img src="/img-blackcurrant.jpg" alt="Black Currant Muffin"
-                class="mobile-fallback-img" loading="lazy" /></div>
+            <div class="card-cookie-placeholder"><img src="/img-blackcurrant.webp" alt="Black Currant Muffin"
+                class="mobile-fallback-img" width="160" height="160" loading="lazy" decoding="async" /></div>
             <div class="card-body">
               <div class="card-stars">★★★★<span class="star-80">★</span> <span class="card-rating">(4.8)</span></div>
               <h3 class="card-title">Black Currant Muffin</h3>
@@ -1428,7 +1421,7 @@
         <div class="bestseller-header">
           <span class="bestseller-tag">👑 MOST POPULAR SELECTION</span>
           <h2 class="bestseller-title">Our Best Sellers</h2>
-          <p class="bestseller-subtitle">Handcrafted recipes loved most by over 20,000+ happy customers</p>
+          <p class="bestseller-subtitle">Handcrafted recipes loved most by over 23,000+ happy customers</p>
         </div>
 
         <div class="bestseller-grid">
@@ -1436,7 +1429,7 @@
           <div class="bestseller-card" data-target="almond">
             <div class="bestseller-badge-ribbon">🔥 #1 Bestseller</div>
             <div class="bestseller-img-box">
-              <img src="/almond/1.jpg" alt="Almond Rich Cookies" class="bestseller-img" loading="lazy" />
+              <img src="/almond/1.webp" alt="Almond Rich Cookies" class="bestseller-img" width="220" height="220" loading="lazy" decoding="async" />
             </div>
             <div class="bestseller-body">
               <div class="bestseller-stars">★★★★★ <span class="bestseller-rating">(5.0)</span></div>
@@ -1459,12 +1452,12 @@
           <div class="bestseller-card" data-target="rose">
             <div class="bestseller-badge-ribbon">🌹 Artisanal Favorite</div>
             <div class="bestseller-img-box">
-              <img src="/rose-petal/1.jpg" alt="Rose Petal Cookies" class="bestseller-img" loading="lazy" />
+              <img src="/rose-petal/1.webp" alt="Rose Petal Cookies" class="bestseller-img" width="220" height="220" loading="lazy" decoding="async" />
             </div>
             <div class="bestseller-body">
               <div class="bestseller-stars">★★★★★ <span class="bestseller-rating">(5.0)</span></div>
               <h3 class="bestseller-card-title">Rose Petal Cookies</h3>
-              <p class="bestseller-desc">Infused with sun-dried organic Damask rose petals & aromatic cardamom
+              <p class="bestseller-desc">Infused with sun-dried Damask rose petals & aromatic cardamom
                 sweetness.</p>
               <div class="bestseller-price-row">
                 <span class="bestseller-price">₹40</span>
@@ -1482,7 +1475,7 @@
           <div class="bestseller-card" data-target="chocochip">
             <div class="bestseller-badge-ribbon">🍫 Decadent Fudge</div>
             <div class="bestseller-img-box">
-              <img src="/img-chocochip.jpg" alt="Chocochip Muffins" class="bestseller-img" loading="lazy" />
+              <img src="/img-chocochip.webp" alt="Chocochip Muffins" class="bestseller-img" width="220" height="220" loading="lazy" decoding="async" />
             </div>
             <div class="bestseller-body">
               <div class="bestseller-stars">★★★★★ <span class="bestseller-rating">(5.0)</span></div>
@@ -1783,72 +1776,72 @@
         <div class="brands-marquee">
           <!-- First set of images -->
           <div class="brand-item">
-            <img src="/brands/bigbasket.png?v=2" alt="BigBasket" loading="lazy">
+            <img src="/brands/bigbasket.webp" alt="BigBasket" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/gokhana.png?v=2" alt="GoKhana" loading="lazy">
+            <img src="/brands/gokhana.webp" alt="GoKhana" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/blinkit.png?v=2" alt="Blinkit" loading="lazy">
+            <img src="/brands/blinkit.webp" alt="Blinkit" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/firstclub.png?v=2" alt="Firstclub" loading="lazy">
+            <img src="/brands/firstclub.webp" alt="Firstclub" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/jos-alukkas.png?v=2" alt="Jos Alukkas" loading="lazy">
+            <img src="/brands/jos-alukkas.webp" alt="Jos Alukkas" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/lulu.png?v=2" alt="LuLu Group" loading="lazy">
+            <img src="/brands/lulu.webp" alt="LuLu Group" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/yono.png?v=2" alt="Yono by SBI" loading="lazy">
+            <img src="/brands/yono.webp" alt="Yono by SBI" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/federal-bank.png?v=2" alt="Federal Bank" loading="lazy">
+            <img src="/brands/federal-bank.webp" alt="Federal Bank" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/wraparts.png?v=2" alt="Wrap Arts" loading="lazy">
+            <img src="/brands/wraparts.webp" alt="Wrap Arts" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/sulthan.png?v=2" alt="Sulthan Diamonds & Gold" loading="lazy">
+            <img src="/brands/sulthan.webp" alt="Sulthan Diamonds & Gold" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/smartworks.png?v=2" alt="Smartworks" loading="lazy">
+            <img src="/brands/smartworks.webp" alt="Smartworks" width="120" height="40" loading="lazy" decoding="async">
           </div>
 
           <!-- Duplicate set for seamless looping -->
           <div class="brand-item">
-            <img src="/brands/bigbasket.png?v=2" alt="BigBasket" loading="lazy">
+            <img src="/brands/bigbasket.webp" alt="BigBasket" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/gokhana.png?v=2" alt="GoKhana" loading="lazy">
+            <img src="/brands/gokhana.webp" alt="GoKhana" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/blinkit.png?v=2" alt="Blinkit" loading="lazy">
+            <img src="/brands/blinkit.webp" alt="Blinkit" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/firstclub.png?v=2" alt="Firstclub" loading="lazy">
+            <img src="/brands/firstclub.webp" alt="Firstclub" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/jos-alukkas.png?v=2" alt="Jos Alukkas" loading="lazy">
+            <img src="/brands/jos-alukkas.webp" alt="Jos Alukkas" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/lulu.png?v=2" alt="LuLu Group" loading="lazy">
+            <img src="/brands/lulu.webp" alt="LuLu Group" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/yono.png?v=2" alt="Yono by SBI" loading="lazy">
+            <img src="/brands/yono.webp" alt="Yono by SBI" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/federal-bank.png?v=2" alt="Federal Bank" loading="lazy">
+            <img src="/brands/federal-bank.webp" alt="Federal Bank" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/wraparts.png?v=2" alt="Wrap Arts" loading="lazy">
+            <img src="/brands/wraparts.webp" alt="Wrap Arts" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/sulthan.png?v=2" alt="Sulthan Diamonds & Gold" loading="lazy">
+            <img src="/brands/sulthan.webp" alt="Sulthan Diamonds & Gold" width="120" height="40" loading="lazy" decoding="async">
           </div>
           <div class="brand-item">
-            <img src="/brands/smartworks.png?v=2" alt="Smartworks" loading="lazy">
+            <img src="/brands/smartworks.webp" alt="Smartworks" width="120" height="40" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
@@ -1868,35 +1861,35 @@
           <div class="instagram-marquee-track">
             <!-- First set of reels -->
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C5LXiMLK31C/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 1"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/Cnj1H6fhe3W/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 2"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C8wmx0KP-i2/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 3"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C5SzOCpvrSM/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 4"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C3fRPxLy75r/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 5"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C3sPxbNyIJF/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 6"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C1ZvGMyvd5O/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 7"></iframe></div>
 
             <!-- Duplicated set of reels for infinite scroll -->
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C5LXiMLK31C/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 8"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/Cnj1H6fhe3W/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 9"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C8wmx0KP-i2/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 10"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C5SzOCpvrSM/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 11"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C3fRPxLy75r/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 12"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C3sPxbNyIJF/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 13"></iframe></div>
             <div class="ig-reel-card"><iframe src="https://www.instagram.com/reel/C1ZvGMyvd5O/embed" width="100%"
-                height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>
+                height="480" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" title="mingmorsels Artisan Baking Reel 14"></iframe></div>
           </div>
         </div>
       </div>
@@ -1983,11 +1976,11 @@
         <div class="faq-grid">
           <details class="faq-item" open>
             <summary class="faq-question">
-              <span>Are mingmorsels cookies sugar-free and suitable for diabetics?</span>
+              <span>Are mingmorsels cookies 100% sugar-free?</span>
               <span class="faq-icon">+</span>
             </summary>
             <div class="faq-answer">
-              Yes! Our <strong>Stevia Zero-Sugar Walnut Cookies</strong> are 100% sugar-free, crafted with natural plant-derived Stevia extract with zero glycemic spikes, making them diabetic-friendly, guilt-free, and deeply satisfying.
+              Yes! Our <strong>Stevia Zero-Sugar Walnut Cookies</strong> are 100% sugar-free, crafted with natural plant-derived Stevia extract with zero added sugar, making them guilt-free, delicious, and deeply satisfying.
             </div>
           </details>
 
@@ -2458,7 +2451,7 @@
   </div>
 
   <!-- Product Detail Modal Overlay -->
-  <div id="product-detail-modal" class="product-modal-backdrop" aria-hidden="true">
+  <div id="product-detail-modal" class="product-modal-backdrop" aria-hidden="true" inert>
     <div class="product-modal-card">
       <button class="btn-close-modal" id="btn-close-detail-modal" aria-label="Close modal">✕</button>
       <div class="product-modal-grid">
@@ -2516,8 +2509,8 @@
               (Optional):</h4>
             <div class="packaging-cards-grid">
               <div class="packaging-card" data-box="classic" id="modal-pkg-classic">
-                <img src="/box-classic.jpg" alt="Signature Treat Box" class="pkg-card-img" style="height: 75px;"
-                  loading="lazy" />
+                <img src="/box-classic.webp" alt="Signature Treat Box" class="pkg-card-img" width="120" height="75" style="height: 75px;"
+                  loading="lazy" decoding="async" />
                 <div class="pkg-card-info">
                   <span class="pkg-card-name" style="font-size: 12px;">Signature Treat Box</span>
                   <span class="pkg-card-price" style="font-size: 11px;">+₹15 extra</span>
@@ -2526,8 +2519,8 @@
               </div>
 
               <div class="packaging-card" data-box="lush" id="modal-pkg-lush">
-                <img src="/box-lush.jpg" alt="Lush Luxury Box" class="pkg-card-img" style="height: 75px;"
-                  loading="lazy" />
+                <img src="/box-lush.webp" alt="Lush Luxury Box" class="pkg-card-img" width="120" height="75" style="height: 75px;"
+                  loading="lazy" decoding="async" />
                 <div class="pkg-card-info">
                   <span class="pkg-card-name" style="font-size: 12px;">Lush Luxury Box</span>
                   <span class="pkg-card-price" style="font-size: 11px;">+₹130 extra</span>

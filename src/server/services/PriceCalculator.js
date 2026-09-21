@@ -63,7 +63,7 @@ export class PriceCalculator {
         packaging: item.packaging || packagingKey,
         packaging_fee: itemPackagingTotal,
         total_price: itemSubtotal + itemPackagingTotal,
-        image: item.image || '/logo.png',
+        image: item.image || '/logo.webp',
         details: item.details || null,
         note: item.note || item.customMessage || item.giftNote || null,
         flavors: item.flavors || item.customFlavors || null
