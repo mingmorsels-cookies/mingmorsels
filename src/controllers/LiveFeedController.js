@@ -40,7 +40,7 @@ export class LiveFeedController {
       { name: "Sugarfree Walnut Cookies", img: "/sugarfree_walnut_cookie.webp" },
       { name: "Strawberry Muffin", img: "/strawberry_muffin.webp" },
       { name: "Orange Peel Cookie", img: "/orange-peel/1.webp" },
-      { name: "Chocochip Muffin", img: "/img-chocochip.webp" },
+      { name: "Chocochip Muffin", img: "/img-chocochip.webp?v=4" },
       { name: "Oats Nuts Cookie", img: "/oats-nuts/1.webp" },
       { name: "Butterscotch Muffin", img: "/img-butterscotch.webp" },
       { name: "Pinacolada Muffin", img: "/img-pinacolada.webp" },

@@ -19,7 +19,7 @@ export const COOKIE_DATA = {
   strawberry: { name: "Strawberry Muffin", description: "Soft and moist, sweet strawberry pockets, crumble top.", price: 40, link: "/product.html?id=strawberry", image: "/strawberry_muffin.webp" },
   pinacolada: { name: "Pinacolada Muffin", description: "Tangy pineapples baked inside butter cake, golden crust.", price: 40, link: "/product.html?id=pinacolada", image: "/img-pinacolada.webp" },
   butterscotch: { name: "Butterscotch Muffin", description: "Caramelized cake base with crunchy toffee drops.", price: 40, link: "/product.html?id=butterscotch", image: "/img-butterscotch.webp" },
-  chocochip: { name: "Chocochip Muffin", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.webp" },
+  chocochip: { name: "Chocochip Muffin", description: "Rich double chocolate fudge cake, dark chocolate chunks.", price: 40, link: "/product.html?id=chocochip", image: "/img-chocochip.webp?v=4" },
   blackcurrant: { name: "Blackcurrant Muffin", description: "Tart and sweet blackcurrants baked into a soft muffin.", price: 40, link: "/product.html?id=blackcurrant", image: "/img-blackcurrant.webp" }
 };
 
@@ -292,7 +292,7 @@ export class UIController {
       {
         link: '/product.html?id=chocochip',
         text: 'Chocochip Muffin',
-        image: '/img-chocochip.webp',
+        image: '/img-chocochip.webp?v=4',
         highlights: ['Pure Dark Chocolate', 'Melt-in-Mouth Soft Bake', '100% Cow Butter Recipe', 'Rich Chocolate Chips']
       },
       {

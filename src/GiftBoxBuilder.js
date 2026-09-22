@@ -11,7 +11,7 @@ const AVAILABLE_ITEMS = [
   { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.webp', price: 40, type: 'muffin' },
   { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.webp', price: 40, type: 'muffin' },
   { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.webp', price: 40, type: 'muffin' },
-  { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.webp', price: 40, type: 'muffin' },
+  { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.webp?v=4', price: 40, type: 'muffin' },
   { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.webp', price: 40, type: 'muffin' }
 ];
 

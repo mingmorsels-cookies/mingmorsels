@@ -11,7 +11,7 @@ const PRODUCT_VECTORS = {
   walnut: { id: 'walnut', name: 'Walnut Cookies', img: '', price: 50, tags: ['nutty', 'omega-3', 'crunchy'], vector: { sweet: 2, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
   walnut_sf: { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '', price: 55, tags: ['sugar-free', 'keto', 'healthy'], vector: { sweet: 1, crunch: 5, nut: 5, fruit: 1, chocolate: 1 } },
   strawberry: { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.webp', price: 40, tags: ['soft', 'fruity', 'sweet', 'berry'], vector: { sweet: 5, crunch: 1, nut: 1, fruit: 5, chocolate: 1 } },
-  chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.webp', price: 40, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } },
+  chocochip: { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.webp?v=4', price: 40, tags: ['rich', 'fudgy', 'milk', 'chocolate'], vector: { sweet: 4, crunch: 1, nut: 2, fruit: 1, chocolate: 5 } },
   pinacolada: { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.webp', price: 40, tags: ['tropical', 'pineapple', 'coconut'], vector: { sweet: 4, crunch: 2, nut: 1, fruit: 5, chocolate: 1 } },
   blackcurrant: { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.webp', price: 40, tags: ['whole-wheat', 'tangy', 'berry'], vector: { sweet: 3, crunch: 1, nut: 1, fruit: 4, chocolate: 1 } },
   butterscotch: { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.webp', price: 40, tags: ['caramel', 'crunch', 'sponge', 'sweet'], vector: { sweet: 4, crunch: 3, nut: 2, fruit: 1, chocolate: 1 } }

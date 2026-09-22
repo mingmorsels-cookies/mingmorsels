@@ -277,7 +277,7 @@ export const PRODUCT_BOX_CATALOG = {
         countLabel: '1 Muffin',
         price: 45,
         desc: 'Freshly baked delicious single muffin.',
-        img: '/img-chocochip.webp',
+        img: '/img-chocochip.webp?v=4',
         popular: true
       }
     ]

@@ -892,13 +892,13 @@ const PRODUCT_MEDIA = {
   },
   chocochip: {
     images: [
-      { src: '/img-chocochip.webp', alt: 'Chocochip Muffin' },
+      { src: '/img-chocochip.webp?v=4', alt: 'Chocochip Muffin' },
       { src: '/box-chocochip-1.webp', alt: 'Chocochip Snack Pack' },
       { src: '/box-chocochip-2.webp', alt: 'Chocochip Box' }
     ],
     video: {
       src: '/muffins/chocochip.mp4',
-      poster: '/img-chocochip.webp',
+      poster: '/img-chocochip.webp?v=4',
       title: 'Chocochip Gourmet Muffin Slow-Baked'
     }
   },
@@ -1615,7 +1615,7 @@ function renderCartDrawerBody() {
     strawberry: '/img-strawberry.webp',
     pinacolada: '/img-pinacolada.webp',
     butterscotch: '/img-butterscotch.webp',
-    chocochip: '/img-chocochip.webp',
+    chocochip: '/img-chocochip.webp?v=4',
     blackcurrant: '/img-blackcurrant.webp'
   };
 
@@ -2405,7 +2405,7 @@ function initLivePurchaseNotifications() {
     { name: 'Strawberry Muffin', img: '/img-strawberry.webp' },
     { name: 'Pinacolada Muffins', img: '/img-pinacolada.webp' },
     { name: 'Butterscotch Muffins', img: '/img-butterscotch.webp' },
-    { name: 'Chocochip Muffins', img: '/img-chocochip.webp' },
+    { name: 'Chocochip Muffins', img: '/img-chocochip.webp?v=4' },
     { name: 'Black Currant Muffin', img: '/img-blackcurrant.webp' }
   ];
 
