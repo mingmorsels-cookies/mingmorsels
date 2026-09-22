@@ -50,9 +50,7 @@
   <!-- Resource Hints for Core Web Vitals Performance -->
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
   <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
-
-  <!-- Razorpay Official Checkout SDK -->
-  <script defer src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="preload" as="image" href="/hero-bg.webp" fetchpriority="high" type="image/webp" />
 
   <!-- Google Structured Data (JSON-LD) for Rich Google Search Snippets (Bakery, FAQ, ItemList, WebSite) -->
   <script type="application/ld+json">
@@ -1000,7 +998,7 @@
     <div class="mobile-nav-content">
       <div class="mobile-nav-header">
         <div class="mobile-nav-brand">
-          <img src="/logo.png?v=2" alt="mingmorsels Logo" class="mobile-nav-logo" />
+          <img src="/logo.webp?v=2" alt="mingmorsels Logo" class="mobile-nav-logo" width="120" height="54" style="height: 54px; width: auto; object-fit: contain;" />
         </div>
         <button id="btn-close-mobile-nav" class="mobile-nav-close-btn" aria-label="Close Navigation Menu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1143,7 +1141,7 @@
         <!-- Right side dedicated visual column for 3D Cookie -->
         <div class="hero-visual-column">
           <div class="hero-3d-ring-backdrop"></div>
-          <img src="/almond/1.webp" alt="Almond Cookie" class="mobile-hero-img" width="300" height="300" fetchpriority="high" decoding="async" />
+          <img src="/almond/1-square.webp" alt="Almond Cookie" class="mobile-hero-img" width="300" height="300" fetchpriority="high" decoding="async" />
         </div>
       </div>
     </section>
@@ -1503,7 +1501,7 @@
         <!-- Amazon Logo & Brand Verification Badge -->
         <div class="amazon-brand-header">
           <div class="amazon-logo-container">
-            <img src="/amazon-logo.svg" alt="Amazon" class="amazon-img-logo" loading="lazy" />
+            <img src="/amazon-logo.svg" alt="Amazon" class="amazon-img-logo" width="110" height="32" loading="lazy" decoding="async" />
           </div>
           <div class="amazon-verified-pill">
             <span class="amazon-shield-icon">🛡️</span>
@@ -2163,7 +2161,7 @@
       <button class="btn-drawer-close" id="btn-drawer-close">&times;</button>
     </div>
     <div class="chatbot-drawer-body">
-      <iframe src="/chatbot.html?v=1.2" title="mingmorsels Chatbot" id="chatbot-iframe"></iframe>
+      <iframe data-src="/chatbot.html?v=2.1" src="about:blank" loading="lazy" title="mingmorsels Chatbot" id="chatbot-iframe"></iframe>
     </div>
   </div>
 

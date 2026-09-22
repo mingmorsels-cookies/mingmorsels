@@ -370,7 +370,15 @@ export class UIController {
 
     if (!launcherBtn || !drawer) return;
 
+    const ensureChatbotIframe = () => {
+      const iframe = document.getElementById('chatbot-iframe');
+      if (iframe && iframe.dataset.src && (!iframe.src || iframe.src.endsWith('about:blank') || !iframe.src.includes('chatbot.html'))) {
+        iframe.src = iframe.dataset.src;
+      }
+    };
+
     const toggleChatbot = () => {
+      ensureChatbotIframe();
       const isOpen = drawer.classList.contains('open');
       if (isOpen) {
         drawer.classList.remove('open', 'active');
@@ -384,6 +392,9 @@ export class UIController {
         tooltip?.classList.remove('show');
       }
     };
+
+    launcherBtn.addEventListener('mouseenter', ensureChatbotIframe, { once: true });
+    launcherBtn.addEventListener('touchstart', ensureChatbotIframe, { once: true, passive: true });
 
     launcherBtn.addEventListener('click', (e) => {
       e.stopPropagation();

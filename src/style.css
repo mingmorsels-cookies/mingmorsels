@@ -425,10 +425,10 @@ body.luxury-dark-page {
 .section-tag {
   display: inline-block;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--color-accent);
+  color: #8A6000;
   margin-bottom: 12px;
 }
 
@@ -7336,8 +7336,8 @@ body.no-webgl #webgl-canvas {
 }
 
 .live-purchase-text strong {
-  color: #C8960C;
-  font-weight: 600;
+  color: #8B5E00;
+  font-weight: 700;
 }
 
 .live-purchase-time {
@@ -7345,7 +7345,7 @@ body.no-webgl #webgl-canvas {
   align-items: center;
   gap: 5px;
   font-size: 11px;
-  color: #9E8570;
+  color: #5A4535;
   margin-top: 2px;
 }
 
@@ -7553,7 +7553,8 @@ body.no-webgl #webgl-canvas {
 
 .amazon-review-count {
   font-size: 13px;
-  color: #8C7058;
+  color: #523722;
+  font-weight: 500;
 }
 
 .amazon-cta-wrapper {
@@ -8799,7 +8800,7 @@ body.no-webgl #webgl-canvas {
   font-weight: 800;
   letter-spacing: 2.2px;
   text-transform: uppercase;
-  color: #8C7867;
+  color: #5C4A3A;
   margin-bottom: 12px;
   font-family: var(--font-sans, system-ui, sans-serif);
 }

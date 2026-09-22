@@ -127,7 +127,7 @@ function injectModalHTML() {
       <div class="box-lightbox-content">
         <button id="btn-close-box-lightbox" class="btn-close-lightbox" aria-label="Close photo view">✕</button>
         <div class="lightbox-img-container">
-          <img id="lightbox-box-img" src="" alt="Gift Box Full View" class="lightbox-full-img" />
+          <img id="lightbox-box-img" src="/box-classic.webp" alt="Gift Box Full View" class="lightbox-full-img" width="400" height="400" loading="lazy" />
         </div>
         <h3 id="lightbox-box-title" class="lightbox-title">Gift Box Photo</h3>
         <p id="lightbox-box-desc" class="lightbox-details"></p>

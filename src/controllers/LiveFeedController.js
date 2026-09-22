@@ -53,7 +53,13 @@ export class LiveFeedController {
   init() {
     this.buildPopupDOM();
     this.scheduleNextPopup(Math.floor(Math.random() * 4000) + 4000); // 4-8s initial delay
-    this.connectLiveSSE();
+    if (typeof window !== 'undefined') {
+      if (document.readyState === 'complete') {
+        setTimeout(() => this.connectLiveSSE(), 2500);
+      } else {
+        window.addEventListener('load', () => setTimeout(() => this.connectLiveSSE(), 2500), { once: true });
+      }
+    }
   }
 
   buildPopupDOM() {
