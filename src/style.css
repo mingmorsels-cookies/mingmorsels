@@ -7386,12 +7386,61 @@ body.no-webgl #webgl-canvas {
   background: rgba(61, 32, 0, 0.08);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .live-purchase-popup {
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
-    max-width: calc(100vw - 32px);
+    bottom: 12px;
+    left: 12px;
+    right: auto;
+    max-width: calc(100vw - 24px);
+    width: auto;
+    padding: 6px 10px 6px 12px;
+    gap: 8px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(200, 150, 12, 0.3);
+  }
+
+  .live-purchase-accent {
+    top: 5px;
+    bottom: 5px;
+    width: 3px;
+  }
+
+  .live-purchase-img-wrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .live-purchase-header {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .live-purchase-loc {
+    font-size: 9.5px;
+  }
+
+  .live-purchase-text {
+    font-size: 10.5px;
+    line-height: 1.25;
+  }
+
+  .live-purchase-time {
+    font-size: 9px;
+    margin-top: 1px;
+    gap: 3px;
+  }
+
+  .live-purchase-dot {
+    width: 4.5px;
+    height: 4.5px;
+  }
+
+  .live-purchase-close {
+    font-size: 14px;
+    padding: 2px;
+    margin-left: 2px;
   }
 }
 
