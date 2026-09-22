@@ -6930,6 +6930,29 @@ body.luxury-dark-page {
     align-items: center !important;
     justify-content: center !important;
   }
+
+  /* Blur Walnut & Sugar-Free Walnut cookie photos in phone view */
+  #card-walnut .card-cookie-placeholder,
+  #card-walnut_sf .card-cookie-placeholder {
+    width: 130px !important;
+    height: 130px !important;
+    border-radius: 50% !important;
+    border: 2px solid #C6960C !important;
+    overflow: hidden !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+    margin: 0 auto !important;
+  }
+
+  #card-walnut .card-cookie-placeholder .mobile-fallback-img,
+  #card-walnut_sf .card-cookie-placeholder .mobile-fallback-img {
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    filter: blur(10px) brightness(0.95) !important;
+    transform: scale(1.25) !important;
+  }
 }
 
 /* ── Laptops & Tablets (> 768px): Hide static mobile images, render 3D WebGL ── */
