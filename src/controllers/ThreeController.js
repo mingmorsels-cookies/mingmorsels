@@ -1086,11 +1086,19 @@ export class ThreeController {
     if (!this.camera) return;
     const vpWidth = window.innerWidth;
     const vpHeight = window.innerHeight;
+    const scrollY = window.scrollY || 0;
+    const scrollX = window.scrollX || 0;
 
     const heroVisual = document.querySelector('.hero-visual-column');
     if (heroVisual) {
       const rect = heroVisual.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0) {
+        this.heroVisualLayout = {
+          docX: rect.left + scrollX,
+          docY: rect.top + scrollY,
+          width: rect.width,
+          height: rect.height
+        };
         const px = rect.left + rect.width / 2;
         const py = rect.top + rect.height / 2;
         this.heroAlmondPos = this.ndcTo3DWorld(
@@ -1100,21 +1108,43 @@ export class ThreeController {
         );
       } else {
         this.heroAlmondPos = { x: 2.8, y: 0.0 };
+        this.heroVisualLayout = null;
       }
     } else {
       this.heroAlmondPos = { x: 2.8, y: 0.0 };
+      this.heroVisualLayout = null;
     }
+
+    if (!this.cardLayoutData) this.cardLayoutData = {};
 
     this.ALL_PRODUCTS.forEach(id => {
       if (!this.placeholder3DCoords[id]) {
         this.placeholder3DCoords[id] = { x: 0, y: 0, scale: 0.85 };
       }
 
-      const placeholder = document.querySelector(`#card-${id} .card-cookie-placeholder`);
-      if (!placeholder) return;
+      const card = document.querySelector(`#card-${id}`);
+      const placeholder = card ? card.querySelector('.card-cookie-placeholder') : null;
+      if (!placeholder) {
+        this.cardLayoutData[id] = null;
+        return;
+      }
+
+      const isCardHidden = card.style.display === 'none' || (typeof getComputedStyle !== 'undefined' && getComputedStyle(card).display === 'none');
+      if (isCardHidden) {
+        this.cardLayoutData[id] = { hidden: true };
+        return;
+      }
 
       const phRect = placeholder.getBoundingClientRect();
       if (phRect.width > 0 && phRect.height > 0) {
+        this.cardLayoutData[id] = {
+          hidden: false,
+          docX: phRect.left + scrollX,
+          docY: phRect.top + scrollY,
+          width: phRect.width,
+          height: phRect.height
+        };
+
         const px = phRect.left + phRect.width / 2;
         const py = phRect.top + phRect.height / 2;
 
@@ -1127,6 +1157,8 @@ export class ThreeController {
           y: target3D.y,
           scale: this.MUFFINS.includes(id) ? 0.72 : 0.58
         };
+      } else {
+        this.cardLayoutData[id] = null;
       }
     });
   }
@@ -1147,7 +1179,13 @@ export class ThreeController {
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
       }
+      this.update3DCoordinates();
     }, { passive: true });
+
+    // Update coordinates when cards might reflow
+    document.querySelectorAll('.filter-pill, .filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => setTimeout(() => this.update3DCoordinates(), 120), { passive: true });
+    });
 
     window.addEventListener('mousemove', (e) => {
       this.targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -1171,6 +1209,7 @@ export class ThreeController {
     }
 
     const scrollY = window.scrollY || 0;
+    const scrollX = window.scrollX || 0;
     const vpWidth = window.innerWidth;
     const vpHeight = window.innerHeight;
 
@@ -1179,22 +1218,13 @@ export class ThreeController {
 
     this.heroSpinAngle = (this.heroSpinAngle || 0) + 0.008;
 
-    const productsSec = document.getElementById('products');
-    const muffinsSec = document.getElementById('muffins');
-    const bestSellersSec = document.getElementById('best-sellers');
-    const heroVisual = document.querySelector('.hero-visual-column');
-
-    const prodTop = productsSec ? productsSec.getBoundingClientRect().top : 9999;
-    const muffinsTop = muffinsSec ? muffinsSec.getBoundingClientRect().top : 9999;
-    const bsTop = bestSellersSec ? bestSellersSec.getBoundingClientRect().top : 9999;
-
-    // Helper: get 3D world position from DOM element
-    const getWorldPos = (el, targetZ = 0) => {
-      if (!el) return null;
-      const rect = el.getBoundingClientRect();
-      if (rect.width <= 0 || rect.height <= 0) return null;
-      const px = rect.left + rect.width / 2;
-      const py = rect.top + rect.height / 2;
+    // Helper: get 3D world position from cached document coords without touching DOM layout
+    const getCachedWorldPos = (layout, targetZ = 0) => {
+      if (!layout || layout.hidden || !layout.width || !layout.height) return null;
+      const screenX = layout.docX - scrollX;
+      const screenY = layout.docY - scrollY;
+      const px = screenX + layout.width / 2;
+      const py = screenY + layout.height / 2;
       const ndcX = (px / vpWidth) * 2 - 1;
       const ndcY = -(py / vpHeight) * 2 + 1;
       return this.ndcTo3DWorld(ndcX, ndcY, targetZ);
@@ -1211,15 +1241,12 @@ export class ThreeController {
       const isMuffin = this.MUFFINS.includes(id);
       const targetScale = isMuffin ? 0.72 : 0.58;
       const targetRotX = isMuffin ? 0.35 : 0.4;
-
-      const card = document.querySelector(`#card-${id}`);
-      const placeholder = card ? card.querySelector('.card-cookie-placeholder') : null;
-      const isCardHidden = card && (card.style.display === 'none' || getComputedStyle(card).display === 'none');
+      const layout = this.cardLayoutData ? this.cardLayoutData[id] : null;
 
       // Special Hero flight case for Almond Cookie
       if (id === 'almond' && inHeroTransition) {
-        const heroPos = getWorldPos(heroVisual, 0.5) || { x: this.heroAlmondPos.x, y: this.heroAlmondPos.y };
-        const almondCardPos = (!isCardHidden && placeholder) ? getWorldPos(placeholder, 0) : null;
+        const heroPos = getCachedWorldPos(this.heroVisualLayout, 0.5) || { x: this.heroAlmondPos.x, y: this.heroAlmondPos.y };
+        const almondCardPos = getCachedWorldPos(layout, 0);
         const targetCardPos = almondCardPos || { x: 0.8, y: -0.2 };
 
         group.position.x = THREE.MathUtils.lerp(heroPos.x, targetCardPos.x, scrollRatio);
@@ -1236,13 +1263,13 @@ export class ThreeController {
         return;
       }
 
-      // Check if card placeholder is on screen
+      // Check if card placeholder is on screen using purely cached arithmetic
       let isVisible = false;
-      if (placeholder && !isCardHidden) {
-        const rect = placeholder.getBoundingClientRect();
-        if (rect.width > 0 && rect.height > 0 && rect.bottom > -80 && rect.top < vpHeight + 80) {
+      if (layout && !layout.hidden) {
+        const screenY = layout.docY - scrollY;
+        if (screenY + layout.height > -80 && screenY < vpHeight + 80) {
           isVisible = true;
-          const pos = getWorldPos(placeholder, 0);
+          const pos = getCachedWorldPos(layout, 0);
           if (pos) {
             group.position.x = pos.x;
             group.position.y = pos.y;

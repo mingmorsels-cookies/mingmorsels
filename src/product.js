@@ -2398,15 +2398,15 @@ function initLivePurchaseNotifications() {
   ];
 
   const products = [
-    { name: 'Almond Rich Cookies', img: '/almond/1.webp' },
-    { name: 'Rose Petal Cookies', img: '/rose-petal/1.webp' },
-    { name: 'Oats & Nuts Cookies', img: '/img-oats.webp?v=2' },
-    { name: 'Orange Peel Cookies', img: '/img-orange.webp?v=2' },
-    { name: 'Strawberry Muffin', img: '/img-strawberry.webp' },
-    { name: 'Pinacolada Muffins', img: '/img-pinacolada.webp' },
-    { name: 'Butterscotch Muffins', img: '/img-butterscotch.webp' },
-    { name: 'Chocochip Muffins', img: '/img-chocochip.webp?v=4' },
-    { name: 'Black Currant Muffin', img: '/img-blackcurrant.webp' }
+    { name: 'Almond Rich Cookies', img: '/thumbs/almond.webp' },
+    { name: 'Rose Petal Cookies', img: '/thumbs/rose.webp' },
+    { name: 'Oats & Nuts Cookies', img: '/thumbs/oatsnuts.webp' },
+    { name: 'Orange Peel Cookies', img: '/thumbs/orange.webp' },
+    { name: 'Strawberry Muffin', img: '/thumbs/strawberry.webp' },
+    { name: 'Pinacolada Muffins', img: '/thumbs/pinacolada.webp' },
+    { name: 'Butterscotch Muffins', img: '/thumbs/butterscotch.webp' },
+    { name: 'Chocochip Muffins', img: '/thumbs/chocochip.webp' },
+    { name: 'Black Currant Muffin', img: '/thumbs/blackcurrant.webp' }
   ];
 
   const timesAgo = ['Just now', '1 min ago', '2 mins ago', '3 mins ago'];
@@ -2422,7 +2422,7 @@ function initLivePurchaseNotifications() {
     popupEl.innerHTML = `
       <div class="live-purchase-accent"></div>
       <div class="live-purchase-img-wrap">
-        <img id="live-purchase-img" src="/rose-petal/1.webp" alt="Product" />
+        <img id="live-purchase-img" src="/thumbs/rose.webp" alt="Product" width="48" height="48" loading="lazy" decoding="async" />
       </div>
       <div class="live-purchase-content">
         <div class="live-purchase-header">

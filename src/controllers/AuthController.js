@@ -293,11 +293,28 @@ export class AuthController {
     };
   }
 
+  async loadGsiScript() {
+    if (window.google?.accounts?.id) return Promise.resolve();
+    if (window._gsiScriptPromise) return window._gsiScriptPromise;
+    window._gsiScriptPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load Google Sign-In SDK'));
+      document.head.appendChild(script);
+    });
+    return window._gsiScriptPromise;
+  }
+
   bindDOM() {
-    const tryRenderGoogleBtn = () => {
+    const tryRenderGoogleBtn = async () => {
       const wrapper = document.getElementById('google-btn-wrapper');
-      if (window.google?.accounts?.id && wrapper) {
-        try {
+      if (!wrapper) return;
+      try {
+        await this.loadGsiScript();
+        if (window.google?.accounts?.id && wrapper) {
           if (!this.isGsiInitialized) {
             this.isGsiInitialized = true;
             google.accounts.id.initialize({
@@ -320,14 +337,18 @@ export class AuthController {
             });
             wrapper.setAttribute('data-gsi-rendered', 'true');
           }
-        } catch (e) {}
-      }
+        }
+      } catch (e) {}
     };
 
     const btnAccount = document.getElementById('btn-account');
     const dropdown = document.getElementById('google-auth-dropdown');
 
     if (btnAccount && dropdown) {
+      // Preload GSI script on hover/touch for instant response
+      btnAccount.addEventListener('pointerenter', () => this.loadGsiScript(), { once: true, passive: true });
+      btnAccount.addEventListener('touchstart', () => this.loadGsiScript(), { once: true, passive: true });
+
       btnAccount.addEventListener('click', (e) => {
         e.stopPropagation();
         dropdown.classList.toggle('show');

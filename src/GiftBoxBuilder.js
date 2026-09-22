@@ -2,17 +2,17 @@
 import './GiftBoxBuilder.css';
 
 const AVAILABLE_ITEMS = [
-  { id: 'almond', name: 'Almond Rich Cookie', img: '/almond/1.webp', price: 40, type: 'cookie' },
-  { id: 'rose', name: 'Rose Petal Cookie', img: '/rose-petal/1.webp', price: 40, type: 'cookie' },
-  { id: 'oatsnuts', name: 'Oats Nuts Cookie', img: '/oats-nuts/1.webp', price: 40, type: 'cookie' },
-  { id: 'orange', name: 'Orange Peel Cookie', img: '/orange-peel/1.webp', price: 40, type: 'cookie' },
-  { id: 'walnut', name: 'Walnut Cookies', img: '', price: 40, type: 'cookie' },
-  { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '', price: 40, type: 'cookie' },
-  { id: 'strawberry', name: 'Strawberry Muffin', img: '/img-strawberry.webp', price: 40, type: 'muffin' },
-  { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/img-pinacolada.webp', price: 40, type: 'muffin' },
-  { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/img-butterscotch.webp', price: 40, type: 'muffin' },
-  { id: 'chocochip', name: 'Chocochip Muffin', img: '/img-chocochip.webp?v=4', price: 40, type: 'muffin' },
-  { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/img-blackcurrant.webp', price: 40, type: 'muffin' }
+  { id: 'almond', name: 'Almond Rich Cookie', img: '/thumbs/almond.webp', price: 40, type: 'cookie' },
+  { id: 'rose', name: 'Rose Petal Cookie', img: '/thumbs/rose.webp', price: 40, type: 'cookie' },
+  { id: 'oatsnuts', name: 'Oats Nuts Cookie', img: '/thumbs/oatsnuts.webp', price: 40, type: 'cookie' },
+  { id: 'orange', name: 'Orange Peel Cookie', img: '/thumbs/orange.webp', price: 40, type: 'cookie' },
+  { id: 'walnut', name: 'Walnut Cookies', img: '/thumbs/walnut.webp', price: 40, type: 'cookie' },
+  { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '/thumbs/walnut_sf.webp', price: 40, type: 'cookie' },
+  { id: 'strawberry', name: 'Strawberry Muffin', img: '/thumbs/strawberry.webp', price: 40, type: 'muffin' },
+  { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/thumbs/pinacolada.webp', price: 40, type: 'muffin' },
+  { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/thumbs/butterscotch.webp', price: 40, type: 'muffin' },
+  { id: 'chocochip', name: 'Chocochip Muffin', img: '/thumbs/chocochip.webp', price: 40, type: 'muffin' },
+  { id: 'blackcurrant', name: 'Blackcurrant Muffin', img: '/thumbs/blackcurrant.webp', price: 40, type: 'muffin' }
 ];
 
 const BOX_OPTIONS = {

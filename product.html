@@ -155,12 +155,16 @@
   }
   </script>
 
-  <!-- Modern Google Fonts -->
+  <!-- Modern Google Fonts (Non-render-blocking async load) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
+  <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap">
+  </noscript>
   <!-- Critical CSS & Stylesheet -->
   <link rel="stylesheet" href="/src/style.css" />
   <style>
@@ -193,8 +197,6 @@
       font-size: 14px !important;
     }
   </style>
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body class="product-page-body">
@@ -213,7 +215,7 @@
 
       <!-- Center: Logo -->
       <div class="header-logo" onclick="window.location.href='/'" style="cursor: pointer;">
-        <img src="/logo.png?v=2" alt="mingmorsels Logo" class="logo-img" width="44" height="44" />
+        <img src="/logo.webp?v=2" alt="mingmorsels Logo" class="logo-img" width="44" height="44" />
         <span class="logo-text">mingmorsels</span>
       </div>
 
@@ -771,7 +773,7 @@
             <!-- Brand & Socials Column -->
             <div class="footer-brand-col">
               <div class="footer-logo-row">
-                <img src="/logo.png?v=2" alt="mingmorsels Logo" class="footer-logo-img" width="52" height="52"
+                <img src="/logo.webp?v=2" alt="mingmorsels Logo" class="footer-logo-img" width="52" height="52"
                   style="max-width: 52px;"  loading="lazy" />
                 <span class="footer-logo-title">mingmorsels</span>
               </div>

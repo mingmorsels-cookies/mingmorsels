@@ -34,17 +34,17 @@ export class LiveFeedController {
     ];
 
     this.products = [
-      { name: "Rose Petal Cookie", img: "/rose-petal/1.webp" },
-      { name: "Almond Rich Cookie", img: "/almond/1.webp" },
-      { name: "Walnut Cookies", img: "/sugarfree_walnut_cookie.webp" },
-      { name: "Sugarfree Walnut Cookies", img: "/sugarfree_walnut_cookie.webp" },
-      { name: "Strawberry Muffin", img: "/strawberry_muffin.webp" },
-      { name: "Orange Peel Cookie", img: "/orange-peel/1.webp" },
-      { name: "Chocochip Muffin", img: "/img-chocochip.webp?v=4" },
-      { name: "Oats Nuts Cookie", img: "/oats-nuts/1.webp" },
-      { name: "Butterscotch Muffin", img: "/img-butterscotch.webp" },
-      { name: "Pinacolada Muffin", img: "/img-pinacolada.webp" },
-      { name: "Blackcurrant Muffin", img: "/img-blackcurrant.webp" }
+      { name: "Rose Petal Cookie", img: "/thumbs/rose.webp" },
+      { name: "Almond Rich Cookie", img: "/thumbs/almond.webp" },
+      { name: "Walnut Cookies", img: "/thumbs/walnut.webp" },
+      { name: "Sugarfree Walnut Cookies", img: "/thumbs/walnut_sf.webp" },
+      { name: "Strawberry Muffin", img: "/thumbs/strawberry.webp" },
+      { name: "Orange Peel Cookie", img: "/thumbs/orange.webp" },
+      { name: "Chocochip Muffin", img: "/thumbs/chocochip.webp" },
+      { name: "Oats Nuts Cookie", img: "/thumbs/oatsnuts.webp" },
+      { name: "Butterscotch Muffin", img: "/thumbs/butterscotch.webp" },
+      { name: "Pinacolada Muffin", img: "/thumbs/pinacolada.webp" },
+      { name: "Blackcurrant Muffin", img: "/thumbs/blackcurrant.webp" }
     ];
 
     this.timesAgo = ["Just now", "2m ago", "5m ago", "12m ago", "18m ago", "34m ago", "42m ago", "1h ago"];
@@ -70,7 +70,7 @@ export class LiveFeedController {
       this.popupEl.innerHTML = `
         <div class="live-purchase-accent"></div>
         <div class="live-purchase-img-wrap">
-          <img id="live-purchase-img" src="/rose-petal/1.webp" alt="Product" />
+          <img id="live-purchase-img" src="/thumbs/rose.webp" alt="Product" width="48" height="48" loading="lazy" decoding="async" />
         </div>
         <div class="live-purchase-content">
           <div class="live-purchase-header">
