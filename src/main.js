@@ -44,16 +44,24 @@ async function startApp() {
   // 1. Initialize UI Controller & Preloader first
   uiController.init();
 
-  // 2. Initialize Three.js WebGL engine dynamically on Desktop & Tablet (> 768px)
-  if (window.innerWidth > 768) {
-    try {
-      const { init3DEnvironment } = await import('./controllers/ThreeController.js');
-      threeControllerInstance = init3DEnvironment();
-      uiController.setThreeController(threeControllerInstance);
-    } catch (err) {
-      console.warn("[Three.js] Initialization error:", err);
-      document.body.classList.add('no-webgl');
+  // 2. Initialize Three.js WebGL engine dynamically on Desktop & Tablet (> 768px) on idle
+  const init3D = async () => {
+    if (window.innerWidth > 768) {
+      try {
+        const { init3DEnvironment } = await import('./controllers/ThreeController.js');
+        threeControllerInstance = init3DEnvironment();
+        uiController.setThreeController(threeControllerInstance);
+      } catch (err) {
+        console.warn("[Three.js] Initialization error:", err);
+        document.body.classList.add('no-webgl');
+      }
     }
+  };
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => init3D(), { timeout: 1200 });
+  } else {
+    setTimeout(init3D, 80);
   }
 
   // 3. Initialize Domain Controllers

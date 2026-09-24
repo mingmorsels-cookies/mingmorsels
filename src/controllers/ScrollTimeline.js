@@ -53,39 +53,13 @@ export class ScrollTimelineController {
         trigger: '#products',
         start: 'top 60%',
         end: 'bottom 40%',
-        onUpdate: () => {
+        onEnter: () => {
           document.body.style.backgroundColor = '#FAF6F0';
           document.documentElement.style.backgroundColor = '#FAF6F0';
-          document.documentElement.style.setProperty('--scrollbar-track-bg', '#FAF6F0');
-
-          const headerEl = document.querySelector('.header');
-          if (headerEl) {
-            headerEl.style.background = 'rgba(250, 246, 240, 0.92)';
-            headerEl.style.color = '#3D2000';
-          }
-          const logoText = document.querySelector('.logo-text');
-          if (logoText) {
-            logoText.style.color = '#3D2000';
-          }
-          document.querySelectorAll('.nav-link').forEach(link => {
-            link.style.color = '#705840';
-          });
         },
         onLeaveBack: () => {
           document.body.style.backgroundColor = '#FAF6F0';
           document.documentElement.style.backgroundColor = '#FAF6F0';
-          const headerEl = document.querySelector('.header');
-          if (headerEl) {
-            headerEl.style.background = 'rgba(250, 246, 240, 0.92)';
-            headerEl.style.color = '#3D2000';
-          }
-          const logoText = document.querySelector('.logo-text');
-          if (logoText) {
-            logoText.style.color = '#3D2000';
-          }
-          document.querySelectorAll('.nav-link').forEach(link => {
-            link.style.color = '#705840';
-          });
         }
       });
 
