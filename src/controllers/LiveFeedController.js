@@ -167,6 +167,12 @@ export class LiveFeedController {
           }
         } catch (err) {}
       };
+      this.eventSource.onerror = () => {
+        if (this.eventSource) {
+          try { this.eventSource.close(); } catch (e) {}
+          this.eventSource = null;
+        }
+      };
     } catch (e) {}
   }
 }
