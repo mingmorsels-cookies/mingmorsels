@@ -253,16 +253,6 @@ body.luxury-dark-page {
   /* Smooth horizontal edge-fade so text flows in & out seamlessly */
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3.5%, black 96.5%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 3.5%, black 96.5%, transparent 100%);
-  animation: ambientShimmerRibbon 14s ease-in-out infinite alternate;
-}
-
-@keyframes ambientShimmerRibbon {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
 }
 
 .header-marquee-track {
@@ -341,6 +331,7 @@ body.luxury-dark-page {
   opacity: 0.95;
   margin-left: 14px;
   margin-right: 4px;
+  will-change: transform, opacity;
   animation: starAmbientPulse 3.5s ease-in-out infinite;
 }
 
@@ -348,12 +339,10 @@ body.luxury-dark-page {
   0%, 100% {
     transform: scale(1) rotate(0deg);
     opacity: 0.85;
-    filter: drop-shadow(0 0 2px rgba(200, 150, 12, 0.3));
   }
   50% {
-    transform: scale(1.2) rotate(4deg);
+    transform: scale(1.18) rotate(4deg);
     opacity: 1;
-    filter: drop-shadow(0 0 7px rgba(200, 150, 12, 0.65));
   }
 }
 
@@ -6357,23 +6346,21 @@ body.luxury-dark-page {
   justify-content: center;
   overflow: hidden;
   pointer-events: all;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
-  animation: autoDissolvePreloader 0.5s ease 1.5s forwards;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  animation: autoDissolvePreloader 0.4s ease 1.2s forwards;
 }
 
 @keyframes autoDissolvePreloader {
   0% {
     opacity: 1;
-    pointer-events: all;
-  }
-  99% {
-    opacity: 0;
-    pointer-events: none;
   }
   100% {
     opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .preloader-overlay {
     display: none !important;
   }
 }
@@ -6419,18 +6406,17 @@ body.luxury-dark-page {
   max-width: 500px !important;
   object-fit: contain;
   filter: drop-shadow(0 12px 32px rgba(212, 163, 115, 0.35));
+  will-change: transform;
   animation: preloaderPulse 2s ease-in-out infinite alternate;
 }
 
 @keyframes preloaderPulse {
   from {
     transform: scale(0.96);
-    filter: drop-shadow(0 8px 24px rgba(212, 163, 115, 0.25));
   }
 
   to {
     transform: scale(1.04);
-    filter: drop-shadow(0 16px 40px rgba(212, 163, 115, 0.5));
   }
 }
 
