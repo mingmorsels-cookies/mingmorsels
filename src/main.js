@@ -44,8 +44,11 @@ async function startApp() {
   // 1. Initialize UI Controller & Preloader first
   uiController.init();
 
-  // 2. Initialize Three.js WebGL engine dynamically on Desktop & Tablet (> 768px) on idle
+  // 2. Initialize Three.js WebGL engine on user interaction or post-load idle (> 768px)
+  let is3DInitialized = false;
   const init3D = async () => {
+    if (is3DInitialized) return;
+    is3DInitialized = true;
     if (window.innerWidth > 768) {
       try {
         const { init3DEnvironment } = await import('./controllers/ThreeController.js');
@@ -58,10 +61,19 @@ async function startApp() {
     }
   };
 
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(() => init3D(), { timeout: 1200 });
+  const interactiveEvents = ['pointerdown', 'scroll', 'keydown', 'wheel'];
+  const onFirstActivity = () => {
+    interactiveEvents.forEach(evt => window.removeEventListener(evt, onFirstActivity));
+    init3D();
+  };
+  interactiveEvents.forEach(evt => window.addEventListener(evt, onFirstActivity, { once: true, passive: true }));
+
+  if (document.readyState === 'complete') {
+    setTimeout(init3D, 1800);
   } else {
-    setTimeout(init3D, 80);
+    window.addEventListener('load', () => {
+      setTimeout(init3D, 1800);
+    }, { once: true });
   }
 
   // 3. Initialize Domain Controllers

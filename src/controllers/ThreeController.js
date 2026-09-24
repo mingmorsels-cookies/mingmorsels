@@ -168,16 +168,16 @@ export class ThreeController {
 
   createCookieBumpTexture() {
     const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 512;
+    canvas.width = 256;
+    canvas.height = 256;
     const ctx = canvas.getContext('2d');
 
     ctx.fillStyle = '#808080';
-    ctx.fillRect(0, 0, 512, 512);
+    ctx.fillRect(0, 0, 256, 256);
 
-    for (let i = 0; i < 18000; i++) {
-      const x = Math.random() * 512;
-      const y = Math.random() * 512;
+    for (let i = 0; i < 1200; i++) {
+      const x = Math.random() * 256;
+      const y = Math.random() * 256;
       const radius = 0.9 + Math.random() * 2.2;
       const val = Math.floor(65 + Math.random() * 125);
       ctx.fillStyle = `rgb(${val},${val},${val})`;
@@ -186,9 +186,9 @@ export class ThreeController {
       ctx.fill();
     }
 
-    for (let i = 0; i < 120; i++) {
-      const x = Math.random() * 512;
-      const y = Math.random() * 512;
+    for (let i = 0; i < 24; i++) {
+      const x = Math.random() * 256;
+      const y = Math.random() * 256;
       const radius = 10 + Math.random() * 30;
       const grad = ctx.createRadialGradient(x, y, 0, x, y, radius);
       const darkVal = Math.floor(Math.random() * 45);
@@ -209,22 +209,22 @@ export class ThreeController {
 
   createCookieTexture(baseColorHex, borderColorHex) {
     const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 512;
+    canvas.width = 256;
+    canvas.height = 256;
     const ctx = canvas.getContext('2d');
 
-    const grad = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
+    const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
     grad.addColorStop(0, baseColorHex);
     grad.addColorStop(0.75, baseColorHex);
     grad.addColorStop(0.92, borderColorHex);
     grad.addColorStop(1, '#5c320a');
 
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 512, 512);
+    ctx.fillRect(0, 0, 256, 256);
 
-    for (let i = 0; i < 1500; i++) {
-      const x = Math.random() * 512;
-      const y = Math.random() * 512;
+    for (let i = 0; i < 150; i++) {
+      const x = Math.random() * 256;
+      const y = Math.random() * 256;
       const radius = 1 + Math.random() * 3.5;
       const opacity = 0.08 + Math.random() * 0.22;
       ctx.fillStyle = `rgba(52, 26, 2, ${opacity})`;
@@ -233,9 +233,9 @@ export class ThreeController {
       ctx.fill();
     }
 
-    for (let i = 0; i < 1500; i++) {
-      const x = Math.random() * 512;
-      const y = Math.random() * 512;
+    for (let i = 0; i < 150; i++) {
+      const x = Math.random() * 256;
+      const y = Math.random() * 256;
       const radius = 1 + Math.random() * 4;
       const opacity = 0.1 + Math.random() * 0.3;
       ctx.fillStyle = `rgba(30, 15, 0, ${opacity})`;
@@ -245,9 +245,9 @@ export class ThreeController {
     }
 
     // Add crumbly noise texture
-    for (let i = 0; i < 5000; i++) {
-      const x = Math.random() * 512;
-      const y = Math.random() * 512;
+    for (let i = 0; i < 400; i++) {
+      const x = Math.random() * 256;
+      const y = Math.random() * 256;
       const radius = Math.random() * 1.5;
       ctx.fillStyle = `rgba(255, 255, 255, ${0.05 + Math.random() * 0.15})`;
       ctx.beginPath();
@@ -261,8 +261,8 @@ export class ThreeController {
   }
 
   createBaseCookieMesh(colorTexture) {
-    // Use a Sphere instead of a Cylinder to eliminate vertical walls completely
-    const geometry = new THREE.SphereGeometry(1, 128, 64);
+    // Use an optimized Sphere to eliminate vertical walls and minimize vertex overhead
+    const geometry = new THREE.SphereGeometry(1, 48, 24);
     
     // Organic craters
     const craters = [
@@ -1129,7 +1129,7 @@ export class ThreeController {
         return;
       }
 
-      const isCardHidden = card.style.display === 'none' || (typeof getComputedStyle !== 'undefined' && getComputedStyle(card).display === 'none');
+      const isCardHidden = card.style.display === 'none' || card.offsetParent === null;
       if (isCardHidden) {
         this.cardLayoutData[id] = { hidden: true };
         return;
