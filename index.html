@@ -55,8 +55,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
-  <link rel="preload" as="image" href="/hero-bg.webp" fetchpriority="high" type="image/webp" />
+  <link rel="preload" as="image" href="/hero-bg-mobile.webp" media="(max-width: 768px)" fetchpriority="high" type="image/webp" />
+  <link rel="preload" as="image" href="/hero-bg.webp" media="(min-width: 769px)" fetchpriority="high" type="image/webp" />
 
   <!-- Google Structured Data (JSON-LD) for Rich Google Search Snippets (Bakery, FAQ, ItemList, WebSite) -->
   <script type="application/ld+json">
@@ -792,7 +792,7 @@
     <div id="pixel-grid" class="pixel-grid"></div>
     <div class="preloader-content">
       <div class="preloader-logo-box">
-        <img src="/logo.webp?v=2" alt="mingmorsels Logo" class="preloader-logo-img" width="180" height="180"
+        <img src="/logo-preloader.webp" alt="mingmorsels Logo" class="preloader-logo-img" width="180" height="180"
           style="height: 180px; width: auto; object-fit: contain;" />
         <h1 class="preloader-brand-title">Miora Delights Private Limited</h1>
       </div>

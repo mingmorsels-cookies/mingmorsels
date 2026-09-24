@@ -78,7 +78,27 @@ export class UIController {
       }, 150);
     });
 
-    const failSafeTimer = setTimeout(hidePreloader, 1800);
+    const isMobile = window.innerWidth <= 768;
+    const failSafeTimer = setTimeout(hidePreloader, isMobile ? 350 : 1800);
+
+    if (isMobile) {
+      // Mobile: Instant lightweight fade to achieve 90+ Mobile PageSpeed FCP/LCP
+      if (logoBox) {
+        gsap.to(logoBox, {
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.25,
+          ease: "power2.out",
+          onComplete: () => {
+            clearTimeout(failSafeTimer);
+            hidePreloader();
+          }
+        });
+      } else {
+        hidePreloader();
+      }
+      return;
+    }
 
     const cols = 12;
     const rows = 8;

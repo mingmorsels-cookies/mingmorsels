@@ -61,76 +61,84 @@ async function startApp() {
   checkoutController.init();
   liveFeedController.init();
 
-  // 4. Initialize Interactive Luxury Features
-  try {
-    initGiftBoxBuilder((boxItem) => {
-      cartStore.addItem(boxItem);
-      uiController.openCartDrawer();
-    });
-    initPairingQuiz((pairItem) => {
-      openQuickAddModal(pairItem.id);
-    });
-    initSocialGallery();
-    const driftWallRoot = document.getElementById('drift-wall-root');
-    if (driftWallRoot) initDriftWall(driftWallRoot);
-
-    const flipTextRoot = document.getElementById('flip-text-root');
-    if (flipTextRoot) {
-      initFlipText(flipTextRoot, {
-        text: 'Unit of Miora Delights Private Limited',
-        duration: 2.2,
-        delay: 0,
-        loop: true,
-        separator: ' ',
-        together: false
+  // 4. Initialize Interactive Luxury Features (Deferred on Idle to maximize FCP/LCP Performance)
+  const initInteractiveFeatures = () => {
+    try {
+      initGiftBoxBuilder((boxItem) => {
+        cartStore.addItem(boxItem);
+        uiController.openCartDrawer();
       });
+      initPairingQuiz((pairItem) => {
+        openQuickAddModal(pairItem.id);
+      });
+      initSocialGallery();
+      const driftWallRoot = document.getElementById('drift-wall-root');
+      if (driftWallRoot) initDriftWall(driftWallRoot);
+
+      const flipTextRoot = document.getElementById('flip-text-root');
+      if (flipTextRoot) {
+        initFlipText(flipTextRoot, {
+          text: 'Unit of Miora Delights Private Limited',
+          duration: 2.2,
+          delay: 0,
+          loop: true,
+          separator: ' ',
+          together: false
+        });
+      }
+
+      // Initialize React Bits Inspired RotatingText animations for brand meaning
+      initAllRotatingTexts();
+
+      // Stats Counter Animation
+      const statsSection = document.getElementById('story-in-numbers');
+      if (statsSection) {
+        const numbers = statsSection.querySelectorAll('.stats-number[data-target]');
+        let animated = false;
+        const observer = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting && !animated) {
+            animated = true;
+            numbers.forEach(el => {
+              const target = parseInt(el.dataset.target, 10);
+              const suffix = el.dataset.suffix || '';
+              const duration = 1600;
+              const startTime = performance.now();
+              const update = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                const current = Math.floor(ease * target);
+                el.textContent = `${(current >= 1000 ? current.toLocaleString() : current)}${suffix}`;
+                if (progress < 1) requestAnimationFrame(update);
+                else el.textContent = `${(target >= 1000 ? target.toLocaleString() : target)}${suffix}`;
+              };
+              requestAnimationFrame(update);
+            });
+            observer.disconnect();
+          }
+        }, { threshold: 0.2 });
+        observer.observe(statsSection);
+      }
+
+      document.getElementById('btn-open-gift-builder')?.addEventListener('click', () => {
+        saveActiveSession(SessionType.GIFT_BOX_BUILDER);
+        showBoxBuilder();
+      });
+      document.getElementById('btn-mobile-gift-builder')?.addEventListener('click', () => {
+        saveActiveSession(SessionType.GIFT_BOX_BUILDER);
+        showBoxBuilder();
+      });
+      document.getElementById('btn-open-flavor-quiz')?.addEventListener('click', showPairingQuiz);
+      document.getElementById('btn-mobile-flavor-quiz')?.addEventListener('click', showPairingQuiz);
+    } catch (e) {
+      console.error("[Features] Luxury initializers:", e);
     }
+  };
 
-    // Initialize React Bits Inspired RotatingText animations for brand meaning
-    initAllRotatingTexts();
-
-    // Stats Counter Animation
-    const statsSection = document.getElementById('story-in-numbers');
-    if (statsSection) {
-      const numbers = statsSection.querySelectorAll('.stats-number[data-target]');
-      let animated = false;
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !animated) {
-          animated = true;
-          numbers.forEach(el => {
-            const target = parseInt(el.dataset.target, 10);
-            const suffix = el.dataset.suffix || '';
-            const duration = 1600;
-            const startTime = performance.now();
-            const update = (now) => {
-              const elapsed = now - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-              const current = Math.floor(ease * target);
-              el.textContent = `${(current >= 1000 ? current.toLocaleString() : current)}${suffix}`;
-              if (progress < 1) requestAnimationFrame(update);
-              else el.textContent = `${(target >= 1000 ? target.toLocaleString() : target)}${suffix}`;
-            };
-            requestAnimationFrame(update);
-          });
-          observer.disconnect();
-        }
-      }, { threshold: 0.2 });
-      observer.observe(statsSection);
-    }
-
-    document.getElementById('btn-open-gift-builder')?.addEventListener('click', () => {
-      saveActiveSession(SessionType.GIFT_BOX_BUILDER);
-      showBoxBuilder();
-    });
-    document.getElementById('btn-mobile-gift-builder')?.addEventListener('click', () => {
-      saveActiveSession(SessionType.GIFT_BOX_BUILDER);
-      showBoxBuilder();
-    });
-    document.getElementById('btn-open-flavor-quiz')?.addEventListener('click', showPairingQuiz);
-    document.getElementById('btn-mobile-flavor-quiz')?.addEventListener('click', showPairingQuiz);
-  } catch (e) {
-    console.error("[Features] Luxury initializers:", e);
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => initInteractiveFeatures(), { timeout: 1500 });
+  } else {
+    setTimeout(initInteractiveFeatures, 100);
   }
 
   // 5. Bind Add to Cart Buttons to 3-Box Selection Modal

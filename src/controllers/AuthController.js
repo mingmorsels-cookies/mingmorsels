@@ -402,8 +402,12 @@ export class AuthController {
       });
     }
 
-    tryRenderGoogleBtn();
-    window.addEventListener('load', tryRenderGoogleBtn);
+    // Defer Google GSI button rendering to idle or interaction
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => tryRenderGoogleBtn(), { timeout: 3500 });
+    } else {
+      setTimeout(tryRenderGoogleBtn, 1200);
+    }
 
     // Initialize User Dashboard Modal
     this.initUserDashboard();

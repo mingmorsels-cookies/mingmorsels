@@ -12,7 +12,12 @@ export class CheckoutController {
   }
 
   init() {
-    this.ensureRazorpayScript();
+    eventBus.on(Events.CART_OPEN, () => this.ensureRazorpayScript());
+    const btnRazorpay = document.getElementById('btn-cart-razorpay');
+    if (btnRazorpay) {
+      btnRazorpay.addEventListener('pointerenter', () => this.ensureRazorpayScript(), { once: true, passive: true });
+      btnRazorpay.addEventListener('touchstart', () => this.ensureRazorpayScript(), { once: true, passive: true });
+    }
   }
 
   ensureRazorpayScript() {
