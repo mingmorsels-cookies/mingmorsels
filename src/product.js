@@ -837,7 +837,7 @@ const PRODUCT_MEDIA = {
       { src: '/orange-peel/4.webp', alt: 'Orange Peel Cookies Image 4' }
     ],
     video: {
-      src: '/orange-peel/Sequence 02.mp4',
+      src: '/orange-peel/orange-video.mp4',
       poster: '/orange-peel/1.webp',
       title: 'Orange Peel Cookies Artisanal Crafting'
     }
@@ -850,7 +850,7 @@ const PRODUCT_MEDIA = {
       { src: '/oats-nuts/4.webp', alt: 'Oats Nuts Cookies Image 4' }
     ],
     video: {
-      src: '/oats-nuts/DSC01145_2.mp4',
+      src: '/oats-nuts/oats-video.mp4',
       poster: '/oats-nuts/1.webp',
       title: 'Oats & Nuts Cookies Artisanal Process'
     }
@@ -864,7 +864,7 @@ const PRODUCT_MEDIA = {
       { src: '/rose-petal/5.webp', alt: 'Rose Petal Cookies Image 5' }
     ],
     video: {
-      src: '/rose-petal/DSC01123.mp4',
+      src: '/rose-petal/rose-video.mp4',
       poster: '/rose-petal/1.webp',
       title: 'Rose Petal Cookies Floral Delight'
     }
@@ -877,7 +877,7 @@ const PRODUCT_MEDIA = {
       { src: '/almond/4.webp', alt: 'Almond Rich Cookies Image 4' }
     ],
     video: {
-      src: '/almond/Sequence 04_3.mp4',
+      src: '/almond/almond-video.mp4',
       poster: '/almond/1.webp',
       title: 'Almond Rich Cookies Texture & Crunch'
     }
@@ -996,6 +996,7 @@ function initProductGallery() {
     if (mainVideo.src !== videoData.src && !mainVideo.src.endsWith(videoData.src)) {
       mainVideo.src = videoData.src;
       if (videoData.poster) mainVideo.poster = videoData.poster;
+      try { mainVideo.load(); } catch (e) { }
     }
     mainVideo.muted = true;
     mainVideo.playsInline = true;
