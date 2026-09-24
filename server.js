@@ -230,14 +230,37 @@ app.use('/api', analyticsRoutes);
 app.use('/api', reviewRoutes);
 app.use('/', pushRoutes); // Handles both /api/push/* and /api/admin/push/*
 
-// 8.5 SEO Endpoints & 301 Canonical Redirects
+// 8.5 SEO Endpoints, Open Graph Assets & 301 Canonical Redirects
+app.get(['/og-image.jpg', '/og-image.png', '/og-image.webp', '/logo.png', '/favicon.ico', '/favicon-48x48.png', '/favicon-96x96.png', '/favicon-192x192.png', '/apple-touch-icon.png'], (req, res, next) => {
+  const file = req.path.replace(/^\//, '');
+  const distPath = path.resolve('dist', file);
+  const pubPath = path.resolve('public', file);
+  const target = fs.existsSync(distPath) ? distPath : pubPath;
+  if (fs.existsSync(target)) {
+    const ext = path.extname(target).toLowerCase();
+    const mimeMap = {
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.png': 'image/png',
+      '.webp': 'image/webp',
+      '.ico': 'image/x-icon'
+    };
+    res.setHeader('Content-Type', mimeMap[ext] || 'application/octet-stream');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800');
+    return res.sendFile(target);
+  }
+  next();
+});
+
 app.get('/robots.txt', (req, res) => {
   const distPath = path.resolve('dist/robots.txt');
   const pubPath = path.resolve('public/robots.txt');
   const target = fs.existsSync(distPath) ? distPath : pubPath;
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=86400');
-  res.sendFile(target);
+  return res.sendFile(target);
 });
 
 app.get('/sitemap.xml', (req, res) => {
@@ -246,7 +269,7 @@ app.get('/sitemap.xml', (req, res) => {
   const target = fs.existsSync(distPath) ? distPath : pubPath;
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=86400');
-  res.sendFile(target);
+  return res.sendFile(target);
 });
 
 // Common Legacy / Alternate URL 301 Permanent Redirects
