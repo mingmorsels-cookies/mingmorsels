@@ -231,7 +231,7 @@ app.use('/api', reviewRoutes);
 app.use('/', pushRoutes); // Handles both /api/push/* and /api/admin/push/*
 
 // 8.5 SEO Endpoints, Open Graph Assets & 301 Canonical Redirects
-app.get(['/og-cover.jpg', '/og-cover.png', '/og-image.jpg', '/og-image.png', '/og-image.webp', '/logo.png', '/favicon.ico', '/favicon-48x48.png', '/favicon-96x96.png', '/favicon-192x192.png', '/apple-touch-icon.png'], (req, res, next) => {
+app.get(['/og-card.jpg', '/og-card.png', '/og-cover.jpg', '/og-cover.png', '/og-image.jpg', '/og-image.png', '/og-image.webp', '/logo.png', '/favicon.ico', '/favicon-48x48.png', '/favicon-96x96.png', '/favicon-192x192.png', '/apple-touch-icon.png'], (req, res, next) => {
   const file = req.path.replace(/^\//, '');
   const distPath = path.resolve('dist', file);
   const pubPath = path.resolve('public', file);
