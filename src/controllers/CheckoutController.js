@@ -100,12 +100,19 @@ export class CheckoutController {
             <div id="ship-courier-fields" style="display:flex; flex-direction:column; gap: 11px;">
               <div>
                 <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8C533E; display:block; margin-bottom:4px;">Delivery Address (House/Street/Area) *</label>
-                <textarea id="ship-modal-address" rows="2" placeholder="e.g. Flat 4B, Rose Apartments, HSR Layout" style="width: 100%; padding: 10px 12px; border: 1px solid #D5C4B3; border-radius: 8px; font-size: 14px; background: #FFF; color: #3D2000; font-family: inherit; box-sizing: border-box;"></textarea>
+                <textarea id="ship-modal-address" rows="2" placeholder="e.g. Flat 4B, Rose Apartments, HSR Layout" required style="width: 100%; padding: 10px 12px; border: 1px solid #D5C4B3; border-radius: 8px; font-size: 14px; background: #FFF; color: #3D2000; font-family: inherit; box-sizing: border-box;"></textarea>
               </div>
-              <div>
-                <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8C533E; display:block; margin-bottom:4px;">Pincode *</label>
-                <input type="text" id="ship-modal-pincode" placeholder="e.g. 560102" maxlength="6" style="width: 100%; padding: 10px 12px; border: 1px solid #D5C4B3; border-radius: 8px; font-size: 14px; background: #FFF; color: #3D2000; box-sizing: border-box;" />
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div>
+                  <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8C533E; display:block; margin-bottom:4px;">City / State *</label>
+                  <input type="text" id="ship-modal-city" placeholder="e.g. Bengaluru" value="Bengaluru" required style="width: 100%; padding: 10px 12px; border: 1px solid #D5C4B3; border-radius: 8px; font-size: 14px; background: #FFF; color: #3D2000; box-sizing: border-box;" />
+                </div>
+                <div>
+                  <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8C533E; display:block; margin-bottom:4px;">Pincode (6 Digits) *</label>
+                  <input type="text" id="ship-modal-pincode" placeholder="e.g. 560102" maxlength="6" required style="width: 100%; padding: 10px 12px; border: 1px solid #D5C4B3; border-radius: 8px; font-size: 14px; background: #FFF; color: #3D2000; box-sizing: border-box;" />
+                </div>
               </div>
+              <div id="ship-modal-pin-status" style="font-size: 12px; line-height: 1.4; display: none;"></div>
             </div>
 
             <!-- Store Pickup Info Box (Visible when Store Pickup is selected) -->
@@ -199,13 +206,66 @@ export class CheckoutController {
     const courierFields = document.getElementById('ship-courier-fields');
     const pickupInfo = document.getElementById('ship-pickup-info');
     const pincodeInput = document.getElementById('ship-modal-pincode');
+    const cityInput = document.getElementById('ship-modal-city');
+    const pinStatusEl = document.getElementById('ship-modal-pin-status');
+
+    const checkPincodeService = async (pin) => {
+      if (!pin || pin.length !== 6) {
+        if (pinStatusEl) pinStatusEl.style.display = 'none';
+        return;
+      }
+      try {
+        const res = await fetch(`/api/pincode/check?pincode=${pin}`);
+        const data = await res.json();
+        if (pinStatusEl) {
+          pinStatusEl.style.display = 'block';
+          if (data.serviceable) {
+            pinStatusEl.style.color = '#2E6B1A';
+            pinStatusEl.innerHTML = `✅ <strong>${data.area || 'Serviceable'}</strong> · ${data.estTime}`;
+            if (cityInput && (!cityInput.value || cityInput.value === 'Bengaluru')) {
+              cityInput.value = data.area || 'Bengaluru';
+            }
+          } else {
+            pinStatusEl.style.color = '#B22222';
+            pinStatusEl.innerHTML = `⚠️ ${data.error || 'Delivery not serviceable for this pincode.'}`;
+          }
+        }
+      } catch (e) {}
+    };
 
     const updatePriceBreakdown = () => {
       const items = cartStore.getItems();
       const subtotal = items.reduce((sum, i) => sum + ((i.price || 180) * (i.quantity || 1)), 0);
-      const gst = Math.round(subtotal * 0.05);
 
-      const pin = pincodeInput ? pincodeInput.value.trim() : '';
+      const activeCoupon = cartStore.getAppliedCoupon() || window.activeAppliedCoupon;
+      let discount = 0;
+      if (activeCoupon) {
+        if (activeCoupon === 'FIRSTBITE' && subtotal >= 300) {
+          discount = Math.min(100, Math.round(subtotal * 0.15));
+        } else if (activeCoupon === 'LUXURY50' && subtotal >= 400) {
+          discount = 50;
+        } else if (activeCoupon === 'SWEETDEAL' && subtotal >= 250) {
+          discount = Math.min(75, Math.round(subtotal * 0.10));
+        } else if (activeCoupon === 'VIP20' && subtotal >= 800) {
+          discount = Math.min(250, Math.round(subtotal * 0.20));
+        }
+      }
+
+      const elDiscountRow = document.getElementById('chk-discount-row');
+      const elDiscount = document.getElementById('chk-discount');
+      if (elDiscountRow) {
+        if (discount > 0) {
+          elDiscountRow.style.display = 'flex';
+          if (elDiscount) elDiscount.textContent = `-₹${discount}`;
+        } else {
+          elDiscountRow.style.display = 'none';
+        }
+      }
+
+      const discountedSubtotal = Math.max(0, subtotal - discount);
+      const gst = Math.round(discountedSubtotal * 0.05);
+
+      const pin = pincodeInput ? pincodeInput.value.trim().replace(/\D/g, '') : '';
       let deliveryFee = 49;
       let isFree = false;
 
@@ -213,7 +273,7 @@ export class CheckoutController {
         deliveryFee = 0;
         isFree = true;
       } else {
-        if (subtotal >= 1000) {
+        if (discountedSubtotal >= 1000) {
           deliveryFee = 0;
           isFree = true;
         } else {
@@ -232,7 +292,7 @@ export class CheckoutController {
         }
       }
 
-      const total = subtotal + gst + deliveryFee;
+      const total = discountedSubtotal + gst + deliveryFee;
 
       const elSubtotal = document.getElementById('chk-subtotal');
       const elGst = document.getElementById('chk-gst');
@@ -253,7 +313,16 @@ export class CheckoutController {
       if (elTotal) elTotal.textContent = `₹${total}`;
     };
 
-    pincodeInput?.addEventListener('input', updatePriceBreakdown);
+    pincodeInput?.addEventListener('input', () => {
+      const pin = pincodeInput.value.trim().replace(/\D/g, '');
+      if (pin.length === 6) checkPincodeService(pin);
+      else if (pinStatusEl) pinStatusEl.style.display = 'none';
+      updatePriceBreakdown();
+    });
+    pincodeInput?.addEventListener('blur', () => {
+      const pin = pincodeInput.value.trim().replace(/\D/g, '');
+      if (pin.length === 6) checkPincodeService(pin);
+    });
 
     function setDeliveryMode(mode) {
       activeDeliveryMode = mode;
@@ -296,8 +365,16 @@ export class CheckoutController {
     if (current.name) document.getElementById('ship-modal-name').value = current.name;
     if (current.phone) document.getElementById('ship-modal-phone').value = current.phone;
     if (current.email) document.getElementById('ship-modal-email').value = current.email;
-    if (current.address && !current.address.includes('Store Pickup:')) document.getElementById('ship-modal-address').value = current.address;
-    if (current.pincode) document.getElementById('ship-modal-pincode').value = current.pincode;
+    if (current.address && !current.address.includes('Store Pickup:')) {
+      const cleanAddr = current.address.replace(/,?\s*Pincode:\s*\d{6}/gi, '').replace(/,?\s*Bengaluru\s*-\s*\d{6}/gi, '').trim();
+      document.getElementById('ship-modal-address').value = cleanAddr;
+    }
+    const savedCity = localStorage.getItem('ming_morsels_city') || 'Bengaluru';
+    if (cityInput) cityInput.value = savedCity;
+    if (current.pincode) {
+      document.getElementById('ship-modal-pincode').value = current.pincode;
+      checkPincodeService(current.pincode);
+    }
 
     updatePriceBreakdown();
 
@@ -322,37 +399,44 @@ export class CheckoutController {
 
       let address = '';
       let pincode = '';
+      let city = 'Bengaluru';
 
       if (activeDeliveryMode === 'pickup') {
         address = 'Store Pickup: mingmorsels Production House, 1st A, Main Road, 1st Cross Rd, SLV layout, Phase 3, Nayanda Halli, Bengaluru, Karnataka 560026';
         pincode = '560026';
       } else {
-        address = document.getElementById('ship-modal-address').value.trim();
-        pincode = document.getElementById('ship-modal-pincode').value.trim();
+        const rawAddr = document.getElementById('ship-modal-address').value.trim();
+        city = (document.getElementById('ship-modal-city')?.value || 'Bengaluru').trim();
+        pincode = document.getElementById('ship-modal-pincode').value.trim().replace(/\D/g, '');
 
-        if (!address) {
+        if (!rawAddr || rawAddr.length < 4) {
           alert("Please enter your doorstep delivery address.");
           return;
         }
-        if (pincode.length < 6) {
+        if (pincode.length !== 6) {
           alert("Please enter a valid 6-digit destination pincode.");
           return;
         }
+
+        const cleanStreet = rawAddr.replace(/,?\s*Pincode:\s*\d{6}/gi, '').trim();
+        address = `${cleanStreet}, ${city} - ${pincode}`;
       }
 
       localStorage.setItem('ming_morsels_name', name);
       localStorage.setItem('ming_morsels_phone', phone);
       localStorage.setItem('ming_morsels_email', email);
-      localStorage.setItem('ming_morsels_address', activeDeliveryMode === 'pickup' ? address : `${address}, Pincode: ${pincode}`);
+      localStorage.setItem('ming_morsels_address', address);
       localStorage.setItem('ming_morsels_pincode', pincode);
+      localStorage.setItem('ming_morsels_city', city);
       localStorage.setItem('ming_morsels_delivery_mode', activeDeliveryMode);
 
       const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
       userProfile.name = name;
       userProfile.phone = phone;
       userProfile.email = email || userProfile.email || 'customer@mingmorsels.com';
-      userProfile.address = activeDeliveryMode === 'pickup' ? address : `${address}, Pincode: ${pincode}`;
+      userProfile.address = address;
       userProfile.pincode = pincode;
+      userProfile.city = city;
       userProfile.delivery_mode = activeDeliveryMode;
       localStorage.setItem('user_profile', JSON.stringify(userProfile));
 
@@ -473,7 +557,7 @@ export class CheckoutController {
         body: JSON.stringify({
           items: normalizedCart,
           total_amount: subtotal,
-          coupon_code: window.activeAppliedCoupon || undefined,
+          coupon_code: cartStore.getAppliedCoupon() || window.activeAppliedCoupon || undefined,
           user_email: email,   // Real customer email — required
           user_name: name,
           user_phone: phone,

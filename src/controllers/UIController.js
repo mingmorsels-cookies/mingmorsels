@@ -8,6 +8,7 @@ import { cartStore } from '../services/CartStore.js';
 import { saveActiveSession, clearActiveSession, getSavedSession, SessionType } from '../sessionState.js';
 import { initFlowingMenu } from '../FlowingMenu.js';
 import { createTextType } from '../TextType.js';
+import { checkoutController } from './CheckoutController.js';
 
 export const COOKIE_DATA = {
   almond: { name: "Almond Rich Cookie", description: "Roasted almonds, rich buttery crunch.", price: 40, link: "/product.html?id=almond", image: "/almond/1.webp" },
@@ -670,28 +671,88 @@ export class UIController {
     // Coupon Code Apply in Cart
     const btnApplyCoupon = document.getElementById('btn-apply-coupon');
     const couponInput = document.getElementById('cart-coupon-input');
-    const couponMsg = document.getElementById('cart-coupon-msg');
+    const couponMsg = document.getElementById('cart-coupon-msg') || document.getElementById('coupon-status-msg');
 
     if (btnApplyCoupon && couponInput) {
       btnApplyCoupon.addEventListener('click', (e) => {
         e.preventDefault();
         const code = couponInput.value.trim().toUpperCase();
+        const subtotal = cartStore.getSubtotal();
+
         if (code === 'FIRSTBITE') {
+          if (subtotal < 300) {
+            if (couponMsg) {
+              couponMsg.style.display = 'block';
+              couponMsg.textContent = '⚠️ Minimum order value of ₹300 required for FIRSTBITE.';
+              couponMsg.style.color = '#C6960C';
+            }
+            return;
+          }
+          cartStore.setAppliedCoupon(code);
+          window.activeAppliedCoupon = code;
           if (couponMsg) {
-            couponMsg.textContent = '✨ 15% Connoisseur discount applied!';
+            couponMsg.style.display = 'block';
+            couponMsg.textContent = '✨ 15% Connoisseur discount applied (Max ₹100)!';
             couponMsg.style.color = '#27AE60';
           }
         } else if (code === 'LUXURY50') {
+          if (subtotal < 400) {
+            if (couponMsg) {
+              couponMsg.style.display = 'block';
+              couponMsg.textContent = '⚠️ Minimum order value of ₹400 required for LUXURY50.';
+              couponMsg.style.color = '#C6960C';
+            }
+            return;
+          }
+          cartStore.setAppliedCoupon(code);
+          window.activeAppliedCoupon = code;
           if (couponMsg) {
+            couponMsg.style.display = 'block';
             couponMsg.textContent = '✨ Flat ₹50 luxury discount applied!';
             couponMsg.style.color = '#27AE60';
           }
-        } else {
+        } else if (code === 'SWEETDEAL') {
+          if (subtotal < 250) {
+            if (couponMsg) {
+              couponMsg.style.display = 'block';
+              couponMsg.textContent = '⚠️ Minimum order value of ₹250 required for SWEETDEAL.';
+              couponMsg.style.color = '#C6960C';
+            }
+            return;
+          }
+          cartStore.setAppliedCoupon(code);
+          window.activeAppliedCoupon = code;
           if (couponMsg) {
+            couponMsg.style.display = 'block';
+            couponMsg.textContent = '✨ 10% Sweet Deal discount applied!';
+            couponMsg.style.color = '#27AE60';
+          }
+        } else if (code === 'VIP20') {
+          if (subtotal < 800) {
+            if (couponMsg) {
+              couponMsg.style.display = 'block';
+              couponMsg.textContent = '⚠️ Minimum order value of ₹800 required for VIP20.';
+              couponMsg.style.color = '#C6960C';
+            }
+            return;
+          }
+          cartStore.setAppliedCoupon(code);
+          window.activeAppliedCoupon = code;
+          if (couponMsg) {
+            couponMsg.style.display = 'block';
+            couponMsg.textContent = '✨ 20% Royal VIP discount applied (Max ₹250)!';
+            couponMsg.style.color = '#27AE60';
+          }
+        } else {
+          cartStore.setAppliedCoupon(null);
+          window.activeAppliedCoupon = null;
+          if (couponMsg) {
+            couponMsg.style.display = 'block';
             couponMsg.textContent = '❌ Invalid or expired promo code.';
             couponMsg.style.color = '#E74C3C';
           }
         }
+        this.updateCartUI();
       });
     }
 
@@ -757,8 +818,35 @@ export class UIController {
       badge.style.display = totalCount > 0 ? 'inline-flex' : 'none';
     });
 
-    const gst = Math.round(subtotal * 0.05);
-    const estimatedTotal = subtotal + gst;
+    // Compute coupon discount
+    const activeCoupon = cartStore.getAppliedCoupon() || window.activeAppliedCoupon;
+    let discount = 0;
+    if (activeCoupon) {
+      if (activeCoupon === 'FIRSTBITE' && subtotal >= 300) {
+        discount = Math.min(100, Math.round(subtotal * 0.15));
+      } else if (activeCoupon === 'LUXURY50' && subtotal >= 400) {
+        discount = 50;
+      } else if (activeCoupon === 'SWEETDEAL' && subtotal >= 250) {
+        discount = Math.min(75, Math.round(subtotal * 0.10));
+      } else if (activeCoupon === 'VIP20' && subtotal >= 800) {
+        discount = Math.min(250, Math.round(subtotal * 0.20));
+      }
+    }
+
+    const discountRow = document.getElementById('cart-discount-row');
+    const discountPriceEl = document.getElementById('cart-discount-price');
+    if (discountRow) {
+      if (discount > 0) {
+        discountRow.style.display = 'flex';
+        if (discountPriceEl) discountPriceEl.textContent = `-₹${discount}`;
+      } else {
+        discountRow.style.display = 'none';
+      }
+    }
+
+    const discountedSubtotal = Math.max(0, subtotal - discount);
+    const gst = Math.round(discountedSubtotal * 0.05);
+    const estimatedTotal = discountedSubtotal + gst;
 
     if (cartTotalPrice) cartTotalPrice.textContent = `₹${subtotal}`;
     const cartGstPrice = document.getElementById('cart-gst-price');
@@ -778,6 +866,53 @@ export class UIController {
         cartDeliveryNote.innerHTML = `<span style="color: #C6960C; font-weight: 600;">Add ₹${diff} for FREE Delivery</span>`;
       } else {
         cartDeliveryNote.textContent = 'Free on orders ₹1,000+';
+      }
+    }
+
+    // Live Delivery Destination in Cart Drawer
+    const addrLabel = document.getElementById('cart-delivery-address-label');
+    const changeBtn = document.getElementById('btn-cart-change-address');
+    const destinationBar = document.getElementById('cart-destination-bar');
+    
+    if (addrLabel && changeBtn) {
+      if (isPickup) {
+        addrLabel.textContent = '🏪 Nayanda Halli Studio (Bengaluru 560026)';
+        changeBtn.textContent = 'Change';
+      } else {
+        const savedAddr = localStorage.getItem('ming_morsels_address') || '';
+        const savedPin = localStorage.getItem('ming_morsels_pincode') || '';
+        if (savedAddr) {
+          addrLabel.textContent = savedAddr.length > 34 ? `${savedAddr.substring(0, 34)}...` : savedAddr;
+          changeBtn.textContent = 'Change';
+        } else if (savedPin) {
+          addrLabel.textContent = `Pincode: ${savedPin}`;
+          changeBtn.textContent = 'Change';
+        } else {
+          addrLabel.textContent = 'Tap to set Pincode & Address';
+          changeBtn.textContent = '+ Add Location';
+        }
+      }
+
+      if (!changeBtn.hasClickListener) {
+        changeBtn.hasClickListener = true;
+        changeBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          checkoutController.promptForShippingDetails(() => {
+            this.updateCartUI();
+          });
+        });
+      }
+      if (destinationBar && !destinationBar.hasClickListener) {
+        destinationBar.hasClickListener = true;
+        destinationBar.style.cursor = 'pointer';
+        destinationBar.addEventListener('click', (e) => {
+          if (e.target.id !== 'btn-cart-change-address') {
+            checkoutController.promptForShippingDetails(() => {
+              this.updateCartUI();
+            });
+          }
+        });
       }
     }
 

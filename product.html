@@ -886,6 +886,19 @@
           📍 <strong>Pickup:</strong> Nayanda Halli Studio (Phase 3, SLV Layout, Bengaluru 560026). Ready in 2–3 hrs with PIN.
         </div>
       </div>
+
+      <!-- Delivery Address / Destination Bar -->
+      <div id="cart-p-destination-bar" style="background: #FFFDF9; border: 1px solid #EADCCB; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+          <span style="font-size: 16px; flex-shrink: 0;">📍</span>
+          <div style="min-width: 0;">
+            <div style="font-size: 10.5px; font-weight: 700; text-transform: uppercase; color: #8C533E; letter-spacing: 0.5px;">Deliver To:</div>
+            <div id="cart-p-delivery-address-label" style="font-size: 12.5px; font-weight: 600; color: #3D2000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Enter Pincode &amp; Address</div>
+          </div>
+        </div>
+        <button type="button" id="btn-cart-p-change-address" style="background: rgba(200, 150, 12, 0.12); color: #8C533E; border: 1px solid rgba(200, 150, 12, 0.3); padding: 5px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.2s;">Set Location</button>
+      </div>
+
       <div style="background: rgba(61,32,0,0.04); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; font-size: 12.5px; color: #705840; display: flex; flex-direction: column; gap: 4px;">
         <div style="display: flex; justify-content: space-between;">
           <span>Items Subtotal</span>
@@ -894,6 +907,10 @@
         <div style="display: flex; justify-content: space-between;">
           <span>GST (5% Tax)</span>
           <span id="cart-p-gst-price" style="color: #3D2000;">+₹0</span>
+        </div>
+        <div id="cart-p-discount-row" style="display: none; justify-content: space-between; color: #2E6B1A; font-weight: 600;">
+          <span>Coupon Discount</span>
+          <span id="cart-p-discount-price">-₹0</span>
         </div>
         <div style="display: flex; justify-content: space-between;">
           <span>Estimated Delivery</span>
@@ -982,26 +999,31 @@
             <h3 class="pane-title">Shipping Address</h3>
             <form id="dashboard-address-form" class="dashboard-address-form">
               <div class="form-group">
-                <label for="shipping-phone">Contact Number</label>
+                <label for="shipping-email">Email Address (for Order Confirmation &amp; Updates) *</label>
+                <input type="email" id="shipping-email" placeholder="e.g. yourname@gmail.com" required />
+              </div>
+              <div class="form-group">
+                <label for="shipping-phone">Contact Number (Mobile / WhatsApp) *</label>
                 <input type="tel" id="shipping-phone" placeholder="e.g. +91 98765 43210" required />
               </div>
               <div class="form-group">
-                <label for="shipping-address">Delivery Address</label>
+                <label for="shipping-address">Delivery Address (House/Street/Locality) *</label>
                 <textarea id="shipping-address" rows="3"
                   placeholder="e.g. Flat 302, Green Meadows, Jayanagar 4th Block, Bengaluru" required></textarea>
               </div>
               <div class="form-group-row">
                 <div class="form-group">
-                  <label for="shipping-city">City</label>
-                  <input type="text" id="shipping-city" value="Bengaluru" readonly />
+                  <label for="shipping-city">City / State *</label>
+                  <input type="text" id="shipping-city" placeholder="e.g. Bengaluru" value="Bengaluru" required />
                 </div>
                 <div class="form-group">
-                  <label for="shipping-pincode">Pin Code</label>
-                  <input type="text" id="shipping-pincode" placeholder="e.g. 560041" required />
+                  <label for="shipping-pincode">Pin Code (6 Digits) *</label>
+                  <input type="text" id="shipping-pincode" placeholder="e.g. 560041" maxlength="6" required />
                 </div>
               </div>
+              <div id="shipping-pincode-hint" style="font-size: 12px; margin-top: -8px; margin-bottom: 12px; display: none;"></div>
               <button type="submit" class="btn-save-address">Save Preferences</button>
-              <div id="address-save-status" class="address-save-status">Saved successfully!</div>
+              <div id="address-save-status" class="address-save-status">Saved successfully! Orders will be sent to this email &amp; address.</div>
             </form>
           </section>
 

@@ -505,46 +505,91 @@ export class AuthController {
       });
     });
 
-    // Auto-sync dashboard cart with active CartStore updates
-    if (cartStore && typeof cartStore.subscribe === 'function') {
-      cartStore.subscribe(() => {
-        const modal = document.getElementById('user-dashboard-modal');
-        if (modal && modal.classList.contains('open')) {
-          this.loadDashboardCart();
-        }
-      });
-    }
-
-    // Address form submit
+    // Auto-sync dashboard cart with    // Address form submit & Pincode Live Serviceability
     const addressForm = document.getElementById('dashboard-address-form');
     const saveStatus = document.getElementById('address-save-status');
+    const dashPinInput = document.getElementById('shipping-pincode');
+    const dashPinHint = document.getElementById('shipping-pincode-hint');
+    const dashCityInput = document.getElementById('shipping-city');
+
+    if (dashPinInput) {
+      const checkDashPin = async () => {
+        const pin = dashPinInput.value.trim().replace(/\D/g, '');
+        if (pin.length === 6) {
+          try {
+            const res = await fetch(`/api/pincode/check?pincode=${pin}`);
+            const data = await res.json();
+            if (dashPinHint) {
+              dashPinHint.style.display = 'block';
+              if (data.serviceable) {
+                dashPinHint.style.color = '#2E6B1A';
+                dashPinHint.innerHTML = `✅ <strong>${data.area || 'Serviceable Area'}</strong>: ${data.estTime} (₹${data.deliveryFee ?? 49} shipping)`;
+                if (dashCityInput && (!dashCityInput.value || dashCityInput.value === 'Bengaluru')) {
+                  dashCityInput.value = data.area || 'Bengaluru';
+                }
+              } else {
+                dashPinHint.style.color = '#B22222';
+                dashPinHint.innerHTML = `⚠️ ${data.error || 'Delivery not serviceable for this pincode.'}`;
+              }
+            }
+          } catch (e) {}
+        } else if (dashPinHint) {
+          dashPinHint.style.display = 'none';
+        }
+      };
+      dashPinInput.addEventListener('input', checkDashPin);
+      dashPinInput.addEventListener('blur', checkDashPin);
+    }
+
     if (addressForm) {
       addressForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = document.getElementById('shipping-email')?.value.trim() || '';
-        const phone = document.getElementById('shipping-phone')?.value.trim() || '';
-        const address = document.getElementById('shipping-address')?.value.trim() || '';
-        const city = document.getElementById('shipping-city')?.value.trim() || 'Bengaluru';
-        const pincode = document.getElementById('shipping-pincode')?.value.trim() || '';
+        const emailInput = document.getElementById('shipping-email');
+        const email = (emailInput?.value || this.userProfile?.email || localStorage.getItem('ming_morsels_email') || '').trim();
+        const phone = (document.getElementById('shipping-phone')?.value || '').trim().replace(/\D/g, '');
+        let rawAddress = (document.getElementById('shipping-address')?.value || '').trim();
+        const city = (document.getElementById('shipping-city')?.value || 'Bengaluru').trim();
+        const pincode = (document.getElementById('shipping-pincode')?.value || '').trim().replace(/\D/g, '');
 
         if (!email || !email.includes('@') || !email.includes('.')) {
           alert('Please enter a valid email address so order confirmations reach your inbox.');
           return;
         }
 
-        localStorage.setItem('user_address', JSON.stringify({ email, phone, address, city, pincode }));
+        if (!phone || phone.length < 10) {
+          alert('Please enter a valid 10-digit mobile contact number.');
+          return;
+        }
+
+        if (!rawAddress || rawAddress.length < 4) {
+          alert('Please enter your complete doorstep delivery address.');
+          return;
+        }
+
+        if (!pincode || pincode.length !== 6) {
+          alert('Please enter a valid 6-digit Indian PIN code.');
+          return;
+        }
+
+        // Clean any existing Pincode tags to prevent repetitive string accumulation
+        const cleanStreet = rawAddress.replace(/,?\s*Pincode:\s*\d{6}/gi, '').trim();
+        const formattedFullAddress = `${cleanStreet}, ${city} - ${pincode}`;
+
+        localStorage.setItem('user_address', JSON.stringify({ email, phone, address: cleanStreet, city, pincode }));
         localStorage.setItem('ming_morsels_email', email);
-        if (phone) localStorage.setItem('ming_morsels_phone', phone);
-        if (address) localStorage.setItem('ming_morsels_address', `${address}, Pincode: ${pincode}`);
-        if (pincode) localStorage.setItem('ming_morsels_pincode', pincode);
+        localStorage.setItem('ming_morsels_phone', phone);
+        localStorage.setItem('ming_morsels_address', formattedFullAddress);
+        localStorage.setItem('ming_morsels_pincode', pincode);
+        localStorage.setItem('ming_morsels_city', city);
 
         // Update user profile in local storage
         try {
           const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
           userProfile.email = email;
-          if (phone) userProfile.phone = phone;
-          if (address) userProfile.address = `${address}, Pincode: ${pincode}`;
-          if (pincode) userProfile.pincode = pincode;
+          userProfile.phone = phone;
+          userProfile.address = formattedFullAddress;
+          userProfile.pincode = pincode;
+          userProfile.city = city;
           localStorage.setItem('user_profile', JSON.stringify(userProfile));
 
           const dashEmail = document.getElementById('dashboard-user-email');
@@ -553,7 +598,7 @@ export class AuthController {
 
         if (saveStatus) {
           saveStatus.style.display = 'block';
-          setTimeout(() => { saveStatus.style.display = 'none'; }, 3000);
+          setTimeout(() => { saveStatus.style.display = 'none'; }, 3500);
         }
       });
     }
@@ -738,14 +783,35 @@ export class AuthController {
       if (document.getElementById('shipping-email') && email) {
         document.getElementById('shipping-email').value = email;
       }
-      if (document.getElementById('shipping-phone') && (saved.phone || user.phone || localStorage.getItem('ming_morsels_phone'))) {
-        document.getElementById('shipping-phone').value = saved.phone || user.phone || localStorage.getItem('ming_morsels_phone');
+      if (document.getElementById('shipping-phone')) {
+        const phoneVal = saved.phone || user.phone || localStorage.getItem('ming_morsels_phone') || '';
+        document.getElementById('shipping-phone').value = phoneVal;
       }
-      if (document.getElementById('shipping-address') && (saved.address || user.address || localStorage.getItem('ming_morsels_address'))) {
-        document.getElementById('shipping-address').value = saved.address || user.address || localStorage.getItem('ming_morsels_address');
+      if (document.getElementById('shipping-address')) {
+        let rawAddr = saved.address || user.address || localStorage.getItem('ming_morsels_address') || '';
+        // Strip trailing Pincode / city tags if pre-composed
+        const cleanAddr = rawAddr.replace(/,?\s*Pincode:\s*\d{6}/gi, '').replace(/,?\s*Bengaluru\s*-\s*\d{6}/gi, '').trim();
+        document.getElementById('shipping-address').value = cleanAddr;
       }
-      if (document.getElementById('shipping-pincode') && (saved.pincode || user.pincode || localStorage.getItem('ming_morsels_pincode'))) {
-        document.getElementById('shipping-pincode').value = saved.pincode || user.pincode || localStorage.getItem('ming_morsels_pincode');
+      if (document.getElementById('shipping-city')) {
+        const cityVal = saved.city || user.city || localStorage.getItem('ming_morsels_city') || 'Bengaluru';
+        document.getElementById('shipping-city').value = cityVal;
+      }
+      if (document.getElementById('shipping-pincode')) {
+        const pinVal = saved.pincode || user.pincode || localStorage.getItem('ming_morsels_pincode') || '';
+        document.getElementById('shipping-pincode').value = pinVal;
+        if (pinVal && pinVal.length === 6) {
+          fetch(`/api/pincode/check?pincode=${pinVal}`)
+            .then(res => res.json())
+            .then(data => {
+              const hint = document.getElementById('shipping-pincode-hint');
+              if (hint && data.serviceable) {
+                hint.style.display = 'block';
+                hint.style.color = '#2E6B1A';
+                hint.innerHTML = `✅ <strong>${data.area || 'Serviceable'}</strong>: ${data.estTime} (₹${data.deliveryFee ?? 49} shipping)`;
+              }
+            }).catch(() => {});
+        }
       }
     } catch (e) {}
   }
