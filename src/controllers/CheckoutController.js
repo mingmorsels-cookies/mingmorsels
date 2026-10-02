@@ -173,10 +173,6 @@ export class CheckoutController {
                   <span>Delivery Charges:</span>
                   <span id="chk-delivery" style="color: #3D2000; font-weight: 600;">+₹49</span>
                 </div>
-                <div id="chk-discount-row" style="display: none; justify-content: space-between; color: #2E6B1A; font-weight: 600;">
-                  <span>Applied Coupon Discount:</span>
-                  <span id="chk-discount">-₹0</span>
-                </div>
                 <div style="height: 1px; background: rgba(61,32,0,0.1); margin: 4px 0;"></div>
                 <div style="display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; color: #2C1810;">
                   <span>Total Amount to Pay:</span>
@@ -236,34 +232,7 @@ export class CheckoutController {
     const updatePriceBreakdown = () => {
       const items = cartStore.getItems();
       const subtotal = items.reduce((sum, i) => sum + ((i.price || 180) * (i.quantity || 1)), 0);
-
-      const activeCoupon = cartStore.getAppliedCoupon() || window.activeAppliedCoupon;
-      let discount = 0;
-      if (activeCoupon) {
-        if (activeCoupon === 'FIRSTBITE' && subtotal >= 300) {
-          discount = Math.min(100, Math.round(subtotal * 0.15));
-        } else if (activeCoupon === 'LUXURY50' && subtotal >= 400) {
-          discount = 50;
-        } else if (activeCoupon === 'SWEETDEAL' && subtotal >= 250) {
-          discount = Math.min(75, Math.round(subtotal * 0.10));
-        } else if (activeCoupon === 'VIP20' && subtotal >= 800) {
-          discount = Math.min(250, Math.round(subtotal * 0.20));
-        }
-      }
-
-      const elDiscountRow = document.getElementById('chk-discount-row');
-      const elDiscount = document.getElementById('chk-discount');
-      if (elDiscountRow) {
-        if (discount > 0) {
-          elDiscountRow.style.display = 'flex';
-          if (elDiscount) elDiscount.textContent = `-₹${discount}`;
-        } else {
-          elDiscountRow.style.display = 'none';
-        }
-      }
-
-      const discountedSubtotal = Math.max(0, subtotal - discount);
-      const gst = Math.round(discountedSubtotal * 0.05);
+      const gst = Math.round(subtotal * 0.05);
 
       const pin = pincodeInput ? pincodeInput.value.trim().replace(/\D/g, '') : '';
       let deliveryFee = 49;
@@ -273,7 +242,7 @@ export class CheckoutController {
         deliveryFee = 0;
         isFree = true;
       } else {
-        if (discountedSubtotal >= 1000) {
+        if (subtotal >= 1000) {
           deliveryFee = 0;
           isFree = true;
         } else {
@@ -292,7 +261,7 @@ export class CheckoutController {
         }
       }
 
-      const total = discountedSubtotal + gst + deliveryFee;
+      const total = subtotal + gst + deliveryFee;
 
       const elSubtotal = document.getElementById('chk-subtotal');
       const elGst = document.getElementById('chk-gst');
@@ -557,7 +526,6 @@ export class CheckoutController {
         body: JSON.stringify({
           items: normalizedCart,
           total_amount: subtotal,
-          coupon_code: cartStore.getAppliedCoupon() || window.activeAppliedCoupon || undefined,
           user_email: email,   // Real customer email — required
           user_name: name,
           user_phone: phone,
