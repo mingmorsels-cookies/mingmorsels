@@ -1402,16 +1402,14 @@ function initCartSystem() {
       if (selectedQuantity > 1) {
         selectedQuantity--;
         qtyDisplay.textContent = selectedQuantity;
-        const boxExtra = selectedPackaging === 'lush' ? 130 : 15;
-        if (btnTotal) btnTotal.textContent = `₹${(currentProduct.price + boxExtra) * selectedQuantity}`;
+        updatePriceDisplay();
       }
     });
 
     btnPlus.addEventListener('click', () => {
       selectedQuantity++;
       qtyDisplay.textContent = selectedQuantity;
-      const boxExtra = selectedPackaging === 'lush' ? 130 : 15;
-      if (btnTotal) btnTotal.textContent = `₹${(currentProduct.price + boxExtra) * selectedQuantity}`;
+      updatePriceDisplay();
     });
   }
 
