@@ -671,10 +671,11 @@ export async function getUserOrders(userEmail) {
     .map(formatOrderForOutput);
 }
 
-export async function getAllOrders() {
+export async function getAllOrders(includeDrafts = false) {
   const store = await readLocalStoreAsync();
   return (store.orders || [])
     .filter(o => {
+      if (includeDrafts) return true;
       // Exclude unpaid prepaid checkout drafts (only include confirmed paid orders and valid COD orders)
       if (o.payment_status === 'DRAFT_UNPAID') return false;
       if (o.payment_method === 'Prepaid (Razorpay)' && o.payment_status === 'PENDING') return false;

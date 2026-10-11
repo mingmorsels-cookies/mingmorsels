@@ -616,6 +616,10 @@ export class CheckoutController {
         }
       };
 
+      if (orderData.razorpay_order_id) {
+        options.order_id = String(orderData.razorpay_order_id).trim();
+      }
+
       const rzp = new window.Razorpay(options);
       rzp.on('payment.failed', (response) => {
         alert(`Payment failed: ${response.error?.description || 'Transaction declined'}`);

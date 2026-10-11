@@ -814,7 +814,10 @@
             <h2>Customer Orders Ledger &amp; Dispatch Control</h2>
             <p>View all store orders, customer addresses, Razorpay payment statuses, and trigger Shipway fulfillment.</p>
           </div>
-          <button id="btn-refresh-orders" class="btn-action">🔄 Refresh Ledger</button>
+          <div style="display: flex; gap: 8px;">
+            <button id="btn-manual-mark-paid" class="btn-action" style="background:#27AE60; color:#FFF;">✅ Verify &amp; Mark Paid</button>
+            <button id="btn-refresh-orders" class="btn-action">🔄 Refresh Ledger</button>
+          </div>
         </div>
 
         <!-- VIP 1,000+ Points Milestone Alert Banner -->
@@ -1859,12 +1862,45 @@
                   ` : `
                     <button class="btn-action btn-dispatch" data-id="${escapeHtml(o.id)}" style="margin-left:4px;">${o.shipway_awb ? 'Re-Dispatch' : '🚚 Dispatch'}</button>
                   `) : ''}
+                  ${!isCancelled && o.payment_status !== 'PAID' ? `
+                    <button class="btn-action btn-row-mark-paid" data-id="${escapeHtml(o.id)}" style="background:#27AE60; color:#FFF; font-size:11.5px; padding:6px 10px; margin-left:4px;" title="Verify and mark this order as paid">
+                      ✅ Mark Paid
+                    </button>
+                  ` : ''}
                   ${!isCancelled ? `<button class="btn-action btn-admin-cancel" data-id="${escapeHtml(o.id)}" style="background:rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.3); color:#C0392B; margin-left:4px; box-shadow:none;" title="Cancel Order & Refund">❌</button>` : ''}
                   ${isVipCustomer && !isCancelled ? `<button class="btn-action btn-vip-gifted" data-email="${escapeHtml(email)}" style="background: linear-gradient(135deg, #C8960C 0%, #E0AB1E 100%); color: #1A0D00; font-weight: 800; margin-left: 4px; box-shadow: 0 2px 8px rgba(200,150,12,0.3);" title="Mark 1,000 Pts VIP Gift as Sent & Reset Points">🎁 Gift Sent</button>` : ''}
                 </td>
               </tr>
             `;
           }).join('');
+
+          // Bind Mark Paid buttons
+          tbody.querySelectorAll('.btn-row-mark-paid').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              const orderId = btn.getAttribute('data-id');
+              const paymentId = prompt(`Enter Razorpay Payment ID for Order #${orderId} (leave blank for default):`, 'pay_manual_verified');
+              if (paymentId === null) return;
+              btn.textContent = 'Verifying...';
+              try {
+                const res = await fetch('/api/admin/orders/mark-paid', {
+                  method: 'POST',
+                  headers: getAdminHeaders(),
+                  body: JSON.stringify({ order_id: orderId, payment_id: paymentId || 'pay_manual_verified' })
+                });
+                const data = await res.json();
+                if (data.success) {
+                  alert(data.message || `Order #${orderId} marked as PAID!`);
+                  fetchOrders();
+                } else {
+                  alert(`⚠️ ${data.error || 'Failed to update order'}`);
+                  btn.textContent = '✅ Mark Paid';
+                }
+              } catch (e) {
+                alert('Network error marking order paid.');
+                btn.textContent = '✅ Mark Paid';
+              }
+            });
+          });
 
           // Bind dispatch buttons
           tbody.querySelectorAll('.btn-dispatch').forEach(btn => {
@@ -2017,6 +2053,28 @@
     });
 
     document.getElementById('btn-refresh-orders')?.addEventListener('click', fetchOrders);
+    document.getElementById('btn-manual-mark-paid')?.addEventListener('click', async () => {
+      const orderId = prompt('Enter Order Reference (e.g. MM-ZKQWQE):');
+      if (!orderId) return;
+      const paymentId = prompt(`Enter Razorpay Payment ID for #${orderId} (leave blank for default):`, 'pay_manual_verified');
+      if (paymentId === null) return;
+      try {
+        const res = await fetch('/api/admin/orders/mark-paid', {
+          method: 'POST',
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ order_id: orderId, payment_id: paymentId || 'pay_manual_verified' })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message || `Order #${orderId} marked as PAID!`);
+          fetchOrders();
+        } else {
+          alert(`⚠️ ${data.error || 'Failed to update order'}`);
+        }
+      } catch (e) {
+        alert('Network error marking order paid.');
+      }
+    });
     document.getElementById('btn-refresh-pickups')?.addEventListener('click', fetchOrders);
 
     function findOrderById(orderId) {

@@ -14,6 +14,7 @@ import {
   getAllOrders, 
   getOrderRecord,
   updateOrderShipmentInfo,
+  markOrderPaid,
   purgeAllOrders,
   getAdminNotifications,
   dismissAdminNotification,
@@ -145,7 +146,8 @@ router.get('/admin/audit-logs', verifyAdminAuth, async (req, res) => {
  */
 const handleGetAdminOrders = async (req, res) => {
   try {
-    const allOrders = await getAllOrders();
+    const includeDrafts = req.query.include_drafts !== 'false'; // Default to including drafts so admin never misses an order
+    const allOrders = await getAllOrders(includeDrafts);
     const orders = allOrders.filter(order => 
       order.payment_status !== 'FAILED'
     );
@@ -164,6 +166,39 @@ const handleGetAdminOrders = async (req, res) => {
 
 router.get('/admin/orders', verifyAdminAuth, handleGetAdminOrders);
 router.get('/orders', verifyAdminAuth, handleGetAdminOrders);
+
+/**
+ * Manually verify & mark an order as PAID
+ */
+router.post('/admin/orders/mark-paid', verifyAdminAuth, async (req, res) => {
+  try {
+    const { order_id, payment_id } = req.body;
+    if (!order_id) {
+      return res.status(400).json({ success: false, error: 'order_id is required' });
+    }
+    const cleanId = String(order_id).trim().replace(/^#/, '');
+    const updated = await markOrderPaid(cleanId, payment_id || 'pay_manual_verified');
+    if (!updated) {
+      return res.status(404).json({ success: false, error: `Order #${order_id} not found.` });
+    }
+    eventStreamService.broadcastOrderUpdate(updated);
+    await auditLogger.logAdminAction({
+      adminUser: req.adminUser || 'admin',
+      action: 'ORDER_MARKED_PAID',
+      targetId: cleanId,
+      ip: req.ip,
+      details: { payment_id: payment_id || 'pay_manual_verified' }
+    });
+    res.json({
+      success: true,
+      message: `✅ Order #${cleanId} marked as PAID!`,
+      order: updated
+    });
+  } catch (error) {
+    console.error('Admin Mark Paid Error:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 /**
  * Fetch Admin Notifications (including VIP 1000+ points re-orders)
