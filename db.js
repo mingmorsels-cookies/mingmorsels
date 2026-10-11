@@ -35,10 +35,18 @@ const activeStockHolds = new Map();
 let writeQueue = Promise.resolve();
 
 function initLocalStoreSync() {
+  const seedPath = path.resolve(process.cwd(), 'seed_orders.json');
+  let seedOrders = [];
+  if (fs.existsSync(seedPath)) {
+    try {
+      seedOrders = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+    } catch (e) {}
+  }
+
   if (!fs.existsSync(LOCAL_DB_PATH)) {
     const defaultData = {
       users: [],
-      orders: [],
+      orders: Array.isArray(seedOrders) ? [...seedOrders] : [],
       abandonedCarts: [],
       inventory: { ...DEFAULT_INVENTORY },
       pincodes: [
@@ -54,6 +62,20 @@ function initLocalStoreSync() {
     const tmp = `${LOCAL_DB_PATH}.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`;
     fs.writeFileSync(tmp, JSON.stringify(defaultData, null, 2));
     fs.renameSync(tmp, LOCAL_DB_PATH);
+  } else if (Array.isArray(seedOrders) && seedOrders.length > 0) {
+    try {
+      const store = JSON.parse(fs.readFileSync(LOCAL_DB_PATH, 'utf-8'));
+      let modified = false;
+      seedOrders.forEach(so => {
+        if (!store.orders.some(o => o.id === so.id)) {
+          store.orders.unshift(so);
+          modified = true;
+        }
+      });
+      if (modified) {
+        fs.writeFileSync(LOCAL_DB_PATH, JSON.stringify(store, null, 2));
+      }
+    } catch (e) {}
   }
 }
 
