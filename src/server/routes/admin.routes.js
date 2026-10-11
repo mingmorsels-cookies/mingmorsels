@@ -13,6 +13,7 @@ import { eventStreamService } from '../services/EventStreamService.js';
 import { 
   getAllOrders, 
   getOrderRecord,
+  createOrderRecord,
   updateOrderShipmentInfo,
   markOrderPaid,
   purgeAllOrders,
@@ -196,6 +197,38 @@ router.post('/admin/orders/mark-paid', verifyAdminAuth, async (req, res) => {
     });
   } catch (error) {
     console.error('Admin Mark Paid Error:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
+ * Admin Manually Create / Restore Order Record
+ */
+router.post('/admin/orders/create-manual', verifyAdminAuth, async (req, res) => {
+  try {
+    const { id, user_name, user_email, user_phone, items, total_amount, payment_status, payment_id, shipping_address, delivery_mode, delivery_status } = req.body;
+    if (!id || !user_name) {
+      return res.status(400).json({ success: false, error: 'id and user_name are required' });
+    }
+    const cleanId = String(id).trim().replace(/^#/, '');
+    const newOrder = await createOrderRecord({
+      id: cleanId,
+      user_name,
+      user_email: user_email || 'customer@mingmorsels.com',
+      user_phone: user_phone || null,
+      items: items || [],
+      total_amount: Number(total_amount) || 0,
+      payment_status: payment_status || 'PAID',
+      payment_method: 'Prepaid (Razorpay)',
+      payment_id: payment_id || null,
+      shipping_address: shipping_address || '',
+      delivery_mode: delivery_mode || 'courier',
+      delivery_status: delivery_status || 'BAKING'
+    });
+    eventStreamService.broadcastOrderUpdate(newOrder);
+    res.json({ success: true, message: `✅ Order #${cleanId} created successfully!`, order: newOrder });
+  } catch (error) {
+    console.error('Admin Create Manual Error:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
