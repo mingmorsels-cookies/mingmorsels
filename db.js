@@ -503,7 +503,15 @@ export async function isPaymentAlreadyProcessed(paymentId, currentOrderId) {
 
 export async function markOrderPaid(orderId, paymentId) {
   const store = await readLocalStoreAsync();
-  const order = store.orders.find(o => o.id === orderId || o.razorpay_order_id === orderId);
+  const cleanId = String(orderId || '').trim().replace(/^#/, '');
+  const order = (store.orders || []).find(o => 
+    o.id === orderId || 
+    o.id === cleanId || 
+    o.id === `#${cleanId}` ||
+    (o.id && o.id.toLowerCase() === cleanId.toLowerCase()) ||
+    o.razorpay_order_id === orderId || 
+    o.razorpay_order_id === cleanId
+  );
   if (order) {
     if (order.payment_status === 'PAID' && order.payment_id === paymentId) {
       return formatOrderForOutput(order); // Idempotent return
