@@ -9,6 +9,7 @@ import { verifyTOTP } from '../utils/cryptoUtils.js';
 import { auditLogger } from '../services/AuditLogger.js';
 import { logisticsService } from '../services/LogisticsService.js';
 import { paymentService } from '../services/PaymentService.js';
+import { notificationService } from '../services/NotificationService.js';
 import { eventStreamService } from '../services/EventStreamService.js';
 import { 
   getAllOrders, 
@@ -183,6 +184,8 @@ router.post('/admin/orders/mark-paid', verifyAdminAuth, async (req, res) => {
       return res.status(404).json({ success: false, error: `Order #${order_id} not found.` });
     }
     eventStreamService.broadcastOrderUpdate(updated);
+    notificationService.sendAdminNewOrderAlert(updated).catch(e => console.warn('[Admin Alert err]', e.message));
+    notificationService.sendOrderConfirmationEmail(updated).catch(e => console.warn('[Customer Email err]', e.message));
     await auditLogger.logAdminAction({
       adminUser: req.adminUser || 'admin',
       action: 'ORDER_MARKED_PAID',
@@ -226,10 +229,33 @@ router.post('/admin/orders/create-manual', verifyAdminAuth, async (req, res) => 
       delivery_status: delivery_status || 'BAKING'
     });
     eventStreamService.broadcastOrderUpdate(newOrder);
+    notificationService.sendAdminNewOrderAlert(newOrder).catch(e => console.warn('[Admin Alert err]', e.message));
+    notificationService.sendOrderConfirmationEmail(newOrder).catch(e => console.warn('[Customer Email err]', e.message));
     res.json({ success: true, message: `✅ Order #${cleanId} created successfully!`, order: newOrder });
   } catch (error) {
     console.error('Admin Create Manual Error:', error);
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
+ * Send Test Admin Email to verify email alert setup
+ */
+router.post('/admin/test-email', verifyAdminAuth, async (req, res) => {
+  try {
+    const sent = await notificationService.sendAdminNewOrderAlert({
+      id: 'MM-TEST-PING',
+      user_name: 'Store Diagnostic Bot',
+      user_email: 'mingmorsels@gmail.com',
+      user_phone: '+91 88841 02020',
+      total_amount: 360,
+      shipping_address: 'Artisanal Studio, Bangalore',
+      payment_method: 'Prepaid (Razorpay)',
+      items: [{ name: 'Rose Petal Cookie (Dozen Delights)', quantity: 1, price: 360 }]
+    });
+    res.json({ success: sent, message: sent ? '✅ Test alert email sent to mingmorsels@gmail.com!' : '❌ Could not send email.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 

@@ -13,13 +13,14 @@ export class NotificationService {
 
     // Gmail SMTP via port 465 (SSL) — always initialised as primary/fallback
     // Railway blocks port 587 (STARTTLS) but allows 465 (SSL)
-    this.transporter = null;
-    if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+    const gmailUser = process.env.GMAIL_USER || 'mingmorsels@gmail.com';
+    const gmailPass = process.env.GMAIL_APP_PASSWORD || 'qtisqmwgatryvxnd';
+    if (gmailUser && gmailPass) {
       this.transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,  // SSL — works on Railway
-        auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD }
+        auth: { user: gmailUser, pass: gmailPass }
       });
     } else if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
       this.transporter = nodemailer.createTransport({
