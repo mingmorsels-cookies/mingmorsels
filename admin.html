@@ -1992,10 +1992,12 @@
           }
 
           const showDelivered = Boolean(window.adminShowDeliveredOrders);
+          // Only filter out orders explicitly marked DELIVERED+cleared — never hide BAKING/DISPATCHED/CANCELLED
           const visibleOrders = orders.filter(o => {
-            const isDelivered = o.delivery_status === 'DELIVERED' || o.cleared_from_admin === true;
+            if (!o) return false;
+            const isExplicitlyDelivered = o.delivery_status === 'DELIVERED' && o.cleared_from_admin === true;
             if (showDelivered) return true;
-            return !isDelivered;
+            return !isExplicitlyDelivered;
           });
 
           if (visibleOrders.length === 0) {
