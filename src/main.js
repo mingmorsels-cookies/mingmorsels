@@ -165,6 +165,10 @@ async function startApp() {
   const handleAddToCartClick = (btn, e) => {
     e?.preventDefault();
     e?.stopPropagation();
+    if (btn.disabled || btn.classList.contains('btn-unavailable')) {
+      alert('⚠️ This flavour is currently unavailable. Fresh batch baking soon!');
+      return;
+    }
     const target = btn.getAttribute('data-cookie') ||
                    btn.getAttribute('data-target') || 
                    btn.closest('.product-card')?.getAttribute('data-target') ||

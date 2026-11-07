@@ -28,10 +28,18 @@ export class PriceCalculator {
       const productId = String(item.id || '').trim().toLowerCase();
       const qty = Math.max(1, parseInt(item.quantity, 10) || 1);
       let packagingKey = String(item.packaging || 'none').trim().toLowerCase();
-      if (packagingKey.includes('classic') || packagingKey.includes('signature')) packagingKey = 'classic';
-      else if (packagingKey.includes('lush')) packagingKey = 'lush';
-      else if (productId.endsWith('_classic')) packagingKey = 'classic';
-      else if (productId.endsWith('_lush')) packagingKey = 'lush';
+      // "Classic Delights", "Twin Delights", "Dozen Delights" are base product tiers (packaging fee = 0)
+      if (packagingKey.includes('classic delights') || packagingKey.includes('delights')) {
+        packagingKey = 'none';
+      } else if (packagingKey.includes('signature') || packagingKey === 'classic' || packagingKey.includes('treat box') || packagingKey.includes('+₹15')) {
+        packagingKey = 'classic';
+      } else if (packagingKey.includes('lush')) {
+        packagingKey = 'lush';
+      } else if (productId.endsWith('_classic') && !productId.includes('classic_8pcs')) {
+        packagingKey = 'classic';
+      } else if (productId.endsWith('_lush')) {
+        packagingKey = 'lush';
+      }
 
       // Check if product exists in catalog
       let catalogEntry = PRODUCT_CATALOG[productId];
@@ -59,6 +67,7 @@ export class PriceCalculator {
         id: productId || 'custom_item',
         name: productName,
         unit_price: unitPrice,
+        price: unitPrice,
         quantity: qty,
         packaging: item.packaging || packagingKey,
         packaging_fee: itemPackagingTotal,

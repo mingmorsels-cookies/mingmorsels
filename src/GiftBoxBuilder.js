@@ -6,8 +6,8 @@ const AVAILABLE_ITEMS = [
   { id: 'rose', name: 'Rose Petal Cookie', img: '/thumbs/rose.webp', price: 40, type: 'cookie' },
   { id: 'oatsnuts', name: 'Oats Nuts Cookie', img: '/thumbs/oatsnuts.webp', price: 40, type: 'cookie' },
   { id: 'orange', name: 'Orange Peel Cookie', img: '/thumbs/orange.webp', price: 40, type: 'cookie' },
-  { id: 'walnut', name: 'Walnut Cookies', img: '/thumbs/walnut.webp', price: 40, type: 'cookie' },
-  { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '/thumbs/walnut_sf.webp', price: 40, type: 'cookie' },
+  { id: 'walnut', name: 'Walnut Cookies', img: '/thumbs/walnut.webp', price: 40, type: 'cookie', unavailable: true },
+  { id: 'walnut_sf', name: 'Sugarfree Walnut Cookies', img: '/thumbs/walnut_sf.webp', price: 40, type: 'cookie', unavailable: true },
   { id: 'strawberry', name: 'Strawberry Muffin', img: '/thumbs/strawberry.webp', price: 40, type: 'muffin' },
   { id: 'pinacolada', name: 'Pinacolada Muffin', img: '/thumbs/pinacolada.webp', price: 40, type: 'muffin' },
   { id: 'butterscotch', name: 'Butterscotch Muffin', img: '/thumbs/butterscotch.webp', price: 40, type: 'muffin' },
@@ -101,11 +101,11 @@ function injectModalHTML() {
             <h3 class="picker-title">Select Flavours to Add</h3>
             <div class="item-picker-grid">
               ${AVAILABLE_ITEMS.map(item => `
-                <div class="picker-item-card" data-item-id="${item.id}" data-type="${item.type}">
+                <div class="picker-item-card ${item.unavailable ? 'item-unavailable' : ''}" data-item-id="${item.id}" data-type="${item.type}" style="${item.unavailable ? 'opacity: 0.45; cursor: not-allowed;' : ''}">
                   <img src="${item.img}" alt="${item.name}" class="picker-item-img" />
                   <div>
                     <span class="picker-item-name">+ ${item.name}</span>
-                    <span style="display: block; font-size: 10px; color: #888;">₹${item.price} • ${item.type === 'muffin' ? 'Muffin' : 'Cookie'}</span>
+                    <span style="display: block; font-size: 10px; color: ${item.unavailable ? '#C0392B; font-weight:700;' : '#888;'}">${item.unavailable ? 'Currently Unavailable' : `₹${item.price} • ${item.type === 'muffin' ? 'Muffin' : 'Cookie'}`}</span>
                   </div>
                 </div>
               `).join('')}
@@ -256,6 +256,11 @@ function bindEvents() {
       const itemId = card.getAttribute('data-item-id');
       const foundItem = AVAILABLE_ITEMS.find(i => i.id === itemId);
       if (!foundItem) return;
+
+      if (foundItem.unavailable) {
+        showWarning(`${foundItem.name} is currently unavailable.`);
+        return;
+      }
 
       // Check if user is trying to add a muffin to the Lush box
       if (currentBoxType === 'lush' && foundItem.type === 'muffin') {

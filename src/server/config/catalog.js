@@ -160,9 +160,11 @@ export const PRODUCT_CATALOG = {
     category: 'cookie',
     price: 150,
     unit: 'box (8 pcs)',
-    stock: 75,
+    stock: 0,
+    available: false,
+    unavailable: true,
     rating: 4.9,
-    description: 'Slow-roasted whole crunchy walnuts folded into buttery shortbread cookie dough.'
+    description: 'Slow-roasted whole crunchy walnuts folded into buttery shortbread cookie dough. (Currently Unavailable)'
   },
   'walnut_snack_2pcs': {
     id: 'walnut_snack_2pcs',
@@ -170,9 +172,11 @@ export const PRODUCT_CATALOG = {
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
-    stock: 150,
+    stock: 0,
+    available: false,
+    unavailable: true,
     rating: 5.0,
-    description: 'Pocket Twin Delights pack containing 2 artisanal roasted walnut cookies.'
+    description: 'Pocket Twin Delights pack containing 2 artisanal roasted walnut cookies. (Currently Unavailable)'
   },
   'walnut_classic_8pcs': {
     id: 'walnut_classic_8pcs',
@@ -180,9 +184,11 @@ export const PRODUCT_CATALOG = {
     category: 'cookie',
     price: 150,
     unit: 'box (8 pcs)',
-    stock: 75,
+    stock: 0,
+    available: false,
+    unavailable: true,
     rating: 5.0,
-    description: 'Standard brand box containing 8 freshly baked roasted walnut cookies.'
+    description: 'Standard brand box containing 8 freshly baked roasted walnut cookies. (Currently Unavailable)'
   },
   'walnut_family_12pcs': {
     id: 'walnut_family_12pcs',
@@ -190,9 +196,11 @@ export const PRODUCT_CATALOG = {
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
-    stock: 60,
+    stock: 0,
+    available: false,
+    unavailable: true,
     rating: 5.0,
-    description: 'Large Dozen Delights box containing 12 freshly baked roasted walnut cookies (300g).'
+    description: 'Large Dozen Delights box containing 12 freshly baked roasted walnut cookies (300g). (Currently Unavailable)'
   },
   'walnut_sf': {
     id: 'walnut_sf',
@@ -200,9 +208,11 @@ export const PRODUCT_CATALOG = {
     category: 'cookie',
     price: 150,
     unit: 'box (8 pcs)',
-    stock: 50,
+    stock: 0,
+    available: false,
+    unavailable: true,
     rating: 4.9,
-    description: '100% Sugar-free, sweetened with natural plant Stevia extract and roasted walnuts.'
+    description: '100% Sugar-free, sweetened with natural plant Stevia extract and roasted walnuts. (Currently Unavailable)'
   },
   'walnut_sf_snack_2pcs': {
     id: 'walnut_sf_snack_2pcs',
@@ -210,9 +220,11 @@ export const PRODUCT_CATALOG = {
     category: 'cookie',
     price: 40,
     unit: 'pack (2 pcs)',
-    stock: 150,
+    stock: 0,
+    available: false,
+    unavailable: true,
     rating: 5.0,
-    description: 'Pocket Twin Delights pack containing 2 sugar-free walnut cookies.'
+    description: 'Pocket Twin Delights pack containing 2 sugar-free walnut cookies. (Currently Unavailable)'
   },
   'walnut_sf_classic_8pcs': {
     id: 'walnut_sf_classic_8pcs',
@@ -220,9 +232,11 @@ export const PRODUCT_CATALOG = {
     category: 'cookie',
     price: 150,
     unit: 'box (8 pcs)',
-    stock: 50,
+    stock: 0,
+    available: false,
+    unavailable: true,
     rating: 5.0,
-    description: 'Standard brand box containing 8 freshly baked sugar-free walnut cookies.'
+    description: 'Standard brand box containing 8 freshly baked sugar-free walnut cookies. (Currently Unavailable)'
   },
   'walnut_sf_family_12pcs': {
     id: 'walnut_sf_family_12pcs',
@@ -230,9 +244,11 @@ export const PRODUCT_CATALOG = {
     category: 'cookie',
     price: 360,
     unit: 'box (12 pcs)',
-    stock: 40,
+    stock: 0,
+    available: false,
+    unavailable: true,
     rating: 5.0,
-    description: 'Large Dozen Delights box containing 12 freshly baked sugar-free walnut cookies (300g).'
+    description: 'Large Dozen Delights box containing 12 freshly baked sugar-free walnut cookies (300g). (Currently Unavailable)'
   },
 
   // Artisanal Muffins

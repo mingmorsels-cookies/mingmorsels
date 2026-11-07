@@ -211,7 +211,8 @@
                 emoji: "🧠", 
                 img: "/img-walnut.png?v=2", 
                 color: "#F7EFE8", 
-                review: "Generously packed with whole roasted walnuts in golden butter dough. Delivers a satisfying crunch with natural neuro-protective omega-3 healthy fats, sweetened with plant-based Stevia.", 
+                unavailable: true,
+                review: "Generously packed with whole roasted walnuts in golden butter dough. (Currently Unavailable - Fresh Batch Soon)", 
                 rating: 4.5,
                 reviewsCount: 110,
                 stars: 5, 
@@ -229,7 +230,8 @@
                 emoji: "🍃", 
                 img: "/img-walnut-sf.png?v=2", 
                 color: "#EBF5EB", 
-                review: "100% Zero Added Sugar! Sweetened exclusively with natural plant Stevia extract and filled with roasted crunchy walnuts. Guilt-free, wholesome, and keto-compliant.", 
+                unavailable: true,
+                review: "100% Zero Added Sugar! Sweetened exclusively with natural plant Stevia extract. (Currently Unavailable - Fresh Batch Soon)", 
                 rating: 4.5,
                 reviewsCount: 88,
                 stars: 5, 
@@ -421,7 +423,11 @@
                                 <div style="font-size:10.5px; font-weight:700; color:#3D2000; line-height:1.2;">${b.name}</div>
                                 <div style="font-size:9px; color:#5B2C6F; font-weight:600; margin:1px 0;">${b.count}</div>
                                 <div style="font-size:11.5px; font-weight:800; color:#C6960C; margin:2px 0 4px;">₹${b.price}</div>
-                                <button onclick="addChatbotBoxToCart('${b.id}', '${c.name.replace(/'/g, "\\'")}', '${b.name}', ${b.price}, '${b.img || c.img}')" style="background:linear-gradient(135deg, #C6960C 0%, #A67C00 100%); color:#FFF; border:none; border-radius:5px; padding:3px 4px; font-size:9.5px; font-weight:700; cursor:pointer; width:100%;">+ Add</button>
+                                ${c.unavailable ? `
+                                    <button disabled style="background:#8C7E74; color:#FFF; border:none; border-radius:5px; padding:3px 4px; font-size:9.5px; font-weight:700; cursor:not-allowed; width:100%; opacity:0.7;">Unavailable</button>
+                                ` : `
+                                    <button onclick="addChatbotBoxToCart('${b.id}', '${c.name.replace(/'/g, "\\'")}', '${b.name}', ${b.price}, '${b.img || c.img}')" style="background:linear-gradient(135deg, #C6960C 0%, #A67C00 100%); color:#FFF; border:none; border-radius:5px; padding:3px 4px; font-size:9.5px; font-weight:700; cursor:pointer; width:100%;">+ Add</button>
+                                `}
                             </div>
                         `).join('')}
                     </div>
@@ -446,6 +452,12 @@
         }
 
         function addChatbotBoxToCart(boxId, productName, boxName, price, image) {
+            const bId = String(boxId || '').toLowerCase();
+            const pName = String(productName || '').toLowerCase();
+            if (bId.includes('walnut') || pName.includes('walnut')) {
+                showToast('⚠️ Walnut cookies are currently unavailable');
+                return;
+            }
             if (window.top && window.top.cartStore) {
                 window.top.cartStore.addItem({
                     id: boxId,
@@ -1347,7 +1359,7 @@
                 const ratingNum = c.rating || 5;
                 const stars = '★'.repeat(Math.round(ratingNum));
                 const imgHTML = localImg ? `<img class="grid-card-img" src="${localImg}" alt="${c.name}" loading="lazy" onerror="this.onerror=null; this.src='${c.img || ''}'; if(!this.src) this.parentNode.innerHTML='<div class=\\'grid-card-img-placeholder\\' style=\\'background:${c.color}\\'>${c.emoji}</div>';">` : `<div class="grid-card-img-placeholder" style="background:${c.color}">${c.emoji}</div>`;
-                return `<div class="grid-card" onclick="goToProductPage('${key}')"><div class="grid-card-img-wrapper" onclick="goToProductPage('${key}'); event.stopPropagation();">${imgHTML}<button class="grid-card-heart ${isFav ? 'active' : ''}" onclick="toggleFavorite('${key}', this); event.stopPropagation();" title="Save Favorite"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button></div><div class="grid-card-body" onclick="goToProductPage('${key}'); event.stopPropagation();"><div class="grid-card-name">${c.emoji} ${c.name}</div><div class="grid-card-stars">${stars} (${ratingNum})</div><div class="grid-card-review">${c.review}</div><div class="grid-card-footer"><button class="grid-card-btn grid-btn-details" onclick="goToProductPage('${key}'); event.stopPropagation();">Info</button><button class="grid-card-btn grid-btn-cart" onclick="openChatbotBoxModal('${key}'); event.stopPropagation();">+ Add</button></div></div></div>`;
+                return `<div class="grid-card" onclick="goToProductPage('${key}')"><div class="grid-card-img-wrapper" onclick="goToProductPage('${key}'); event.stopPropagation();">${imgHTML}<button class="grid-card-heart ${isFav ? 'active' : ''}" onclick="toggleFavorite('${key}', this); event.stopPropagation();" title="Save Favorite"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button></div><div class="grid-card-body" onclick="goToProductPage('${key}'); event.stopPropagation();"><div class="grid-card-name">${c.emoji} ${c.name}</div><div class="grid-card-stars">${stars} (${ratingNum})</div><div class="grid-card-review">${c.review}</div><div class="grid-card-footer"><button class="grid-card-btn grid-btn-details" onclick="goToProductPage('${key}'); event.stopPropagation();">Info</button>${c.unavailable ? `<button class="grid-card-btn" style="background:#8C7E74; opacity:0.6; cursor:not-allowed;" disabled>Unavailable</button>` : `<button class="grid-card-btn grid-btn-cart" onclick="openChatbotBoxModal('${key}'); event.stopPropagation();">+ Add</button>`}</div></div></div>`;
             }).join('');
 
         }
@@ -1358,6 +1370,10 @@
 
         function openChatbotBoxModal(key) {
             const k = String(key || 'almond').trim().toLowerCase();
+            if (k === 'walnut' || k === 'walnut_sf' || (COOKIES[k] && COOKIES[k].unavailable)) {
+                alert('⚠️ Walnut and Sugar-free Walnut cookies are currently unavailable.');
+                return;
+            }
             
             // 1. If embedded inside main website iframe, trigger the main window modal directly!
             if (window.parent && window.parent !== window) {
@@ -1528,6 +1544,10 @@
 
         function confirmChatbotBoxAddToCart() {
             const product = COOKIES[cbSelectedProductKey] || COOKIES.almond;
+            if (product.unavailable || cbSelectedProductKey === 'walnut' || cbSelectedProductKey === 'walnut_sf') {
+                alert('⚠️ Walnut and Sugar-free Walnut cookies are currently unavailable.');
+                return;
+            }
             const box = (product.boxes && product.boxes[cbSelectedBoxIndex]) || (product.boxes && product.boxes[0]) || { id: cbSelectedProductKey, name: 'Classic Delights', price: 150, count: '8 Cookies' };
 
             // 1. Add to parent website CartStore if in iframe

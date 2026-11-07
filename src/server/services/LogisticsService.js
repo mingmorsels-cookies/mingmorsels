@@ -33,7 +33,7 @@ export class LogisticsService {
       const products = Array.isArray(itemsList) && itemsList.length > 0
         ? itemsList.map(i => ({
             product: i.name || i.id || 'Artisanal Baked Item',
-            price: String(i.price || i.unit_price || 150),
+            price: String(i.unit_price || i.price || 150),
             product_code: String(i.id || 'COOKIE_BOX'),
             quantity: Number(i.quantity || i.qty || 1)
           }))

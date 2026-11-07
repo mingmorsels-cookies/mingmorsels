@@ -147,6 +147,7 @@ export const PRODUCT_BOX_CATALOG = {
     name: 'Walnut Cookies',
     tagline: 'Rich buttery dough loaded with roasted whole walnuts',
     image: '/img-walnut.webp',
+    unavailable: true,
     unitName: 'Cookies',
     boxes: [
       {
@@ -181,6 +182,7 @@ export const PRODUCT_BOX_CATALOG = {
     name: 'Sugarfree Walnut Cookies',
     tagline: '100% Zero Added Sugar, Stevia sweetened & keto-friendly',
     image: '/img-walnut-sf.webp',
+    unavailable: true,
     unitName: 'Cookies',
     boxes: [
       {
@@ -530,6 +532,10 @@ export function initQuickAddModal() {
   // Add to Basket
   document.getElementById('qa-btn-add-basket')?.addEventListener('click', () => {
     if (!currentSelectedProduct) return;
+    if (currentSelectedProduct.unavailable || currentSelectedProduct.id === 'walnut' || currentSelectedProduct.id === 'walnut_sf') {
+      alert('⚠️ This flavour is currently unavailable. Fresh batch baking soon!');
+      return;
+    }
     const selectedBox = currentSelectedProduct.boxes[currentSelectedBoxIndex] || currentSelectedProduct.boxes[0];
 
     cartStore.addItem({
@@ -748,4 +754,25 @@ function updateQuickAddFooter() {
 
   if (qtyDisplay) qtyDisplay.textContent = currentQuantity;
   if (totalDisplay) totalDisplay.textContent = `₹${total}`;
+
+  const addBtn = document.getElementById('qa-btn-add-basket');
+  if (currentSelectedProduct.unavailable || currentSelectedProduct.id === 'walnut' || currentSelectedProduct.id === 'walnut_sf') {
+    if (addBtn) {
+      addBtn.disabled = true;
+      addBtn.innerHTML = '<span>Currently Unavailable</span>';
+      addBtn.style.background = '#BDC3C7';
+      addBtn.style.color = '#5D6D7E';
+      addBtn.style.cursor = 'not-allowed';
+      addBtn.style.opacity = '0.75';
+    }
+  } else {
+    if (addBtn) {
+      addBtn.disabled = false;
+      addBtn.innerHTML = '<span>Add to Basket</span>';
+      addBtn.style.background = '';
+      addBtn.style.color = '';
+      addBtn.style.cursor = '';
+      addBtn.style.opacity = '';
+    }
+  }
 }

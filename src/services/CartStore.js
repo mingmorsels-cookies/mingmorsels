@@ -149,7 +149,7 @@ class CartStore {
       this.items.push({
         id: newItem.id,
         name: newItem.name || 'Artisanal Baked Selection',
-        price: Number(newItem.price) > 0 ? Number(newItem.price) : 180,
+        price: Number(newItem.price) > 0 ? Number(newItem.price) : 150,
         quantity: Number(newItem.quantity) || 1,
         image: newItem.image || '/logo.webp',
         packaging: packaging,

@@ -371,6 +371,53 @@ router.post('/admin/dispatch', verifyAdminAuth, handleAdminDispatch);
 router.post('/dispatch', verifyAdminAuth, handleAdminDispatch);
 
 /**
+ * Admin Mark Order Delivered & Clear from Admin Portal
+ */
+const handleAdminDeliverOrder = async (req, res) => {
+  try {
+    const { order_id } = req.body;
+    if (!order_id) {
+      return res.status(400).json({ success: false, error: 'order_id is required' });
+    }
+
+    const order = await getOrderRecord(order_id);
+    if (!order) {
+      return res.status(404).json({ success: false, error: 'Order record not found.' });
+    }
+
+    const updated = await updateOrderShipmentInfo(order.id, {
+      delivery_status: 'DELIVERED',
+      cleared_from_admin: true,
+      delivered_at: new Date().toISOString()
+    });
+
+    if (updated) {
+      eventStreamService.broadcastOrderUpdate(updated);
+    }
+
+    await auditLogger.logAdminAction({
+      adminUser: req.adminUser || 'admin',
+      action: 'ORDER_DELIVERED',
+      targetId: order.id,
+      ip: req.ip,
+      details: { status: 'DELIVERED', cleared_from_admin: true }
+    });
+
+    res.json({
+      success: true,
+      message: `Order #${order.id} marked as DELIVERED and cleared from admin portal.`,
+      order: updated
+    });
+  } catch (error) {
+    console.error('Admin Deliver Order Error:', error);
+    res.status(500).json({ success: false, error: 'Failed to mark order as delivered.' });
+  }
+};
+
+router.post('/admin/orders/deliver', verifyAdminAuth, handleAdminDeliverOrder);
+router.post('/admin/deliver', verifyAdminAuth, handleAdminDeliverOrder);
+
+/**
  * Admin Cancel Order
  */
 const handleAdminCancelOrder = async (req, res) => {

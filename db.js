@@ -16,8 +16,8 @@ const DEFAULT_INVENTORY = {
   'rose': 85,
   'oatsnuts': 95,
   'orange': 60,
-  'walnut': 75,
-  'walnut_sf': 50,
+  'walnut': 0,
+  'walnut_sf': 0,
   'strawberry': 40,
   'pineapple': 45,
   'butterscotch': 55,
@@ -335,6 +335,18 @@ export async function checkStockAvailability(items = []) {
   for (const it of items) {
     const key = String(it.id || it.productId || '').split('_')[0].toLowerCase();
     const qty = Number(it.quantity) || 1;
+
+    // Walnut and Sugarfree Walnut are currently unavailable
+    if (key === 'walnut' || key === 'walnut_sf') {
+      return {
+        available: false,
+        item: it.name || (key === 'walnut_sf' ? 'Sugarfree Walnut Cookies' : 'Walnut Cookies'),
+        stock: 0,
+        requested: qty,
+        reason: 'Currently Unavailable'
+      };
+    }
+
     const baseStock = inventory[key] !== undefined ? inventory[key] : 100;
     const currentlyReserved = reserved[key] || 0;
     const effectiveAvailable = Math.max(0, baseStock - currentlyReserved);
@@ -562,7 +574,7 @@ export async function updateOrderShipmentInfo(orderId, updateFields = {}) {
     o.razorpay_order_id === cleanId
   );
   if (order) {
-    const { awb, courier, status, trackingUrl, delivery_status, pickup_handed_over_at, pickup_verified, pickup_pin, payment_status } = updateFields;
+    const { awb, courier, status, trackingUrl, delivery_status, pickup_handed_over_at, pickup_verified, pickup_pin, payment_status, cleared_from_admin, delivered_at } = updateFields;
     if (awb !== undefined) order.shipway_awb = awb;
     if (courier !== undefined) order.courier_name = courier;
     if (delivery_status !== undefined || status !== undefined) {
@@ -573,6 +585,8 @@ export async function updateOrderShipmentInfo(orderId, updateFields = {}) {
     if (pickup_verified !== undefined) order.pickup_verified = pickup_verified;
     if (pickup_pin !== undefined) order.pickup_pin = pickup_pin;
     if (payment_status !== undefined) order.payment_status = payment_status;
+    if (cleared_from_admin !== undefined) order.cleared_from_admin = cleared_from_admin;
+    if (delivered_at !== undefined) order.delivered_at = delivered_at;
     if (order.delivery_status === 'DELIVERED' && order.payment_method === 'Cash on Delivery') {
       order.payment_status = 'PAID';
     }

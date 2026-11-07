@@ -143,7 +143,8 @@ const PRODUCTS_DATA = {
     price: 150,
     rating: '4.5',
     reviewsCount: 110,
-    badges: ['Brain Food', 'Omega-3 Rich', 'Zero Palm Oil'],
+    unavailable: true,
+    badges: ['Currently Unavailable', 'Brain Food', 'Omega-3 Rich'],
     desc: 'Rich, hearty, and packed with crunchy whole walnut halves, brown sugar, and pure cow butter. High in Omega-3 fatty acids and natural brain nutrients.',
     type: 'cookie',
     color: 0x966035,
@@ -175,7 +176,8 @@ const PRODUCTS_DATA = {
     price: 150,
     rating: '4.5',
     reviewsCount: 88,
-    badges: ['Sugar-Free', 'Keto Friendly', 'Guilt-Free'],
+    unavailable: true,
+    badges: ['Currently Unavailable', 'Sugar-Free', 'Keto Friendly'],
     desc: 'Delightfully guilt-free! Crafted specifically for health-conscious cookie lovers. Loaded with roasted crunchy walnuts, almond flour, and sweetened naturally with zero-calorie Stevia.',
     type: 'cookie',
     color: 0x825028,
@@ -633,7 +635,44 @@ function renderProductDetails() {
   // Badges
   const badgesContainer = document.getElementById('p-badges');
   if (badgesContainer) {
-    badgesContainer.innerHTML = p.badges.map(b => `<span class="badge">${b}</span>`).join('');
+    badgesContainer.innerHTML = p.badges.map(b => `<span class="badge"${b.includes('Unavailable') ? ' style="background:#C0392B; color:#fff; font-weight:700;"' : ''}>${b}</span>`).join('');
+  }
+
+  const btnAddCartMain = document.getElementById('btn-add-cart-main');
+  const btnQtyMinus = document.getElementById('p-qty-minus');
+  const btnQtyPlus = document.getElementById('p-qty-plus');
+  const oldNotice = document.getElementById('p-unavailable-notice');
+  if (oldNotice) oldNotice.remove();
+
+  if (p.unavailable) {
+    if (btnAddCartMain) {
+      btnAddCartMain.disabled = true;
+      btnAddCartMain.innerHTML = '<span>Currently Unavailable</span>';
+      btnAddCartMain.style.background = '#BDC3C7';
+      btnAddCartMain.style.color = '#5D6D7E';
+      btnAddCartMain.style.cursor = 'not-allowed';
+      btnAddCartMain.style.opacity = '0.75';
+    }
+    if (btnQtyMinus) btnQtyMinus.disabled = true;
+    if (btnQtyPlus) btnQtyPlus.disabled = true;
+    const priceCard = document.querySelector('.p-price-card');
+    if (priceCard) {
+      const notice = document.createElement('div');
+      notice.id = 'p-unavailable-notice';
+      notice.style.cssText = 'background:rgba(231,76,60,0.12); color:#C0392B; border:1px solid rgba(231,76,60,0.3); padding:10px 14px; border-radius:10px; font-weight:700; font-size:13px; margin:12px 0; display:flex; align-items:center; gap:8px;';
+      notice.innerHTML = '⚠️ <strong>Currently Unavailable:</strong> This flavour is temporarily out of stock. Fresh batch baking soon!';
+      priceCard.insertAdjacentElement('afterend', notice);
+    }
+  } else {
+    if (btnAddCartMain) {
+      btnAddCartMain.disabled = false;
+      btnAddCartMain.style.background = '';
+      btnAddCartMain.style.color = '';
+      btnAddCartMain.style.cursor = '';
+      btnAddCartMain.style.opacity = '';
+    }
+    if (btnQtyMinus) btnQtyMinus.disabled = false;
+    if (btnQtyPlus) btnQtyPlus.disabled = false;
   }
 
   // Top Verified Review Spotlight near Buy button
@@ -1463,8 +1502,8 @@ const PRODUCT_NAMES = {
 };
 
 const PRODUCT_PRICES = {
-  almond: 180, rose: 190, oatsnuts: 170, orange: 185, walnut: 210, walnut_sf: 220,
-  strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40
+  almond: 150, rose: 150, oatsnuts: 150, orange: 150, walnut: 150, walnut_sf: 150,
+  strawberry: 45, pinacolada: 45, butterscotch: 45, chocochip: 45, blackcurrant: 45
 };
 
 function loadCartFromStorage() {
@@ -1496,6 +1535,10 @@ function loadCartFromStorage() {
 }
 
 function addToCart(product, qty) {
+  if (product.unavailable || product.id === 'walnut' || product.id === 'walnut_sf') {
+    alert('⚠️ This flavour is currently unavailable. Fresh batch baking soon!');
+    return;
+  }
   let boxExtra = 0;
   let boxCapacity = 0;
   let boxName = 'Standard Brand Box';
@@ -2232,9 +2275,9 @@ async function handleRazorpayProductCheckout() {
 
   try {
     const COOKIE_PRICES = {
-      almond: 180, rose: 190, oatsnuts: 170, orange: 185,
-      walnut: 210, walnut_sf: 220,
-      strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40
+      almond: 150, rose: 150, oatsnuts: 150, orange: 150,
+      walnut: 150, walnut_sf: 150,
+      strawberry: 45, pinacolada: 45, butterscotch: 45, chocochip: 45, blackcurrant: 45
     };
 
     const normalizedCart = items.map(item => {

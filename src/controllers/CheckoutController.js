@@ -470,9 +470,9 @@ export class CheckoutController {
 
     try {
       const COOKIE_PRICES = {
-        almond: 180, rose: 190, oatsnuts: 170, orange: 185,
-        walnut: 210, walnut_sf: 220,
-        strawberry: 40, pinacolada: 40, butterscotch: 40, chocochip: 40, blackcurrant: 40
+        almond: 150, rose: 150, oatsnuts: 150, orange: 150,
+        walnut: 150, walnut_sf: 150,
+        strawberry: 45, pinacolada: 45, butterscotch: 45, chocochip: 45, blackcurrant: 45
       };
 
       const normalizedCart = items.map(item => {
